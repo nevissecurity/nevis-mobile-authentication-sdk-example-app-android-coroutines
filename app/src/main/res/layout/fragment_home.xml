@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.home.HomeFragment">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/leftVerticalGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/rightVerticalGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/centerHorizontalGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/home_registered_accounts"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/centerHorizontalGuideline"
+        app:layout_constraintStart_toStartOf="@id/leftVerticalGuideline" />
+
+    <Button
+        android:id="@+id/qrCodeButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/home_qr_code_button_title"
+        app:layout_constraintBottom_toTopOf="@+id/inBandAuthenticationButton"
+        app:layout_constraintEnd_toEndOf="@id/rightVerticalGuideline"
+        app:layout_constraintStart_toStartOf="@id/leftVerticalGuideline" />
+
+    <Button
+        android:id="@+id/inBandAuthenticationButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/home_in_band_authentication_button_title"
+        app:layout_constraintBottom_toTopOf="@+id/deregisterButton"
+        app:layout_constraintEnd_toEndOf="@id/rightVerticalGuideline"
+        app:layout_constraintStart_toStartOf="@id/leftVerticalGuideline" />
+
+    <Button
+        android:id="@+id/deregisterButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/home_deregister_button_title"
+        app:layout_constraintBottom_toTopOf="@id/changePinButton"
+        app:layout_constraintEnd_toEndOf="@id/rightVerticalGuideline"
+        app:layout_constraintStart_toStartOf="@id/leftVerticalGuideline" />
+
+    <Button
+        android:id="@+id/changePinButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/home_change_pin_button_title"
+        app:layout_constraintBottom_toTopOf="@+id/changeDeviceInformationButton"
+        app:layout_constraintEnd_toEndOf="@id/rightVerticalGuideline"
+        app:layout_constraintStart_toStartOf="@id/leftVerticalGuideline" />
+
+    <Button
+        android:id="@+id/changeDeviceInformationButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/home_change_device_information_button_title"
+        app:layout_constraintBottom_toTopOf="@id/authCloudRegistrationButton"
+        app:layout_constraintEnd_toEndOf="@id/rightVerticalGuideline"
+        app:layout_constraintStart_toStartOf="@id/leftVerticalGuideline" />
+
+    <Button
+        android:id="@+id/authCloudRegistrationButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/home_auth_cloud_registration_button_title"
+        app:layout_constraintBottom_toTopOf="@id/softwareDeliveredOnlyLabel"
+        app:layout_constraintEnd_toEndOf="@id/rightVerticalGuideline"
+        app:layout_constraintStart_toStartOf="@id/leftVerticalGuideline" />
+
+    <TextView
+        android:id="@+id/softwareDeliveredOnlyLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/home_identity_suite_only"
+        app:layout_constraintBottom_toTopOf="@id/inBandRegistrationButton"
+        app:layout_constraintEnd_toEndOf="@id/rightVerticalGuideline"
+        app:layout_constraintStart_toStartOf="@id/leftVerticalGuideline" />
+
+    <Button
+        android:id="@+id/inBandRegistrationButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="64dp"
+        android:text="@string/home_in_band_registration_button_title"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/rightVerticalGuideline"
+        app:layout_constraintStart_toStartOf="@id/leftVerticalGuideline" />
+</androidx.constraintlayout.widget.ConstraintLayout>

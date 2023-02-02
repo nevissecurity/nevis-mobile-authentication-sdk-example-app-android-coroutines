@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/selectAccountFragment">
+
+    <fragment
+        android:id="@+id/resultFragment"
+        android:name="ch.nevis.exampleapp.coroutines.ui.result.ResultFragment"
+        android:label="fragment_result"
+        tools:layout="@layout/fragment_result">
+        <argument
+            android:name="parameter"
+            app:argType="ch.nevis.exampleapp.coroutines.ui.result.parameter.ResultNavigationParameter" />
+    </fragment>
+    <fragment
+        android:id="@+id/selectAuthenticatorFragment"
+        android:name="ch.nevis.exampleapp.coroutines.ui.selectAuthenticator.SelectAuthenticatorFragment"
+        android:label="fragment_select_authenticator"
+        tools:layout="@layout/fragment_select_authenticator">
+        <argument
+            android:name="parameter"
+            app:argType="ch.nevis.exampleapp.coroutines.ui.selectAuthenticator.parameter.SelectAuthenticatorNavigationParameter" />
+    </fragment>
+    <action android:id="@+id/action_global_resultFragment" app:destination="@id/resultFragment"/><action android:id="@+id/action_global_selectAuthenticatorFragment" app:destination="@id/selectAuthenticatorFragment"/>
+    <fragment
+        android:id="@+id/errorFragment"
+        android:name="ch.nevis.exampleapp.coroutines.ui.error.ErrorFragment"
+        android:label="fragment_error"
+        tools:layout="@layout/fragment_error" >
+        <argument
+            android:name="parameter"
+            app:argType="ch.nevis.exampleapp.coroutines.ui.error.parameter.ErrorNavigationParameter" />
+    </fragment>
+    <action android:id="@+id/action_global_errorFragment" app:destination="@id/errorFragment" />
+    <fragment
+        android:id="@+id/verifyBiometricFragment"
+        android:name="ch.nevis.exampleapp.coroutines.ui.verifyBiometric.VerifyBiometricFragment"
+        android:label="fragment_verify_biometric"
+        tools:layout="@layout/fragment_verify_biometric">
+        <argument
+            android:name="parameter"
+            app:argType="ch.nevis.exampleapp.coroutines.ui.verifyBiometric.parameter.VerifyBiometricNavigationParameter" />
+    </fragment>
+    <action android:id="@+id/action_global_biometricFragment" app:destination="@id/verifyBiometricFragment" />
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="ch.nevis.exampleapp.coroutines.ui.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <action
+        android:id="@+id/action_global_homeFragment"
+        app:destination="@id/homeFragment"
+        app:launchSingleTop="true"
+        app:popUpTo="@id/navigation_graph" />
+    <fragment
+        android:id="@+id/selectAccountFragment"
+        android:name="ch.nevis.exampleapp.coroutines.ui.selectAccount.SelectAccountFragment"
+        android:label="fragment_select_account"
+        tools:layout="@layout/fragment_select_account" >
+        <argument
+            android:name="parameter"
+            app:argType="ch.nevis.exampleapp.coroutines.ui.selectAccount.parameter.SelectAccountNavigationParameter" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_selectAccountFragment"
+        app:destination="@id/selectAccountFragment" />
+    <fragment
+        android:id="@+id/pinFragment"
+        android:name="ch.nevis.exampleapp.coroutines.ui.pin.PinFragment"
+        android:label="fragment_pin"
+        tools:layout="@layout/fragment_pin" >
+        <argument
+            android:name="parameter"
+            app:argType="ch.nevis.exampleapp.coroutines.ui.pin.parameter.PinNavigationParameter" />
+    </fragment>
+    <action android:id="@+id/action_global_pinFragment" app:destination="@id/pinFragment" />
+    <fragment
+        android:id="@+id/changeDeviceInformationFragment"
+        android:name="ch.nevis.exampleapp.coroutines.ui.changeDeviceInformation.ChangeDeviceInformationFragment"
+        android:label="fragment_change_device_information"
+        tools:layout="@layout/fragment_change_device_information" /><action android:id="@+id/action_global_changeDeviceInformationFragment" app:destination="@id/changeDeviceInformationFragment"/>
+    <fragment
+        android:id="@+id/qrReaderFragment"
+        android:name="ch.nevis.exampleapp.coroutines.ui.qrReader.QrReaderFragment"
+        android:label="fragment_qr_reader"
+        tools:layout="@layout/fragment_qr_reader" />
+    <action android:id="@+id/action_global_qrReaderFragment" app:destination="@id/qrReaderFragment" />
+    <fragment
+        android:id="@+id/authCloudRegistrationFragment"
+        android:name="ch.nevis.exampleapp.coroutines.ui.authCloudRegistration.AuthCloudRegistrationFragment"
+        android:label="fragment_auth_cloud_registration"
+        tools:layout="@layout/fragment_auth_cloud_registration" />
+    <action android:id="@+id/action_global_authCloudRegistrationFragment" app:destination="@id/authCloudRegistrationFragment" />
+    <fragment
+        android:id="@+id/legacyLoginFragment"
+        android:name="ch.nevis.exampleapp.coroutines.ui.legacyLogin.LegacyLoginFragment"
+        android:label="fragment_legacy_login"
+        tools:layout="@layout/fragment_legacy_login" /><action android:id="@+id/action_global_legacyLoginFragment" app:destination="@id/legacyLoginFragment"/>
+    <fragment
+        android:id="@+id/transactionConfirmationFragment"
+        android:name="ch.nevis.exampleapp.coroutines.ui.transactionConfirmation.TransactionConfirmationFragment"
+        android:label="fragment_transaction_confirmation"
+        tools:layout="@layout/fragment_transaction_confirmation" >
+        <argument
+            android:name="parameter"
+            app:argType="ch.nevis.exampleapp.coroutines.ui.transactionConfirmation.parameter.TransactionConfirmationNavigationParameter" />
+    </fragment><action android:id="@+id/action_global_transactionConfirmationFragment" app:destination="@id/transactionConfirmationFragment"/>
+</navigation>

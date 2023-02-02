@@ -1,0 +1,63 @@
+buildscript {
+    ext.coroutine_version = "1.6.4"
+    ext.dagger_hilt_version = "2.43.2"
+    ext.gradle_version = '7.2.2'
+    ext.kotlin_version = "1.7.20"
+    ext.navigation_version = "2.5.3"
+
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath "com.android.tools.build:gradle:$gradle_version"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "com.google.dagger:hilt-android-gradle-plugin:$dagger_hilt_version"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navigation_version"
+    }
+}
+
+ext.getConfig = { String name ->
+    def env = System.getenv(name)
+    if (env != null) {
+        return env
+    }
+    def prop = System.getProperty(name)
+    if (prop != null) {
+        return prop
+    }
+    if (project.hasProperty(name)) {
+        return project.getProperty(name)
+    }
+
+    println("Getting env variable failed, returning empty: set $name as environment variable or as system property in your ~/.gradle/gradle.properties")
+    return ""
+}
+
+allprojects {
+    repositories {
+        mavenLocal()
+        maven {
+            url "https://maven.pkg.github.com/nevissecurity/nevis-mobile-authentication-sdk-android-package"
+            credentials {
+                username = getConfig("GITHUB_USERNAME")
+                password = getConfig("GITHUB_PERSONAL_ACCESS_TOKEN")
+            }
+        }
+        google {
+            content {
+                excludeGroupByRegex "ch\\.nevis\\..*"
+            }
+        }
+        mavenCentral {
+            content {
+                excludeGroupByRegex "ch\\.nevis\\..*"
+            }
+        }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

@@ -1,0 +1,142 @@
+<resources>
+    <string name="app_name">Nevis Mobile Authentication Example App</string>
+
+    <string name="auth_cloud_registration_title">Auth Cloud Registration</string>
+    <string name="auth_cloud_registration_hint_enroll_response">Enroll response</string>
+    <string name="auth_cloud_registration_hint_app_link_uri">App link URI</string>
+    <string name="auth_cloud_registration_confirm_button_title">OK</string>
+
+    <string name="business_error_type_accounts_not_found">There are not any registered accounts.</string>
+    <string name="business_error_type_client_not_initialized">The SDK client has not beet initialized.</string>
+    <string name="business_error_type_device_information_not_found">There is no registered device information.</string>
+    <string name="business_error_type_invalid_state">Invalid application state.</string>
+    <string name="business_error_type_login_failed">Login failed.</string>
+
+    <string name="change_device_information_title">Change Device Information</string>
+    <string name="change_device_information_current_name">Current name:</string>
+    <string name="change_device_information_hint_new_name">New name</string>
+    <string name="change_device_information_confirm_button_title">OK</string>
+
+    <string name="device_protection_error">For security reasons the application requires lock screen to be enabled.\nPlease enable it in the System Settings.</string>
+    <string name="device_protection_hardware_error">This device is not supported by the application. The device does not allow storing data securely.</string>
+
+    <string name="device_information_unknown_model">Unknown Model</string>
+
+    <string name="error_title">Error</string>
+
+    <string name="error_authentication_access_denied">We were not able to verify your identity.</string>
+    <string name="error_authentication_user_cancelled">You cancelled authentication.</string>
+    <string name="error_authentication_key_disappeared">Security data was deleted.\nPlease register again.</string>
+    <string name="error_authentication_user_not_responsive">The authentication timed out, please try again.</string>
+    <string name="error_authentication_user_lockout">For security reasons, you were locked out. You need to define a new PIN before being able to authenticate again.</string>
+    <string name="error_authentication_user_lockout_with_system_authenticator">For security reasons, you were locked out.\n\nIn order to unlock your authenticator please go to the System Settings.</string>
+    <string name="error_authentication_networking">Your phone is experiencing network issues. Please try again later when you have better data connectivity.</string>
+    <string name="error_authentication_generic">A technical error occurred.\nPlease try again.</string>
+    <string name="error_authentication_no_suitable_authenticator">Your selected authentication option is no longer accepted. This is most likely because it was removed from your online profile. To use another authentication option please deactivate this one first in the application Settings.</string>
+    <string name="error_authentication_with_failure_details">We were not able to verify your identity.\n%1$s</string>
+    <string name="error_authentication_decrypting_out_of_band_payload">Could not decrypt the contents of the message.\n\nCheck that the device you use is the one registered for this application.</string>
+    <string name="error_authentication_token_already_redeemed">You have tried to authenticate twice using the same push notification or QR code.\nPlease try again requesting a new QR code or push notification.</string>
+    <string name="error_authentication_fingerprint_not_enrolled">Before using the fingerprint authenticator, you must define your fingerprint in the System Settings.</string>
+    <string name="error_authentication_key_disappeared_fingerprint">Your fingerprint authenticator is not available because the fingerprint was disabled or modified in the System Settings. To be able to use the application again please contact support.</string>
+    <string name="error_authentication_untrusted_facet_id">Error validating the facet ID of the server. Contact support if the problem persists.</string>
+
+    <string name="error_deregistration_access_denied">We were not able to verify your identity.</string>
+    <string name="error_deregistration_user_cancelled">You cancelled the account removal.</string>
+    <string name="error_deregistration_key_disappeared">Security data was deleted.\nPlease register again.</string>
+    <string name="error_deregistration_user_not_responsive">The account removal timed out, please try again.</string>
+    <string name="error_deregistration_user_lockout">For security reasons, you were locked out. You need to define a new PIN before being able to register again.</string>
+    <string name="error_deregistration_user_lockout_with_system_authenticator">For security reasons, you were locked out.\n\nIn order to unlock your authenticator please go to the System Settings.</string>
+    <string name="error_deregistration_networking">Your phone is experiencing network issues. Please try again later when you have better data connectivity.</string>
+    <string name="error_deregistration_generic">A technical error occurred.\nPlease try again.</string>
+    <string name="error_deregistration_with_failure_details">We were not able to verify your identity.\n%1$s</string>
+    <string name="error_deregistration_untrusted_facet_id">Error validating the facet ID of the server. Contact support if the problem persists.</string>
+
+    <string name="error_initializing_generic">Unexpected error initializing application.\n\n%1$s\nError code: %2$s.\nOther details: %3$s</string>
+
+    <string name="error_generic">A technical error occurred.\nPlease try again.</string>
+
+    <string name="error_registration_access_denied">You are not authorized to register.</string>
+    <string name="error_registration_user_cancelled">You cancelled the registration.</string>
+    <string name="error_registration_key_disappeared">Security data was deleted.\nPlease register again.</string>
+    <string name="error_registration_user_not_responsive">The registration timed out, please try again.</string>
+    <string name="error_registration_user_lockout">For security reasons, you were locked out. You need to define a new PIN before being able to register again.</string>
+    <string name="error_registration_user_lockout_with_system_authenticator">For security reasons, you were locked out.\n\nIn order to unlock your authenticator please go to the System Settings.</string>
+    <string name="error_registration_networking">Your phone is experiencing network issues.\nPlease try again later when you have better data connectivity.</string>
+    <string name="error_registration_generic">A technical error occurred.\nPlease try again.</string>
+    <string name="error_registration_with_failure_details">You are not authorized to register.\n%1$s</string>
+    <string name="error_registration_decrypting_out_of_band_payload">Could not decrypt the contents of the message.\n\nCheck that the device you use is the one registered for this application.</string>
+    <string name="error_registration_token_already_redeemed">You have tried to authenticate twice using the same push notification or QR code.\nPlease try again requesting a new QR code or push notification.</string>
+    <string name="error_registration_fingerprint_not_enrolled">Before using the fingerprint authenticator, you must define your fingerprint in the System Settings.</string>
+    <string name="error_registration_key_disappeared_fingerprint">Your fingerprint authenticator is not available because the fingerprint was disabled or modified in the System Settings. To be able to use the application again please contact support.</string>
+    <string name="error_registration_untrusted_facet_id">Error validating the facet ID of the server. Contact support if the problem persists.</string>
+    <string name="error_registration_denied_multiple_registration">You have already registered all the available authentication methods for this account.</string>
+    <string name="error_registration_denied_multiple_identity">You are trying to register a new account. Only one account is supported.</string>
+
+    <string name="main_show_log">Show log</string>
+    <string name="main_hide_log">Hide log</string>
+
+    <string name="legacy_login_title">In-band Registration</string>
+    <string name="legacy_login_hint_username">Username</string>
+    <string name="legacy_login_hint_password">Password</string>
+    <string name="legacy_login_confirm_button_title">OK</string>
+
+    <string name="log_item">[%1$s] %2$s</string>
+    <string name="log_item_date_format" translatable="false">HH:mm:ss</string>
+
+    <string name="home_registered_accounts">Registered accounts: %d</string>
+    <string name="home_identity_suite_only">Identity Suite only</string>
+    <string name="home_qr_code_button_title">Read QR Code</string>
+    <string name="home_in_band_authentication_button_title">In-band Authentication</string>
+    <string name="home_deregister_button_title">Deregistration</string>
+    <string name="home_change_pin_button_title">PIN Change</string>
+    <string name="home_change_device_information_button_title">Change Device Information</string>
+    <string name="home_auth_cloud_registration_button_title">Auth Cloud API Registration</string>
+    <string name="home_in_band_registration_button_title">In-band Registration</string>
+
+    <string name="operation_authentication">Authentication</string>
+    <string name="operation_change_device_information">Change Device Information</string>
+    <string name="operation_change_pin">Change PIN</string>
+    <string name="operation_decode_oob_payload">Payload Decoding</string>
+    <string name="operation_deregistration">De-registration</string>
+    <string name="operation_init_client">Client Initialization</string>
+    <string name="operation_general">Operation</string>
+    <string name="operation_process_oob_payload">Payload Processing</string>
+    <string name="operation_registration">Registration</string>
+
+    <string name="pin_confirm_button_title">OK</string>
+    <string name="pin_hint_old_pin">Old PIN</string>
+    <string name="pin_hint_new_pin">New PIN</string>
+    <string name="pin_hint_pin">PIN</string>
+    <string name="pin_message_cool_down">Too many failed attempt.\nPlease wait %d seconds and try again.</string>
+    <string name="pin_message_locked_out">Sorry, but your PIN authenticator has been locked out.</string>
+    <string name="pin_title_change_pin">Change PIN</string>
+    <string name="pin_title_create_pin">Create PIN</string>
+    <string name="pin_title_verify_pin">Verify PIN</string>
+    <string name="pin_message_change_pin">Please define a 6 digit PIN.</string>
+    <string name="pin_message_create_pin">Please define a 6 digit PIN.</string>
+    <string name="pin_message_verify_pin">Please enter your PIN to complete the process.</string>
+
+    <string name="rational_dialog_message_camera">Please allow camera usage for QR scanner.</string>
+    <string name="rational_dialog_ok_button_title">OK</string>
+    <string name="rational_dialog_cancel_button_title">Cancel</string>
+
+    <string name="result_confirm_button_title">OK</string>
+    <string name="result_title_success">%s Success</string>
+    <string name="result_title_cancelled">%s Cancelled</string>
+
+    <string name="select_account_title">Select an account</string>
+
+    <string name="select_authenticator_title">Select an authenticator</string>
+    <string name="select_authenticator_pin_authenticator_title">PIN</string>
+    <string name="select_authenticator_fingerprint_authenticator_title">Fingerprint</string>
+    <string name="select_authenticator_biometric_authenticator_title">Biometric</string>
+
+    <string name="transaction_confirmation_title">Transaction Confirmation</string>
+    <string name="transaction_confirmation_message">Do you confirm the transaction with the following data?</string>
+    <string name="transaction_confirmation_cancel_button_title">Cancel</string>
+    <string name="transaction_confirmation_confirm_button_title">OK</string>
+
+    <string name="verify_biometric_title">Please verify yourself</string>
+    <string name="verify_biometric_prompt_title">Biometric Verification</string>
+    <string name="verify_biometric_prompt_cancel_button_title">Cancel</string>
+</resources>
