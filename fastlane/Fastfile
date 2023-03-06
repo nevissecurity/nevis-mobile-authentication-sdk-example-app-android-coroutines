@@ -96,8 +96,8 @@ platform :android do
 
             modify_file(
 				file_path: build_gradle,
-                old_value: "signingConfig",
-                new_value: "signingConfigs.signing",
+                old_value: "signingConfig signingConfigs.debug",
+                new_value: "signingConfig signingConfigs.signing",
             )
 
             modify_file(
