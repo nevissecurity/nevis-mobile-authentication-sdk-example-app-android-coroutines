@@ -1,1 +1,128 @@
-fastlane main host_name:"laci1" facet_id:"some_facet_id_string" custom_uri_scheme:"laci1scheme"
+##
+## Fastlane configuration for the Nevis Mobile Authentication SDK Android Coroutines Example application.
+## See https://docs.fastlane.tools
+##
+
+require 'java-properties'
+
+default_platform(:android)
+
+root_dir = File.expand_path(File.join(File.dirname(__FILE__), "../"))
+signing_configs_gradle = File.join(root_dir, "app/signing_configs.gradle")
+gradle_properties = File.join(root_dir, "gradle.properties")
+application_module = File.join(root_dir, "app/src/main/java/ch/nevis/exampleapp/coroutines/dagger/ApplicationModule.kt")
+android_manifest = File.join(root_dir, "app/src/main/AndroidManifest.xml")
+build_gradle = File.join(root_dir, "app/build.gradle")
+apk_path = File.join(root_dir, "app/build/outputs/apk/debug/app-debug.apk")
+display_name = "Nevis Mobile Authentication SDK Android Coroutines Example App"
+
+def report_on_success(message)
+	slack(
+		message: "#{message}\nCheck build logs: #{ENV['CURRENT_BUILD_URL']}",
+		slack_url: ENV['SLACK_WEBHOOK_URL']
+	) if ENV['SLACK_WEBHOOK_URL']
+end
+
+def report_on_error(message, exception)
+	slack(
+		message: "#{message}\nCheck build logs: #{ENV['CURRENT_BUILD_URL']}",
+		slack_url: ENV['SLACK_WEBHOOK_URL'],
+		success: false,
+		attachment_properties: {
+			fields: [
+				{
+					title: "Error message",
+					value: exception.to_s,
+					short: false
+				}
+			]
+		}
+	) if ENV['SLACK_WEBHOOK_URL']
+	UI.user_error!("#{exception}")
+end
+
+platform :android do
+	desc "Build and tag the application"
+    desc ""
+	lane :main do |options|
+		begin
+			# Loading gradle.properties file.
+			properties = JavaProperties.load(gradle_properties)
+		
+			# Get version name from properties.
+			version_name = ''
+			if properties.has_key?(:VERSION_NAME)
+				version_name = properties[:VERSION_NAME]
+			end
+
+			# Get version code/build number from properties.
+			build_number = '1'
+			if properties.has_key?(:VERSION_CODE)
+				build_number = properties[:VERSION_CODE]
+			end
+
+			# Get version code/build number from environment variable if exists.
+	    	build_number = ENV['BUILD_NUMBER'] || build_number
+			
+			# Writing overwriting gradle.properties with new version code/build number.
+			properties[:VERSION_CODE] = build_number
+			JavaProperties.write(properties, gradle_properties)
+
+			host_name = options[:host_name]
+			facet_id = options[:facet_id]
+			custom_uri_scheme = options[:custom_uri_scheme]
+
+			modify_file(
+				file_path: application_module,
+				old_value: ".hostname(\"myinstance.mauth.nevis.cloud\")",
+				new_value: ".hostname(\"#{host_name}.mauth.nevis.cloud\").facetId(\"#{facet_id}\")"
+			)
+
+			modify_file(
+				file_path: android_manifest,
+				old_value: "<data android:host=\"myinstance.mauth.nevis.cloud\" />",
+				new_value: "<data android:host=\"#{host_name}.mauth.nevis.cloud\" />"
+			)
+
+			modify_file(
+				file_path: android_manifest,
+				old_value: "<data android:scheme=\"myaccessapp\" />",
+				new_value: "<data android:scheme=\"#{custom_uri_scheme}\" />"
+			)
+
+			UI.message("Building #{display_name} #{version_name} (#{build_number}) 📦")
+
+			sh("echo \"#{ENV["SIGNING_CONFIGS"]}\" > #{signing_configs_gradle}")
+
+            modify_file(
+				file_path: build_gradle,
+                old_value: "signingConfig",
+                new_value: "signingConfigs.signing",
+            )
+
+            modify_file(
+				file_path: build_gradle,
+                old_value: "android {",
+                new_value: "apply from: 'signing_configs.gradle'\n",
+                mode: 'prepend'
+            )
+
+            gradle(task: "assembleDebug")
+
+			add_git_tag(tag: "release/#{version_name}/#{build_number}", message: "[Fastlane] #{display_name} #{version_name} (#{build_number})")
+			push_git_tags
+
+            report_on_success("#{display_name} build is completed: #{version_name} (#{build_number}) ✅")
+		rescue => exception
+			report_on_error("#{display_name} build failed ❌", exception)
+		end
+	end
+
+	desc "Build the application"
+    desc ""
+	lane :pr do |options|
+		begin
+			gradle(task: "assembleDebug")
+		end
+	end
+end
