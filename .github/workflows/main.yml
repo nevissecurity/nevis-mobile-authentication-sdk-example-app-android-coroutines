@@ -1,0 +1,62 @@
+name: Main Branch Commit
+
+on:
+  push:
+    branches: [ 'main' ]
+  schedule:
+    # At 5:30 am on the 1st and 15th day of the month (every two weeks)
+    - cron: '30 5 1,15 * *'
+  workflow_dispatch:
+
+jobs:
+  build_and_tag:
+    name: Build and Tag
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository under $GITHUB_WORKSPACE
+      - name: Checkout Project
+        uses: actions/checkout@v3
+
+      # Set Ruby version and Cache RubyGem dependencies
+      - name: Cache RubyGem Dependencies
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ env.RUBY_VERSION }}
+          bundler-cache: true
+
+      # Ensure correct Java version is installed
+      - name: Setup Java JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: ${{ env.JAVA_VERSION }}
+
+      # Move the Java keystore to its place
+      - name: Decode Keystore
+        uses: timheuer/base64-to-file@v1
+        with:
+          fileName: 'keystore-example-app.jks'
+          fileDir: './android/etc'
+          encodedString: ${{ secrets.KEYSTORE_FILE }}
+
+      - name: Generate build number
+        uses: onyxmueller/build-number@v1
+        with:
+          token: ${{secrets.GITHUB_TOKEN}}
+
+      # Build the Android app
+      - name: Run Fastlane
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SIGNING_CONFIGS: ${{ secrets.SIGNING_CONFIGS }}
+          GITHUB_USERNAME: ${{ secrets.GH_USERNAME }}
+          GITHUB_PERSONAL_ACCESS_TOKEN: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        uses: maierj/fastlane-action@v3.0.0
+        with:
+          lane: 'main'
+          options: '{ "host_name": "${{ secrets.HOST_NAME }}",
+                      "custom_uri_scheme": "${{ secrets.CUSTOM_URI_SCHEME }}",
+                      "facet_id": "${{ secrets.FACET_ID }}"
+                    }'

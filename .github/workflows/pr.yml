@@ -1,0 +1,40 @@
+name: Verify Pull Request
+
+on:
+  pull_request:
+    branches: [ 'main' ]
+    types: [opened, edited, synchronize, reopened]
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository under $GITHUB_WORKSPACE
+      - name: Checkout Project
+        uses: actions/checkout@v3
+
+      # Set Ruby version and Cache RubyGem dependencies
+      - name: Cache RubyGem Dependencies
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ env.RUBY_VERSION }}
+          bundler-cache: true
+
+      # Ensure correct Java version is installed
+      - name: Setup Java JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: ${{ env.JAVA_VERSION }}
+
+      # Build the Android app
+      - name: Run Fastlane
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_USERNAME: ${{ secrets.GH_USERNAME }}
+          GITHUB_PERSONAL_ACCESS_TOKEN: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
+        uses: maierj/fastlane-action@v3.0.0
+        with:
+          lane: 'pr'
