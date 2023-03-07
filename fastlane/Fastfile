@@ -13,7 +13,6 @@ gradle_properties = File.join(root_dir, "gradle.properties")
 application_module = File.join(root_dir, "app/src/main/java/ch/nevis/exampleapp/coroutines/dagger/ApplicationModule.kt")
 android_manifest = File.join(root_dir, "app/src/main/AndroidManifest.xml")
 build_gradle = File.join(root_dir, "app/build.gradle")
-apk_path = File.join(root_dir, "app/build/outputs/apk/debug/app-debug.apk")
 display_name = "Nevis Mobile Authentication SDK Android Coroutines Example App"
 
 def report_on_success(message)
