@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Nevis Mobile Authentication Example App</string>
+    <string name="app_name">Nevis Mobile Authentication Coroutines Example App</string>
 
     <string name="auth_cloud_registration_title">Auth Cloud Registration</string>
     <string name="auth_cloud_registration_hint_enroll_response">Enroll response</string>
