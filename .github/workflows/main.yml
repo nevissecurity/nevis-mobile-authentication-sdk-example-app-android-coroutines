@@ -8,6 +8,10 @@ on:
     - cron: '30 5 1,15 * *'
   workflow_dispatch:
 
+env:
+  JAVA_VERSION: '11'
+  RUBY_VERSION: '3.0'
+
 jobs:
   build_and_tag:
     name: Build and Tag

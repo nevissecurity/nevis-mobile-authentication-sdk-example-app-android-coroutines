@@ -5,6 +5,10 @@ on:
     branches: [ 'main' ]
     types: [opened, edited, synchronize, reopened]
 
+env:
+  JAVA_VERSION: '11'
+  RUBY_VERSION: '3.0'
+
 jobs:
   build:
     name: Build
