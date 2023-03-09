@@ -8,7 +8,6 @@ require 'java-properties'
 default_platform(:android)
 
 root_dir = File.expand_path(File.join(File.dirname(__FILE__), "../"))
-signing_configs_gradle = File.join(root_dir, "app/signing_configs.gradle")
 gradle_properties = File.join(root_dir, "gradle.properties")
 application_module = File.join(root_dir, "app/src/main/java/ch/nevis/exampleapp/coroutines/dagger/ApplicationModule.kt")
 android_manifest = File.join(root_dir, "app/src/main/AndroidManifest.xml")
@@ -42,6 +41,9 @@ end
 
 platform :android do
     desc "Build and tag the application"
+    desc "#### Options"
+    desc " * **`host_name`**: Authentication Cloud host name/instance name the build application will communicate with."
+    desc " * **`custom_uri_scheme`**: Custom deep link URI scheme of the built application. The application can be started using browser links those using this scheme."
     desc ""
     lane :main do |options|
         begin
@@ -68,13 +70,12 @@ platform :android do
             JavaProperties.write(properties, gradle_properties)
 
             host_name = options[:host_name]
-            facet_id = options[:facet_id]
             custom_uri_scheme = options[:custom_uri_scheme]
 
             modify_file(
                 file_path: application_module,
                 old_value: ".hostname(\"myinstance.mauth.nevis.cloud\")",
-                new_value: ".hostname(\"#{host_name}.mauth.nevis.cloud\").facetId(\"#{facet_id}\")"
+                new_value: ".hostname(\"#{host_name}.mauth.nevis.cloud\")"
             )
 
             modify_file(
@@ -91,21 +92,6 @@ platform :android do
 
             UI.message("Building #{display_name} #{version_name} (#{build_number}) 📦")
 
-            sh("echo \"#{ENV["SIGNING_CONFIGS"]}\" > #{signing_configs_gradle}")
-
-            modify_file(
-                file_path: build_gradle,
-                old_value: "signingConfig signingConfigs.debug",
-                new_value: "signingConfig signingConfigs.signing",
-            )
-
-            modify_file(
-                file_path: build_gradle,
-                old_value: "android {",
-                new_value: "apply from: 'signing_configs.gradle'\n",
-                mode: 'prepend'
-            )
-
             gradle(task: "assembleDebug")
 
             add_git_tag(tag: "release/#{version_name}/#{build_number}", message: "[Fastlane] #{display_name} #{version_name} (#{build_number})")
@@ -119,7 +105,7 @@ platform :android do
 
     desc "Build the application"
     desc ""
-    lane :pr do |options|
+    lane :pr do
         begin
             gradle(task: "assembleDebug")
         end

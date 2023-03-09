@@ -57,6 +57,5 @@ jobs:
         with:
           lane: 'main'
           options: '{ "host_name": "${{ secrets.HOST_NAME }}",
-                      "custom_uri_scheme": "${{ secrets.CUSTOM_URI_SCHEME }}",
-                      "facet_id": "${{ secrets.FACET_ID }}"
+                      "custom_uri_scheme": "${{ secrets.CUSTOM_URI_SCHEME }}"
                     }'
