@@ -36,14 +36,6 @@ jobs:
           distribution: 'zulu'
           java-version: ${{ env.JAVA_VERSION }}
 
-      # Move the Java keystore to its place
-      - name: Decode Keystore
-        uses: timheuer/base64-to-file@v1
-        with:
-          fileName: 'keystore-example-app.jks'
-          fileDir: './android/etc'
-          encodedString: ${{ secrets.KEYSTORE_FILE }}
-
       - name: Generate build number
         uses: onyxmueller/build-number@v1
         with:
@@ -53,7 +45,6 @@ jobs:
       - name: Run Fastlane
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SIGNING_CONFIGS: ${{ secrets.SIGNING_CONFIGS }}
           GITHUB_USERNAME: ${{ secrets.GH_USERNAME }}
           GITHUB_PERSONAL_ACCESS_TOKEN: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
