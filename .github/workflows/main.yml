@@ -37,7 +37,7 @@ jobs:
           java-version: ${{ env.JAVA_VERSION }}
 
       - name: Generate build number
-        uses: onyxmueller/build-number@v1
+        uses: onyxmueller/build-tag-number@v1
         with:
           token: ${{secrets.GITHUB_TOKEN}}
 
