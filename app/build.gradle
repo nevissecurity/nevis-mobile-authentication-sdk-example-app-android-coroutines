@@ -7,6 +7,30 @@ plugins {
     id 'androidx.navigation.safeargs.kotlin'
 }
 
+static def readProperty(project, name) {
+    if (project.hasProperty(name)) {
+        return project.getProperty(name)
+    }
+    println("Getting project property failed, returning null. Set $name as a project property in your ${project.projectDir}/gradle.properties")
+    return null
+}
+
+static def readVersionCode(project) {
+    def property = readProperty(project, "VERSION_CODE")
+    if (property != null) {
+        return property as int
+    }
+    return 1
+}
+
+static def readVersionName(project) {
+    def property = readProperty(project, "VERSION_NAME")
+    if (property != null) {
+        return "$property"
+    }
+    return ""
+}
+
 android {
     compileSdkVersion 33
     buildToolsVersion "31.0.0"
@@ -15,8 +39,8 @@ android {
         applicationId "ch.nevis.exampleapp.coroutines"
         minSdkVersion 23
         targetSdkVersion 33
-        versionCode 1
-        versionName "1.0"
+        versionCode readVersionCode(this)
+        versionName readVersionName(this)
 
         multiDexEnabled true
 
@@ -27,6 +51,7 @@ android {
         all {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
         }
     }
 
