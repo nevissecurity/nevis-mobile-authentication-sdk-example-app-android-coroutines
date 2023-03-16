@@ -36,10 +36,14 @@ jobs:
           distribution: 'zulu'
           java-version: ${{ env.JAVA_VERSION }}
 
+      # Generate build number based on Git tag
       - name: Generate build number
         uses: onyxmueller/build-tag-number@v1
         with:
           token: ${{secrets.GITHUB_TOKEN}}
+
+      # Setup Git user to make Fastlane capable to create Git tags
+      - uses: fregante/setup-git-user@v1
 
       # Build the Android app
       - name: Run Fastlane
