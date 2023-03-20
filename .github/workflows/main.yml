@@ -11,6 +11,7 @@ on:
 env:
   JAVA_VERSION: '11'
   RUBY_VERSION: '3.0'
+  CURRENT_BUILD_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
 jobs:
   build_and_tag:
