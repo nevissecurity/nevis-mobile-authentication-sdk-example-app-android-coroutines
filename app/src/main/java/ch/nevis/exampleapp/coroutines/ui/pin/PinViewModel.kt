@@ -131,7 +131,7 @@ class PinViewModel @Inject constructor(
     }
 
     /**
-     * Sets/creates a new PIN during a registration opertation.
+     * Sets/creates a new PIN during a registration operation.
      *
      * @param pin The PIN entered by the user.
      */

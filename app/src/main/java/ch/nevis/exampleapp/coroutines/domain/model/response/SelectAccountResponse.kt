@@ -12,7 +12,7 @@ import ch.nevis.mobile.sdk.api.localdata.Account
 /**
  * [Response] class that indicates an account selection has to be started.
  * Typically the received [Account] set is shown to the user and he/she selects one of them.
- * After the account selection [ch.nevis.exampleapp.domain.usecase.SelectAccountUseCase] is called
+ * After the account selection [ch.nevis.exampleapp.coroutines.domain.usecase.SelectAccountUseCase] is called
  * to continue the operation.
  */
 class SelectAccountResponse(

@@ -18,7 +18,7 @@ import ch.nevis.mobile.sdk.api.operation.userverification.BiometricPromptOptions
  * - [InBandRegistrationUseCase]
  * - [ProcessOutOfBandPayloadUseCase]
  *
- * This use-case must be executed after a [ch.nevis.exampleapp.domain.model.response.VerifyBiometricResponse]
+ * This use-case must be executed after a [ch.nevis.exampleapp.coroutines.domain.model.response.VerifyBiometricResponse]
  * is received during an authentication or registration operation.
  */
 interface VerifyBiometricUseCase {

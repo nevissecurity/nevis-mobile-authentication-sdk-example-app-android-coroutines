@@ -10,7 +10,7 @@ import ch.nevis.mobile.sdk.api.operation.pin.PinEnrollmentError
 
 /**
  * A [Response] class that indicates the registration operation is waiting for PIN enrollment.
- * To continue the operation after this response is received [ch.nevis.exampleapp.domain.usecase.SetPinUseCase]
+ * To continue the operation after this response is received [ch.nevis.exampleapp.coroutines.domain.usecase.SetPinUseCase]
  * has to be started with the new PIN entered by the user.
  */
 class EnrollPinResponse(

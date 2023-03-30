@@ -206,7 +206,7 @@ SDK operations are executed in async way using Kotlin [coroutines](https://devel
 
 ### Wrapping SDK Calls for Kotlin Coroutines
 
-Nevis Mobile Authentication SDK Android library is a Java library. After a successful `MobileAuthenticationClient` initialization (for more details see next [chapter](#initialization)) the initialized client object can be obtaind from `ClientProvider` and an operation can be executed by calling the proper method of the `MobileAuthenticationClient` and passing them the necessary input parameters. In the example application the default implementation of `ClientProvider` interface is injected by _Dagger_ into the use-case implementations.
+Nevis Mobile Authentication SDK Android library is a Java library. After a successful `MobileAuthenticationClient` initialization (for more details see next [chapter](#initialization)) the initialized client object can be obtained from `ClientProvider` and an operation can be executed by calling the proper method of the `MobileAuthenticationClient` and passing them the necessary input parameters. In the example application the default implementation of `ClientProvider` interface is injected by _Dagger_ into the use-case implementations.
 
 E.g.: the next code snippet shows how to start an in-band authentication operation where
 
@@ -216,7 +216,7 @@ E.g.: the next code snippet shows how to start an in-band authentication operati
 - `fingerprintUserVerifier` is an implementation of `ch.nevis.mobile.sdk.api.operation.userverification.FingerprintUserVerifier` interaction callback interface that will be called by the SDK when fingerprint verification is required to continue the operation,
 - `biometricUserVerifier` is an implementation of `ch.nevis.mobile.sdk.api.operation.userverification.BiometricUserVerifier` interaction callback interface that will be called by the SDK when biometric verification is required to continue the operation,
 - `onSuccess` is an implementation of `ch.nevis.mobile.sdk.api.util.Consumer` interaction callback interface that will be called by the SDK when the operation successfully completed,
-- `onError` is an implementation of `ch.nevis.mobile.sdk.api.util.Consumer` interaction callback interface that will be called by the SDK when the operation stopped because an error occured.
+- `onError` is an implementation of `ch.nevis.mobile.sdk.api.util.Consumer` interaction callback interface that will be called by the SDK when the operation stopped because an error occurred.
 
 ```kotlin
 val client = clientProvider.get()
@@ -247,7 +247,7 @@ In this section you can find hints about how the Nevis Mobile Authentication SDK
 
 ### Initialization
 
-The [InitializeClientUseCaseImpl](app/src/main/java/ch/nevis/exampleapp/coroutines/domain/usecase/InitializeClientUseCaseImpl.kt) class is responsible for creating and initializing a `MobileAuthenticationClient` instance which is the entry point to the SDK. Later this instance can be used to start the different operations. The initialized `MobileAuthenticationClient` instance can be accesed via [ClientProviderImpl](app/src/main/java/ch/nevis/exampleapp/coroutines/domain/client/ClientProviderImpl.kt).
+The [InitializeClientUseCaseImpl](app/src/main/java/ch/nevis/exampleapp/coroutines/domain/usecase/InitializeClientUseCaseImpl.kt) class is responsible for creating and initializing a `MobileAuthenticationClient` instance which is the entry point to the SDK. Later this instance can be used to start the different operations. The initialized `MobileAuthenticationClient` instance can be accessed via [ClientProviderImpl](app/src/main/java/ch/nevis/exampleapp/coroutines/domain/client/ClientProviderImpl.kt).
 
 ### Registration
 

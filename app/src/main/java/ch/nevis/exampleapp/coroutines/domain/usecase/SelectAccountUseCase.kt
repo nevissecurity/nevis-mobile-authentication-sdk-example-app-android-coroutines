@@ -14,7 +14,7 @@ import ch.nevis.exampleapp.coroutines.domain.model.response.Response
  * **IMPORTANT**: Prior to use this use-case [ProcessOutOfBandPayloadUseCase] must be executed with an
  * [ch.nevis.mobile.sdk.api.operation.outofband.OutOfBandPayload] object that contains authentication
  * related data that will start an out-of-band authentication. This use-case must be executed after a
- * [ch.nevis.exampleapp.domain.model.response.SelectAccountResponse] is received during the out-of-band
+ * [ch.nevis.exampleapp.coroutines.domain.model.response.SelectAccountResponse] is received during the out-of-band
  * authentication operation.
  */
 interface SelectAccountUseCase {

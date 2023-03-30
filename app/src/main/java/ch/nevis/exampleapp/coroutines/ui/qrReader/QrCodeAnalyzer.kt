@@ -35,7 +35,7 @@ class QrCodeAnalyzer(
         .build()
 
     /**
-     * The barocde scanner instance that tries to process the received images as barcodes.
+     * The barcode scanner instance that tries to process the received images as barcodes.
      */
     private val scanner = BarcodeScanning.getClient(options)
     //endregion
