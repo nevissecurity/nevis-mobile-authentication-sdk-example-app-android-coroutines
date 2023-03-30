@@ -15,7 +15,7 @@ import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
 
 /**
- * Default implementation of [CancelOperationUseCase] interfacethat discovers all known
+ * Default implementation of [CancelOperationUseCase] interface that discovers all known
  * [OperationStateRepository] and tries to find cancel the running operation.
  */
 class CancelOperationUseCaseImpl(

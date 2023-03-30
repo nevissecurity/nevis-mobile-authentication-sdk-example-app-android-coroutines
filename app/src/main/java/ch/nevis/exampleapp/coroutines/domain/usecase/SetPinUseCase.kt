@@ -17,7 +17,7 @@ import ch.nevis.exampleapp.coroutines.domain.model.response.Response
  * - [ProcessOutOfBandPayloadUseCase] with an [ch.nevis.mobile.sdk.api.operation.outofband.OutOfBandPayload]
  * object that contains registration related data
  *
- * This use-case must be executed after a [ch.nevis.exampleapp.domain.model.response.EnrollPinResponse]
+ * This use-case must be executed after a [ch.nevis.exampleapp.coroutines.domain.model.response.EnrollPinResponse]
  * is received during a registration operation.
  */
 interface SetPinUseCase {

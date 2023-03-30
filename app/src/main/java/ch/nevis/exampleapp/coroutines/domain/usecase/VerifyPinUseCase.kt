@@ -16,7 +16,7 @@ import ch.nevis.exampleapp.coroutines.domain.model.response.Response
  * - [ProcessOutOfBandPayloadUseCase] with an [ch.nevis.mobile.sdk.api.operation.outofband.OutOfBandPayload]
  * object that contains authentication related data
  *
- * This use-case must be executed after a [ch.nevis.exampleapp.domain.model.response.VerifyPinResponse]
+ * This use-case must be executed after a [ch.nevis.exampleapp.coroutines.domain.model.response.VerifyPinResponse]
  * is received during an authentication operation.
  */
 interface VerifyPinUseCase {

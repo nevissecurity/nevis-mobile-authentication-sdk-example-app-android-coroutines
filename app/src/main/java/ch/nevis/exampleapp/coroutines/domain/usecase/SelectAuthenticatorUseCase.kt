@@ -17,7 +17,7 @@ import ch.nevis.exampleapp.coroutines.domain.model.response.Response
  * - [InBandRegistrationUseCase]
  * - [ProcessOutOfBandPayloadUseCase]
  *
- * This use-case must be executed after a [ch.nevis.exampleapp.domain.model.response.SelectAuthenticatorResponse]
+ * This use-case must be executed after a [ch.nevis.exampleapp.coroutines.domain.model.response.SelectAuthenticatorResponse]
  * is received during an authentication or registration operation.
  */
 interface SelectAuthenticatorUseCase {

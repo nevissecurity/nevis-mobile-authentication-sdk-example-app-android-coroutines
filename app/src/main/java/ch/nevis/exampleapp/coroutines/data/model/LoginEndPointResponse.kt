@@ -7,7 +7,7 @@
 package ch.nevis.exampleapp.coroutines.data.model
 
 /**
- * Data class that represents the JSON response of [ch.nevis.exampleapp.data.retrofit.LoginEndPoint].
+ * Data class that represents the JSON response of [ch.nevis.exampleapp.coroutines.data.retrofit.LoginEndPoint].
  */
 data class LoginEndPointResponse(
     /**

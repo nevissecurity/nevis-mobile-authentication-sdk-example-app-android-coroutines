@@ -11,7 +11,7 @@ import ch.nevis.mobile.sdk.api.localdata.Authenticator
 /**
  * [Response] class that indicates an authenticator selection has to be started.
  * Typically the received [Authenticator] set is shown to the user and he/she selects one of them.
- * After the authenticator selection [ch.nevis.exampleapp.domain.usecase.SelectAuthenticatorUseCase] is called
+ * After the authenticator selection [ch.nevis.exampleapp.coroutines.domain.usecase.SelectAuthenticatorUseCase] is called
  * to continue the operation.
  */
 class SelectAuthenticatorResponse(
