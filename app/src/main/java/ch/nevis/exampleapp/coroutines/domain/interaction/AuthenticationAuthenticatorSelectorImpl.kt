@@ -6,11 +6,15 @@
 
 package ch.nevis.exampleapp.coroutines.domain.interaction
 
+import ch.nevis.exampleapp.coroutines.common.settings.Settings
 import ch.nevis.exampleapp.coroutines.domain.model.error.BusinessException
 import ch.nevis.exampleapp.coroutines.domain.model.response.SelectAuthenticatorResponse
 import ch.nevis.exampleapp.coroutines.domain.model.state.UserInteractionOperationState
 import ch.nevis.exampleapp.coroutines.domain.repository.OperationStateRepository
+import ch.nevis.exampleapp.coroutines.domain.util.isUserEnrolled
 import ch.nevis.exampleapp.coroutines.timber.sdk
+import ch.nevis.exampleapp.coroutines.ui.selectAuthenticator.model.AuthenticatorItem
+import ch.nevis.mobile.sdk.api.localdata.Authenticator
 import ch.nevis.mobile.sdk.api.operation.selection.AuthenticatorSelectionContext
 import ch.nevis.mobile.sdk.api.operation.selection.AuthenticatorSelectionHandler
 import ch.nevis.mobile.sdk.api.operation.selection.AuthenticatorSelector
@@ -26,7 +30,12 @@ class AuthenticationAuthenticatorSelectorImpl(
     /**
      * The state repository that stores the state of the running operation.
      */
-    private val stateRepository: OperationStateRepository<UserInteractionOperationState>
+    private val stateRepository: OperationStateRepository<UserInteractionOperationState>,
+
+    /**
+     * An instance of a [Settings] interface implementation.
+     */
+    private val settings: Settings
 ) : AuthenticatorSelector {
 
     //region AuthenticatorSelector
@@ -41,17 +50,38 @@ class AuthenticationAuthenticatorSelectorImpl(
         val cancellableContinuation =
             operationState.cancellableContinuation ?: throw BusinessException.invalidState()
 
-        val authenticators = authenticatorSelectionContext.authenticators().filter {
-            it.registration().isRegistered(authenticatorSelectionContext.account().username()) &&
-                    it.isSupportedByHardware
+        val authenticatorItems = authenticatorSelectionContext.authenticators().mapNotNull {
+            mapForAuthentication(it, authenticatorSelectionContext)
         }.toSet()
 
         operationState.username = authenticatorSelectionContext.account().username()
         operationState.authenticatorSelectionHandler = authenticatorSelectionHandler
 
         cancellableContinuation.resume(
-            SelectAuthenticatorResponse(authenticators)
+            SelectAuthenticatorResponse(authenticatorItems)
         )
+    }
+    //endregion
+
+    //region Private Interface
+    private fun mapForAuthentication(
+        authenticator: Authenticator,
+        context: AuthenticatorSelectionContext
+    ): AuthenticatorItem? {
+        return if (authenticator.registration()
+                .isRegistered(context.account().username()) && authenticator.isSupportedByHardware
+        ) {
+            AuthenticatorItem(
+                authenticator.aaid(),
+                context.isPolicyCompliant(authenticator.aaid()),
+                authenticator.isUserEnrolled(
+                    context.account().username(),
+                    settings.allowClass2Sensors
+                )
+            )
+        } else {
+            null
+        }
     }
     //endregion
 }

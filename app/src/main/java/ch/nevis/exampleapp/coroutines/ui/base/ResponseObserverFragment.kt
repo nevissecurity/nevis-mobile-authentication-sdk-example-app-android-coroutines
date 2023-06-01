@@ -12,7 +12,18 @@ import ch.nevis.exampleapp.coroutines.NavigationGraphDirections
 import ch.nevis.exampleapp.coroutines.common.error.ErrorHandlerChain
 import ch.nevis.exampleapp.coroutines.domain.model.error.BusinessException
 import ch.nevis.exampleapp.coroutines.domain.model.operation.Operation
-import ch.nevis.exampleapp.coroutines.domain.model.response.*
+import ch.nevis.exampleapp.coroutines.domain.model.response.AuthenticationCompletedResponse
+import ch.nevis.exampleapp.coroutines.domain.model.response.CancelledResponse
+import ch.nevis.exampleapp.coroutines.domain.model.response.ChangePinResponse
+import ch.nevis.exampleapp.coroutines.domain.model.response.CompletedResponse
+import ch.nevis.exampleapp.coroutines.domain.model.response.EnrollPinResponse
+import ch.nevis.exampleapp.coroutines.domain.model.response.ErrorResponse
+import ch.nevis.exampleapp.coroutines.domain.model.response.Response
+import ch.nevis.exampleapp.coroutines.domain.model.response.SelectAccountResponse
+import ch.nevis.exampleapp.coroutines.domain.model.response.SelectAuthenticatorResponse
+import ch.nevis.exampleapp.coroutines.domain.model.response.VerifyBiometricResponse
+import ch.nevis.exampleapp.coroutines.domain.model.response.VerifyFingerprintResponse
+import ch.nevis.exampleapp.coroutines.domain.model.response.VerifyPinResponse
 import ch.nevis.exampleapp.coroutines.ui.pin.model.PinViewMode
 import ch.nevis.exampleapp.coroutines.ui.pin.parameter.PinNavigationParameter
 import ch.nevis.exampleapp.coroutines.ui.result.parameter.ResultNavigationParameter
@@ -69,10 +80,11 @@ abstract class ResponseObserverFragment : Fragment() {
         when (response) {
             is SelectAuthenticatorResponse -> {
                 val action = NavigationGraphDirections.actionGlobalSelectAuthenticatorFragment(
-                    SelectAuthenticatorNavigationParameter(response.authenticators)
+                    SelectAuthenticatorNavigationParameter(response.authenticatorItems)
                 )
                 navController.navigate(action)
             }
+
             is SelectAccountResponse -> {
                 response.transactionConfirmationData?.also {
                     val parameter = TransactionConfirmationNavigationParameter(
@@ -95,6 +107,7 @@ abstract class ResponseObserverFragment : Fragment() {
                     navController.navigate(action)
                 }
             }
+
             is EnrollPinResponse -> {
                 val navigationParameter = PinNavigationParameter(
                     PinViewMode.ENROLL_PIN,
@@ -103,18 +116,21 @@ abstract class ResponseObserverFragment : Fragment() {
                 val action = NavigationGraphDirections.actionGlobalPinFragment(navigationParameter)
                 navController.navigate(action)
             }
+
             is VerifyFingerprintResponse -> {
                 val action = NavigationGraphDirections.actionGlobalBiometricFragment(
                     VerifyBiometricNavigationParameter(VerifyBiometricViewMode.FINGERPRINT)
                 )
                 navController.navigate(action)
             }
+
             is VerifyBiometricResponse -> {
                 val action = NavigationGraphDirections.actionGlobalBiometricFragment(
                     VerifyBiometricNavigationParameter(VerifyBiometricViewMode.BIOMETRIC)
                 )
                 navController.navigate(action)
             }
+
             is VerifyPinResponse -> {
                 val navigationParameter = PinNavigationParameter(
                     PinViewMode.VERIFY_PIN,
@@ -124,6 +140,7 @@ abstract class ResponseObserverFragment : Fragment() {
                 val action = NavigationGraphDirections.actionGlobalPinFragment(navigationParameter)
                 navController.navigate(action)
             }
+
             is CompletedResponse -> {
                 viewModel.finishOperation()
                 val navigationParameter =
@@ -132,6 +149,7 @@ abstract class ResponseObserverFragment : Fragment() {
                     NavigationGraphDirections.actionGlobalResultFragment(navigationParameter)
                 navController.navigate(action)
             }
+
             is AuthenticationCompletedResponse -> {
                 viewModel.finishOperation()
                 when (response.forOperation) {
@@ -141,6 +159,7 @@ abstract class ResponseObserverFragment : Fragment() {
                             response.authorizationProvider
                         )
                     }
+
                     else -> {
                         val navigationParameter =
                             ResultNavigationParameter.forSuccessfulOperation(Operation.AUTHENTICATION)
@@ -150,6 +169,7 @@ abstract class ResponseObserverFragment : Fragment() {
                     }
                 }
             }
+
             is CancelledResponse -> {
                 val navigationParameter =
                     ResultNavigationParameter.forCancelledOperation(response.operation)
@@ -157,6 +177,7 @@ abstract class ResponseObserverFragment : Fragment() {
                     NavigationGraphDirections.actionGlobalResultFragment(navigationParameter)
                 navController.navigate(action)
             }
+
             is ChangePinResponse -> {
                 val navigationParameter = PinNavigationParameter(
                     PinViewMode.CHANGE_PIN,
@@ -166,10 +187,12 @@ abstract class ResponseObserverFragment : Fragment() {
                 val action = NavigationGraphDirections.actionGlobalPinFragment(navigationParameter)
                 navController.navigate(action)
             }
+
             is ErrorResponse -> {
                 viewModel.finishOperation()
                 errorHandlerChain.handle(response.cause)
             }
+
             else -> {
                 errorHandlerChain.handle(BusinessException.invalidState())
             }

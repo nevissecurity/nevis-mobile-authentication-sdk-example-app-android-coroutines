@@ -11,7 +11,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ch.nevis.exampleapp.coroutines.R
 import ch.nevis.exampleapp.coroutines.databinding.ItemAuthenticatorBinding
-import ch.nevis.exampleapp.coroutines.ui.selectAuthenticator.model.AuthenticatorItemDescriptor
+import ch.nevis.exampleapp.coroutines.ui.selectAuthenticator.model.AuthenticatorItem
 import ch.nevis.mobile.sdk.api.localdata.Authenticator
 
 /**
@@ -20,9 +20,9 @@ import ch.nevis.mobile.sdk.api.localdata.Authenticator
 class AuthenticatorsRecyclerViewAdapter(
 
     /**
-     * An [Array] that holds authenticators those will be rendered by this adapter.
+     * An [Array] that holds authenticator items those will be rendered by this adapter.
      */
-    private val authenticators: Array<Authenticator>,
+    private val authenticatorItems: Array<AuthenticatorItem>,
 
     /**
      * Reference for the listener implementation that will be notified about authenticator selection.
@@ -39,15 +39,26 @@ class AuthenticatorsRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: AuthenticatorViewHolder, position: Int) {
         holder.binding.authenticatorSelectedListener = authenticatorSelectedListener
-        authenticators[position].let { authenticator: Authenticator ->
-            holder.binding.authenticator = authenticator
-            authenticatorDescriptors[authenticator.aaid()]?.let {
-                holder.binding.authenticatorDescriptor = it
+        val authenticatorItem = authenticatorItems[position]
+        holder.binding.aaid = authenticatorItem.aaid
+        holder.binding.titleResId = authenticatorItem.titleResId
+
+        val isEnabled = authenticatorItem.isEnabled()
+        holder.binding.isEnabled = isEnabled
+        holder.itemView.isEnabled = isEnabled
+
+        if (!isEnabled) {
+            if (!authenticatorItem.isPolicyCompliant) {
+                holder.binding.message =
+                    holder.itemView.context.getString(R.string.select_authenticator_authenticator_is_not_policy_compliant)
+            } else if (!authenticatorItem.isUserEnrolled) {
+                holder.binding.message =
+                    holder.itemView.context.getString(R.string.select_authenticator_authenticator_is_not_enrolled)
             }
         }
     }
 
-    override fun getItemCount() = authenticators.size
+    override fun getItemCount() = authenticatorItems.size
     //endregion
 
     //region AuthenticatorViewHolder
@@ -56,18 +67,5 @@ class AuthenticatorsRecyclerViewAdapter(
      */
     class AuthenticatorViewHolder(val binding: ItemAuthenticatorBinding) :
         RecyclerView.ViewHolder(binding.root)
-    //endregion
-
-    //region Companion
-    companion object {
-        /**
-         * A map that holds [AuthenticatorItemDescriptor] objects for each known authenticator identifier.
-         */
-        private val authenticatorDescriptors = mapOf(
-            Authenticator.PIN_AUTHENTICATOR_AAID to AuthenticatorItemDescriptor(R.string.select_authenticator_pin_authenticator_title),
-            Authenticator.FINGERPRINT_AUTHENTICATOR_AAID to AuthenticatorItemDescriptor(R.string.select_authenticator_fingerprint_authenticator_title),
-            Authenticator.BIOMETRIC_AUTHENTICATOR_AAID to AuthenticatorItemDescriptor(R.string.select_authenticator_biometric_authenticator_title)
-        )
-    }
     //endregion
 }

@@ -55,7 +55,8 @@ class TransactionConfirmationFragment : ResponseObserverFragment() {
 
         binding.confirmButton.setOnClickListener {
             viewModel.confirm(
-                navigationArguments.parameter.operation, navigationArguments.parameter.accounts
+                navigationArguments.parameter.operation,
+                navigationArguments.parameter.accounts ?: setOf()
             )
         }
 

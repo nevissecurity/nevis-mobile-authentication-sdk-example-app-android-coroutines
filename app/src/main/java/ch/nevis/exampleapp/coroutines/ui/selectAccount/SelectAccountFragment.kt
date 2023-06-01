@@ -64,7 +64,7 @@ class SelectAccountFragment : ResponseObserverFragment(),
         val context = context ?: return
 
         accountsRecyclerViewAdapter = AccountsRecyclerViewAdapter(
-            navigationArguments.parameter.accounts.toTypedArray(),
+            navigationArguments.parameter.accounts?.toTypedArray() ?: arrayOf(),
             this
         )
         binding.accountsRecyclerView.adapter = accountsRecyclerViewAdapter

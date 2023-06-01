@@ -6,6 +6,7 @@
 
 package ch.nevis.exampleapp.coroutines.domain.model.response
 
+import ch.nevis.exampleapp.coroutines.ui.selectAuthenticator.model.AuthenticatorItem
 import ch.nevis.mobile.sdk.api.localdata.Authenticator
 
 /**
@@ -18,5 +19,5 @@ class SelectAuthenticatorResponse(
     /**
      * The set of available authenticators the user has to choose from.
      */
-    val authenticators: Set<Authenticator>
+    val authenticatorItems: Set<AuthenticatorItem>
 ) : Response
