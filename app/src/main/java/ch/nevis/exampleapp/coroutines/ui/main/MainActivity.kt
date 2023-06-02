@@ -136,6 +136,8 @@ class MainActivity : AppCompatActivity() {
                     dispatchTokenResponse
                 )
             }
+            // The intent data is processed only once.
+            intent.data = null
         }
     }
     //endregion
