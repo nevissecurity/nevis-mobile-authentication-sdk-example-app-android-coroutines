@@ -10,8 +10,8 @@ import android.os.Parcelable
 import ch.nevis.exampleapp.coroutines.ui.pin.model.PinViewMode
 import ch.nevis.mobile.sdk.api.operation.RecoverableError
 import ch.nevis.mobile.sdk.api.operation.pin.PinAuthenticatorProtectionStatus
+import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
-import kotlinx.parcelize.RawValue
 
 /**
  * Navigation parameter data class for PIN view.
@@ -26,10 +26,12 @@ data class PinNavigationParameter(
     /**
      * Status object of the PIN authenticator.
      */
-    val pinAuthenticatorProtectionStatus: @RawValue PinAuthenticatorProtectionStatus? = null,
+    @IgnoredOnParcel
+    val pinAuthenticatorProtectionStatus: PinAuthenticatorProtectionStatus? = null,
 
     /**
      * The last recoverable error. It exists only if there was already a failed PIN operation attempt.
      */
-    val lastRecoverableError: @RawValue RecoverableError? = null
+    @IgnoredOnParcel
+    val lastRecoverableError: RecoverableError? = null
 ) : Parcelable

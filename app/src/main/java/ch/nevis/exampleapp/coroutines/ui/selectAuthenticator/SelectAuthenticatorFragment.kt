@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import ch.nevis.exampleapp.coroutines.databinding.FragmentSelectAuthenticatorBinding
 import ch.nevis.exampleapp.coroutines.ui.base.CancelOperationOnBackPressedCallback
 import ch.nevis.exampleapp.coroutines.ui.base.ResponseObserverFragment
-import ch.nevis.mobile.sdk.api.localdata.Authenticator
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -67,7 +66,7 @@ class SelectAuthenticatorFragment : ResponseObserverFragment(),
         val context = context ?: return
 
         authenticatorsRecyclerViewAdapter = AuthenticatorsRecyclerViewAdapter(
-            navigationArguments.parameter.authenticators.toTypedArray(),
+            navigationArguments.parameter.authenticatorItems?.toTypedArray() ?: arrayOf(),
             this
         )
         binding.authenticatorsRecyclerView.adapter = authenticatorsRecyclerViewAdapter
@@ -86,8 +85,8 @@ class SelectAuthenticatorFragment : ResponseObserverFragment(),
     //endregion
 
     //region AuthenticatorsRecyclerViewAdapterDelegate
-    override fun onAuthenticatorSelected(authenticator: Authenticator) {
-        viewModel.selectAuthenticator(authenticator.aaid())
+    override fun onAuthenticatorSelected(aaid: String) {
+        viewModel.selectAuthenticator(aaid)
     }
     //endregion
 }

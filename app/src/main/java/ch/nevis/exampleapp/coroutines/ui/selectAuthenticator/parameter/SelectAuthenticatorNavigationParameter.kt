@@ -7,9 +7,9 @@
 package ch.nevis.exampleapp.coroutines.ui.selectAuthenticator.parameter
 
 import android.os.Parcelable
-import ch.nevis.mobile.sdk.api.localdata.Authenticator
+import ch.nevis.exampleapp.coroutines.ui.selectAuthenticator.model.AuthenticatorItem
+import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
-import kotlinx.parcelize.RawValue
 
 /**
  * Navigation parameter data class for select authenticator view.
@@ -19,5 +19,6 @@ data class SelectAuthenticatorNavigationParameter(
     /**
      * The list of available authenticator the user can select from.
      */
-    val authenticators: @RawValue Set<Authenticator>
+    @IgnoredOnParcel
+    val authenticatorItems: Set<AuthenticatorItem>? = null
 ) : Parcelable

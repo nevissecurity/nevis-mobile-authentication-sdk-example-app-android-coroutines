@@ -6,11 +6,14 @@
 
 package ch.nevis.exampleapp.coroutines.domain.interaction
 
+import ch.nevis.exampleapp.coroutines.common.settings.Settings
 import ch.nevis.exampleapp.coroutines.domain.model.error.BusinessException
 import ch.nevis.exampleapp.coroutines.domain.model.response.SelectAuthenticatorResponse
 import ch.nevis.exampleapp.coroutines.domain.model.state.UserInteractionOperationState
 import ch.nevis.exampleapp.coroutines.domain.repository.OperationStateRepository
+import ch.nevis.exampleapp.coroutines.domain.util.isUserEnrolled
 import ch.nevis.exampleapp.coroutines.timber.sdk
+import ch.nevis.exampleapp.coroutines.ui.selectAuthenticator.model.AuthenticatorItem
 import ch.nevis.mobile.sdk.api.localdata.Authenticator
 import ch.nevis.mobile.sdk.api.operation.selection.AuthenticatorSelectionContext
 import ch.nevis.mobile.sdk.api.operation.selection.AuthenticatorSelectionHandler
@@ -27,7 +30,12 @@ class RegistrationAuthenticatorSelectorImpl(
     /**
      * The state repository that stores the state of the running operation.
      */
-    private val stateRepository: OperationStateRepository<UserInteractionOperationState>
+    private val stateRepository: OperationStateRepository<UserInteractionOperationState>,
+
+    /**
+     * An instance of a [Settings] interface implementation.
+     */
+    private val settings: Settings
 ) : AuthenticatorSelector {
 
     //region AuthenticatorSelector
@@ -37,8 +45,8 @@ class RegistrationAuthenticatorSelectorImpl(
     ) {
         Timber.asTree().sdk("Please select one of the received available authenticators!")
 
-        val authenticators = authenticatorSelectionContext.authenticators().filter {
-            isAvailableForRegistration(it, authenticatorSelectionContext)
+        val authenticatorItems = authenticatorSelectionContext.authenticators().mapNotNull {
+            mapForRegistration(it, authenticatorSelectionContext)
         }.toSet()
 
         val operationState = stateRepository.get() ?: throw BusinessException.invalidState()
@@ -50,17 +58,18 @@ class RegistrationAuthenticatorSelectorImpl(
 
         cancellableContinuation.resume(
             SelectAuthenticatorResponse(
-                authenticators
+                authenticatorItems
             )
         )
     }
     //endregion
 
     //region Private Interface
-    private fun isAvailableForRegistration(
+    private fun mapForRegistration(
         authenticator: Authenticator,
         context: AuthenticatorSelectionContext
-    ): Boolean {
+    ): AuthenticatorItem? {
+        Timber.d("Checking if authenticator %s is eligible for registration.", authenticator.aaid())
         val username = context.account().username()
         val authenticators = context.authenticators()
 
@@ -71,12 +80,14 @@ class RegistrationAuthenticatorSelectorImpl(
 
         val canRegisterBiometric = authenticators.any {
             it.aaid() == Authenticator.BIOMETRIC_AUTHENTICATOR_AAID &&
-                    context.isPolicyCompliant(it.aaid())
+                    context.isPolicyCompliant(it.aaid()) &&
+                    it.isSupportedByHardware
         }
 
         val canRegisterFingerprint = authenticators.any {
             it.aaid() == Authenticator.FINGERPRINT_AUTHENTICATOR_AAID &&
-                    context.isPolicyCompliant(it.aaid())
+                    context.isPolicyCompliant(it.aaid()) &&
+                    it.isSupportedByHardware
         }
 
         // If biometric can be registered (or is already registered), or if we cannot
@@ -84,12 +95,23 @@ class RegistrationAuthenticatorSelectorImpl(
         if ((canRegisterBiometric || biometricRegistered || !canRegisterFingerprint) &&
             authenticator.aaid() == Authenticator.FINGERPRINT_AUTHENTICATOR_AAID
         ) {
-            return false
+            return null
         }
 
         // Do not display policy non-compliant authenticators (this includes already registered
         // authenticators), nor those not supported by hardware.
-        return authenticator.isSupportedByHardware && context.isPolicyCompliant(authenticator.aaid())
+        return if (authenticator.isSupportedByHardware && context.isPolicyCompliant(authenticator.aaid())) {
+            AuthenticatorItem(
+                authenticator.aaid(),
+                true,
+                authenticator.isUserEnrolled(
+                    context.account().username(),
+                    settings.allowClass2Sensors
+                )
+            )
+        } else {
+            null
+        }
     }
     //endregion
 }

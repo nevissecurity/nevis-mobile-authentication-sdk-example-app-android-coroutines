@@ -130,6 +130,8 @@
     <string name="select_authenticator_pin_authenticator_title">PIN</string>
     <string name="select_authenticator_fingerprint_authenticator_title">Fingerprint</string>
     <string name="select_authenticator_biometric_authenticator_title">Biometric</string>
+    <string name="select_authenticator_authenticator_is_not_enrolled">Before using the authenticator, enroll it in the phone System Settings</string>
+    <string name="select_authenticator_authenticator_is_not_policy_compliant">This authentication method cannot be used with your application</string>
 
     <string name="transaction_confirmation_title">Transaction Confirmation</string>
     <string name="transaction_confirmation_message">Do you confirm the transaction with the following data?</string>
