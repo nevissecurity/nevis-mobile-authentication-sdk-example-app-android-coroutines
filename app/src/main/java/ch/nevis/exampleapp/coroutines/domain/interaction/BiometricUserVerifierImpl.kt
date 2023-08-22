@@ -34,7 +34,7 @@ class BiometricUserVerifierImpl(
         biometricUserVerificationContext: BiometricUserVerificationContext?,
         biometricUserVerificationHandler: BiometricUserVerificationHandler?
     ) {
-        Timber.asTree().sdk("Please start biometric user verification.")
+        Timber.asTree().sdk("Start biometric user verification.")
 
         val operationState =
             stateRepository.get() ?: throw BusinessException.invalidState()

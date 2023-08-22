@@ -130,6 +130,7 @@
     <string name="select_authenticator_pin_authenticator_title">PIN</string>
     <string name="select_authenticator_fingerprint_authenticator_title">Fingerprint</string>
     <string name="select_authenticator_biometric_authenticator_title">Biometric</string>
+    <string name="select_authenticator_device_passcode_authenticator_title">Device Passcode</string>
     <string name="select_authenticator_authenticator_is_not_enrolled">Before using the authenticator, enroll it in the phone System Settings</string>
     <string name="select_authenticator_authenticator_is_not_policy_compliant">This authentication method cannot be used with your application</string>
 
@@ -141,4 +142,6 @@
     <string name="verify_biometric_title">Please verify yourself</string>
     <string name="verify_biometric_prompt_title">Biometric Verification</string>
     <string name="verify_biometric_prompt_cancel_button_title">Cancel</string>
+
+    <string name="verify_device_passcode_prompt_title">Device Passcode Verification</string>
 </resources>

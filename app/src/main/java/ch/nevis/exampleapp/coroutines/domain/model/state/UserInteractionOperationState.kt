@@ -12,6 +12,7 @@ import ch.nevis.mobile.sdk.api.operation.pin.PinEnrollmentHandler
 import ch.nevis.mobile.sdk.api.operation.selection.AccountSelectionHandler
 import ch.nevis.mobile.sdk.api.operation.selection.AuthenticatorSelectionHandler
 import ch.nevis.mobile.sdk.api.operation.userverification.BiometricUserVerificationHandler
+import ch.nevis.mobile.sdk.api.operation.userverification.DevicePasscodeUserVerificationHandler
 import ch.nevis.mobile.sdk.api.operation.userverification.FingerprintUserVerificationHandler
 import ch.nevis.mobile.sdk.api.operation.userverification.OsAuthenticationListenHandler
 import ch.nevis.mobile.sdk.api.operation.userverification.PinUserVerificationHandler
@@ -64,6 +65,11 @@ data class UserInteractionOperationState(
     var biometricUserVerificationHandler: BiometricUserVerificationHandler? = null,
 
     /**
+     * [DevicePasscodeUserVerificationHandler] object received during an authentication or a registration operation.
+     */
+    var devicePasscodeUserVerificationHandler: DevicePasscodeUserVerificationHandler? = null,
+
+    /**
      * [OsAuthenticationListenHandler] object received during an authentication or a registration operation.
      */
     var osAuthenticationListenHandler: OsAuthenticationListenHandler? = null,
@@ -81,6 +87,7 @@ data class UserInteractionOperationState(
         pinEnrollmentHandler = null
         fingerprintUserVerificationHandler = null
         biometricUserVerificationHandler = null
+        devicePasscodeUserVerificationHandler = null
         cancellableContinuation = null
     }
 }

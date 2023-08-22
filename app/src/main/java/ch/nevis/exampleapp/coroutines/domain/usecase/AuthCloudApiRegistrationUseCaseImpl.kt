@@ -7,16 +7,17 @@
 package ch.nevis.exampleapp.coroutines.domain.usecase
 
 import ch.nevis.exampleapp.coroutines.domain.client.ClientProvider
-import ch.nevis.exampleapp.coroutines.domain.model.response.DeviceInformationResponse
-import ch.nevis.exampleapp.coroutines.domain.model.operation.Operation
-import ch.nevis.exampleapp.coroutines.domain.model.response.Response
 import ch.nevis.exampleapp.coroutines.domain.model.error.BusinessException
+import ch.nevis.exampleapp.coroutines.domain.model.operation.Operation
+import ch.nevis.exampleapp.coroutines.domain.model.response.DeviceInformationResponse
+import ch.nevis.exampleapp.coroutines.domain.model.response.Response
 import ch.nevis.exampleapp.coroutines.domain.model.state.UserInteractionOperationState
 import ch.nevis.exampleapp.coroutines.domain.repository.OperationStateRepository
 import ch.nevis.mobile.sdk.api.operation.authcloudapi.AuthCloudApiError
 import ch.nevis.mobile.sdk.api.operation.pin.PinEnroller
 import ch.nevis.mobile.sdk.api.operation.selection.AuthenticatorSelector
 import ch.nevis.mobile.sdk.api.operation.userverification.BiometricUserVerifier
+import ch.nevis.mobile.sdk.api.operation.userverification.DevicePasscodeUserVerifier
 import ch.nevis.mobile.sdk.api.operation.userverification.FingerprintUserVerifier
 import ch.nevis.mobile.sdk.api.util.Consumer
 import kotlinx.coroutines.suspendCancellableCoroutine
@@ -61,6 +62,11 @@ class AuthCloudApiRegistrationUseCaseImpl(
     private val biometricUserVerifier: BiometricUserVerifier,
 
     /**
+     * An instance of a [DevicePasscodeUserVerifier] implementation.
+     */
+    private val devicePasscodeUserVerifier: DevicePasscodeUserVerifier,
+
+    /**
      * An instance of a [Runnable] implementation.
      */
     private val onSuccess: Runnable,
@@ -89,6 +95,7 @@ class AuthCloudApiRegistrationUseCaseImpl(
                     .pinEnroller(pinEnroller)
                     .fingerprintUserVerifier(fingerprintUserVerifier)
                     .biometricUserVerifier(biometricUserVerifier)
+                    .devicePasscodeUserVerifier(devicePasscodeUserVerifier)
                     .onSuccess(onSuccess)
                     .onError(onError)
 

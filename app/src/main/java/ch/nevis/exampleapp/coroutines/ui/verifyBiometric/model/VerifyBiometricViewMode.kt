@@ -19,5 +19,10 @@ enum class VerifyBiometricViewMode {
     /**
      * Biometric verification that could be fingerprint or face ID verification as well.
      */
-    BIOMETRIC
+    BIOMETRIC,
+
+    /**
+     * Device passcode verification.
+     */
+    DEVICE_PASSCODE
 }

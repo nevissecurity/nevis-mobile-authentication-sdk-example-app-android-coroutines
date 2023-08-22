@@ -53,7 +53,8 @@ data class AuthenticatorItem(
         private val authenticatorTitles = mapOf(
             Authenticator.PIN_AUTHENTICATOR_AAID to R.string.select_authenticator_pin_authenticator_title,
             Authenticator.FINGERPRINT_AUTHENTICATOR_AAID to R.string.select_authenticator_fingerprint_authenticator_title,
-            Authenticator.BIOMETRIC_AUTHENTICATOR_AAID to R.string.select_authenticator_biometric_authenticator_title
+            Authenticator.BIOMETRIC_AUTHENTICATOR_AAID to R.string.select_authenticator_biometric_authenticator_title,
+            Authenticator.DEVICE_PASSCODE_AUTHENTICATOR_AAID to R.string.select_authenticator_device_passcode_authenticator_title
         )
     }
     //endregion

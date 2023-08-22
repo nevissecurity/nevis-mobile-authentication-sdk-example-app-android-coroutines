@@ -13,9 +13,10 @@ import ch.nevis.exampleapp.coroutines.domain.model.response.Response
 import ch.nevis.exampleapp.coroutines.domain.model.state.UserInteractionOperationState
 import ch.nevis.exampleapp.coroutines.domain.repository.OperationStateRepository
 import ch.nevis.mobile.sdk.api.authorization.AuthorizationProvider
-import ch.nevis.mobile.sdk.api.operation.OperationError
+import ch.nevis.mobile.sdk.api.operation.AuthenticationError
 import ch.nevis.mobile.sdk.api.operation.selection.AuthenticatorSelector
 import ch.nevis.mobile.sdk.api.operation.userverification.BiometricUserVerifier
+import ch.nevis.mobile.sdk.api.operation.userverification.DevicePasscodeUserVerifier
 import ch.nevis.mobile.sdk.api.operation.userverification.FingerprintUserVerifier
 import ch.nevis.mobile.sdk.api.operation.userverification.PinUserVerifier
 import ch.nevis.mobile.sdk.api.util.Consumer
@@ -56,15 +57,20 @@ class InBandAuthenticationUseCaseImpl(
     private val biometricUserVerifier: BiometricUserVerifier,
 
     /**
+     * An instance of a [DevicePasscodeUserVerifier] implementation.
+     */
+    private val devicePasscodeUserVerifier: DevicePasscodeUserVerifier,
+
+    /**
      * An instance of a [Consumer] implementation that accepts a [AuthorizationProvider] object on
      * successful authentication.
      */
     private val onSuccess: Consumer<AuthorizationProvider>,
 
     /**
-     * An instance of a [Consumer] implementation that accepts a [OperationError] object.
+     * An instance of a [Consumer] implementation that accepts a [AuthenticationError] object.
      */
-    private val onError: Consumer<OperationError>
+    private val onError: Consumer<AuthenticationError>
 ) : InBandAuthenticationUseCase {
 
     //region InBandAuthenticationUseCase
@@ -82,6 +88,7 @@ class InBandAuthenticationUseCaseImpl(
                 .pinUserVerifier(pinUserVerifier)
                 .fingerprintUserVerifier(fingerprintUserVerifier)
                 .biometricUserVerifier(biometricUserVerifier)
+                .devicePasscodeUserVerifier(devicePasscodeUserVerifier)
                 .onSuccess(onSuccess)
                 .onError(onError)
                 .execute()

@@ -22,6 +22,7 @@ import ch.nevis.exampleapp.coroutines.domain.model.response.Response
 import ch.nevis.exampleapp.coroutines.domain.model.response.SelectAccountResponse
 import ch.nevis.exampleapp.coroutines.domain.model.response.SelectAuthenticatorResponse
 import ch.nevis.exampleapp.coroutines.domain.model.response.VerifyBiometricResponse
+import ch.nevis.exampleapp.coroutines.domain.model.response.VerifyDevicePasscodeResponse
 import ch.nevis.exampleapp.coroutines.domain.model.response.VerifyFingerprintResponse
 import ch.nevis.exampleapp.coroutines.domain.model.response.VerifyPinResponse
 import ch.nevis.exampleapp.coroutines.ui.pin.model.PinViewMode
@@ -127,6 +128,13 @@ abstract class ResponseObserverFragment : Fragment() {
             is VerifyBiometricResponse -> {
                 val action = NavigationGraphDirections.actionGlobalBiometricFragment(
                     VerifyBiometricNavigationParameter(VerifyBiometricViewMode.BIOMETRIC)
+                )
+                navController.navigate(action)
+            }
+
+            is VerifyDevicePasscodeResponse -> {
+                val action = NavigationGraphDirections.actionGlobalBiometricFragment(
+                    VerifyBiometricNavigationParameter(VerifyBiometricViewMode.DEVICE_PASSCODE)
                 )
                 navController.navigate(action)
             }

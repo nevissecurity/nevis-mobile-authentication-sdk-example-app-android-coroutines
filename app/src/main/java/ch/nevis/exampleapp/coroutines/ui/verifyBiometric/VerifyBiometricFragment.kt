@@ -20,7 +20,7 @@ import ch.nevis.exampleapp.coroutines.ui.base.CancelOperationOnBackPressedCallba
 import ch.nevis.exampleapp.coroutines.ui.base.ResponseObserverFragment
 import ch.nevis.exampleapp.coroutines.ui.verifyBiometric.model.VerifyBiometricViewMode
 import ch.nevis.mobile.sdk.api.operation.userverification.BiometricPromptOptions
-import ch.nevis.mobile.sdk.api.util.Optional
+import ch.nevis.mobile.sdk.api.operation.userverification.DevicePasscodePromptOptions
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -71,19 +71,16 @@ class VerifyBiometricFragment : ResponseObserverFragment() {
         when (navigationArguments.parameter.verifyBiometricViewMode) {
             VerifyBiometricViewMode.FINGERPRINT -> viewModel.verifyFingerprint()
             VerifyBiometricViewMode.BIOMETRIC -> viewModel.verifyBiometric(
-                object : BiometricPromptOptions {
-                    override fun title(): String {
-                        return getString(R.string.verify_biometric_prompt_title)
-                    }
+                BiometricPromptOptions.builder()
+                    .title(getString(R.string.verify_biometric_prompt_title))
+                    .cancelButtonText(getString(R.string.verify_biometric_prompt_cancel_button_title))
+                    .build()
+            )
 
-                    override fun description(): Optional<String> {
-                        return Optional.empty()
-                    }
-
-                    override fun cancelButtonText(): String {
-                        return getString(R.string.verify_biometric_prompt_cancel_button_title)
-                    }
-                }
+            VerifyBiometricViewMode.DEVICE_PASSCODE -> viewModel.verifyDevicePasscode(
+                DevicePasscodePromptOptions.builder()
+                    .title(getString(R.string.verify_device_passcode_prompt_title))
+                    .build()
             )
         }
     }
@@ -103,6 +100,7 @@ class VerifyBiometricFragment : ResponseObserverFragment() {
                 }
                 viewModel.verifyFingerprint()
             }
+
             else -> super.processResponse(response)
         }
     }
