@@ -4,12 +4,12 @@
  * Copyright © 2022. Nevis Security AG. All rights reserved.
  */
 
-package ch.nevis.exampleapp.coroutines.ui.verifyBiometric.model
+package ch.nevis.exampleapp.coroutines.ui.verifyUser.model
 
 /**
- * Enumeration of available Verify Biometric view modes.
+ * Enumeration of available Verify User view modes.
  */
-enum class VerifyBiometricViewMode {
+enum class VerifyUserViewMode {
 
     /**
      * Fingerprint verification.

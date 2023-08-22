@@ -4,7 +4,7 @@
  * Copyright © 2022. Nevis Security AG. All rights reserved.
  */
 
-package ch.nevis.exampleapp.coroutines.ui.verifyBiometric
+package ch.nevis.exampleapp.coroutines.ui.verifyUser
 
 import androidx.lifecycle.viewModelScope
 import ch.nevis.exampleapp.coroutines.domain.usecase.VerifyBiometricUseCase
@@ -18,10 +18,10 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
- * View model implementation for Verify Biometric view.
+ * View model implementation for Verify User view.
  */
 @HiltViewModel
-class VerifyBiometricViewModel @Inject constructor(
+class VerifyUserViewModel @Inject constructor(
     /**
      * An instance of a [VerifyBiometricUseCase] implementation.
      */

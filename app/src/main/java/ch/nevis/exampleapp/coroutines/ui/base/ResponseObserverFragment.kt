@@ -31,8 +31,8 @@ import ch.nevis.exampleapp.coroutines.ui.result.parameter.ResultNavigationParame
 import ch.nevis.exampleapp.coroutines.ui.selectAccount.parameter.SelectAccountNavigationParameter
 import ch.nevis.exampleapp.coroutines.ui.selectAuthenticator.parameter.SelectAuthenticatorNavigationParameter
 import ch.nevis.exampleapp.coroutines.ui.transactionConfirmation.parameter.TransactionConfirmationNavigationParameter
-import ch.nevis.exampleapp.coroutines.ui.verifyBiometric.model.VerifyBiometricViewMode
-import ch.nevis.exampleapp.coroutines.ui.verifyBiometric.parameter.VerifyBiometricNavigationParameter
+import ch.nevis.exampleapp.coroutines.ui.verifyUser.model.VerifyUserViewMode
+import ch.nevis.exampleapp.coroutines.ui.verifyUser.parameter.VerifyUserNavigationParameter
 import javax.inject.Inject
 
 /**
@@ -119,22 +119,22 @@ abstract class ResponseObserverFragment : Fragment() {
             }
 
             is VerifyFingerprintResponse -> {
-                val action = NavigationGraphDirections.actionGlobalBiometricFragment(
-                    VerifyBiometricNavigationParameter(VerifyBiometricViewMode.FINGERPRINT)
+                val action = NavigationGraphDirections.actionGlobalVerifyUserFragment(
+                    VerifyUserNavigationParameter(VerifyUserViewMode.FINGERPRINT)
                 )
                 navController.navigate(action)
             }
 
             is VerifyBiometricResponse -> {
-                val action = NavigationGraphDirections.actionGlobalBiometricFragment(
-                    VerifyBiometricNavigationParameter(VerifyBiometricViewMode.BIOMETRIC)
+                val action = NavigationGraphDirections.actionGlobalVerifyUserFragment(
+                    VerifyUserNavigationParameter(VerifyUserViewMode.BIOMETRIC)
                 )
                 navController.navigate(action)
             }
 
             is VerifyDevicePasscodeResponse -> {
-                val action = NavigationGraphDirections.actionGlobalBiometricFragment(
-                    VerifyBiometricNavigationParameter(VerifyBiometricViewMode.DEVICE_PASSCODE)
+                val action = NavigationGraphDirections.actionGlobalVerifyUserFragment(
+                    VerifyUserNavigationParameter(VerifyUserViewMode.DEVICE_PASSCODE)
                 )
                 navController.navigate(action)
             }
