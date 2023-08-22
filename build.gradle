@@ -1,9 +1,9 @@
 buildscript {
     ext.coroutine_version = "1.6.4"
-    ext.dagger_hilt_version = "2.43.2"
+    ext.dagger_hilt_version = "2.44.2"
     ext.gradle_version = '7.2.2'
-    ext.kotlin_version = "1.8.0"
-    ext.navigation_version = "2.5.3"
+    ext.kotlin_version = "1.8.10"
+    ext.navigation_version = "2.6.0"
 
     repositories {
         google()
@@ -58,6 +58,6 @@ allprojects {
     }
 }
 
-task clean(type: Delete) {
+tasks.register('clean', Delete) {
     delete rootProject.buildDir
 }
