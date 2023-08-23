@@ -394,7 +394,6 @@ class ApplicationModule {
     fun provideProcessOutOfBandPayloadUseCase(
         clientProvider: ClientProvider,
         stateRepository: OperationStateRepository<UserInteractionOperationState>,
-        errorHandlerChain: ErrorHandlerChain,
         createDeviceInformationUseCase: CreateDeviceInformationUseCase,
         accountSelector: AccountSelector,
         pinEnroller: PinEnroller,
@@ -402,7 +401,8 @@ class ApplicationModule {
         fingerprintUserVerifier: FingerprintUserVerifier,
         biometricUserVerifier: BiometricUserVerifier,
         devicePasscodeUserVerifier: DevicePasscodeUserVerifier,
-        settings: Settings
+        settings: Settings,
+        onError: Consumer<OperationError>
     ): ProcessOutOfBandPayloadUseCase = ProcessOutOfBandPayloadUseCaseImpl(
         clientProvider,
         stateRepository,
@@ -417,7 +417,7 @@ class ApplicationModule {
         devicePasscodeUserVerifier,
         provideOnSuccessAuthentication(stateRepository),
         provideOnSuccessForUserInteractionOperation(stateRepository),
-        provideOnErrorForUserInteractionOperation(stateRepository, errorHandlerChain)
+        onError
     )
 
     @Provides
@@ -467,8 +467,8 @@ class ApplicationModule {
         fingerprintUserVerifier: FingerprintUserVerifier,
         biometricUserVerifier: BiometricUserVerifier,
         devicePasscodeUserVerifier: DevicePasscodeUserVerifier,
-        errorHandlerChain: ErrorHandlerChain,
-        settings: Settings
+        settings: Settings,
+        onError: Consumer<OperationError>
     ): InBandRegistrationUseCase = InBandRegistrationUseCaseImpl(
         clientProvider,
         stateRepository,
@@ -479,7 +479,7 @@ class ApplicationModule {
         biometricUserVerifier,
         devicePasscodeUserVerifier,
         provideOnSuccessForUserInteractionOperation(stateRepository),
-        provideOnErrorForUserInteractionOperation(stateRepository, errorHandlerChain)
+        onError
     )
 
     @Provides
