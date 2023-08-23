@@ -72,14 +72,14 @@ class VerifyUserFragment : ResponseObserverFragment() {
             VerifyUserViewMode.FINGERPRINT -> viewModel.verifyFingerprint()
             VerifyUserViewMode.BIOMETRIC -> viewModel.verifyBiometric(
                 BiometricPromptOptions.builder()
-                    .title(getString(R.string.verify_biometric_prompt_title))
-                    .cancelButtonText(getString(R.string.verify_biometric_prompt_cancel_button_title))
+                    .title(getString(R.string.verify_user_biometric_prompt_title))
+                    .cancelButtonText(getString(R.string.verify_user_biometric_prompt_cancel_button_title))
                     .build()
             )
 
             VerifyUserViewMode.DEVICE_PASSCODE -> viewModel.verifyDevicePasscode(
                 DevicePasscodePromptOptions.builder()
-                    .title(getString(R.string.verify_device_passcode_prompt_title))
+                    .title(getString(R.string.verify_user_device_passcode_prompt_title))
                     .build()
             )
         }

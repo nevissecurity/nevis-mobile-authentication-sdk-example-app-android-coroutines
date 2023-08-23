@@ -139,9 +139,8 @@
     <string name="transaction_confirmation_cancel_button_title">Cancel</string>
     <string name="transaction_confirmation_confirm_button_title">OK</string>
 
-    <string name="verify_biometric_title">Please verify yourself</string>
-    <string name="verify_biometric_prompt_title">Biometric Verification</string>
-    <string name="verify_biometric_prompt_cancel_button_title">Cancel</string>
-
-    <string name="verify_device_passcode_prompt_title">Device Passcode Verification</string>
+    <string name="verify_user_title">Please verify yourself</string>
+    <string name="verify_user_biometric_prompt_title">Biometric Verification</string>
+    <string name="verify_user_biometric_prompt_cancel_button_title">Cancel</string>
+    <string name="verify_user_device_passcode_prompt_title">Device Passcode Verification</string>
 </resources>
