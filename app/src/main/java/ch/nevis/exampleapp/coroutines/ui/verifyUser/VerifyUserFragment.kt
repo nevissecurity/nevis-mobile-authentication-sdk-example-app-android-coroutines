@@ -4,7 +4,7 @@
  * Copyright © 2022. Nevis Security AG. All rights reserved.
  */
 
-package ch.nevis.exampleapp.coroutines.ui.verifyBiometric
+package ch.nevis.exampleapp.coroutines.ui.verifyUser
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,39 +13,39 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import ch.nevis.exampleapp.coroutines.R
-import ch.nevis.exampleapp.coroutines.databinding.FragmentVerifyBiometricBinding
+import ch.nevis.exampleapp.coroutines.databinding.FragmentVerifyUserBinding
 import ch.nevis.exampleapp.coroutines.domain.model.response.Response
 import ch.nevis.exampleapp.coroutines.domain.model.response.VerifyFingerprintResponse
 import ch.nevis.exampleapp.coroutines.ui.base.CancelOperationOnBackPressedCallback
 import ch.nevis.exampleapp.coroutines.ui.base.ResponseObserverFragment
-import ch.nevis.exampleapp.coroutines.ui.verifyBiometric.model.VerifyBiometricViewMode
+import ch.nevis.exampleapp.coroutines.ui.verifyUser.model.VerifyUserViewMode
 import ch.nevis.mobile.sdk.api.operation.userverification.BiometricPromptOptions
-import ch.nevis.mobile.sdk.api.util.Optional
+import ch.nevis.mobile.sdk.api.operation.userverification.DevicePasscodePromptOptions
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
- * Fragment implementation of Verify Biometric view where the user can verify her-/himself with
- * fingerprint or face ID.
+ * Fragment implementation of Verify User view where the user can verify her-/himself with
+ * fingerprint, face ID or device passcode.
  */
 @AndroidEntryPoint
-class VerifyBiometricFragment : ResponseObserverFragment() {
+class VerifyUserFragment : ResponseObserverFragment() {
 
     //region Properties
     /**
      * UI component bindings.
      */
-    private var _binding: FragmentVerifyBiometricBinding? = null
+    private var _binding: FragmentVerifyUserBinding? = null
     private val binding get() = _binding!!
 
     /**
      * The view model instance for this view.
      */
-    override val viewModel: VerifyBiometricViewModel by viewModels()
+    override val viewModel: VerifyUserViewModel by viewModels()
 
     /**
      * Safe Args navigation arguments.
      */
-    private val navigationArguments: VerifyBiometricFragmentArgs by navArgs()
+    private val navigationArguments: VerifyUserFragmentArgs by navArgs()
     //endregion
 
     //region Fragment
@@ -53,7 +53,7 @@ class VerifyBiometricFragment : ResponseObserverFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentVerifyBiometricBinding.inflate(inflater, container, false)
+        _binding = FragmentVerifyUserBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -68,22 +68,19 @@ class VerifyBiometricFragment : ResponseObserverFragment() {
 
     override fun onResume() {
         super.onResume()
-        when (navigationArguments.parameter.verifyBiometricViewMode) {
-            VerifyBiometricViewMode.FINGERPRINT -> viewModel.verifyFingerprint()
-            VerifyBiometricViewMode.BIOMETRIC -> viewModel.verifyBiometric(
-                object : BiometricPromptOptions {
-                    override fun title(): String {
-                        return getString(R.string.verify_biometric_prompt_title)
-                    }
+        when (navigationArguments.parameter.verifyUserViewMode) {
+            VerifyUserViewMode.FINGERPRINT -> viewModel.verifyFingerprint()
+            VerifyUserViewMode.BIOMETRIC -> viewModel.verifyBiometric(
+                BiometricPromptOptions.builder()
+                    .title(getString(R.string.verify_user_biometric_prompt_title))
+                    .cancelButtonText(getString(R.string.verify_user_biometric_prompt_cancel_button_title))
+                    .build()
+            )
 
-                    override fun description(): Optional<String> {
-                        return Optional.empty()
-                    }
-
-                    override fun cancelButtonText(): String {
-                        return getString(R.string.verify_biometric_prompt_cancel_button_title)
-                    }
-                }
+            VerifyUserViewMode.DEVICE_PASSCODE -> viewModel.verifyDevicePasscode(
+                DevicePasscodePromptOptions.builder()
+                    .title(getString(R.string.verify_user_device_passcode_prompt_title))
+                    .build()
             )
         }
     }
@@ -103,6 +100,7 @@ class VerifyBiometricFragment : ResponseObserverFragment() {
                 }
                 viewModel.verifyFingerprint()
             }
+
             else -> super.processResponse(response)
         }
     }

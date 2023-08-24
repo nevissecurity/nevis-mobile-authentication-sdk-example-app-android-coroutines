@@ -36,6 +36,7 @@ import ch.nevis.exampleapp.coroutines.domain.repository.OperationStateRepository
 import ch.nevis.exampleapp.coroutines.domain.usecase.*
 import ch.nevis.mobile.sdk.api.Configuration
 import ch.nevis.mobile.sdk.api.authorization.AuthorizationProvider
+import ch.nevis.mobile.sdk.api.operation.AuthenticationError
 import ch.nevis.mobile.sdk.api.operation.OperationError
 import ch.nevis.mobile.sdk.api.operation.authcloudapi.AuthCloudApiError
 import ch.nevis.mobile.sdk.api.operation.pin.PinChangeError
@@ -44,6 +45,7 @@ import ch.nevis.mobile.sdk.api.operation.pin.PinEnroller
 import ch.nevis.mobile.sdk.api.operation.selection.AccountSelector
 import ch.nevis.mobile.sdk.api.operation.selection.AuthenticatorSelector
 import ch.nevis.mobile.sdk.api.operation.userverification.BiometricUserVerifier
+import ch.nevis.mobile.sdk.api.operation.userverification.DevicePasscodeUserVerifier
 import ch.nevis.mobile.sdk.api.operation.userverification.FingerprintUserVerifier
 import ch.nevis.mobile.sdk.api.operation.userverification.PinUserVerifier
 import ch.nevis.mobile.sdk.api.util.Consumer
@@ -219,6 +221,10 @@ class ApplicationModule {
         BiometricUserVerifierImpl(stateRepository)
 
     @Provides
+    fun provideDevicePasscodeUserVerifier(stateRepository: OperationStateRepository<UserInteractionOperationState>): DevicePasscodeUserVerifier =
+        DevicePasscodeUserVerifierImpl(stateRepository)
+
+    @Provides
     fun provideOnSuccessAuthentication(stateRepository: OperationStateRepository<UserInteractionOperationState>): Consumer<AuthorizationProvider> =
         OnSuccessAuthenticationImpl(stateRepository)
 
@@ -251,6 +257,12 @@ class ApplicationModule {
         stateRepository: OperationStateRepository<UserInteractionOperationState>,
         errorHandlerChain: ErrorHandlerChain
     ): Consumer<AuthCloudApiError> = OnErrorImpl(stateRepository, errorHandlerChain)
+
+    @Provides
+    fun provideOnAuthenticationError(
+        stateRepository: OperationStateRepository<UserInteractionOperationState>,
+        errorHandlerChain: ErrorHandlerChain
+    ): Consumer<AuthenticationError> = OnErrorImpl(stateRepository, errorHandlerChain)
     //endregion
 
     //region Use-cases
@@ -291,11 +303,12 @@ class ApplicationModule {
     fun provideInBandAuthenticationUseCase(
         clientProvider: ClientProvider,
         stateRepository: OperationStateRepository<UserInteractionOperationState>,
-        errorHandlerChain: ErrorHandlerChain,
         pinUserVerifier: PinUserVerifier,
         fingerprintUserVerifier: FingerprintUserVerifier,
         biometricUserVerifier: BiometricUserVerifier,
-        settings: Settings
+        devicePasscodeUserVerifier: DevicePasscodeUserVerifier,
+        settings: Settings,
+        onError: Consumer<AuthenticationError>
     ): InBandAuthenticationUseCase = InBandAuthenticationUseCaseImpl(
         clientProvider,
         stateRepository,
@@ -303,8 +316,9 @@ class ApplicationModule {
         pinUserVerifier,
         fingerprintUserVerifier,
         biometricUserVerifier,
+        devicePasscodeUserVerifier,
         provideOnSuccessAuthentication(stateRepository),
-        provideOnErrorForUserInteractionOperation(stateRepository, errorHandlerChain)
+        onError
     )
 
     @Provides
@@ -312,11 +326,12 @@ class ApplicationModule {
     fun provideInBandAuthenticationUseCaseForDeregistration(
         clientProvider: ClientProvider,
         stateRepository: OperationStateRepository<UserInteractionOperationState>,
-        errorHandlerChain: ErrorHandlerChain,
         pinUserVerifier: PinUserVerifier,
         fingerprintUserVerifier: FingerprintUserVerifier,
         biometricUserVerifier: BiometricUserVerifier,
-        settings: Settings
+        devicePasscodeUserVerifier: DevicePasscodeUserVerifier,
+        settings: Settings,
+        onError: Consumer<AuthenticationError>
     ): InBandAuthenticationUseCase = InBandAuthenticationUseCaseImpl(
         clientProvider,
         stateRepository,
@@ -324,8 +339,9 @@ class ApplicationModule {
         pinUserVerifier,
         fingerprintUserVerifier,
         biometricUserVerifier,
+        devicePasscodeUserVerifier,
         provideOnSuccessAuthenticationForDeregistration(stateRepository),
-        provideOnErrorForUserInteractionOperation(stateRepository, errorHandlerChain)
+        onError
     )
 
     @Provides
@@ -371,17 +387,22 @@ class ApplicationModule {
         VerifyBiometricUseCaseImpl(stateRepository)
 
     @Provides
+    fun provideVerifyDevicePasscodeUseCase(stateRepository: OperationStateRepository<UserInteractionOperationState>): VerifyDevicePasscodeUseCase =
+        VerifyDevicePasscodeUseCaseImpl(stateRepository)
+
+    @Provides
     fun provideProcessOutOfBandPayloadUseCase(
         clientProvider: ClientProvider,
         stateRepository: OperationStateRepository<UserInteractionOperationState>,
-        errorHandlerChain: ErrorHandlerChain,
         createDeviceInformationUseCase: CreateDeviceInformationUseCase,
         accountSelector: AccountSelector,
         pinEnroller: PinEnroller,
         pinUserVerifier: PinUserVerifier,
         fingerprintUserVerifier: FingerprintUserVerifier,
         biometricUserVerifier: BiometricUserVerifier,
-        settings: Settings
+        devicePasscodeUserVerifier: DevicePasscodeUserVerifier,
+        settings: Settings,
+        onError: Consumer<OperationError>
     ): ProcessOutOfBandPayloadUseCase = ProcessOutOfBandPayloadUseCaseImpl(
         clientProvider,
         stateRepository,
@@ -393,9 +414,10 @@ class ApplicationModule {
         pinUserVerifier,
         fingerprintUserVerifier,
         biometricUserVerifier,
+        devicePasscodeUserVerifier,
         provideOnSuccessAuthentication(stateRepository),
         provideOnSuccessForUserInteractionOperation(stateRepository),
-        provideOnErrorForUserInteractionOperation(stateRepository, errorHandlerChain)
+        onError
     )
 
     @Provides
@@ -416,6 +438,7 @@ class ApplicationModule {
         pinEnroller: PinEnroller,
         fingerprintUserVerifier: FingerprintUserVerifier,
         biometricUserVerifier: BiometricUserVerifier,
+        devicePasscodeUserVerifier: DevicePasscodeUserVerifier,
         onError: Consumer<AuthCloudApiError>,
         settings: Settings
     ): AuthCloudApiRegistrationUseCase = AuthCloudApiRegistrationUseCaseImpl(
@@ -426,6 +449,7 @@ class ApplicationModule {
         pinEnroller,
         fingerprintUserVerifier,
         biometricUserVerifier,
+        devicePasscodeUserVerifier,
         provideOnSuccessForUserInteractionOperation(stateRepository),
         onError
     )
@@ -442,8 +466,9 @@ class ApplicationModule {
         pinEnroller: PinEnroller,
         fingerprintUserVerifier: FingerprintUserVerifier,
         biometricUserVerifier: BiometricUserVerifier,
-        errorHandlerChain: ErrorHandlerChain,
-        settings: Settings
+        devicePasscodeUserVerifier: DevicePasscodeUserVerifier,
+        settings: Settings,
+        onError: Consumer<OperationError>
     ): InBandRegistrationUseCase = InBandRegistrationUseCaseImpl(
         clientProvider,
         stateRepository,
@@ -452,8 +477,9 @@ class ApplicationModule {
         pinEnroller,
         fingerprintUserVerifier,
         biometricUserVerifier,
+        devicePasscodeUserVerifier,
         provideOnSuccessForUserInteractionOperation(stateRepository),
-        provideOnErrorForUserInteractionOperation(stateRepository, errorHandlerChain)
+        onError
     )
 
     @Provides

@@ -25,6 +25,7 @@ import ch.nevis.mobile.sdk.api.operation.pin.PinEnroller
 import ch.nevis.mobile.sdk.api.operation.selection.AccountSelector
 import ch.nevis.mobile.sdk.api.operation.selection.AuthenticatorSelector
 import ch.nevis.mobile.sdk.api.operation.userverification.BiometricUserVerifier
+import ch.nevis.mobile.sdk.api.operation.userverification.DevicePasscodeUserVerifier
 import ch.nevis.mobile.sdk.api.operation.userverification.FingerprintUserVerifier
 import ch.nevis.mobile.sdk.api.operation.userverification.PinUserVerifier
 import ch.nevis.mobile.sdk.api.util.Consumer
@@ -88,6 +89,11 @@ class ProcessOutOfBandPayloadUseCaseImpl(
      * An instance of a [BiometricUserVerifier] implementation.
      */
     private val biometricUserVerifier: BiometricUserVerifier,
+
+    /**
+     * An instance of a [DevicePasscodeUserVerifier] implementation.
+     */
+    private val devicePasscodeUserVerifier: DevicePasscodeUserVerifier,
 
     /**
      * An instance of a [Consumer] implementation that accepts a [AuthorizationProvider] object for
@@ -164,6 +170,7 @@ class ProcessOutOfBandPayloadUseCaseImpl(
                     createDeviceInformationUseCaseResponse
                 }
             }
+
             else -> throw BusinessException.invalidState()
         }
     }
@@ -189,6 +196,7 @@ class ProcessOutOfBandPayloadUseCaseImpl(
                 .pinUserVerifier(pinUserVerifier)
                 .fingerprintUserVerifier(fingerprintUserVerifier)
                 .biometricUserVerifier(biometricUserVerifier)
+                .devicePasscodeUserVerifier(devicePasscodeUserVerifier)
                 .onSuccess(onAuthenticationSuccess)
                 .onError(onError)
                 .execute()
@@ -217,6 +225,7 @@ class ProcessOutOfBandPayloadUseCaseImpl(
                 .pinEnroller(pinEnroller)
                 .fingerprintUserVerifier(fingerprintUserVerifier)
                 .biometricUserVerifier(biometricUserVerifier)
+                .devicePasscodeUserVerifier(devicePasscodeUserVerifier)
                 .onSuccess(onRegistrationSuccess)
                 .onError(onError)
                 .execute()

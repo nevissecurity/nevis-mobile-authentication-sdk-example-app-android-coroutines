@@ -18,6 +18,7 @@ import ch.nevis.mobile.sdk.api.operation.OperationError
 import ch.nevis.mobile.sdk.api.operation.pin.PinEnroller
 import ch.nevis.mobile.sdk.api.operation.selection.AuthenticatorSelector
 import ch.nevis.mobile.sdk.api.operation.userverification.BiometricUserVerifier
+import ch.nevis.mobile.sdk.api.operation.userverification.DevicePasscodeUserVerifier
 import ch.nevis.mobile.sdk.api.operation.userverification.FingerprintUserVerifier
 import ch.nevis.mobile.sdk.api.util.Consumer
 import kotlinx.coroutines.suspendCancellableCoroutine
@@ -62,6 +63,11 @@ class InBandRegistrationUseCaseImpl(
     private val biometricUserVerifier: BiometricUserVerifier,
 
     /**
+     * An instance of a [DevicePasscodeUserVerifier] implementation.
+     */
+    private val devicePasscodeUserVerifier: DevicePasscodeUserVerifier,
+
+    /**
      * An instance of a [Runnable] implementation.
      */
     private val onSuccess: Runnable,
@@ -90,9 +96,10 @@ class InBandRegistrationUseCaseImpl(
                 val operation = client.operations().registration()
                     .username(extId)
                     .authenticatorSelector(authenticatorSelector)
-                    .biometricUserVerifier(biometricUserVerifier)
-                    .pinEnroller(pinEnroller)
                     .fingerprintUserVerifier(fingerprintUserVerifier)
+                    .biometricUserVerifier(biometricUserVerifier)
+                    .devicePasscodeUserVerifier(devicePasscodeUserVerifier)
+                    .pinEnroller(pinEnroller)
                     .deviceInformation(createDeviceInformationUseCaseResponse.deviceInformation)
                     .onSuccess(onSuccess)
                     .onError(onError)

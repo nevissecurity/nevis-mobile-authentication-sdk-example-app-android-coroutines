@@ -35,15 +35,15 @@
     </fragment>
     <action android:id="@+id/action_global_errorFragment" app:destination="@id/errorFragment" />
     <fragment
-        android:id="@+id/verifyBiometricFragment"
-        android:name="ch.nevis.exampleapp.coroutines.ui.verifyBiometric.VerifyBiometricFragment"
-        android:label="fragment_verify_biometric"
-        tools:layout="@layout/fragment_verify_biometric">
+        android:id="@+id/verifyUserFragment"
+        android:name="ch.nevis.exampleapp.coroutines.ui.verifyUser.VerifyUserFragment"
+        android:label="fragment_verify_user"
+        tools:layout="@layout/fragment_verify_user">
         <argument
             android:name="parameter"
-            app:argType="ch.nevis.exampleapp.coroutines.ui.verifyBiometric.parameter.VerifyBiometricNavigationParameter" />
+            app:argType="ch.nevis.exampleapp.coroutines.ui.verifyUser.parameter.VerifyUserNavigationParameter" />
     </fragment>
-    <action android:id="@+id/action_global_biometricFragment" app:destination="@id/verifyBiometricFragment" />
+    <action android:id="@+id/action_global_verifyUserFragment" app:destination="@id/verifyUserFragment" />
     <fragment
         android:id="@+id/homeFragment"
         android:name="ch.nevis.exampleapp.coroutines.ui.home.HomeFragment"
