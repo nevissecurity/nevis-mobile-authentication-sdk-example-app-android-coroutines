@@ -63,5 +63,11 @@ enum class Operation(
     /**
      * Process out-of-band payload
      */
-    PROCESS_OUT_OF_BAND_PAYLOAD(R.string.operation_process_oob_payload)
+    PROCESS_OUT_OF_BAND_PAYLOAD(R.string.operation_process_oob_payload),
+
+    /**
+     * Local Data
+     */
+    LOCAL_DATA(R.string.operation_local_data)
+
 }

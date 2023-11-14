@@ -84,6 +84,10 @@ class HomeFragment : ResponseObserverFragment() {
             navController.navigate(action)
         }
 
+        binding.deleteAuthenticatorsButton.setOnClickListener {
+            viewModel.deleteAuthenticators()
+        }
+
         binding.inBandRegistrationButton.setOnClickListener {
             val action = NavigationGraphDirections.actionGlobalLegacyLoginFragment()
             navController.navigate(action)

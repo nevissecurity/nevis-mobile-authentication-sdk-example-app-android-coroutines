@@ -23,7 +23,7 @@ class SelectAccountResponse(
     val operation: Operation,
 
     /**
-     * The set of available authenticators the user has to choose from.
+     * The set of enrolled accounts the user has to choose from.
      */
     val accounts: Set<Account>,
 

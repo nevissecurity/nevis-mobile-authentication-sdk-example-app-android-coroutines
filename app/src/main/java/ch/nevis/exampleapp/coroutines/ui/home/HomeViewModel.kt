@@ -12,6 +12,7 @@ import ch.nevis.exampleapp.coroutines.common.configuration.Environment
 import ch.nevis.exampleapp.coroutines.domain.model.error.BusinessException
 import ch.nevis.exampleapp.coroutines.domain.model.operation.Operation
 import ch.nevis.exampleapp.coroutines.domain.model.response.*
+import ch.nevis.exampleapp.coroutines.domain.usecase.DeleteAuthenticatorsUseCase
 import ch.nevis.exampleapp.coroutines.domain.usecase.GetAccountsUseCase
 import ch.nevis.exampleapp.coroutines.domain.usecase.GetAuthenticatorsUseCase
 import ch.nevis.exampleapp.coroutines.domain.usecase.InitializeClientUseCase
@@ -19,7 +20,9 @@ import ch.nevis.exampleapp.coroutines.ui.base.OutOfBandOperationViewModel
 import ch.nevis.mobile.sdk.api.localdata.Account
 import ch.nevis.mobile.sdk.api.localdata.Authenticator
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 /**
@@ -46,6 +49,11 @@ class HomeViewModel @Inject constructor(
      * An instance of a [GetAuthenticatorsUseCase] implementation.
      */
     private val getAuthenticatorsUseCase: GetAuthenticatorsUseCase,
+
+    /**
+     * An instance of a [DeleteAuthenticatorsUseCase] implementation.
+     */
+    private val deleteAuthenticatorsUseCase: DeleteAuthenticatorsUseCase,
 ) : OutOfBandOperationViewModel() {
 
     //region Public Interface
@@ -150,6 +158,26 @@ class HomeViewModel @Inject constructor(
                     mutableResponseLiveData.postValue(response)
                 }
             }
+        }
+    }
+
+    /**
+     * Starts deleting local authenticators of all registered users.
+     */
+    fun deleteAuthenticators() {
+        viewModelScope.launch(errorHandler) {
+            var response = getAccountsUseCase.execute()
+            if (response is GetAccountsResponse) {
+                val accounts = response.accounts
+                response = if (accounts.isNotEmpty()) {
+                    withContext(Dispatchers.IO) {
+                        deleteAuthenticatorsUseCase.execute(accounts)
+                    }
+                } else {
+                    ErrorResponse(BusinessException.accountsNotFound())
+                }
+            }
+            mutableResponseLiveData.postValue(response)
         }
     }
     //endregion

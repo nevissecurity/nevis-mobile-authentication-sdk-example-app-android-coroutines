@@ -286,6 +286,10 @@ class ApplicationModule {
         GetAuthenticatorsUseCaseImpl(clientProvider)
 
     @Provides
+    fun provideDeleteAuthenticatorsUseCase(clientProvider: ClientProvider): DeleteAuthenticatorsUseCase =
+        DeleteAuthenticatorsUseCaseImpl(clientProvider)
+
+    @Provides
     fun provideCreateDeviceInformationUseCase(@ApplicationContext context: Context): CreateDeviceInformationUseCase =
         CreateDeviceInformationUseCaseImpl(context)
 

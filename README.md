@@ -55,8 +55,7 @@ Clone the example application GitHub repository and open it with Android Studio.
 The example applications support two kinds of configuration: `authenticationCloud` and `identitySuite`. The following chapters describes how to change the base configuration to match your environment.
 The configuration could be changed by modifying the [ApplicationModule](app/src/main/java/ch/nevis/exampleapp/coroutines/dagger/ApplicationModule.kt) file which describes the dependency injection related configuration using the [Dagger Hilt](https://dagger.dev/hilt/) library and the [AndroidManifest.xml](app/src/main/AndroidManifest.xml).
 
-> **_NOTE_**
->
+> [!NOTE]
 > Only _build-time_ configuration change is supported.
 
 #### Authentication Cloud Configuration
@@ -126,8 +125,7 @@ Change the `myaccessapp` scheme value in the following `intent-filter` with the 
 </intent-filter>
 ```
 
-> **_NOTE_**:
->
+> [!NOTE]
 > For more information about deep links, web links visit the official [Android guide](https://developer.android.com/training/app-links).
 
 #### Facet ID
@@ -154,8 +152,7 @@ object FacetIdCalculator {
 }
 ```
 
-> **_NOTE_:**
->
+> [!NOTE]
 > An alternative way to set a constant Facet ID is to call `facetId(String facetId)` method of `ch.nevis.mobile.sdk.api.Configuration.Builder` in methods `provideAuthenticationCloudConfiguration` and `provideIdentitySuiteConfiguration` in [ApplicationModule](app/src/main/java/ch/nevis/exampleapp/coroutines/dagger/ApplicationModule.kt) file.
 >
 > The value of the facet ID depends on the certificate used to build the application, which can change during the development, that is why this method has been introduced: by providing a constant facet ID and having

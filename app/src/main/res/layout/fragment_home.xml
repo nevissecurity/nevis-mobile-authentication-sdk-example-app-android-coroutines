@@ -93,6 +93,16 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:text="@string/home_auth_cloud_registration_button_title"
+        app:layout_constraintBottom_toTopOf="@id/deleteAuthenticatorsButton"
+        app:layout_constraintEnd_toEndOf="@id/rightVerticalGuideline"
+        app:layout_constraintStart_toStartOf="@id/leftVerticalGuideline" />
+
+    <Button
+        android:id="@+id/deleteAuthenticatorsButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/home_delete_authenticators_button_title"
         app:layout_constraintBottom_toTopOf="@id/softwareDeliveredOnlyLabel"
         app:layout_constraintEnd_toEndOf="@id/rightVerticalGuideline"
         app:layout_constraintStart_toStartOf="@id/leftVerticalGuideline" />

@@ -91,6 +91,7 @@
     <string name="home_change_pin_button_title">PIN Change</string>
     <string name="home_change_device_information_button_title">Change Device Information</string>
     <string name="home_auth_cloud_registration_button_title">Auth Cloud API Registration</string>
+    <string name="home_delete_authenticators_button_title">Delete Authenticators</string>
     <string name="home_in_band_registration_button_title">In-band Registration</string>
 
     <string name="operation_authentication">Authentication</string>
@@ -102,6 +103,7 @@
     <string name="operation_general">Operation</string>
     <string name="operation_process_oob_payload">Payload Processing</string>
     <string name="operation_registration">Registration</string>
+    <string name="operation_local_data">Local Data operation</string>
 
     <string name="pin_confirm_button_title">OK</string>
     <string name="pin_hint_old_pin">Old PIN</string>
@@ -121,8 +123,8 @@
     <string name="rational_dialog_cancel_button_title">Cancel</string>
 
     <string name="result_confirm_button_title">OK</string>
-    <string name="result_title_success">%s Success</string>
-    <string name="result_title_cancelled">%s Cancelled</string>
+    <string name="result_title_success">%s succeeded</string>
+    <string name="result_title_cancelled">%s cancelled</string>
 
     <string name="select_account_title">Select an account</string>
 
