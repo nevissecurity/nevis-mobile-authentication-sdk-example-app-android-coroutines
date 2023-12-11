@@ -92,23 +92,7 @@ fun provideConfigurationProvider(application: Application): ConfigurationProvide
 
 #### Android Manifest XML
 
-The example applications handle deep links and web links those contain a valid `dispatchTokenResponse` query parameter of an out-of-band operation. The related configuration located in the [AndroidManifest.xml](app/src/main/AndroidManifest.xml) for [MainActivity](app/src/main/java/ch/nevis/exampleapp/coroutines/ui/main/MainActivity.kt) with action `android.intent.action.VIEW`.
-
-##### Web links
-
-Change the `myinstance.mauth.nevis.cloud` host value in the following `intent-filter` with the right host information of your environment.
-
-```xml
-<intent-filter>
-    <action android:name="android.intent.action.VIEW" />
-
-    <category android:name="android.intent.category.DEFAULT" />
-    <category android:name="android.intent.category.BROWSABLE" />
-
-    <data android:scheme="https" />
-    <data android:host="myinstance.mauth.nevis.cloud" />
-</intent-filter>
-```
+The example applications handle deep links those contain a valid `dispatchTokenResponse` query parameter of an out-of-band operation. The related configuration located in the [AndroidManifest.xml](app/src/main/AndroidManifest.xml) for [MainActivity](app/src/main/java/ch/nevis/exampleapp/coroutines/ui/main/MainActivity.kt) with action `android.intent.action.VIEW`.
 
 ##### Deep links
 
@@ -126,7 +110,7 @@ Change the `myaccessapp` scheme value in the following `intent-filter` with the 
 ```
 
 > [!NOTE]
-> For more information about deep links, web links visit the official [Android guide](https://developer.android.com/training/app-links).
+> For more information about deep links, visit the official [Android guide](https://developer.android.com/training/app-links).
 
 #### Facet ID
 
