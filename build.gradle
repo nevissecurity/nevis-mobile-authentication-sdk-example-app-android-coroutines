@@ -19,6 +19,14 @@ buildscript {
 }
 
 ext.getConfig = { String name ->
+    File localPropertiesFile = project.file('local.properties')
+    if (localPropertiesFile?.exists()) {
+        Properties localProperties = new Properties()
+        localProperties.load(localPropertiesFile.newDataInputStream())
+        if (localProperties.containsKey(name)) {
+            return localProperties.getProperty(name)
+        }
+    }
     def env = System.getenv(name)
     if (env != null) {
         return env
