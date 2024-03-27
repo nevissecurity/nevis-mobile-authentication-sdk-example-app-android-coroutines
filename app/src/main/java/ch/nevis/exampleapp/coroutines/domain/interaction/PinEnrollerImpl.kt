@@ -55,7 +55,7 @@ class PinEnrollerImpl(
     }
 
     override fun onValidCredentialsProvided() {
-        Timber.asTree().sdk("The user successfully enrolled PIN authenticator.")
+        Timber.asTree().sdk("Valid credentials provided during PIN enrollment.")
     }
     //endregion
 }

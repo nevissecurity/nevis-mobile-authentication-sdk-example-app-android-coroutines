@@ -10,6 +10,7 @@ import ch.nevis.exampleapp.coroutines.domain.model.error.BusinessException
 import ch.nevis.exampleapp.coroutines.domain.model.response.VerifyDevicePasscodeResponse
 import ch.nevis.exampleapp.coroutines.domain.model.state.UserInteractionOperationState
 import ch.nevis.exampleapp.coroutines.domain.repository.OperationStateRepository
+import ch.nevis.exampleapp.coroutines.domain.util.titleResId
 import ch.nevis.exampleapp.coroutines.timber.sdk
 import ch.nevis.mobile.sdk.api.operation.userverification.DevicePasscodeUserVerificationContext
 import ch.nevis.mobile.sdk.api.operation.userverification.DevicePasscodeUserVerificationHandler
@@ -31,10 +32,10 @@ class DevicePasscodeUserVerifierImpl(
 
     //region DevicePasscodeUserVerifier
     override fun verifyDevicePasscode(
-        devicePasscodeUserVerificationContext: DevicePasscodeUserVerificationContext?,
-        devicePasscodeUserVerificationHandler: DevicePasscodeUserVerificationHandler?
+        devicePasscodeUserVerificationContext: DevicePasscodeUserVerificationContext,
+        devicePasscodeUserVerificationHandler: DevicePasscodeUserVerificationHandler
     ) {
-        Timber.asTree().sdk("Start device passcode user verification.")
+        Timber.asTree().sdk("Please start device passcode user verification.")
 
         val operationState =
             stateRepository.get() ?: throw BusinessException.invalidState()
@@ -44,13 +45,15 @@ class DevicePasscodeUserVerifierImpl(
             operationState.cancellableContinuation ?: throw BusinessException.invalidState()
 
         cancellableContinuation.resume(
-            VerifyDevicePasscodeResponse()
+            VerifyDevicePasscodeResponse(
+                devicePasscodeUserVerificationContext.authenticator().titleResId()
+            )
         )
     }
 
     override fun onValidCredentialsProvided() {
         Timber.asTree()
-            .sdk("The user successfully verified herself/himself with device passcode authenticator.")
+            .sdk("Valid credentials provided during device passcode verification.")
     }
     //endregion
 }

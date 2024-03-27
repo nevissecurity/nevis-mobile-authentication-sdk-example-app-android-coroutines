@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Nevis Mobile Authentication Coroutines Example App</string>
+    <string name="app_name">Nevis Example App</string>
 
     <string name="auth_cloud_registration_title">Auth Cloud Registration</string>
     <string name="auth_cloud_registration_hint_enroll_response">Enroll response</string>
@@ -126,13 +126,9 @@
     <string name="result_title_success">%s succeeded</string>
     <string name="result_title_cancelled">%s cancelled</string>
 
-    <string name="select_account_title">Select an account</string>
+    <string name="select_account_title">Select an Account</string>
 
-    <string name="select_authenticator_title">Select an authenticator</string>
-    <string name="select_authenticator_pin_authenticator_title">PIN</string>
-    <string name="select_authenticator_fingerprint_authenticator_title">Fingerprint</string>
-    <string name="select_authenticator_biometric_authenticator_title">Biometric</string>
-    <string name="select_authenticator_device_passcode_authenticator_title">Device Passcode</string>
+    <string name="select_authenticator_title">Select an Authentication Method</string>
     <string name="select_authenticator_authenticator_is_not_enrolled">Before using the authenticator, enroll it in the phone System Settings</string>
     <string name="select_authenticator_authenticator_is_not_policy_compliant">This authentication method cannot be used with your application</string>
 
@@ -141,8 +137,15 @@
     <string name="transaction_confirmation_cancel_button_title">Cancel</string>
     <string name="transaction_confirmation_confirm_button_title">OK</string>
 
-    <string name="verify_user_title">Please verify yourself</string>
+    <string name="verify_user_title">Authenticate using %s</string>
+    <string name="verify_user_confirm_button_title">Confirm</string>
+    <string name="verify_user_fingerprint_verification">Use Fingerprint sensor to authenticate.</string>
     <string name="verify_user_biometric_prompt_title">Biometric Verification</string>
     <string name="verify_user_biometric_prompt_cancel_button_title">Cancel</string>
     <string name="verify_user_device_passcode_prompt_title">Device Passcode Verification</string>
+
+    <string name="authenticator_pin_title">PIN</string>
+    <string name="authenticator_biometric_title">Biometric</string>
+    <string name="authenticator_fingerprint_title">Fingerprint</string>
+    <string name="authenticator_device_passcode_title">Device Passcode</string>
 </resources>

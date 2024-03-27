@@ -12,6 +12,7 @@ import ch.nevis.exampleapp.coroutines.domain.model.response.SelectAccountRespons
 import ch.nevis.exampleapp.coroutines.domain.model.state.UserInteractionOperationState
 import ch.nevis.exampleapp.coroutines.domain.repository.OperationStateRepository
 import ch.nevis.exampleapp.coroutines.timber.sdk
+import ch.nevis.mobile.sdk.api.localdata.Account
 import ch.nevis.mobile.sdk.api.operation.selection.AccountSelectionContext
 import ch.nevis.mobile.sdk.api.operation.selection.AccountSelectionHandler
 import ch.nevis.mobile.sdk.api.operation.selection.AccountSelector
@@ -46,7 +47,7 @@ class AccountSelectorImpl(
 
         val transactionConfirmationData =
             accountSelectionContext.transactionConfirmationData().orElse(null)
-        val accounts = accountSelectionContext.accounts()
+        val accounts = validAccounts(accountSelectionContext)
 
         if (accounts.isEmpty()) {
             cancellableContinuation.resume(ErrorResponse(BusinessException.accountsNotFound()))
@@ -63,6 +64,23 @@ class AccountSelectorImpl(
                 )
             )
         }
+    }
+    //endregion
+
+    //region Private Interface
+    private fun validAccounts(context: AccountSelectionContext): Set<Account> {
+        val validAccounts = mutableSetOf<Account>()
+        context.authenticators().forEach { authenticator ->
+            if (authenticator.isSupportedByHardware && authenticator.isSupportedByOs) {
+                authenticator.registration().registeredAccounts().forEach { account ->
+                    if (context.isPolicyCompliant(account.username(), authenticator.aaid())) {
+                        validAccounts.add(account)
+                    }
+                }
+            }
+        }
+
+        return validAccounts
     }
     //endregion
 }

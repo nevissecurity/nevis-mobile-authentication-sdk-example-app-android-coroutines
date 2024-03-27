@@ -6,7 +6,9 @@
 
 package ch.nevis.exampleapp.coroutines.domain.util
 
+import ch.nevis.exampleapp.coroutines.R
 import ch.nevis.mobile.sdk.api.localdata.Authenticator
+import ch.nevis.mobile.sdk.api.localdata.Authenticator.*
 import ch.nevis.mobile.sdk.api.localdata.UserEnrollment
 
 /**
@@ -29,5 +31,21 @@ fun Authenticator.isUserEnrolled(username: String, allowClass2Sensors: Boolean):
         }
         is UserEnrollment.SdkUserEnrollment -> userEnrollment.isEnrolled(username)
         else -> throw IllegalStateException("Unknown UserEnrollment object.")
+    }
+}
+
+/**
+ * Extension function of [Authenticator] to get the title String resource identifier.
+ *
+ * @return The title String resource identifier.
+ * @throws IllegalStateException if the [Authenticator] has an unknown AAID.
+ */
+fun Authenticator.titleResId(): Int {
+    return when (val aaid = aaid()) {
+        PIN_AUTHENTICATOR_AAID -> R.string.authenticator_pin_title
+        BIOMETRIC_AUTHENTICATOR_AAID -> R.string.authenticator_biometric_title
+        FINGERPRINT_AUTHENTICATOR_AAID -> R.string.authenticator_fingerprint_title
+        DEVICE_PASSCODE_AUTHENTICATOR_AAID -> R.string.authenticator_device_passcode_title
+        else -> throw IllegalStateException("Unsupported authenticator with AAID '$aaid'.")
     }
 }

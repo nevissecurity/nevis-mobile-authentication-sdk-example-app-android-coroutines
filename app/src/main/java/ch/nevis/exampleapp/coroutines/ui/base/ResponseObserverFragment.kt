@@ -120,21 +120,30 @@ abstract class ResponseObserverFragment : Fragment() {
 
             is VerifyFingerprintResponse -> {
                 val action = NavigationGraphDirections.actionGlobalVerifyUserFragment(
-                    VerifyUserNavigationParameter(VerifyUserViewMode.FINGERPRINT)
+                    VerifyUserNavigationParameter(
+                        VerifyUserViewMode.FINGERPRINT,
+                        response.authenticatorTitleResId
+                    )
                 )
                 navController.navigate(action)
             }
 
             is VerifyBiometricResponse -> {
                 val action = NavigationGraphDirections.actionGlobalVerifyUserFragment(
-                    VerifyUserNavigationParameter(VerifyUserViewMode.BIOMETRIC)
+                    VerifyUserNavigationParameter(
+                        VerifyUserViewMode.BIOMETRIC,
+                        response.authenticatorTitleResId
+                    )
                 )
                 navController.navigate(action)
             }
 
             is VerifyDevicePasscodeResponse -> {
                 val action = NavigationGraphDirections.actionGlobalVerifyUserFragment(
-                    VerifyUserNavigationParameter(VerifyUserViewMode.DEVICE_PASSCODE)
+                    VerifyUserNavigationParameter(
+                        VerifyUserViewMode.DEVICE_PASSCODE,
+                        response.authenticatorTitleResId
+                    )
                 )
                 navController.navigate(action)
             }

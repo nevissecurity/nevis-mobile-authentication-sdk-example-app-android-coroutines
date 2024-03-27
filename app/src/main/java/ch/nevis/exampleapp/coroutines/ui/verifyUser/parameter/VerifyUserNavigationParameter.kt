@@ -7,6 +7,7 @@
 package ch.nevis.exampleapp.coroutines.ui.verifyUser.parameter
 
 import android.os.Parcelable
+import androidx.annotation.StringRes
 import ch.nevis.exampleapp.coroutines.ui.verifyUser.model.VerifyUserViewMode
 import kotlinx.parcelize.Parcelize
 
@@ -18,5 +19,11 @@ data class VerifyUserNavigationParameter(
     /**
      * The mode, the Verify User view intend to be used/initialized.
      */
-    val verifyUserViewMode: VerifyUserViewMode
+    val verifyUserViewMode: VerifyUserViewMode,
+
+    /**
+     * String resource identifier of the title of the authenticator.
+     */
+    @StringRes
+    val authenticatorTitleResId: Int,
 ) : Parcelable

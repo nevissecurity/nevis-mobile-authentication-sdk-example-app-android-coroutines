@@ -11,6 +11,7 @@ import ch.nevis.exampleapp.coroutines.domain.usecase.VerifyBiometricUseCase
 import ch.nevis.exampleapp.coroutines.domain.usecase.VerifyDevicePasscodeUseCase
 import ch.nevis.exampleapp.coroutines.domain.usecase.VerifyFingerprintUseCase
 import ch.nevis.exampleapp.coroutines.ui.base.CancellableOperationViewModel
+import ch.nevis.exampleapp.coroutines.ui.verifyUser.model.VerifyUserViewMode
 import ch.nevis.mobile.sdk.api.operation.userverification.BiometricPromptOptions
 import ch.nevis.mobile.sdk.api.operation.userverification.DevicePasscodePromptOptions
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -38,11 +39,67 @@ class VerifyUserViewModel @Inject constructor(
     private val verifyFingerprintUseCase: VerifyFingerprintUseCase
 ) : CancellableOperationViewModel() {
 
+    private lateinit var verifyUserViewMode: VerifyUserViewMode
+
+    /**
+     * [BiometricPromptOptions] object that is required in case of biometric user verification for
+     * the dialog shown by the OS.
+     */
+    private lateinit var biometricPromptOptions: BiometricPromptOptions
+
+    /**
+     * [DevicePasscodePromptOptions] object that is required in case of device passcode user verification for
+     * the dialog shown by the OS.
+     */
+    private lateinit var devicePasscodePromptOptions: DevicePasscodePromptOptions
+
     //region Public Interface
+    /**
+     * Sets the current [VerifyUserViewMode].
+     *
+     * @param verifyUserViewMode The current [VerifyUserViewMode].
+     */
+    fun setVerifyUserViewMode(verifyUserViewMode: VerifyUserViewMode) {
+        this.verifyUserViewMode = verifyUserViewMode
+    }
+
+    /**
+     * Sets the biometric prompt options.
+     *
+     * @param biometricPromptOptions The biometric prompt options that is used for displaying the
+     * dialog that asks the user to verify her-/himself.
+     */
+    fun setBiometricPromptOptions(biometricPromptOptions: BiometricPromptOptions) {
+        this.biometricPromptOptions = biometricPromptOptions
+    }
+
+    /**
+     * Sets the device passcode prompt options.
+     *
+     * @param devicePasscodePromptOptions The device passcode prompt options that is used
+     * for displaying the dialog that asks the user to verify her-/himself.
+     */
+    fun setDevicePasscodePromptOptions(devicePasscodePromptOptions: DevicePasscodePromptOptions) {
+        this.devicePasscodePromptOptions = devicePasscodePromptOptions
+    }
+
+    /**
+     * Verifies the user using the previously selected authentication method.
+     */
+    fun verifyUser() {
+        when (verifyUserViewMode) {
+            VerifyUserViewMode.FINGERPRINT -> verifyFingerprint()
+            VerifyUserViewMode.BIOMETRIC -> verifyBiometric()
+            VerifyUserViewMode.DEVICE_PASSCODE -> verifyDevicePasscode()
+        }
+    }
+    //endregion
+
+    //region Private Interface
     /**
      * Starts fingerprint authentication for an operation.
      */
-    fun verifyFingerprint() {
+    private fun verifyFingerprint() {
         viewModelScope.launch(errorHandler) {
             val operationResponse = verifyFingerprintUseCase.execute()
             mutableResponseLiveData.postValue(operationResponse)
@@ -51,11 +108,8 @@ class VerifyUserViewModel @Inject constructor(
 
     /**
      * Starts biometric authentication for an operation.
-     *
-     * @param biometricPromptOptions The biometric prompt options that is used for displaying the
-     * dialog that asks the user to verify her-/himself.
      */
-    fun verifyBiometric(biometricPromptOptions: BiometricPromptOptions) {
+    private fun verifyBiometric() {
         viewModelScope.launch(errorHandler) {
             val operationResponse = verifyBiometricUseCase.execute(biometricPromptOptions)
             mutableResponseLiveData.postValue(operationResponse)
@@ -64,11 +118,8 @@ class VerifyUserViewModel @Inject constructor(
 
     /**
      * Starts device passcode authentication for an operation.
-     *
-     * @param devicePasscodePromptOptions The device passcode prompt options that is used
-     * for displaying the dialog that asks the user to verify her-/himself.
      */
-    fun verifyDevicePasscode(devicePasscodePromptOptions: DevicePasscodePromptOptions) {
+    private fun verifyDevicePasscode() {
         viewModelScope.launch(errorHandler) {
             val operationResponse = verifyDevicePasscodeUseCase.execute(devicePasscodePromptOptions)
             mutableResponseLiveData.postValue(operationResponse)

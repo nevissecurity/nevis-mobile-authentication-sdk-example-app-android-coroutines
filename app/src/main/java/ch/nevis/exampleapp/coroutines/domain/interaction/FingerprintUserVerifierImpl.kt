@@ -10,6 +10,7 @@ import ch.nevis.exampleapp.coroutines.domain.model.error.BusinessException
 import ch.nevis.exampleapp.coroutines.domain.model.response.VerifyFingerprintResponse
 import ch.nevis.exampleapp.coroutines.domain.model.state.UserInteractionOperationState
 import ch.nevis.exampleapp.coroutines.domain.repository.OperationStateRepository
+import ch.nevis.exampleapp.coroutines.domain.util.titleResId
 import ch.nevis.exampleapp.coroutines.timber.sdk
 import ch.nevis.mobile.sdk.api.operation.userverification.FingerprintUserVerificationContext
 import ch.nevis.mobile.sdk.api.operation.userverification.FingerprintUserVerificationHandler
@@ -49,6 +50,7 @@ class FingerprintUserVerifierImpl(
 
         cancellableContinuation.resume(
             VerifyFingerprintResponse(
+                fingerprintUserVerificationContext.authenticator().titleResId(),
                 fingerprintUserVerificationContext.lastRecoverableError().orElse(null)
             )
         )
@@ -56,7 +58,7 @@ class FingerprintUserVerifierImpl(
 
     override fun onValidCredentialsProvided() {
         Timber.asTree()
-            .sdk("The user successfully verified herself/himself with fingerprint authenticator.")
+            .sdk("Valid credentials provided during fingerprint verification.")
     }
     //endregion
 }
