@@ -60,29 +60,38 @@ class VerifyUserFragment : ResponseObserverFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.setVerifyUserViewMode(navigationArguments.parameter.verifyUserViewMode)
+        viewModel.setBiometricPromptOptions(
+            BiometricPromptOptions.builder()
+                .title(getString(R.string.verify_user_biometric_prompt_title))
+                .cancelButtonText(getString(R.string.verify_user_biometric_prompt_cancel_button_title))
+                .build()
+        )
+        viewModel.setDevicePasscodePromptOptions(
+            DevicePasscodePromptOptions.builder()
+                .title(getString(R.string.verify_user_device_passcode_prompt_title))
+                .build()
+        )
+
+        val title = getString(
+            R.string.verify_user_title,
+            getString(navigationArguments.parameter.authenticatorTitleResId)
+        )
+        binding.titleTextView.text = title
+
+        binding.confirmButton.setOnClickListener {
+            val visibility = when (navigationArguments.parameter.verifyUserViewMode) {
+                VerifyUserViewMode.FINGERPRINT -> View.VISIBLE
+                else -> View.GONE
+            }
+            binding.descriptionTextView.visibility = visibility
+            viewModel.verifyUser()
+        }
+
         requireActivity().onBackPressedDispatcher.addCallback(
             viewLifecycleOwner,
             CancelOperationOnBackPressedCallback(viewModel)
         )
-    }
-
-    override fun onResume() {
-        super.onResume()
-        when (navigationArguments.parameter.verifyUserViewMode) {
-            VerifyUserViewMode.FINGERPRINT -> viewModel.verifyFingerprint()
-            VerifyUserViewMode.BIOMETRIC -> viewModel.verifyBiometric(
-                BiometricPromptOptions.builder()
-                    .title(getString(R.string.verify_user_biometric_prompt_title))
-                    .cancelButtonText(getString(R.string.verify_user_biometric_prompt_cancel_button_title))
-                    .build()
-            )
-
-            VerifyUserViewMode.DEVICE_PASSCODE -> viewModel.verifyDevicePasscode(
-                DevicePasscodePromptOptions.builder()
-                    .title(getString(R.string.verify_user_device_passcode_prompt_title))
-                    .build()
-            )
-        }
     }
 
     override fun onDestroyView() {
@@ -96,9 +105,8 @@ class VerifyUserFragment : ResponseObserverFragment() {
         when (response) {
             is VerifyFingerprintResponse -> {
                 if (response.lastRecoverableError != null) {
-                    binding.titleTextView.text = response.lastRecoverableError.description()
+                    binding.errorMessageTextView.text = response.lastRecoverableError.description()
                 }
-                viewModel.verifyFingerprint()
             }
 
             else -> super.processResponse(response)

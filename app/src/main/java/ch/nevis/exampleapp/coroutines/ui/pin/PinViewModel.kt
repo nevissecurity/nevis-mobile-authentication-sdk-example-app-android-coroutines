@@ -43,6 +43,11 @@ class PinViewModel @Inject constructor(
     private var pinViewMode = PinViewMode.ENROLL_PIN
 
     //region Public Interface
+    /**
+     * Sets the current [PinViewMode].
+     *
+     * @param pinViewMode The current [PinViewMode].
+     */
     fun setPinMode(pinViewMode: PinViewMode) {
         this.pinViewMode = pinViewMode
     }

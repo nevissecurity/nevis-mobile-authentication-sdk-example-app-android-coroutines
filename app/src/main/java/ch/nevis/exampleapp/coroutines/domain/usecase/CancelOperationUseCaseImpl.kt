@@ -48,6 +48,7 @@ class CancelOperationUseCaseImpl(
                 it.pinUserVerificationHandler?.cancel()
                 it.fingerprintUserVerificationHandler?.cancel()
                 it.biometricUserVerificationHandler?.cancel()
+                it.osAuthenticationListenHandler?.cancelAuthentication()
                 cancelled = true
             }
 

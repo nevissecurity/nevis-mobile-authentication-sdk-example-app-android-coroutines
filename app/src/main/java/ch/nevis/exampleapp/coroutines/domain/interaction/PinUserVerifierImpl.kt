@@ -55,8 +55,7 @@ class PinUserVerifierImpl(
     }
 
     override fun onValidCredentialsProvided() {
-        Timber.asTree()
-            .sdk("The user successfully verified herself/himself with PIN authenticator.")
+        Timber.asTree().sdk("Valid credentials provided during PIN verification.")
     }
     //endregion
 }

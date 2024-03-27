@@ -10,6 +10,7 @@ import ch.nevis.exampleapp.coroutines.domain.model.error.BusinessException
 import ch.nevis.exampleapp.coroutines.domain.model.response.VerifyBiometricResponse
 import ch.nevis.exampleapp.coroutines.domain.model.state.UserInteractionOperationState
 import ch.nevis.exampleapp.coroutines.domain.repository.OperationStateRepository
+import ch.nevis.exampleapp.coroutines.domain.util.titleResId
 import ch.nevis.exampleapp.coroutines.timber.sdk
 import ch.nevis.mobile.sdk.api.operation.userverification.BiometricUserVerificationContext
 import ch.nevis.mobile.sdk.api.operation.userverification.BiometricUserVerificationHandler
@@ -31,10 +32,10 @@ class BiometricUserVerifierImpl(
 
     //region BiometricUserVerifier
     override fun verifyBiometric(
-        biometricUserVerificationContext: BiometricUserVerificationContext?,
-        biometricUserVerificationHandler: BiometricUserVerificationHandler?
+        biometricUserVerificationContext: BiometricUserVerificationContext,
+        biometricUserVerificationHandler: BiometricUserVerificationHandler
     ) {
-        Timber.asTree().sdk("Start biometric user verification.")
+        Timber.asTree().sdk("Please start biometric user verification.")
 
         val operationState =
             stateRepository.get() ?: throw BusinessException.invalidState()
@@ -44,13 +45,15 @@ class BiometricUserVerifierImpl(
             operationState.cancellableContinuation ?: throw BusinessException.invalidState()
 
         cancellableContinuation.resume(
-            VerifyBiometricResponse()
+            VerifyBiometricResponse(
+                biometricUserVerificationContext.authenticator().titleResId()
+            )
         )
     }
 
     override fun onValidCredentialsProvided() {
         Timber.asTree()
-            .sdk("The user successfully verified herself/himself with biometric authenticator.")
+            .sdk("Valid credentials provided during biometric verification.")
     }
     //endregion
 }

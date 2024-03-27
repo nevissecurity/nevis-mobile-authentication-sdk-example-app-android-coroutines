@@ -12,6 +12,7 @@ import ch.nevis.exampleapp.coroutines.domain.model.response.SelectAuthenticatorR
 import ch.nevis.exampleapp.coroutines.domain.model.state.UserInteractionOperationState
 import ch.nevis.exampleapp.coroutines.domain.repository.OperationStateRepository
 import ch.nevis.exampleapp.coroutines.domain.util.isUserEnrolled
+import ch.nevis.exampleapp.coroutines.domain.util.titleResId
 import ch.nevis.exampleapp.coroutines.timber.sdk
 import ch.nevis.exampleapp.coroutines.ui.selectAuthenticator.model.AuthenticatorItem
 import ch.nevis.mobile.sdk.api.localdata.Authenticator
@@ -107,7 +108,8 @@ class RegistrationAuthenticatorSelectorImpl(
                 authenticator.isUserEnrolled(
                     context.account().username(),
                     settings.allowClass2Sensors
-                )
+                ),
+                authenticator.titleResId()
             )
         } else {
             null
