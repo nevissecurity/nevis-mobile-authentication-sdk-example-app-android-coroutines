@@ -1,7 +1,7 @@
-/**
+/*
  * Nevis Mobile Authentication SDK Example App
  *
- * Copyright © 2022. Nevis Security AG. All rights reserved.
+ * Copyright © 2022-2024. Nevis Security AG. All rights reserved.
  */
 
 package ch.nevis.exampleapp.coroutines.domain.interaction
@@ -99,9 +99,11 @@ class RegistrationAuthenticatorSelectorImpl(
             return null
         }
 
-        // Do not display policy non-compliant authenticators (this includes already registered
-        // authenticators), nor those not supported by hardware.
-        return if (authenticator.isSupportedByHardware && context.isPolicyCompliant(authenticator.aaid())) {
+        // Do not display:
+        //   - policy non-compliant authenticators (this includes already registered authenticators)
+        //   - not hardware supported authenticators.
+        //   - not OS supported authenticators.
+        return if (authenticator.isSupportedByHardware && authenticator.isSupportedByOs && context.isPolicyCompliant(authenticator.aaid())) {
             AuthenticatorItem(
                 authenticator.aaid(),
                 true,
