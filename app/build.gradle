@@ -32,8 +32,8 @@ static def readVersionName(project) {
 }
 
 android {
+    namespace 'ch.nevis.exampleapp.coroutines'
     compileSdk 33
-    buildToolsVersion = "31.0.0"
 
     defaultConfig {
         applicationId "ch.nevis.exampleapp.coroutines"
