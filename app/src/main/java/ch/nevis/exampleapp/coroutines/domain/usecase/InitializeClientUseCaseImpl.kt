@@ -6,7 +6,7 @@
 
 package ch.nevis.exampleapp.coroutines.domain.usecase
 
-import android.app.Application
+import android.content.Context
 import ch.nevis.exampleapp.coroutines.domain.client.ClientProvider
 import ch.nevis.exampleapp.coroutines.domain.model.error.MobileAuthenticationClientException
 import ch.nevis.exampleapp.coroutines.domain.model.operation.Operation
@@ -35,9 +35,9 @@ class InitializeClientUseCaseImpl(
     private val clientProvider: ClientProvider,
 
     /**
-     * The Android [Application] object.
+     * An Android [Context] object used for initializing [ch.nevis.mobile.sdk.api.MobileAuthenticationClient].
      */
-    private val application: Application
+    private val context: Context,
 ) : InitializeClientUseCase {
 
     /**
@@ -55,7 +55,7 @@ class InitializeClientUseCaseImpl(
         } else {
             suspendCancellableCoroutine { cancellableContinuation ->
                 MobileAuthenticationClientInitializer.initializer()
-                    .application(application)
+                    .context(context)
                     .configuration(configuration)
                     .onSuccess {
                         clientProvider.save(it)

@@ -270,11 +270,11 @@ class ApplicationModule {
     @Singleton
     fun provideInitializeClientUseCase(
         clientProvider: ClientProvider,
-        application: Application
+        @ApplicationContext context: Context
     ): InitializeClientUseCase =
         InitializeClientUseCaseImpl(
             clientProvider,
-            application
+            context
         )
 
     @Provides
