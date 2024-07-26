@@ -17,7 +17,7 @@ import kotlinx.coroutines.suspendCancellableCoroutine
  */
 class ChangePinUseCaseImpl(
     /**
-     * An instance of a [OperationStateRepository] implementation that may hold an [ChangePinOperationState].
+     * An instance of an [OperationStateRepository] implementation that may hold an [ChangePinOperationState].
      */
     private val stateRepository: OperationStateRepository<ChangePinOperationState>
 ) : ChangePinUseCase {

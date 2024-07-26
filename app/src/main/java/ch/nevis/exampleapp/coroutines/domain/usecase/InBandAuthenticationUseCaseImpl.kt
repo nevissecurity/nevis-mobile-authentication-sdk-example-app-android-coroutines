@@ -32,12 +32,12 @@ class InBandAuthenticationUseCaseImpl(
     private val clientProvider: ClientProvider,
 
     /**
-     * An instance of a [OperationStateRepository] implementation that may hold an [UserInteractionOperationState].
+     * An instance of an [OperationStateRepository] implementation that may hold an [UserInteractionOperationState].
      */
     private val stateRepository: OperationStateRepository<UserInteractionOperationState>,
 
     /**
-     * An instance of a [AuthenticatorSelector] implementation.
+     * An instance of an [AuthenticatorSelector] implementation.
      */
     private val authenticatorSelector: AuthenticatorSelector,
 

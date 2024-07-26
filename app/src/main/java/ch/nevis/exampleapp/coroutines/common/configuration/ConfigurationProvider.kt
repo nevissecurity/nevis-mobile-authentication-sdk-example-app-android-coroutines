@@ -24,5 +24,10 @@ abstract class ConfigurationProvider {
      * The [Configuration] object related to the environment.
      */
     abstract val configuration: Configuration
+
+    /**
+     * The list of allowed authenticators.
+     */
+    abstract val authenticatorAllowlist: List<String>
     //endregion
 }

@@ -17,7 +17,7 @@ import kotlinx.coroutines.suspendCancellableCoroutine
  */
 class VerifyPinUseCaseImpl(
     /**
-     * An instance of a [OperationStateRepository] implementation that may hold an [UserInteractionOperationState].
+     * An instance of an [OperationStateRepository] implementation that may hold an [UserInteractionOperationState].
      */
     private val stateRepository: OperationStateRepository<UserInteractionOperationState>
 ) : VerifyPinUseCase {

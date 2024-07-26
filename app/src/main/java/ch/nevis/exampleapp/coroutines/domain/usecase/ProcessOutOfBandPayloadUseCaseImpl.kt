@@ -56,19 +56,19 @@ class ProcessOutOfBandPayloadUseCaseImpl(
     private val createDeviceInformationUseCase: CreateDeviceInformationUseCase,
 
     /**
-     * An instance of a [AccountSelector] implementation.
+     * An instance of an [AccountSelector] implementation.
      */
     private val accountSelector: AccountSelector,
 
     /**
-     * An instance of a [AuthenticatorSelector] implementation for authentication cases.
-     */
-    private val authenticationAuthenticatorSelector: AuthenticatorSelector,
-
-    /**
-     * An instance of a [AuthenticatorSelector] implementation for registration cases.
+     * An instance of an [AuthenticatorSelector] implementation for registration cases.
      */
     private val registrationAuthenticatorSelector: AuthenticatorSelector,
+
+    /**
+     * An instance of an [AuthenticatorSelector] implementation for authentication cases.
+     */
+    private val authenticationAuthenticatorSelector: AuthenticatorSelector,
 
     /**
      * An instance of a [PinEnroller] implementation for registration cases.

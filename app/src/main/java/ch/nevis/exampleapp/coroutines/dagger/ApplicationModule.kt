@@ -34,8 +34,14 @@ import ch.nevis.exampleapp.coroutines.domain.model.state.UserInteractionOperatio
 import ch.nevis.exampleapp.coroutines.domain.repository.LoginRepository
 import ch.nevis.exampleapp.coroutines.domain.repository.OperationStateRepository
 import ch.nevis.exampleapp.coroutines.domain.usecase.*
+import ch.nevis.exampleapp.coroutines.domain.validation.AuthenticatorValidator
+import ch.nevis.exampleapp.coroutines.domain.validation.AuthenticatorValidatorImpl
 import ch.nevis.mobile.sdk.api.Configuration
 import ch.nevis.mobile.sdk.api.authorization.AuthorizationProvider
+import ch.nevis.mobile.sdk.api.localdata.Authenticator.BIOMETRIC_AUTHENTICATOR_AAID
+import ch.nevis.mobile.sdk.api.localdata.Authenticator.DEVICE_PASSCODE_AUTHENTICATOR_AAID
+import ch.nevis.mobile.sdk.api.localdata.Authenticator.FINGERPRINT_AUTHENTICATOR_AAID
+import ch.nevis.mobile.sdk.api.localdata.Authenticator.PIN_AUTHENTICATOR_AAID
 import ch.nevis.mobile.sdk.api.operation.AuthenticationError
 import ch.nevis.mobile.sdk.api.operation.OperationError
 import ch.nevis.mobile.sdk.api.operation.authcloudapi.AuthCloudApiError
@@ -70,8 +76,25 @@ class ApplicationModule {
 
     //region Constants
     companion object {
+        /**
+         * The unique name of authenticator selector implementation for Registration operation.
+         */
+        const val REGISTRATION_AUTHENTICATOR_SELECTOR = "REGISTRATION_AUTHENTICATOR_SELECTOR"
+
+        /**
+         * The unique name of authenticator selector implementation for Authentication operation.
+         */
+        const val AUTHENTICATION_AUTHENTICATOR_SELECTOR = "AUTHENTICATION_AUTHENTICATOR_SELECTOR"
+
+        /**
+         * The unique name of default in-band authentication use case.
+         */
         const val IN_BAND_AUTHENTICATION_USE_CASE_DEFAULT =
             "IN_BAND_AUTHENTICATION_USE_CASE_DEFAULT"
+
+        /**
+         * The unique name of in-band authentication use case used for Deregistration operation.
+         */
         const val IN_BAND_AUTHENTICATION_USE_CASE_FOR_DEREGISTRATION =
             "IN_BAND_AUTHENTICATION_USE_CASE_FOR_DEREGISTRATION"
     }
@@ -118,11 +141,20 @@ class ApplicationModule {
     }
 
     @Provides
+    fun provideAuthenticatorAllowlist(): List<String> = listOf(
+        PIN_AUTHENTICATOR_AAID,
+        FINGERPRINT_AUTHENTICATOR_AAID,
+        BIOMETRIC_AUTHENTICATOR_AAID,
+        DEVICE_PASSCODE_AUTHENTICATOR_AAID
+    )
+
+    @Provides
     @Singleton
     fun provideConfigurationProvider(application: Application): ConfigurationProvider =
         ConfigurationProviderImpl(
             Environment.AUTHENTICATION_CLOUD,
-            provideAuthenticationCloudConfiguration(application)
+            provideAuthenticationCloudConfiguration(application),
+            provideAuthenticatorAllowlist()
         )
     //endregion
 
@@ -148,6 +180,12 @@ class ApplicationModule {
     @Provides
     @Singleton
     fun provideSettings(@ApplicationContext context: Context): Settings = SettingsImpl(context)
+    //endregion
+
+    //region Validation
+    @Provides
+    @Singleton
+    fun provideAuthenticatorValidator(): AuthenticatorValidator = AuthenticatorValidatorImpl()
     //endregion
 
     //region Data Sources
@@ -189,16 +227,36 @@ class ApplicationModule {
         AccountSelectorImpl(stateRepository)
 
     @Provides
-    fun provideAuthenticationAuthenticatorSelector(
+    @Named(REGISTRATION_AUTHENTICATOR_SELECTOR)
+    fun provideRegistrationAuthenticatorSelector(
+        configurationProvider: ConfigurationProvider,
         stateRepository: OperationStateRepository<UserInteractionOperationState>,
-        settings: Settings
-    ): AuthenticatorSelector = AuthenticationAuthenticatorSelectorImpl(stateRepository, settings)
+        authenticatorValidator: AuthenticatorValidator,
+        settings: Settings,
+    ): AuthenticatorSelector =
+        AuthenticatorSelectorImpl(
+            configurationProvider,
+            stateRepository,
+            authenticatorValidator,
+            settings,
+            AuthenticatorSelectorOperation.REGISTRATION
+        )
 
     @Provides
-    fun provideRegistrationAuthenticatorSelector(
+    @Named(AUTHENTICATION_AUTHENTICATOR_SELECTOR)
+    fun provideAuthenticationAuthenticatorSelector(
+        configurationProvider: ConfigurationProvider,
         stateRepository: OperationStateRepository<UserInteractionOperationState>,
-        settings: Settings
-    ): AuthenticatorSelector = RegistrationAuthenticatorSelectorImpl(stateRepository, settings)
+        authenticatorValidator: AuthenticatorValidator,
+        settings: Settings,
+    ): AuthenticatorSelector =
+        AuthenticatorSelectorImpl(
+            configurationProvider,
+            stateRepository,
+            authenticatorValidator,
+            settings,
+            AuthenticatorSelectorOperation.AUTHENTICATION
+        )
 
     @Provides
     fun providePinChanger(stateRepository: OperationStateRepository<ChangePinOperationState>): PinChanger =
@@ -307,16 +365,17 @@ class ApplicationModule {
     fun provideInBandAuthenticationUseCase(
         clientProvider: ClientProvider,
         stateRepository: OperationStateRepository<UserInteractionOperationState>,
+        @Named(AUTHENTICATION_AUTHENTICATOR_SELECTOR)
+        authenticatorSelector: AuthenticatorSelector,
         pinUserVerifier: PinUserVerifier,
         fingerprintUserVerifier: FingerprintUserVerifier,
         biometricUserVerifier: BiometricUserVerifier,
         devicePasscodeUserVerifier: DevicePasscodeUserVerifier,
-        settings: Settings,
         onError: Consumer<AuthenticationError>
     ): InBandAuthenticationUseCase = InBandAuthenticationUseCaseImpl(
         clientProvider,
         stateRepository,
-        provideAuthenticationAuthenticatorSelector(stateRepository, settings),
+        authenticatorSelector,
         pinUserVerifier,
         fingerprintUserVerifier,
         biometricUserVerifier,
@@ -330,16 +389,17 @@ class ApplicationModule {
     fun provideInBandAuthenticationUseCaseForDeregistration(
         clientProvider: ClientProvider,
         stateRepository: OperationStateRepository<UserInteractionOperationState>,
+        @Named(AUTHENTICATION_AUTHENTICATOR_SELECTOR)
+        authenticatorSelector: AuthenticatorSelector,
         pinUserVerifier: PinUserVerifier,
         fingerprintUserVerifier: FingerprintUserVerifier,
         biometricUserVerifier: BiometricUserVerifier,
         devicePasscodeUserVerifier: DevicePasscodeUserVerifier,
-        settings: Settings,
         onError: Consumer<AuthenticationError>
     ): InBandAuthenticationUseCase = InBandAuthenticationUseCaseImpl(
         clientProvider,
         stateRepository,
-        provideAuthenticationAuthenticatorSelector(stateRepository, settings),
+        authenticatorSelector,
         pinUserVerifier,
         fingerprintUserVerifier,
         biometricUserVerifier,
@@ -400,20 +460,23 @@ class ApplicationModule {
         stateRepository: OperationStateRepository<UserInteractionOperationState>,
         createDeviceInformationUseCase: CreateDeviceInformationUseCase,
         accountSelector: AccountSelector,
+        @Named(REGISTRATION_AUTHENTICATOR_SELECTOR)
+        registrationAuthenticatorSelector: AuthenticatorSelector,
+        @Named(AUTHENTICATION_AUTHENTICATOR_SELECTOR)
+        authenticationAuthenticatorSelector: AuthenticatorSelector,
         pinEnroller: PinEnroller,
         pinUserVerifier: PinUserVerifier,
         fingerprintUserVerifier: FingerprintUserVerifier,
         biometricUserVerifier: BiometricUserVerifier,
         devicePasscodeUserVerifier: DevicePasscodeUserVerifier,
-        settings: Settings,
         onError: Consumer<OperationError>
     ): ProcessOutOfBandPayloadUseCase = ProcessOutOfBandPayloadUseCaseImpl(
         clientProvider,
         stateRepository,
         createDeviceInformationUseCase,
         accountSelector,
-        provideAuthenticationAuthenticatorSelector(stateRepository, settings),
-        provideRegistrationAuthenticatorSelector(stateRepository, settings),
+        registrationAuthenticatorSelector,
+        authenticationAuthenticatorSelector,
         pinEnroller,
         pinUserVerifier,
         fingerprintUserVerifier,
@@ -439,17 +502,18 @@ class ApplicationModule {
         clientProvider: ClientProvider,
         stateRepository: OperationStateRepository<UserInteractionOperationState>,
         createDeviceInformationUseCase: CreateDeviceInformationUseCase,
+        @Named(REGISTRATION_AUTHENTICATOR_SELECTOR)
+        authenticatorSelector: AuthenticatorSelector,
         pinEnroller: PinEnroller,
         fingerprintUserVerifier: FingerprintUserVerifier,
         biometricUserVerifier: BiometricUserVerifier,
         devicePasscodeUserVerifier: DevicePasscodeUserVerifier,
-        onError: Consumer<AuthCloudApiError>,
-        settings: Settings
+        onError: Consumer<AuthCloudApiError>
     ): AuthCloudApiRegistrationUseCase = AuthCloudApiRegistrationUseCaseImpl(
         clientProvider,
         stateRepository,
         createDeviceInformationUseCase,
-        provideRegistrationAuthenticatorSelector(stateRepository, settings),
+        authenticatorSelector,
         pinEnroller,
         fingerprintUserVerifier,
         biometricUserVerifier,
@@ -467,17 +531,18 @@ class ApplicationModule {
         clientProvider: ClientProvider,
         stateRepository: OperationStateRepository<UserInteractionOperationState>,
         createDeviceInformationUseCase: CreateDeviceInformationUseCase,
+        @Named(REGISTRATION_AUTHENTICATOR_SELECTOR)
+        authenticatorSelector: AuthenticatorSelector,
         pinEnroller: PinEnroller,
         fingerprintUserVerifier: FingerprintUserVerifier,
         biometricUserVerifier: BiometricUserVerifier,
         devicePasscodeUserVerifier: DevicePasscodeUserVerifier,
-        settings: Settings,
         onError: Consumer<OperationError>
     ): InBandRegistrationUseCase = InBandRegistrationUseCaseImpl(
         clientProvider,
         stateRepository,
         createDeviceInformationUseCase,
-        provideRegistrationAuthenticatorSelector(stateRepository, settings),
+        authenticatorSelector,
         pinEnroller,
         fingerprintUserVerifier,
         biometricUserVerifier,
