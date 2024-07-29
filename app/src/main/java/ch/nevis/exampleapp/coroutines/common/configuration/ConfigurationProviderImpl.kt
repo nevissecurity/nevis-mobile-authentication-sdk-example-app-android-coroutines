@@ -13,5 +13,6 @@ import ch.nevis.mobile.sdk.api.Configuration
  */
 class ConfigurationProviderImpl(
     override val environment: Environment,
-    override val configuration: Configuration
+    override val configuration: Configuration,
+    override val authenticatorAllowlist: List<String>
 ) : ConfigurationProvider()

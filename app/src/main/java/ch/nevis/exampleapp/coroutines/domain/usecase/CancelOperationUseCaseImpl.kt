@@ -20,12 +20,12 @@ import kotlin.coroutines.resume
  */
 class CancelOperationUseCaseImpl(
     /**
-     * An instance of a [OperationStateRepository] implementation that may hold an [UserInteractionOperationState].
+     * An instance of an [OperationStateRepository] implementation that may hold an [UserInteractionOperationState].
      */
     private val userInteractionOperationStateRepository: OperationStateRepository<UserInteractionOperationState>,
 
     /**
-     * An instance of a [OperationStateRepository] implementation that may hold an [ChangePinOperationState].
+     * An instance of an [OperationStateRepository] implementation that may hold an [ChangePinOperationState].
      */
     private val changePinOperationStateRepository: OperationStateRepository<ChangePinOperationState>
 ) : CancelOperationUseCase {

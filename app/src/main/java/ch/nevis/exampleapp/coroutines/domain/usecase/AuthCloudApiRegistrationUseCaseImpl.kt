@@ -42,7 +42,7 @@ class AuthCloudApiRegistrationUseCaseImpl(
     private val createDeviceInformationUseCase: CreateDeviceInformationUseCase,
 
     /**
-     * An instance of a [AuthenticatorSelector] implementation.
+     * An instance of an [AuthenticatorSelector] implementation.
      */
     private val authenticatorSelector: AuthenticatorSelector,
 
