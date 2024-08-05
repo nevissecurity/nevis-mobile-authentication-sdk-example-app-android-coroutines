@@ -1,2 +1,2 @@
-rootProject.name = "Nevis Mobile Authentication Example App"
+rootProject.name = "nevis-mobile-authentication-example-coroutines"
 include ':app'

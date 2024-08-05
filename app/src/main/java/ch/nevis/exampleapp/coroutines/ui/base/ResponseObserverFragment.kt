@@ -59,6 +59,7 @@ abstract class ResponseObserverFragment : Fragment() {
     protected lateinit var errorHandlerChain: ErrorHandlerChain
 
     //region Fragment
+    /** @suppress */
     override fun onResume() {
         super.onResume()
 
@@ -67,6 +68,7 @@ abstract class ResponseObserverFragment : Fragment() {
         }
     }
 
+    /** @suppress */
     override fun onPause() {
         super.onPause()
         viewModel.responseLiveData.removeObservers(viewLifecycleOwner)

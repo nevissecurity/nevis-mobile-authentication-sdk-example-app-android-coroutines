@@ -40,87 +40,45 @@ import kotlin.coroutines.resume
  *
  * After the [OutOfBandPayload] is process successfully, based on the result an [OutOfBandRegistration]
  * or [OutOfBandAuthentication] operation is started automatically.
+ *
+ * @constructor Creates a new instance.
+ * @param clientProvider An instance of [ClientProvider] interface implementation.
+ * @param stateRepository An instance of an [OperationStateRepository] implementation that may hold
+ *  a [UserInteractionOperationState].
+ * @param createDeviceInformationUseCase An instance of [CreateDeviceInformationUseCase] interface implementation.
+ * @param accountSelector An instance of [AccountSelector] interface implementation.
+ * @param registrationAuthenticatorSelector An instance of [AuthenticatorSelector] interface implementation
+ *  for Registration operation.
+ * @param authenticationAuthenticatorSelector An instance of [AuthenticatorSelector] interface implementation
+ *  for Authentication operation.
+ * @param pinEnroller An instance of [PinEnroller] interface implementation.
+ * @param passwordEnroller An instance of [PasswordEnroller] interface implementation.
+ * @param pinUserVerifier An instance of [PinUserVerifier] interface implementation.
+ * @param passwordUserVerifier An instance of [PasswordUserVerifier] interface implementation.
+ * @param fingerprintUserVerifier An instance of [FingerprintUserVerifier] interface implementation.
+ * @param biometricUserVerifier An instance of [BiometricUserVerifier] interface implementation.
+ * @param devicePasscodeUserVerifier An instance of [DevicePasscodeUserVerifier] interface implementation.
+ * @param onAuthenticationSuccess An instance of a [Consumer] implementation that accepts an [AuthorizationProvider]
+ *  object for successful authentication cases.
+ * @param onRegistrationSuccess An instance of a [Runnable] implementation for successful registration cases.
+ * @param onError An instance of a [Consumer] implementation that accepts an [OperationError] object.
  */
 class ProcessOutOfBandPayloadUseCaseImpl(
-    /**
-     * An instance of a [ClientProvider] implementation.
-     */
     private val clientProvider: ClientProvider,
-
-    /**
-     * An instance of a [OperationStateRepository] implementation that may hold an [UserInteractionOperationState].
-     */
     private val stateRepository: OperationStateRepository<UserInteractionOperationState>,
-
-    /**
-     * An instance of a [CreateDeviceInformationUseCase] implementation.
-     */
     private val createDeviceInformationUseCase: CreateDeviceInformationUseCase,
-
-    /**
-     * An instance of an [AccountSelector] implementation.
-     */
     private val accountSelector: AccountSelector,
-
-    /**
-     * An instance of an [AuthenticatorSelector] implementation for registration cases.
-     */
     private val registrationAuthenticatorSelector: AuthenticatorSelector,
-
-    /**
-     * An instance of an [AuthenticatorSelector] implementation for authentication cases.
-     */
     private val authenticationAuthenticatorSelector: AuthenticatorSelector,
-
-    /**
-     * An instance of a [PinEnroller] implementation for registration cases.
-     */
     private val pinEnroller: PinEnroller,
-
-    /**
-     * An instance of a [PasswordEnroller] implementation.
-     */
     private val passwordEnroller: PasswordEnroller,
-
-    /**
-     * An instance of a [PinUserVerifier] implementation for authentication cases.
-     */
     private val pinUserVerifier: PinUserVerifier,
-
-    /**
-     * An instance of a [PasswordUserVerifier] implementation.
-     */
     private val passwordUserVerifier: PasswordUserVerifier,
-
-    /**
-     * An instance of a [FingerprintUserVerifier] implementation.
-     */
     private val fingerprintUserVerifier: FingerprintUserVerifier,
-
-    /**
-     * An instance of a [BiometricUserVerifier] implementation.
-     */
     private val biometricUserVerifier: BiometricUserVerifier,
-
-    /**
-     * An instance of a [DevicePasscodeUserVerifier] implementation.
-     */
     private val devicePasscodeUserVerifier: DevicePasscodeUserVerifier,
-
-    /**
-     * An instance of a [Consumer] implementation that accepts a [AuthorizationProvider] object for
-     * successful authentication cases.
-     */
     private val onAuthenticationSuccess: Consumer<AuthorizationProvider>,
-
-    /**
-     * An instance of a [Runnable] implementation for successful registration cases.
-     */
     private val onRegistrationSuccess: Runnable,
-
-    /**
-     * An instance of a [Consumer] implementation that accepts a [OperationError] object.
-     */
     private val onError: Consumer<OperationError>
 ) : ProcessOutOfBandPayloadUseCase {
 
@@ -220,6 +178,7 @@ class ProcessOutOfBandPayloadUseCaseImpl(
      * Sets-up and executes the given out-of-band registration.
      *
      * @param outOfBandRegistration The [OutOfBandRegistration] operation to be executed.
+     * @param deviceInformation The device information.
      * @return A [Response] object that indicates the result of the use-case execution.
      */
     private suspend fun register(

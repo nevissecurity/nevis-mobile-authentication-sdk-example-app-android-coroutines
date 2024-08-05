@@ -14,6 +14,12 @@ import kotlinx.parcelize.Parcelize
 
 /**
  * Navigation parameter class for Transaction Confirmation view.
+ *
+ * @constructor Creates a new instance.
+ * @param operation The operation the account selection was requested for.
+ * @param accounts The list of available accounts the user can select from.
+ * @param transactionConfirmationData The transaction confirmation data/message that should be displayed
+ *  on Transaction Confirmation view.
  */
 @Parcelize
 data class TransactionConfirmationNavigationParameter(

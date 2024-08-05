@@ -19,6 +19,8 @@ import dagger.hilt.android.AndroidEntryPoint
  * [androidx.fragment.app.Fragment] implementation of Auth Cloud API Registration view where the user
  * can enter an enroll response or an app link URI and send it to the Auth Cloud API as input for
  * a registration operation.
+ *
+ * @constructor Creates a new instance.
  */
 @AndroidEntryPoint
 class AuthCloudRegistrationFragment : ResponseObserverFragment() {
@@ -37,6 +39,7 @@ class AuthCloudRegistrationFragment : ResponseObserverFragment() {
     //endregion
 
     //region Fragment
+    /** @suppress */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,6 +48,7 @@ class AuthCloudRegistrationFragment : ResponseObserverFragment() {
         return binding.root
     }
 
+    /** @suppress */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -56,6 +60,7 @@ class AuthCloudRegistrationFragment : ResponseObserverFragment() {
         }
     }
 
+    /** @suppress */
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

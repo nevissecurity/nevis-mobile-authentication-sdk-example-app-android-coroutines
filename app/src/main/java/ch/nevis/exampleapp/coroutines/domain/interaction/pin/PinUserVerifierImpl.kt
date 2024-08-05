@@ -21,6 +21,9 @@ import kotlin.coroutines.resume
  * Default implementation of [PinUserVerifier] interface. It stores the PIN verification step context
  * into its state and resumes the cancellableContinuation found in state with [VerifyPinResponse]
  * indicating that the running operation waiting for a PIN verification.
+ *
+ * @constructor Creates a new instance.
+ * @param stateRepository The state repository that stores the state of the running operation.
  */
 class PinUserVerifierImpl(
     /**
@@ -30,6 +33,7 @@ class PinUserVerifierImpl(
 ) : PinUserVerifier {
 
     //region PinUserVerifier
+    /** @suppress */
     override fun verifyPin(
         context: PinUserVerificationContext,
         handler: PinUserVerificationHandler
@@ -54,6 +58,7 @@ class PinUserVerifierImpl(
         )
     }
 
+    /** @suppress */
     override fun onValidCredentialsProvided() {
         Timber.asTree().sdk("Valid credentials provided during PIN verification.")
     }

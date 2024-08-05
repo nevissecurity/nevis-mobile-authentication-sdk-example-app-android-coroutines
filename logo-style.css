@@ -1,0 +1,16 @@
+.library-name a {
+    position: relative;
+    --logo-width: 168px;
+    margin-left: calc(var(--logo-width) + 5px);
+}
+
+.library-name a::before {
+    content: '';
+    background: url("https://www.nevis.net/hubfs/Nevis/images/logotype.svg") center no-repeat #FFF;
+    background-size: contain;
+    position: absolute;
+    width: var(--logo-width);
+    height: 54px;
+    top: -16px;
+    left: calc(-1 * var(--logo-width) - 5px);
+}

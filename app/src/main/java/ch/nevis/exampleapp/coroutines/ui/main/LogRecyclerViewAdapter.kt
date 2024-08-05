@@ -19,11 +19,12 @@ import java.text.SimpleDateFormat
 
 /**
  * An implementation of [RecyclerView.Adapter] abstract class that renders [LogItem] objects into recycler items.
+ *
+ * @constructor Creates a new instance.
+ * @param context An Android [Context] object for resolving resources and to obtain a [LayoutInflater]
+ *  instance.
  */
 class LogRecyclerViewAdapter(
-    /**
-     * An Android [Context] object for resolving resources and to obtain a [LayoutInflater] instance.
-     */
     private val context: Context
 ): RecyclerView.Adapter<LogRecyclerViewAdapter.LogViewHolder>() {
 
@@ -58,10 +59,12 @@ class LogRecyclerViewAdapter(
     //endregion
 
     //region RecyclerView.Adapter
+    /** @suppress */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LogViewHolder {
         return LogViewHolder(layoutInflater.inflate(R.layout.item_log, parent, false))
     }
 
+    /** @suppress */
     override fun onBindViewHolder(holder: LogViewHolder, position: Int) {
         holder.messageTextView.text = null
 
@@ -71,17 +74,18 @@ class LogRecyclerViewAdapter(
         }
     }
 
+    /** @suppress */
     override fun getItemCount() = log.size
     //endregion
 
     //region AuthenticatorViewHolder
     /**
      * A [RecyclerView.ViewHolder] implementation that represents a log item. It holds only a [TextView] the log message will be set into.
+     *
+     * @constructor Creates a new instance.
+     * @param itemView The item view provided by recycler view.
      */
     inner class LogViewHolder(
-        /**
-         * The item view provided by recycler view.
-         */
         itemView: View
     ) : RecyclerView.ViewHolder(itemView) {
 

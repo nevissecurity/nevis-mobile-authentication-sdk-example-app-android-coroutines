@@ -28,6 +28,8 @@ interface SdkLogger {
 
     /**
      * Logs a new message.
+     *
+     * @param message The message to be logged.
      */
     fun log(message: String)
 }

@@ -16,6 +16,10 @@ import java.net.PasswordAuthentication
 /**
  * Default implementation of [LoginDataSource] interface that uses Retrofit to retrieve the credentials
  * from the server for the given username/password.
+ *
+ * @constructor Creates a new instance.
+ * @param retrofit An instance of [Retrofit].
+ *
  */
 class LoginDataSourceImpl(
     private val retrofit: Retrofit
@@ -44,7 +48,13 @@ class LoginDataSourceImpl(
     //endregion
 
     //region Companion Object
+    /**
+     * Collection of constants.
+     */
     companion object {
+        /**
+         * The `Set-Cookie` header key.
+         */
         private const val HEADER_SET_COOKIE = "Set-Cookie"
     }
     //endregion

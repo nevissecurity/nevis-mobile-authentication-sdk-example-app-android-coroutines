@@ -22,15 +22,16 @@ import kotlin.coroutines.resume
  * Default implementation of [FingerprintUserVerifier] interface. It stores the fingerprint verification step context
  * into its state and resumes the cancellableContinuation found in state with [VerifyFingerprintResponse]
  * indicating that the running operation waiting for a fingerprint verification.
+ *
+ * @constructor Creates a new instance.
+ * @param stateRepository The state repository that stores the state of the running operation.
  */
 class FingerprintUserVerifierImpl(
-    /**
-     * The state repository that stores the state of the running operation.
-     */
     private val stateRepository: OperationStateRepository<UserInteractionOperationState>
 ) : FingerprintUserVerifier {
 
     //region FingerprintUserVerifier
+    /** @suppress */
     override fun verifyFingerprint(
         fingerprintUserVerificationContext: FingerprintUserVerificationContext,
         fingerprintUserVerificationHandler: FingerprintUserVerificationHandler
@@ -56,6 +57,7 @@ class FingerprintUserVerifierImpl(
         )
     }
 
+    /** @suppress */
     override fun onValidCredentialsProvided() {
         Timber.asTree()
             .sdk("Valid credentials provided during fingerprint verification.")

@@ -18,6 +18,10 @@ import timber.log.Timber
 
 /**
  * Default implementation of [ErrorHandler] interface.
+ *
+ * @constructor Creates a new instance.
+ * @param context An Android [Context] object for [String] resource resolving.
+ * @param navController The navigation controller.
  */
 class DefaultErrorHandlerImpl(
     private val context: Context,

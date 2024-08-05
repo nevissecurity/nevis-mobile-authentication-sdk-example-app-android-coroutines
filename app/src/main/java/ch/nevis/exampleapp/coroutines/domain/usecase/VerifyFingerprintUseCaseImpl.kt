@@ -14,11 +14,12 @@ import kotlinx.coroutines.suspendCancellableCoroutine
 
 /**
  * Default implementation of [VerifyFingerprintUseCase] interface.
+ *
+ * @constructor Creates a new instance.
+ * @param stateRepository An instance of an [OperationStateRepository] implementation that may hold
+ *  a [UserInteractionOperationState].
  */
 class VerifyFingerprintUseCaseImpl(
-    /**
-     * An instance of an [OperationStateRepository] implementation that may hold an [UserInteractionOperationState].
-     */
     private val stateRepository: OperationStateRepository<UserInteractionOperationState>
 ) : VerifyFingerprintUseCase {
 

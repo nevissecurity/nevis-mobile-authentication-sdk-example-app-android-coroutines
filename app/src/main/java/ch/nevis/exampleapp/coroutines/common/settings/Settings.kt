@@ -21,6 +21,10 @@ interface Settings {
      * by requiring user authentication.
      * However in some cases it may be acceptable for the sake of end-user convenience. Allowing Class 2
      * sensors will enable for instance the use of face recognition in some Samsung devices.
+     *
+     * @see ch.nevis.mobile.sdk.api.operation.authcloudapi.AuthCloudApiRegistration
+     * @see ch.nevis.mobile.sdk.api.operation.outofband.OutOfBandRegistration
+     * @see ch.nevis.mobile.sdk.api.operation.Registration.allowClass2Sensors
      */
     val allowClass2Sensors: Boolean
 }

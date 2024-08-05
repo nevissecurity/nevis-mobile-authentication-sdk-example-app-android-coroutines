@@ -15,11 +15,12 @@ import kotlinx.coroutines.suspendCancellableCoroutine
 
 /**
  * Default implementation of [VerifyBiometricUseCase] interface.
+ *
+ * @constructor Creates a new instance.
+ * @param stateRepository An instance of an [OperationStateRepository] implementation that may hold
+ *  a [UserInteractionOperationState].
  */
 class VerifyBiometricUseCaseImpl(
-    /**
-     * An instance of an [OperationStateRepository] implementation that may hold an [UserInteractionOperationState].
-     */
     private val stateRepository: OperationStateRepository<UserInteractionOperationState>
 ) : VerifyBiometricUseCase {
 

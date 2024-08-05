@@ -21,15 +21,16 @@ import kotlin.coroutines.resume
  * Default implementation of [PinEnroller] interface. It stores the PIN enrollment step context
  * into its state and resumes the cancellableContinuation found in state with [EnrollPinResponse]
  * indicating that the running operation waiting for a PIN enrollment/creation.
+ *
+ * @constructor Creates a new instance.
+ * @param stateRepository The state repository that stores the state of the running operation.
  */
 class PinEnrollerImpl(
-    /**
-     * The state repository that stores the state of the running operation.
-     */
     private val stateRepository: OperationStateRepository<UserInteractionOperationState>
 ) : PinEnroller {
 
     //region PinEnroller
+    /** @suppress */
     override fun enrollPin(
         context: PinEnrollmentContext,
         handler: PinEnrollmentHandler
@@ -54,6 +55,7 @@ class PinEnrollerImpl(
         )
     }
 
+    /** @suppress */
     override fun onValidCredentialsProvided() {
         Timber.asTree().sdk("Valid credentials provided during PIN enrollment.")
     }

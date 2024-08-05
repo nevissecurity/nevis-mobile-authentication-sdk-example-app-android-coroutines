@@ -19,11 +19,11 @@ import java.util.*
  * Default implementation of [CreateDeviceInformationUseCase] interface.
  * It creates a new [DeviceInformation] using Android [Context] and returns it in a
  * [DeviceInformationResponse].
+ *
+ * @constructor Creates a new instance.
+ * @param context The Android [Context].
  */
 class CreateDeviceInformationUseCaseImpl(
-    /**
-     * The Android [Context].
-     */
     private val context: Context
 ) : CreateDeviceInformationUseCase {
 

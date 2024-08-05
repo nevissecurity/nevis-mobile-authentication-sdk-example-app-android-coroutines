@@ -17,6 +17,9 @@ import timber.log.Timber
 
 /**
  * Implementation of [ErrorHandler] interface for cases the user cancels an operation.
+ *
+ * @constructor Creates a new instance.
+ * @param navController The navigation controller.
  */
 class CancelErrorHandlerImpl(
     private val navController: NavController

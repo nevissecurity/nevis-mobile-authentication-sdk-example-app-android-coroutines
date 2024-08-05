@@ -25,57 +25,31 @@ import kotlinx.coroutines.suspendCancellableCoroutine
 
 /**
  * Default implementation of [InBandAuthenticationUseCase] interface.
+ *
+ * @constructor Creates a new instance.
+ * @param clientProvider An instance of [ClientProvider] interface implementation.
+ * @param stateRepository n instance of an [OperationStateRepository] implementation that may hold
+ *  a [UserInteractionOperationState].
+ * @param authenticatorSelector An instance of [AuthenticatorSelector] interface implementation.
+ * @param pinUserVerifier An instance of [PinUserVerifier] interface implementation.
+ * @param passwordUserVerifier An instance of [PasswordUserVerifier] interface implementation.
+ * @param fingerprintUserVerifier An instance of [FingerprintUserVerifier] interface implementation.
+ * @param biometricUserVerifier An instance of [BiometricUserVerifier] interface implementation.
+ * @param devicePasscodeUserVerifier An instance of [DevicePasscodeUserVerifier] interface implementation.
+ * @param onSuccess An instance of a [Consumer] implementation that accepts a [AuthorizationProvider]
+ *  object on successful authentication.
+ * @param onError An instance of a [Consumer] implementation that accepts an [AuthenticationError] object.
  */
 class InBandAuthenticationUseCaseImpl(
-    /**
-     * An instance of a [ClientProvider] implementation.
-     */
     private val clientProvider: ClientProvider,
-
-    /**
-     * An instance of an [OperationStateRepository] implementation that may hold an [UserInteractionOperationState].
-     */
     private val stateRepository: OperationStateRepository<UserInteractionOperationState>,
-
-    /**
-     * An instance of an [AuthenticatorSelector] implementation.
-     */
     private val authenticatorSelector: AuthenticatorSelector,
-
-    /**
-     * An instance of a [PinUserVerifier] implementation.
-     */
     private val pinUserVerifier: PinUserVerifier,
-
-    /**
-     * An instance of a [PasswordUserVerifier] implementation.
-     */
     private val passwordUserVerifier: PasswordUserVerifier,
-
-    /**
-     * An instance of a [FingerprintUserVerifier] implementation.
-     */
     private val fingerprintUserVerifier: FingerprintUserVerifier,
-
-    /**
-     * An instance of a [BiometricUserVerifier] implementation.
-     */
     private val biometricUserVerifier: BiometricUserVerifier,
-
-    /**
-     * An instance of a [DevicePasscodeUserVerifier] implementation.
-     */
     private val devicePasscodeUserVerifier: DevicePasscodeUserVerifier,
-
-    /**
-     * An instance of a [Consumer] implementation that accepts a [AuthorizationProvider] object on
-     * successful authentication.
-     */
     private val onSuccess: Consumer<AuthorizationProvider>,
-
-    /**
-     * An instance of a [Consumer] implementation that accepts a [AuthenticationError] object.
-     */
     private val onError: Consumer<AuthenticationError>
 ) : InBandAuthenticationUseCase {
 

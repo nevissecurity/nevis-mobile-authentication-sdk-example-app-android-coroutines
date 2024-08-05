@@ -30,6 +30,11 @@ abstract class OperationViewModel : ViewModel() {
      * The [Response] objects created by business logic.
      */
     protected val mutableResponseLiveData = SingleLiveEvent<Response>()
+
+    /**
+     * A [LiveData] that can post [Response] objects for fragments those observe it.
+     * The [Response] objects created by business logic.
+     */
     val responseLiveData: LiveData<Response> = mutableResponseLiveData
 
     /**

@@ -13,6 +13,10 @@ import kotlinx.parcelize.Parcelize
 
 /**
  * Navigation parameter data class for Verify User view.
+ *
+ * @constructor Creates a new instance.
+ * @param verifyUserViewMode The mode, the Verify User view intend to be used/initialized.
+ * @param authenticatorTitleResId String resource identifier of the title of the authenticator.
  */
 @Parcelize
 data class VerifyUserNavigationParameter(

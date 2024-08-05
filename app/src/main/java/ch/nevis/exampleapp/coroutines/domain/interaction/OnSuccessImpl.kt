@@ -18,15 +18,16 @@ import kotlin.coroutines.resume
 /**
  * Generic implementation of [Runnable] interface. It resumes the cancellableContinuation of the current
  * operation state with a [CompletedResponse] object and cleans-up the operation state.
+ *
+ * @constructor Creates a new instance.
+ * @param stateRepository The state repository that stores the state of the running operation.
  */
 class OnSuccessImpl<T : OperationState>(
-    /**
-     * The state repository that stores the state of the running operation.
-     */
     private val stateRepository: OperationStateRepository<T>
 ) : Runnable {
 
     //region Runnable
+    /** @suppress */
     override fun run() {
         val operationState =
             stateRepository.get() ?: throw BusinessException.invalidState()

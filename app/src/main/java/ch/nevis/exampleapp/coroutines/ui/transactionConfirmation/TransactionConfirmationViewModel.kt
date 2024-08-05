@@ -18,13 +18,12 @@ import javax.inject.Inject
 
 /**
  * View model implementation of Transaction Confirmation view.
+ *
+ * @constructor Creates a new instance.
+ * @param selectAccountUseCase An instance of a [SelectAccountUseCase] implementation.
  */
 @HiltViewModel
 class TransactionConfirmationViewModel @Inject constructor(
-
-    /**
-     * An instance of a [SelectAccountUseCase] implementation.
-     */
     private val selectAccountUseCase: SelectAccountUseCase
 ) : CancellableOperationViewModel() {
 

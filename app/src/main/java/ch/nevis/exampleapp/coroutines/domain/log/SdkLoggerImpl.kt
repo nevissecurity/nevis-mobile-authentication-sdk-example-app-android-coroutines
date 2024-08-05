@@ -12,6 +12,8 @@ import kotlin.collections.ArrayList
 
 /**
  * Default implementation of [SdkLogger] interface. It simply stores the logged messages in an [ArrayList] object.
+ *
+ * @constructor Creates a new instance.
  */
 class SdkLoggerImpl: SdkLogger {
 

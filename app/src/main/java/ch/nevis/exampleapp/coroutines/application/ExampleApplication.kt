@@ -26,6 +26,7 @@ class ExampleApplication: Application() {
     lateinit var sdkLogger: SdkLogger
 
     //region Application
+    /** @suppress */
     override fun onCreate() {
         super.onCreate()
 

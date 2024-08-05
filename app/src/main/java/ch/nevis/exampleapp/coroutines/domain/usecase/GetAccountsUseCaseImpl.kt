@@ -15,11 +15,11 @@ import ch.nevis.exampleapp.coroutines.domain.model.response.Response
 /**
  * Default implementation of [GetAccountsUseCase] interface that queries the registered accounts from
  * the client and returns them in a [GetAccountsResponse].
+ *
+ * @constructor Creates a new instance.
+ * @param clientProvider An instance of [ClientProvider] interface implementation.
  */
 class GetAccountsUseCaseImpl(
-    /**
-     * An instance of a [ClientProvider] implementation.
-     */
     private val clientProvider: ClientProvider
 ) : GetAccountsUseCase {
 

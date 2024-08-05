@@ -13,11 +13,11 @@ import java.net.PasswordAuthentication
 
 /**
  * Default implementation of [LoginRepository] interface.
+ *
+ * @constructor Creates a new instance.
+ * @param loginDataSource A [LoginDataSource] instance to extract the [LoginResponse] from data layer.
  */
 class LoginRepositoryImpl(
-    /**
-     * A [LoginDataSource] instance to extract the [LoginResponse] from data layer.
-     */
     private val loginDataSource: LoginDataSource
 ) : LoginRepository {
 

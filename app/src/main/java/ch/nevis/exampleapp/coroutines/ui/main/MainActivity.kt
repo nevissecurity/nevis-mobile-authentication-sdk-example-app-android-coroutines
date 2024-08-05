@@ -47,6 +47,9 @@ class MainActivity : AppCompatActivity() {
      */
     private lateinit var logRecyclerViewAdapter: LogRecyclerViewAdapter
 
+    /**
+     * An instance of an [ErrorHandlerChain] implementation.
+     */
     @Inject
     lateinit var errorHandlerChain: ErrorHandlerChain
     //endregion

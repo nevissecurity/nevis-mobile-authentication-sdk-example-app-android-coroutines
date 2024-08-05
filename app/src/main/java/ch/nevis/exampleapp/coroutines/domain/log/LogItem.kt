@@ -10,6 +10,10 @@ import java.util.*
 
 /**
  * A data class that represents a log item.
+ *
+ * @constructor Creates a new instance.
+ * @param date Date/timestamp part of the log item.
+ * @param message Message part of the log item.
  */
 data class LogItem(
 

@@ -10,7 +10,6 @@ import ch.nevis.exampleapp.coroutines.domain.client.ClientProvider
 import ch.nevis.exampleapp.coroutines.domain.model.error.BusinessException
 import ch.nevis.exampleapp.coroutines.domain.model.response.Response
 import ch.nevis.exampleapp.coroutines.domain.model.state.ChangePasswordOperationState
-import ch.nevis.exampleapp.coroutines.domain.model.state.UserInteractionOperationState
 import ch.nevis.exampleapp.coroutines.domain.repository.OperationStateRepository
 import ch.nevis.mobile.sdk.api.operation.password.PasswordChangeError
 import ch.nevis.mobile.sdk.api.operation.password.PasswordChanger
@@ -20,31 +19,20 @@ import kotlinx.coroutines.suspendCancellableCoroutine
 
 /**
  * Default implementation of [StartChangePasswordUseCase] interface.
+ *
+ * @constructor Creates a new instance.
+ * @param clientProvider An instance of [ClientProvider] interface implementation.
+ * @param stateRepository An instance of an [OperationStateRepository] implementation that may hold
+ *  a [ChangePasswordOperationState].
+ * @param passwordChanger An instance of [PasswordChanger] interface implementation.
+ * @param onSuccess An instance of a [Runnable] implementation.
+ * @param onError An instance of a [Consumer] implementation that accepts a [PasswordChangeError] object.
  */
 class StartChangePasswordUseCaseImpl(
-    /**
-     * An instance of a [ClientProvider] implementation.
-     */
     private val clientProvider: ClientProvider,
-
-    /**
-     * An instance of an [OperationStateRepository] implementation that may hold an [UserInteractionOperationState].
-     */
     private val stateRepository: OperationStateRepository<ChangePasswordOperationState>,
-
-    /**
-     * An instance of a [PasswordChanger] implementation.
-     */
     private val passwordChanger: PasswordChanger,
-
-    /**
-     * An instance of a [Runnable] implementation.
-     */
     private val onSuccess: Runnable,
-
-    /**
-     * An instance of a [Consumer] implementation that accepts a [PasswordChangeError] object.
-     */
     private val onError: Consumer<PasswordChangeError>
 ) : StartChangePasswordUseCase {
 

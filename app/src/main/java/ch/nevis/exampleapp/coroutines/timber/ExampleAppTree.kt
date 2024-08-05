@@ -11,17 +11,20 @@ import ch.nevis.exampleapp.coroutines.domain.log.SdkLogger
 import timber.log.Timber
 
 /**
- * An example application specific sub-class of [Timber.DebugTree] that logs SDK events at a specific priority level.
+ * An example application specific sub-class of [Timber.DebugTree] that logs SDK events at a specific
+ * priority level.
+ *
+ * @constructor Creates a new instance.
+ * @param sdkLogger An instance of an implementation of [SdkLogger] interface.
  */
 class ExampleAppTree(
-
-    /**
-     * An instance of an implementation of [SdkLogger] interface.
-     */
     private val sdkLogger: SdkLogger
 ): Timber.DebugTree() {
 
     //region Constants
+    /**
+     * Constants.
+     */
     companion object {
         /**
          * Priority level constant for SDK events.

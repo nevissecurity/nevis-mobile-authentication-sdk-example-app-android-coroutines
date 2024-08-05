@@ -6,6 +6,7 @@
 
 package ch.nevis.exampleapp.coroutines.domain.usecase
 
+import ch.nevis.exampleapp.coroutines.domain.model.state.ChangePasswordOperationState
 import ch.nevis.exampleapp.coroutines.domain.model.state.ChangePinOperationState
 import ch.nevis.exampleapp.coroutines.domain.model.state.UserInteractionOperationState
 import ch.nevis.exampleapp.coroutines.domain.repository.OperationStateRepository
@@ -13,30 +14,31 @@ import ch.nevis.exampleapp.coroutines.domain.repository.OperationStateRepository
 /**
  * Default implementation of [FinishOperationUseCase] interface that clears all [OperationStateRepository]
  * instances that used by the application.
+ *
+ * @constructor Creates a new instance.
+ * @param userInteractionOperationStateRepository An instance of an [OperationStateRepository]
+ *  implementation that may hold an [UserInteractionOperationState].
+ * @param changePinOperationStateRepository An instance of an [OperationStateRepository] implementation
+ *  that may hold an [ChangePinOperationState].
+ * @param changePasswordOperationStateRepository An instance of an [OperationStateRepository]
+ *  implementation that may hold an [ChangePasswordOperationState].
  */
 class FinishOperationUseCaseImpl(
-    /**
-     * An instance of an [OperationStateRepository] implementation that may hold an [UserInteractionOperationState].
-     */
     private val userInteractionOperationStateRepository: OperationStateRepository<UserInteractionOperationState>,
-
-    /**
-     * An instance of an [OperationStateRepository] implementation that may hold an [ChangePinOperationState].
-     */
-    private val changePinOperationStateRepository: OperationStateRepository<ChangePinOperationState>
+    private val changePinOperationStateRepository: OperationStateRepository<ChangePinOperationState>,
+    private val changePasswordOperationStateRepository: OperationStateRepository<ChangePasswordOperationState>
 ) : FinishOperationUseCase {
 
     //region FinishOperationUseCase
     override suspend fun execute() {
-        userInteractionOperationStateRepository.get()?.let {
-            it.reset()
-        }
+        userInteractionOperationStateRepository.get()?.reset()
         userInteractionOperationStateRepository.reset()
 
-        changePinOperationStateRepository.get()?.let {
-            it.reset()
-        }
+        changePinOperationStateRepository.get()?.reset()
         changePinOperationStateRepository.reset()
+
+        changePasswordOperationStateRepository.get()?.reset()
+        changePasswordOperationStateRepository.reset()
     }
     //endregion
 }

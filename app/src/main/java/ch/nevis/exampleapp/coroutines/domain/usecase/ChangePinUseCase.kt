@@ -9,8 +9,8 @@ package ch.nevis.exampleapp.coroutines.domain.usecase
 import ch.nevis.exampleapp.coroutines.domain.model.response.Response
 
 /**
- * Use-case interface for completing change PIN operation. It assumes that a change PIN operation is already
- * started with [StartChangePinUseCase].
+ * Use-case interface for completing change PIN operation. It assumes that a change PIN operation is
+ * already started with [StartChangePinUseCase].
  */
 interface ChangePinUseCase {
 

@@ -13,6 +13,9 @@ import javax.inject.Inject
 
 /**
  * Default implementation of [Settings] interface.
+ *
+ * @constructor Creates a new instance.
+ * @param context The Android [Context].
  */
 class SettingsImpl @Inject constructor(
     @ApplicationContext

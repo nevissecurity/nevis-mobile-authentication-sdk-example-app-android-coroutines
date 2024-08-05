@@ -19,25 +19,24 @@ import kotlin.coroutines.resume
 
 /**
  * An authentication specific implementation of [Consumer] interface that accepts an [AuthorizationProvider]
- * instance after the successful authentication. It resumes the cancellableContinuation found in operation state
- * with [AuthenticationCompletedResponse] indicating that the running authentication operation successfully completed.
+ * instance after the successful authentication. It resumes the cancellableContinuation found in operation
+ * state with [AuthenticationCompletedResponse] indicating that the running authentication operation
+ * successfully completed.
+ *
+ * @constructor Creates a new instance.
+ * @param stateRepository The state repository that stores the state of the running operation.
+ * @param forOperation An optional [Operation] value the authentication started for. In some cases an
+ *  operation needs a pre-step authentication. In these cases an instance of this class can be initialized
+ *  with the proper operation and this value will be set to the [AuthenticationCompletedResponse] object
+ *  the cancellableContinuation of the operation state resumed with.
  */
 class OnSuccessAuthenticationImpl(
-    /**
-     * The state repository that stores the state of the running operation.
-     */
     private val stateRepository: OperationStateRepository<UserInteractionOperationState>,
-
-    /**
-     * An optional [Operation] value the authentication started for. In some cases an operation needs
-     * a pre-step authentication. In these cases an instance of this class can be initialized with the
-     * proper operation and this value will be set to the [AuthenticationCompletedResponse] object the
-     * cancellableContinuation of the operation state resumed with.
-     */
     private val forOperation: Operation? = null
 ) : Consumer<AuthorizationProvider> {
 
     //region Consumer
+    /** @suppress */
     override fun accept(authorizationProvider: AuthorizationProvider) {
         val operationState =
             stateRepository.get() ?: throw BusinessException.invalidState()

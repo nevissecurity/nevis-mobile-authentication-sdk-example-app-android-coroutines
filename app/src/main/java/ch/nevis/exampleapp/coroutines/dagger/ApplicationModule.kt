@@ -89,6 +89,9 @@ import javax.inject.Singleton
 class ApplicationModule {
 
     //region Constants
+    /**
+     * Collection of constants.
+     */
     companion object {
         /**
          * The unique name of authenticator selector implementation for Registration operation.
@@ -115,6 +118,12 @@ class ApplicationModule {
     //endregion
 
     //region Configuration
+    /**
+     * Provides Auth Cloud specific configuration.
+     *
+     * @param application The actual Android application.
+     * @return The Auth Cloud specific configuration.
+     */
     @Suppress("DEPRECATION")
     @SuppressLint("PackageManagerGetSignatures")
     @Provides
@@ -132,6 +141,12 @@ class ApplicationModule {
             .build()
     }
 
+    /**
+     * Provides Identity Suite specific configuration.
+     *
+     * @param application The actual Android application.
+     * @return The Identity Suite specific configuration.
+     */
     @Suppress("DEPRECATION")
     @SuppressLint("PackageManagerGetSignatures")
     @Provides
@@ -154,6 +169,11 @@ class ApplicationModule {
             .build()
     }
 
+    /**
+     * Provides the list of allowed authenticators.
+     *
+     * @return The list of allowed authenticators.
+     */
     @Provides
     fun provideAuthenticatorAllowlist(): List<String> = listOf(
         PIN_AUTHENTICATOR_AAID,
@@ -163,6 +183,12 @@ class ApplicationModule {
         DEVICE_PASSCODE_AUTHENTICATOR_AAID
     )
 
+    /**
+     * Provides the configuration provider.
+     *
+     * @param application The actual Android application.
+     * @return The configuration provider.
+     */
     @Provides
     @Singleton
     fun provideConfigurationProvider(application: Application): ConfigurationProvider =
@@ -174,40 +200,78 @@ class ApplicationModule {
     //endregion
 
     //region Client
+    /**
+     * Provides the client provider.
+     *
+     * @return The client provider.
+     */
     @Provides
     @Singleton
     fun provideClientProvider(): ClientProvider = ClientProviderImpl()
     //endregion
 
     //region Error Handling
+    /**
+     * Provides the error handler chain.
+     *
+     * @return The error handler chain.
+     */
     @Provides
     @Singleton
     fun provideErrorHandlerChain(): ErrorHandlerChain = ErrorHandlerChainImpl()
     //endregion
 
     //region Logger
+    /**
+     * Provides the sdk logger.
+     *
+     * @return The sdk logger.
+     */
     @Provides
     @Singleton
     fun provideSdkLogger(): SdkLogger = SdkLoggerImpl()
     //endregion
 
     //region Settings
+    /**
+     * Provides the application settings.
+     *
+     * @param context The Android [Context].
+     * @return The application settings.
+     */
     @Provides
     @Singleton
     fun provideSettings(@ApplicationContext context: Context): Settings = SettingsImpl(context)
     //endregion
 
     //region Validation
+    /**
+     * Provides the authenticator validator.
+     *
+     * @return The authenticator validator.
+     */
     @Provides
     @Singleton
     fun provideAuthenticatorValidator(): AuthenticatorValidator = AuthenticatorValidatorImpl()
 
+    /**
+     * Provides the password policy.
+     *
+     * @param context The Android [Context].
+     * @return The password policy.
+     */
     @Provides
     fun providePasswordPolicy(@ApplicationContext context: Context): PasswordPolicy =
         PasswordPolicyImpl(context)
     //endregion
 
     //region Data Sources
+    /**
+     * Provides the login related data source.
+     *
+     * @param retrofit An instance of [Retrofit].
+     * @return The login related data source.
+     */
     @Provides
     fun provideLoginDataSource(retrofit: Retrofit): LoginDataSource =
         LoginDataSourceImpl(retrofit)
@@ -215,45 +279,101 @@ class ApplicationModule {
 
 
     //region Caches
+    /**
+     * Provides state cache for the PIN change operation.
+     *
+     * @return The state cache for the PIN change operation.
+     */
     @Provides
     fun provideChangePinOperationStateCache(): Cache<ChangePinOperationState> =
         CacheImpl()
 
+    /**
+     * Provides state cache for the Password change operation.
+     *
+     * @return The state cache for the Password change operation.
+     */
     @Provides
     fun provideChangePasswordOperationStateCache(): Cache<ChangePasswordOperationState> =
         CacheImpl()
 
+    /**
+     * Provides state cache for user interaction related operations.
+     *
+     * @return The state cache for user interaction related operations.
+     */
     @Provides
     fun provideUserInteractionOperationStateCache(): Cache<UserInteractionOperationState> =
         CacheImpl()
     //endregion
 
     //region Repositories
+    /**
+     * Provides state repository for the PIN change operation.
+     *
+     * @param cache The state cache for the PIN change operation.
+     * @return The state repository for the PIN change operation.
+     */
     @Provides
     @Singleton
     fun provideChangePinOperationStateRepository(cache: Cache<ChangePinOperationState>): OperationStateRepository<ChangePinOperationState> =
         OperationStateRepositoryImpl(cache)
 
+    /**
+     * Provides state repository for the Password change operation.
+     *
+     * @param cache The state cache for the Password change operation.
+     * @return The state repository for the Password change operation.
+     */
     @Provides
     @Singleton
     fun provideChangePasswordOperationStateRepository(cache: Cache<ChangePasswordOperationState>): OperationStateRepository<ChangePasswordOperationState> =
         OperationStateRepositoryImpl(cache)
 
+    /**
+     * Provides state repository for user interaction related operations.
+     *
+     * @param cache The state cache for interaction related operations.
+     * @return The state repository for user interaction related operations.
+     */
     @Provides
     @Singleton
     fun provideUserInteractionOperationStateRepository(cache: Cache<UserInteractionOperationState>): OperationStateRepository<UserInteractionOperationState> =
         OperationStateRepositoryImpl(cache)
 
+    /**
+     * Provides repository for login feature.
+     *
+     * @param loginDataSource The login related data source implementation.
+     * @return The repository for login feature.
+     */
     @Provides
     fun provideLoginRepository(loginDataSource: LoginDataSource): LoginRepository =
         LoginRepositoryImpl(loginDataSource)
     //endregion
 
     //region Interaction
+    /**
+     * Provides the account selector.
+     *
+     * @param stateRepository An instance of an [OperationStateRepository] implementation that may hold
+     *  a [UserInteractionOperationState].
+     * @return The account selector.
+     */
     @Provides
     fun provideAccountSelector(stateRepository: OperationStateRepository<UserInteractionOperationState>): AccountSelector =
         AccountSelectorImpl(stateRepository)
 
+    /**
+     * Provides the authenticator selector for registration operation.
+     *
+     * @param configurationProvider An instance of a [ConfigurationProvider] interface implementation.
+     * @param stateRepository An instance of an [OperationStateRepository] implementation that may hold
+     *  a [UserInteractionOperationState].
+     * @param authenticatorValidator An instance of an [AuthenticatorValidator] interface implementation.
+     * @param settings An instance of a [Settings] interface implementation.
+     * @return The authenticator selector.
+     */
     @Provides
     @Named(REGISTRATION_AUTHENTICATOR_SELECTOR)
     fun provideRegistrationAuthenticatorSelector(
@@ -270,6 +390,16 @@ class ApplicationModule {
             AuthenticatorSelectorOperation.REGISTRATION
         )
 
+    /**
+     * Provides the authenticator selector for authentication operation.
+     *
+     * @param configurationProvider An instance of a [ConfigurationProvider] interface implementation.
+     * @param stateRepository An instance of an [OperationStateRepository] implementation that may hold
+     *  a [UserInteractionOperationState].
+     * @param authenticatorValidator An instance of an [AuthenticatorValidator] interface implementation.
+     * @param settings An instance of a [Settings] interface implementation.
+     * @return The authenticator selector.
+     */
     @Provides
     @Named(AUTHENTICATION_AUTHENTICATOR_SELECTOR)
     fun provideAuthenticationAuthenticatorSelector(
@@ -286,18 +416,47 @@ class ApplicationModule {
             AuthenticatorSelectorOperation.AUTHENTICATION
         )
 
+    /**
+     * Provides the PIN changer.
+     *
+     * @param stateRepository An instance of an [OperationStateRepository] implementation that may hold
+     *  a [ChangePinOperationState].
+     * @return The PIN changer.
+     */
     @Provides
     fun providePinChanger(stateRepository: OperationStateRepository<ChangePinOperationState>): PinChanger =
         PinChangerImpl(stateRepository)
 
+    /**
+     * Provides the PIN user verifier.
+     *
+     * @param stateRepository An instance of an [OperationStateRepository] implementation that may hold
+     *  a [UserInteractionOperationState].
+     * @return The PIN user verifier.
+     */
     @Provides
     fun providePinUserVerifier(stateRepository: OperationStateRepository<UserInteractionOperationState>): PinUserVerifier =
         PinUserVerifierImpl(stateRepository)
 
+    /**
+     * Provides the PIN enroller.
+     *
+     * @param stateRepository An instance of an [OperationStateRepository] implementation that may hold
+     *  a [UserInteractionOperationState].
+     * @return The PIN enroller.
+     */
     @Provides
     fun providePinEnroller(stateRepository: OperationStateRepository<UserInteractionOperationState>): PinEnroller =
         PinEnrollerImpl(stateRepository)
 
+    /**
+     * Provides the Password changer.
+     *
+     * @param passwordPolicy An instance of [PasswordPolicy] interface implementation.
+     * @param stateRepository An instance of an [OperationStateRepository] implementation that may hold
+     *  a [ChangePasswordOperationState].
+     * @return The Password changer.
+     */
     @Provides
     fun providePasswordChanger(
         passwordPolicy: PasswordPolicy,
@@ -305,6 +464,14 @@ class ApplicationModule {
     ): PasswordChanger =
         PasswordChangerImpl(passwordPolicy, stateRepository)
 
+    /**
+     * Provides the Password enroller.
+     *
+     * @param passwordPolicy An instance of [PasswordPolicy] interface implementation.
+     * @param stateRepository An instance of an [OperationStateRepository] implementation that may hold
+     *  a [UserInteractionOperationState].
+     * @return The Password enroller.
+     */
     @Provides
     fun providePasswordEnroller(
         passwordPolicy: PasswordPolicy,
@@ -312,66 +479,171 @@ class ApplicationModule {
     ): PasswordEnroller =
         PasswordEnrollerImpl(passwordPolicy, stateRepository)
 
+    /**
+     * Provides the Password user verifier.
+     *
+     * @param stateRepository An instance of an [OperationStateRepository] implementation that may hold
+     *  a [UserInteractionOperationState].
+     * @return The Password user verifier.
+     */
     @Provides
     fun providePasswordUserVerifier(stateRepository: OperationStateRepository<UserInteractionOperationState>): PasswordUserVerifier =
         PasswordUserVerifierImpl(stateRepository)
 
+    /**
+     * Provides the fingerprint user verifier.
+     *
+     * @param stateRepository An instance of an [OperationStateRepository] implementation that may hold
+     *  a [UserInteractionOperationState].
+     * @return The fingerprint user verifier.
+     */
     @Provides
     fun provideFingerprintUserVerifier(stateRepository: OperationStateRepository<UserInteractionOperationState>): FingerprintUserVerifier =
         FingerprintUserVerifierImpl(stateRepository)
 
+    /**
+     * Provides the biometric user verifier.
+     *
+     * @param stateRepository An instance of an [OperationStateRepository] implementation that may hold
+     *  a [UserInteractionOperationState].
+     * @return The biometric user verifier.
+     */
     @Provides
     fun provideBiometricUserVerifier(stateRepository: OperationStateRepository<UserInteractionOperationState>): BiometricUserVerifier =
         BiometricUserVerifierImpl(stateRepository)
 
+    /**
+     * Provides the device passcode user verifier.
+     *
+     * @param stateRepository An instance of an [OperationStateRepository] implementation that may hold
+     *  a [UserInteractionOperationState].
+     * @return The device passcode user verifier.
+     */
     @Provides
     fun provideDevicePasscodeUserVerifier(stateRepository: OperationStateRepository<UserInteractionOperationState>): DevicePasscodeUserVerifier =
         DevicePasscodeUserVerifierImpl(stateRepository)
 
+    /**
+     * Provides the [Consumer] for successful authentication that accepts an [AuthorizationProvider] object.
+     *
+     * @param stateRepository An instance of an [OperationStateRepository] implementation that may hold
+     *  a [UserInteractionOperationState].
+     * @return The [Consumer] for for successful authentication that accepts an [AuthorizationProvider]
+     *  object.
+     */
     @Provides
     fun provideOnSuccessAuthentication(stateRepository: OperationStateRepository<UserInteractionOperationState>): Consumer<AuthorizationProvider> =
         OnSuccessAuthenticationImpl(stateRepository)
 
+    /**
+     * Provides the [Consumer] for successful authentication during deregistration that accepts an
+     * [AuthorizationProvider] object.
+     *
+     * @param stateRepository An instance of an [OperationStateRepository] implementation that may hold
+     *  a [UserInteractionOperationState].
+     * @return The [Consumer] for successful authentication during Deregistration operation.
+     */
     @Provides
     fun provideOnSuccessAuthenticationForDeregistration(stateRepository: OperationStateRepository<UserInteractionOperationState>): Consumer<AuthorizationProvider> =
         OnSuccessAuthenticationImpl(stateRepository, Operation.DEREGISTRATION)
 
+    /**
+     * Provides the [Runnable] implementation for successful user interaction operations.
+     *
+     * @param stateRepository An instance of an [OperationStateRepository] implementation that may hold
+     *  a [UserInteractionOperationState].
+     * @return The [Runnable] implementation for successful user interaction operations.
+     */
     @Provides
     fun provideOnSuccessForUserInteractionOperation(stateRepository: OperationStateRepository<UserInteractionOperationState>): Runnable =
         OnSuccessImpl(stateRepository)
 
+    /**
+     * Provides the [Runnable] for successful PIN change operation.
+     *
+     * @param stateRepository An instance of an [OperationStateRepository] implementation that may hold
+     *  a [ChangePinOperationState].
+     * @return The [Runnable] for successful PIN change operation.
+     */
     @Provides
     fun provideOnSuccessForChangePinOperation(stateRepository: OperationStateRepository<ChangePinOperationState>): Runnable =
         OnSuccessImpl(stateRepository)
 
+    /**
+     * Provides the [Runnable] for successful password change operation.
+     *
+     * @param stateRepository An instance of an [OperationStateRepository] implementation that may hold
+     *  a [ChangePasswordOperationState].
+     * @return The [Runnable] for successful password change operation.
+     */
     @Provides
     fun provideOnSuccessForChangePasswordOperation(stateRepository: OperationStateRepository<ChangePasswordOperationState>): Runnable =
         OnSuccessImpl(stateRepository)
 
+    /**
+     * Provides the [Consumer] that accepts an [OperationError] object.
+     *
+     * @param stateRepository An instance of an [OperationStateRepository] implementation that may hold
+     *  a [UserInteractionOperationState].
+     * @param errorHandlerChain An instance of [ErrorHandlerChain] interface implementation.
+     * @return The [Consumer] that accepts an [OperationError] object.
+     */
     @Provides
     fun provideOnErrorForUserInteractionOperation(
         stateRepository: OperationStateRepository<UserInteractionOperationState>,
         errorHandlerChain: ErrorHandlerChain
     ): Consumer<OperationError> = OnErrorImpl(stateRepository, errorHandlerChain)
 
+    /**
+     * Provides the [Consumer] that accepts a [PinChangeError] object.
+     *
+     * @param stateRepository An instance of an [OperationStateRepository] implementation that may hold
+     *  a [ChangePinOperationState].
+     * @param errorHandlerChain An instance of [ErrorHandlerChain] interface implementation.
+     * @return The [Consumer] that accepts a [PinChangeError] object.
+     */
     @Provides
     fun provideOnErrorForChangePinOperation(
         stateRepository: OperationStateRepository<ChangePinOperationState>,
         errorHandlerChain: ErrorHandlerChain
     ): Consumer<PinChangeError> = OnErrorImpl(stateRepository, errorHandlerChain)
 
+    /**
+     * Provides the [Consumer] that accepts a [PasswordChangeError] object.
+     *
+     * @param stateRepository An instance of an [OperationStateRepository] implementation that may hold
+     *  a [ChangePasswordOperationState].
+     * @param errorHandlerChain An instance of [ErrorHandlerChain] interface implementation.
+     * @return The [Consumer] that accepts a [PasswordChangeError] object.
+     */
     @Provides
     fun provideOnErrorForChangePasswordOperation(
         stateRepository: OperationStateRepository<ChangePasswordOperationState>,
         errorHandlerChain: ErrorHandlerChain
     ): Consumer<PasswordChangeError> = OnErrorImpl(stateRepository, errorHandlerChain)
 
+    /**
+     * Provides the [Consumer] that accepts an [AuthCloudApiError] object.
+     *
+     * @param stateRepository An instance of an [OperationStateRepository] implementation that may hold
+     *  a [UserInteractionOperationState].
+     * @param errorHandlerChain An instance of [ErrorHandlerChain] interface implementation.
+     * @return The [Consumer] that accepts an [AuthCloudApiError] object.
+     */
     @Provides
     fun provideOnAuthCloudApiError(
         stateRepository: OperationStateRepository<UserInteractionOperationState>,
         errorHandlerChain: ErrorHandlerChain
     ): Consumer<AuthCloudApiError> = OnErrorImpl(stateRepository, errorHandlerChain)
 
+    /**
+     * Provides the [Consumer] that accepts an [AuthenticationError] object.
+     *
+     * @param stateRepository An instance of an [OperationStateRepository] implementation that may hold
+     *  a [UserInteractionOperationState].
+     * @param errorHandlerChain An instance of [ErrorHandlerChain] interface implementation.
+     * @return The [Consumer] that accepts an [AuthenticationError] object.
+     */
     @Provides
     fun provideOnAuthenticationError(
         stateRepository: OperationStateRepository<UserInteractionOperationState>,
@@ -380,6 +652,13 @@ class ApplicationModule {
     //endregion
 
     //region Use-cases
+    /**
+     * Provides use case for [ch.nevis.mobile.sdk.api.MobileAuthenticationClient] initialization.
+     *
+     * @param clientProvider An instance of [ClientProvider] interface implementation.
+     * @param context An Android [Context] object used for initializing [ch.nevis.mobile.sdk.api.MobileAuthenticationClient].
+     * @return The use case for initializing the client.
+     */
     @Provides
     @Singleton
     fun provideInitializeClientUseCase(
@@ -391,31 +670,82 @@ class ApplicationModule {
             context
         )
 
+    /**
+     * Provides use case for retrieving the registered accounts.
+     *
+     * @param clientProvider An instance of [ClientProvider] interface implementation.
+     * @return The use case for retrieving the registered accounts.
+     */
     @Provides
     fun provideGetAccountsUseCase(clientProvider: ClientProvider): GetAccountsUseCase =
         GetAccountsUseCaseImpl(clientProvider)
 
+    /**
+     * Provides use case for retrieving the authenticators.
+     *
+     * @param clientProvider An instance of [ClientProvider] interface implementation.
+     * @return The use case for retrieving the authenticators.
+     */
     @Provides
     fun provideGetAuthenticatorsUseCase(clientProvider: ClientProvider): GetAuthenticatorsUseCase =
         GetAuthenticatorsUseCaseImpl(clientProvider)
 
+    /**
+     * Provides use case for delete local authenticators.
+     *
+     * @param clientProvider An instance of [ClientProvider] interface implementation.
+     * @return The use case for delete local authenticators.
+     */
     @Provides
     fun provideDeleteAuthenticatorsUseCase(clientProvider: ClientProvider): DeleteAuthenticatorsUseCase =
         DeleteAuthenticatorsUseCaseImpl(clientProvider)
 
+    /**
+     * Provides use case for creating a new [ch.nevis.mobile.sdk.api.localdata.DeviceInformation] object.
+     *
+     * @param context The Android [Context].
+     * @return The use case for creating a new [ch.nevis.mobile.sdk.api.localdata.DeviceInformation] object.
+     */
     @Provides
     fun provideCreateDeviceInformationUseCase(@ApplicationContext context: Context): CreateDeviceInformationUseCase =
         CreateDeviceInformationUseCaseImpl(context)
 
+    /**
+     * Provides use case for retrieving the device information stored by the client.
+     *
+     * @param clientProvider An instance of [ClientProvider] interface implementation.
+     * @return The use case for retrieving the device information stored by the client.
+     */
     @Provides
     fun provideGetDeviceInformationUseCase(clientProvider: ClientProvider): GetDeviceInformationUseCase =
         GetDeviceInformationUseCaseImpl(clientProvider)
 
+    /**
+     * Provides use case for starting a change device information operation.
+     *
+     * @param clientProvider An instance of [ClientProvider] interface implementation.
+     * @return The use case for starting a change device information operation.
+     */
     @Provides
     fun provideChangeDeviceInformationUseCase(
         clientProvider: ClientProvider
     ): ChangeDeviceInformationUseCase = ChangeDeviceInformationUseCaseImpl(clientProvider)
 
+    /**
+     * Provides use case for starting an in-band authentication operation.
+     *
+     * @param clientProvider An instance of [ClientProvider] interface implementation.
+     * @param stateRepository n instance of an [OperationStateRepository] implementation that may hold
+     *  a [UserInteractionOperationState].
+     * @param authenticatorSelector An instance of [AuthenticatorSelector] interface implementation.
+     * @param pinUserVerifier An instance of [PinUserVerifier] interface implementation.
+     * @param passwordUserVerifier An instance of [PasswordUserVerifier] interface implementation.
+     * @param fingerprintUserVerifier An instance of [FingerprintUserVerifier] interface implementation.
+     * @param biometricUserVerifier An instance of [BiometricUserVerifier] interface implementation.
+     * @param devicePasscodeUserVerifier An instance of [DevicePasscodeUserVerifier] interface implementation.
+     * @param onError An instance of a [Consumer] implementation that accepts an [AuthenticationError] object.
+     * @return The use case for starting an in-band authentication operation.
+     */
     @Provides
     @Named(IN_BAND_AUTHENTICATION_USE_CASE_DEFAULT)
     fun provideInBandAuthenticationUseCase(
@@ -442,6 +772,21 @@ class ApplicationModule {
         onError
     )
 
+    /**
+     * Provides use case for in-band authentication during deregistration.
+     *
+     * @param clientProvider An instance of [ClientProvider] interface implementation.
+     * @param stateRepository An instance of an [OperationStateRepository] implementation that may hold
+     *  a [UserInteractionOperationState].
+     * @param authenticatorSelector An instance of [AuthenticatorSelector] interface implementation.
+     * @param pinUserVerifier An instance of [PinUserVerifier] interface implementation.
+     * @param passwordUserVerifier An instance of [PasswordUserVerifier] interface implementation.
+     * @param fingerprintUserVerifier An instance of [FingerprintUserVerifier] interface implementation.
+     * @param biometricUserVerifier An instance of [BiometricUserVerifier] interface implementation.
+     * @param devicePasscodeUserVerifier An instance of [DevicePasscodeUserVerifier] interface implementation.
+     * @param onError An instance of a [Consumer] implementation that accepts an [AuthenticationError] object.
+     * @return The use case for in-band authentication during deregistration.
+     */
     @Provides
     @Named(IN_BAND_AUTHENTICATION_USE_CASE_FOR_DEREGISTRATION)
     fun provideInBandAuthenticationUseCaseForDeregistration(
@@ -468,18 +813,49 @@ class ApplicationModule {
         onError
     )
 
+    /**
+     * Provides use case for selecting an account during an out-of-band authentication.
+     *
+     * @param stateRepository An instance of an [OperationStateRepository] implementation that may hold
+     *  a [UserInteractionOperationState].
+     * @return The use case for selecting an account during an out-of-band authentication.
+     */
     @Provides
     fun provideSelectAccountUseCase(stateRepository: OperationStateRepository<UserInteractionOperationState>): SelectAccountUseCase =
         SelectAccountUseCaseImpl(stateRepository)
 
+    /**
+     * Provides use case for selecting an authenticator during an authentication or registration operation.
+     *
+     * @param stateRepository An instance of an [OperationStateRepository] implementation that may hold
+     *  a [UserInteractionOperationState].
+     * @return The use case for selecting an authenticator during an authentication or registration operation.
+     */
     @Provides
     fun provideSelectAuthenticatorUseCase(stateRepository: OperationStateRepository<UserInteractionOperationState>): SelectAuthenticatorUseCase =
         SelectAuthenticatorUseCaseImpl(stateRepository)
 
+    /**
+     * Provides use case for setting a new PIN during a registration operation.
+     *
+     * @param stateRepository An instance of an [OperationStateRepository] implementation that may hold
+     *  a [UserInteractionOperationState].
+     * @return The use case for setting a new PIN during a registration operation.
+     */
     @Provides
     fun provideSetPinUseCase(stateRepository: OperationStateRepository<UserInteractionOperationState>): SetPinUseCase =
         SetPinUseCaseImpl(stateRepository)
 
+    /**
+     * Provides use case for starting a change PIN operation.
+     *
+     * @param clientProvider An instance of [ClientProvider] interface implementation.
+     * @param stateRepository An instance of an [OperationStateRepository] implementation that may hold
+     *  a [ChangePinOperationState].
+     * @param pinChanger An instance of [PinChanger] interface implementation.
+     * @param onError An instance of a [Consumer] implementation that accepts a [PinChangeError] object.
+     * @return The use case for starting a change PIN operation.
+     */
     @Provides
     fun provideStartChangePinUseCase(
         clientProvider: ClientProvider,
@@ -494,18 +870,49 @@ class ApplicationModule {
         onError
     )
 
+    /**
+     * Provides use case for completing change PIN operation.
+     *
+     * @param stateRepository An instance of an [OperationStateRepository] implementation that may hold
+     *  a [ChangePinOperationState].
+     * @return The use case for completing change PIN operation.
+     */
     @Provides
     fun provideChangePinUseCase(stateRepository: OperationStateRepository<ChangePinOperationState>): ChangePinUseCase =
         ChangePinUseCaseImpl(stateRepository)
 
+    /**
+     * Provides use case for verifying the user using PIN authenticator.
+     *
+     * @param stateRepository An instance of an [OperationStateRepository] implementation that may hold
+     *  a [UserInteractionOperationState].
+     * @return The use case for verifying the user using PIN authenticator.
+     */
     @Provides
     fun provideVerifyPinUseCase(stateRepository: OperationStateRepository<UserInteractionOperationState>): VerifyPinUseCase =
         VerifyPinUseCaseImpl(stateRepository)
 
+    /**
+     * Provides use case for setting a new password during a registration operation.
+     *
+     * @param stateRepository An instance of an [OperationStateRepository] implementation that may hold
+     *  a [UserInteractionOperationState].
+     * @return The use case for setting a new password during a registration operation.
+     */
     @Provides
     fun provideSetPasswordUseCase(stateRepository: OperationStateRepository<UserInteractionOperationState>): SetPasswordUseCase =
         SetPasswordUseCaseImpl(stateRepository)
 
+    /**
+     * Provides use case for starting a change Password operation.
+     *
+     * @param clientProvider An instance of [ClientProvider] interface implementation.
+     * @param stateRepository An instance of an [OperationStateRepository] implementation that may hold
+     *  a [ChangePasswordOperationState].
+     * @param passwordChanger An instance of [PasswordChanger] interface implementation.
+     * @param onError An instance of a [Consumer] implementation that accepts a [PasswordChangeError] object.
+     * @return The use case for starting a change Password operation.
+     */
     @Provides
     fun provideStartChangePasswordUseCase(
         clientProvider: ClientProvider,
@@ -520,26 +927,83 @@ class ApplicationModule {
         onError
     )
 
+    /**
+     * Provides use case for completing change Password operation.
+     *
+     * @param stateRepository An instance of an [OperationStateRepository] implementation that may
+     *  hold a [ChangePasswordOperationState].
+     * @return The use case for completing change Password operation.
+     */
     @Provides
     fun provideChangePasswordUseCase(stateRepository: OperationStateRepository<ChangePasswordOperationState>): ChangePasswordUseCase =
         ChangePasswordUseCaseImpl(stateRepository)
 
+    /**
+     * Provides use case for verifying the user using Password authenticator.
+     *
+     * @param stateRepository An instance of an [OperationStateRepository] implementation that may hold
+     *  a [UserInteractionOperationState].
+     * @return The use case for verifying the user using Password authenticator.
+     */
     @Provides
     fun provideVerifyPasswordUseCase(stateRepository: OperationStateRepository<UserInteractionOperationState>): VerifyPasswordUseCase =
         VerifyPasswordUseCaseImpl(stateRepository)
 
+    /**
+     * Provides use case for verifying the user using fingerprint authenticator.
+     *
+     * @param stateRepository An instance of an [OperationStateRepository] implementation that may hold
+     *  a [UserInteractionOperationState].
+     * @return The use case for verifying the user using fingerprint authenticator.
+     */
     @Provides
     fun provideVerifyFingerprintUseCase(stateRepository: OperationStateRepository<UserInteractionOperationState>): VerifyFingerprintUseCase =
         VerifyFingerprintUseCaseImpl(stateRepository)
 
+    /**
+     * Provides use case for verifying the user using biometric authenticator.
+     *
+     * @param stateRepository An instance of an [OperationStateRepository] implementation that may hold
+     *  a [UserInteractionOperationState].
+     * @return The use case for verifying the user using biometric authenticator.
+     */
     @Provides
     fun provideVerifyBiometricUseCase(stateRepository: OperationStateRepository<UserInteractionOperationState>): VerifyBiometricUseCase =
         VerifyBiometricUseCaseImpl(stateRepository)
 
+    /**
+     * Provides use case for verifying the user using device passcode authenticator.
+     *
+     * @param stateRepository An instance of an [OperationStateRepository] implementation that may hold
+     *  a [UserInteractionOperationState].
+     * @return The use case for verifying the user using device passcode authenticator.
+     */
     @Provides
     fun provideVerifyDevicePasscodeUseCase(stateRepository: OperationStateRepository<UserInteractionOperationState>): VerifyDevicePasscodeUseCase =
         VerifyDevicePasscodeUseCaseImpl(stateRepository)
 
+    /**
+     * Provides use case for starting a process out-of-band payload operation.
+     *
+     * @param clientProvider An instance of [ClientProvider] interface implementation.
+     * @param stateRepository An instance of an [OperationStateRepository] implementation that may hold
+     *  a [UserInteractionOperationState].
+     * @param createDeviceInformationUseCase An instance of [CreateDeviceInformationUseCase] interface implementation.
+     * @param accountSelector An instance of [AccountSelector] interface implementation.
+     * @param registrationAuthenticatorSelector An instance of [AuthenticatorSelector] interface implementation
+     *  for Registration operation.
+     * @param authenticationAuthenticatorSelector An instance of [AuthenticatorSelector] interface implementation
+     *  for Authentication operation.
+     * @param pinEnroller An instance of [PinEnroller] interface implementation.
+     * @param passwordEnroller An instance of [PasswordEnroller] interface implementation.
+     * @param pinUserVerifier An instance of [PinUserVerifier] interface implementation.
+     * @param passwordUserVerifier An instance of [PasswordUserVerifier] interface implementation.
+     * @param fingerprintUserVerifier An instance of [FingerprintUserVerifier] interface implementation.
+     * @param biometricUserVerifier An instance of [BiometricUserVerifier] interface implementation.
+     * @param devicePasscodeUserVerifier An instance of [DevicePasscodeUserVerifier] interface implementation.
+     * @param onError An instance of a [Consumer] implementation that accepts an [OperationError] object.
+     * @return The use case for starting a process out-of-band payload operation.
+     */
     @Provides
     fun provideProcessOutOfBandPayloadUseCase(
         clientProvider: ClientProvider,
@@ -577,16 +1041,45 @@ class ApplicationModule {
         onError
     )
 
+    /**
+     * Provides use case for decoding an out-of-band payload.
+     *
+     * @param clientProvider An instance of [ClientProvider] interface implementation.
+     * @return The use case for decoding an out-of-band payload.
+     */
     @Provides
     fun provideDecodePayloadUseCase(
         clientProvider: ClientProvider
     ): DecodePayloadUseCase =
         DecodePayloadUseCaseImpl(clientProvider)
 
+    /**
+     * Provides use case for deregister registered accounts, authenticators.
+     *
+     * @param clientProvider An instance of [ClientProvider] interface implementation.
+     * @return The use case for deregister registered accounts, authenticators.
+     */
     @Provides
     fun provideDeregisterUseCase(clientProvider: ClientProvider): DeregisterUseCase =
         DeregisterUseCaseImpl(clientProvider)
 
+    /**
+     * Provides use case for starting an Auth Cloud API registration operation.
+     *
+     * @param clientProvider An instance of [ClientProvider] interface implementation.
+     * @param stateRepository An instance of an [OperationStateRepository] implementation that may hold
+     *  a [UserInteractionOperationState].
+     * @param createDeviceInformationUseCase An instance of [CreateDeviceInformationUseCase] interface implementation.
+     * @param authenticatorSelector An instance of [AuthenticatorSelector] interface implementation
+     *  for Registration operation.
+     * @param pinEnroller An instance of [PinEnroller] interface implementation.
+     * @param passwordEnroller An instance of [PasswordEnroller] interface implementation.
+     * @param fingerprintUserVerifier An instance of [FingerprintUserVerifier] interface implementation.
+     * @param biometricUserVerifier An instance of [BiometricUserVerifier] interface implementation.
+     * @param devicePasscodeUserVerifier An instance of [DevicePasscodeUserVerifier] interface implementation.
+     * @param onError An instance of a [Consumer] implementation that accepts an [AuthCloudApiError] object.
+     * @return The use case for starting an Auth Cloud API registration operation.
+     */
     @Provides
     fun provideAuthCloudApiRegistrationUseCase(
         clientProvider: ClientProvider,
@@ -614,10 +1107,34 @@ class ApplicationModule {
         onError
     )
 
+    /**
+     * Provides use case for login.
+     *
+     * @param loginRepository An instance of a [LoginRepository] implementation that is used for the
+     *  login process.
+     * @return The use case for login.
+     */
     @Provides
     fun provideLoginUseCase(loginRepository: LoginRepository): LoginUseCase =
         LoginUseCaseImpl(loginRepository)
 
+    /**
+     * Provides use case for starting an in-band registration operation.
+     *
+     * @param clientProvider An instance of [ClientProvider] interface implementation.
+     * @param stateRepository An instance of an [OperationStateRepository] implementation that may hold
+     *  a [UserInteractionOperationState].
+     * @param createDeviceInformationUseCase An instance of [CreateDeviceInformationUseCase] interface implementation.
+     * @param authenticatorSelector An instance of [AuthenticatorSelector] interface implementation
+     *  for Registration operation.
+     * @param pinEnroller An instance of [PinEnroller] interface implementation.
+     * @param passwordEnroller An instance of [PasswordEnroller] interface implementation.
+     * @param fingerprintUserVerifier An instance of [FingerprintUserVerifier] interface implementation.
+     * @param biometricUserVerifier An instance of [BiometricUserVerifier] interface implementation.
+     * @param devicePasscodeUserVerifier An instance of [DevicePasscodeUserVerifier] interface implementation.
+     * @param onError An instance of a [Consumer] implementation that accepts an [OperationError] object.
+     * @return The use case for starting an in-band registration operation.
+     */
     @Provides
     fun provideInBandRegistrationUseCase(
         clientProvider: ClientProvider,
@@ -645,26 +1162,58 @@ class ApplicationModule {
         onError
     )
 
+    /**
+     * Provides use case for cancelling currently running operation.
+     *
+     * @param userInteractionOperationStateRepository An instance of an [OperationStateRepository]
+     *  implementation that may hold an [UserInteractionOperationState].
+     * @param changePinOperationStateRepository An instance of an [OperationStateRepository]
+     *  implementation that may hold an [ChangePinOperationState].
+     * @param changePasswordOperationStateRepository An instance of an [OperationStateRepository]
+     *  implementation that may hold an [ChangePasswordOperationState].
+     * @return The use case for cancelling currently running operation.
+     */
     @Provides
     fun provideCancelOperationUseCase(
         userInteractionOperationStateRepository: OperationStateRepository<UserInteractionOperationState>,
-        changePinOperationStateRepository: OperationStateRepository<ChangePinOperationState>
+        changePinOperationStateRepository: OperationStateRepository<ChangePinOperationState>,
+        changePasswordOperationStateRepository: OperationStateRepository<ChangePasswordOperationState>
     ): CancelOperationUseCase = CancelOperationUseCaseImpl(
         userInteractionOperationStateRepository,
-        changePinOperationStateRepository
+        changePinOperationStateRepository,
+        changePasswordOperationStateRepository
     )
 
+    /**
+     * Provides use case for finishing any previously started operation.
+     *
+     * @param userInteractionOperationStateRepository An instance of an [OperationStateRepository]
+     *  implementation that may hold an [UserInteractionOperationState].
+     * @param changePinOperationStateRepository An instance of an [OperationStateRepository] implementation
+     *  that may hold an [ChangePinOperationState].
+     * @param changePasswordOperationStateRepository An instance of an [OperationStateRepository]
+     *  implementation that may hold an [ChangePasswordOperationState].
+     * @return The use case for finishing any previously started operation.
+     */
     @Provides
     fun provideFinishOperationUseCase(
         userInteractionOperationStateRepository: OperationStateRepository<UserInteractionOperationState>,
-        changePinOperationStateRepository: OperationStateRepository<ChangePinOperationState>
+        changePinOperationStateRepository: OperationStateRepository<ChangePinOperationState>,
+        changePasswordOperationStateRepository: OperationStateRepository<ChangePasswordOperationState>
     ): FinishOperationUseCase = FinishOperationUseCaseImpl(
         userInteractionOperationStateRepository,
-        changePinOperationStateRepository
+        changePinOperationStateRepository,
+        changePasswordOperationStateRepository
     )
     //endregion
 
     //region Retrofit
+    /**
+     * Provides the [Retrofit] implementation.
+     *
+     * @param configurationProvider An instance of a [ConfigurationProvider] interface implementation.
+     * @return The [Retrofit] implementation.
+     */
     @Provides
     fun provideRetrofit(configurationProvider: ConfigurationProvider): Retrofit =
         Retrofit.Builder().baseUrl(configurationProvider.configuration.baseUrl().toString())

@@ -15,11 +15,11 @@ import ch.nevis.exampleapp.coroutines.domain.model.response.Response
 /**
  * Default implementation of [GetAuthenticatorsUseCase] interface that queries the authenticators from
  * the client and returns them in a [GetAuthenticatorsResponse].
+ *
+ * @constructor Creates a new instance.
+ * @param clientProvider An instance of [ClientProvider] interface implementation.
  */
 class GetAuthenticatorsUseCaseImpl(
-    /**
-     * An instance of a [ClientProvider] implementation.
-     */
     private val clientProvider: ClientProvider
 ) : GetAuthenticatorsUseCase {
 

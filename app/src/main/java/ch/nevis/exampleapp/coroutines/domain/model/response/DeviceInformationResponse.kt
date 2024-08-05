@@ -10,6 +10,9 @@ import ch.nevis.mobile.sdk.api.localdata.DeviceInformation
 
 /**
  * A [Response] class that holds the requested [DeviceInformation] object.
+ *
+ * @constructor Creates a new instance.
+ * @param deviceInformation The requested [DeviceInformation] object.
  */
 data class DeviceInformationResponse(
     /**

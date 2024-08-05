@@ -19,17 +19,14 @@ import javax.inject.Inject
 
 /**
  * View model implementation of Legacy Login view.
+ *
+ * @constructor Creates a new instance.
+ * @param loginUseCase An instance of a [LoginUseCase] implementation.
+ * @param inBandRegistrationUseCase An instance of a [InBandRegistrationUseCase] implementation.
  */
 @HiltViewModel
 class LegacyLoginViewModel @Inject constructor(
-    /**
-     * An instance of a [LoginUseCase] implementation.
-     */
     private val loginUseCase: LoginUseCase,
-
-    /**
-     * An instance of a [InBandRegistrationUseCase] implementation.
-     */
     private val inBandRegistrationUseCase: InBandRegistrationUseCase
 ) : OperationViewModel() {
 

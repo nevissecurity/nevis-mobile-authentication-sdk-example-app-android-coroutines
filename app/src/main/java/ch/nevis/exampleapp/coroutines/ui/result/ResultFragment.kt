@@ -25,6 +25,8 @@ import dagger.hilt.android.AndroidEntryPoint
  * This view shows the result data received via navigation parameter and
  * if the user presses OS back button or the confirm button on this view
  * then the application navigates back to Home view.
+ *
+ * @constructor Creates a new instance.
  */
 @AndroidEntryPoint
 class ResultFragment : Fragment() {
@@ -43,6 +45,7 @@ class ResultFragment : Fragment() {
     //endregion
 
     //region Fragment
+    /** @suppress */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -51,6 +54,7 @@ class ResultFragment : Fragment() {
         return binding.root
     }
 
+    /** @suppress */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -72,6 +76,7 @@ class ResultFragment : Fragment() {
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
     }
 
+    /** @suppress */
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

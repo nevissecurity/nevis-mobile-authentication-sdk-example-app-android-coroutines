@@ -23,20 +23,18 @@ import kotlin.coroutines.resume
  * This implementation first checks if there is an active cancellableContinuation in the operation
  * state and if yes it will be resumed with an [ErrorResponse] object. If the cancellableContinuation
  * is null or not active the accepted error will be delegated to the [ErrorHandlerChain] directly.
+ *
+ * @constructor Creates a new instance.
+ * @param stateRepository The state repository that stores the state of the running operation.
+ * @param errorHandlerChain An [ErrorHandlerChain] implementation.
  */
 class OnErrorImpl<S : OperationState, E : MobileAuthenticationClientError>(
-    /**
-     * The state repository that stores the state of the running operation.
-     */
     private val stateRepository: OperationStateRepository<S>,
-
-    /**
-     * An [ErrorHandlerChain] implementation.
-     */
     private val errorHandlerChain: ErrorHandlerChain
 ) : Consumer<E> {
 
     //region Consumer
+    /** @suppress */
     override fun accept(error: E) {
         val operationState = stateRepository.get() ?: throw BusinessException.invalidState()
         val operation = operationState.operation

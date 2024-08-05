@@ -14,6 +14,10 @@ import kotlinx.parcelize.Parcelize
 
 /**
  * Navigation parameter data class for Result view.
+ *
+ * @constructor Creates a new instance.
+ * @param titleResId String resource identifier of the title of Result screen.
+ * @param operation The related operation if there is any.
  */
 @Parcelize
 data class ResultNavigationParameter(
@@ -30,6 +34,9 @@ data class ResultNavigationParameter(
 ) : Parcelable {
 
     //region Public Static Interface
+    /**
+     * Collection of public static methods.
+     */
     companion object {
 
         /**

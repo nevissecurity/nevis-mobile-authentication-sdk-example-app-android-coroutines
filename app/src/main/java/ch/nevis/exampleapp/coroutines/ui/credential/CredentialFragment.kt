@@ -31,6 +31,8 @@ import dagger.hilt.android.AndroidEntryPoint
 /**
  * [androidx.fragment.app.Fragment] implementation of Credential view where the user
  * can set, change and verify credential (PIN or password).
+ *
+ * @constructor Creates a new instance.
  */
 @AndroidEntryPoint
 class CredentialFragment : ResponseObserverFragment() {
@@ -59,6 +61,7 @@ class CredentialFragment : ResponseObserverFragment() {
     //endregion
 
     //region Fragment
+    /** @suppress */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -67,6 +70,7 @@ class CredentialFragment : ResponseObserverFragment() {
         return binding.root
     }
 
+    /** @suppress */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -98,6 +102,7 @@ class CredentialFragment : ResponseObserverFragment() {
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
     }
 
+    /** @suppress */
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

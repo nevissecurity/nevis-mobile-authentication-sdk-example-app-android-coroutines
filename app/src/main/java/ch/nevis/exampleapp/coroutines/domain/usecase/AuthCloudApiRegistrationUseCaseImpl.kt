@@ -25,61 +25,33 @@ import kotlinx.coroutines.suspendCancellableCoroutine
 
 /**
  * Default implementation of [AuthCloudApiRegistrationUseCase] interface.
+ *
+ * @constructor Creates a new instance.
+ * @param clientProvider An instance of [ClientProvider] interface implementation.
+ * @param stateRepository An instance of a [OperationStateRepository] implementation that may hold
+ *  an [UserInteractionOperationState].
+ * @param createDeviceInformationUseCase An instance of [CreateDeviceInformationUseCase] interface implementation.
+ * @param authenticatorSelector An instance of [AuthenticatorSelector] interface implementation
+ *  for Registration operation.
+ * @param pinEnroller An instance of [PinEnroller] interface implementation.
+ * @param passwordEnroller An instance of [PasswordEnroller] interface implementation.
+ * @param fingerprintUserVerifier An instance of [FingerprintUserVerifier] interface implementation.
+ * @param biometricUserVerifier An instance of [BiometricUserVerifier] interface implementation.
+ * @param devicePasscodeUserVerifier An instance of [DevicePasscodeUserVerifier] interface implementation.
+ * @param onSuccess An instance of a [Runnable] implementation.
+ * @param onError A [Consumer] for failed Auth Cloud API registration.
  */
 class AuthCloudApiRegistrationUseCaseImpl(
-    /**
-     * An instance of a [ClientProvider] implementation.
-     */
     private val clientProvider: ClientProvider,
-
-    /**
-     * An instance of a [OperationStateRepository] implementation that may hold an [UserInteractionOperationState].
-     */
     private val stateRepository: OperationStateRepository<UserInteractionOperationState>,
-
-    /**
-     * An instance of a [CreateDeviceInformationUseCase] implementation.
-     */
     private val createDeviceInformationUseCase: CreateDeviceInformationUseCase,
-
-    /**
-     * An instance of an [AuthenticatorSelector] implementation.
-     */
     private val authenticatorSelector: AuthenticatorSelector,
-
-    /**
-     * An instance of a [PinEnroller] implementation.
-     */
     private val pinEnroller: PinEnroller,
-
-    /**
-     * An instance of a [PasswordEnroller] implementation.
-     */
     private val passwordEnroller: PasswordEnroller,
-
-    /**
-     * An instance of a [FingerprintUserVerifier] implementation.
-     */
     private val fingerprintUserVerifier: FingerprintUserVerifier,
-
-    /**
-     * An instance of a [BiometricUserVerifier] implementation.
-     */
     private val biometricUserVerifier: BiometricUserVerifier,
-
-    /**
-     * An instance of a [DevicePasscodeUserVerifier] implementation.
-     */
     private val devicePasscodeUserVerifier: DevicePasscodeUserVerifier,
-
-    /**
-     * An instance of a [Runnable] implementation.
-     */
     private val onSuccess: Runnable,
-
-    /**
-     * An instance of a [Consumer] implementation that accepts a [AuthCloudApiError] object.
-     */
     private val onError: Consumer<AuthCloudApiError>
 ) : AuthCloudApiRegistrationUseCase {
 

@@ -16,17 +16,14 @@ import javax.inject.Inject
 
 /**
  * View model implementation of Change Device Information view.
+ *
+ * @constructor Creates a new instance.
+ * @param getDeviceInformationUseCase An instance of a [GetDeviceInformationUseCase] implementation.
+ * @param changeDeviceInformationUseCase An instance of a [ChangeDeviceInformationUseCase] implementation.
  */
 @HiltViewModel
 class ChangeDeviceInformationViewModel @Inject constructor(
-    /**
-     * An instance of a [GetDeviceInformationUseCase] implementation.
-     */
     private val getDeviceInformationUseCase: GetDeviceInformationUseCase,
-
-    /**
-     * An instance of a [ChangeDeviceInformationUseCase] implementation.
-     */
     private val changeDeviceInformationUseCase: ChangeDeviceInformationUseCase
 ) : OperationViewModel() {
 

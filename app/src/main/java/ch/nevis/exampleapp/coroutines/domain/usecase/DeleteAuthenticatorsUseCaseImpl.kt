@@ -15,12 +15,16 @@ import ch.nevis.mobile.sdk.api.localdata.Account
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
 
+/**
+ * Default implementation of [DeleteAuthenticatorsUseCase] interface.
+ *
+ * @constructor Creates a new instance.
+ * @param clientProvider An instance of a [ClientProvider] implementation.
+ */
 class DeleteAuthenticatorsUseCaseImpl(
-    /**
-     * An instance of a [ClientProvider] implementation.
-     */
     private val clientProvider: ClientProvider
 ) : DeleteAuthenticatorsUseCase {
+
     //region DeleteAuthenticatorsUseCase
     override suspend fun execute(accounts: Set<Account>): Response {
         for (account in accounts) {

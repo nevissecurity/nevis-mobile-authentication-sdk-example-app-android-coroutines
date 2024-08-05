@@ -15,11 +15,12 @@ import java.net.PasswordAuthentication
 
 /**
  * Default implementation of [LoginUseCase] interface.
+ *
+ * @constructor Creates a new instance.
+ * @param loginRepository An instance of a [LoginRepository] implementation that is used for the login
+ *  process.
  */
 class LoginUseCaseImpl(
-    /**
-     * An instance of a [LoginRepository] implementation that is used for the login process.
-     */
     private val loginRepository: LoginRepository
 ) : LoginUseCase {
 

@@ -22,6 +22,8 @@ import java.net.PasswordAuthentication
  * [androidx.fragment.app.Fragment] implementation of Legacy Login view where the user
  * can enter a username and password and send it to start a legacy login process. If the login was
  * successful an in-band registration operation is started automatically.
+ *
+ * @constructor Creates a new instance.
  */
 @AndroidEntryPoint
 class LegacyLoginFragment : ResponseObserverFragment() {
@@ -40,6 +42,7 @@ class LegacyLoginFragment : ResponseObserverFragment() {
     //endregion
 
     //region Fragment
+    /** @suppress */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -48,6 +51,7 @@ class LegacyLoginFragment : ResponseObserverFragment() {
         return binding.root
     }
 
+    /** @suppress */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -60,6 +64,7 @@ class LegacyLoginFragment : ResponseObserverFragment() {
         }
     }
 
+    /** @suppress */
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

@@ -19,35 +19,23 @@ import javax.inject.Named
 
 /**
  * View model implementation for Select Account view.
+ *
+ * @constructor Creates a new instance.
+ * @param startChangePinUseCase An instance of a [StartChangePinUseCase] implementation.
+ * @param startChangePasswordUseCase An instance of a [StartChangePasswordUseCase] implementation.
+ * @param inBandAuthenticationUseCase An instance of an [InBandAuthenticationUseCase] implementation.
+ * @param inBandAuthenticationForDeregistrationUseCase An instance of a [InBandAuthenticationUseCase]
+ *  implementation for the cases deregistration must be started right after a successful in-band authentication.
+ * @param selectAccountUseCase An instance of a [SelectAccountUseCase] implementation.
  */
 @HiltViewModel
 class SelectAccountViewModel @Inject constructor(
-    /**
-     * An instance of a [StartChangePinUseCase] implementation.
-     */
     private val startChangePinUseCase: StartChangePinUseCase,
-
-    /**
-     * An instance of a [StartChangePasswordUseCase] implementation.
-     */
     private val startChangePasswordUseCase: StartChangePasswordUseCase,
-
-    /**
-     * An instance of a [InBandAuthenticationUseCase] implementation.
-     */
     @Named(ApplicationModule.IN_BAND_AUTHENTICATION_USE_CASE_DEFAULT)
     private val inBandAuthenticationUseCase: InBandAuthenticationUseCase,
-
-    /**
-     * An instance of a [InBandAuthenticationUseCase] implementation for the cases deregistration
-     * must be started right after a successful in-band authentication.
-     */
     @Named(ApplicationModule.IN_BAND_AUTHENTICATION_USE_CASE_FOR_DEREGISTRATION)
     private val inBandAuthenticationForDeregistrationUseCase: InBandAuthenticationUseCase,
-
-    /**
-     * An instance of a [SelectAccountUseCase] implementation.
-     */
     private val selectAccountUseCase: SelectAccountUseCase
 ) : CancellableOperationViewModel() {
 

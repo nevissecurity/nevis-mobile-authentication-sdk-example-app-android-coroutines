@@ -13,6 +13,9 @@ import kotlinx.parcelize.Parcelize
 
 /**
  * Navigation parameter data class for select authenticator view.
+ *
+ * @constructor Creates a new instance.
+ * @param authenticatorItems The list of available authenticator items the user can select from.
  */
 @Parcelize
 data class SelectAuthenticatorNavigationParameter(
