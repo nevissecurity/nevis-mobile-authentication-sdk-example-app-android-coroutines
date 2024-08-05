@@ -4,7 +4,7 @@
  * Copyright © 2022. Nevis Security AG. All rights reserved.
  */
 
-package ch.nevis.exampleapp.coroutines.domain.interaction
+package ch.nevis.exampleapp.coroutines.domain.interaction.pin
 
 import ch.nevis.exampleapp.coroutines.domain.model.error.BusinessException
 import ch.nevis.exampleapp.coroutines.domain.model.response.ChangePinResponse
@@ -30,23 +30,26 @@ class PinChangerImpl(
 ) : PinChanger {
 
     //region PinChanger
-    override fun changePin(pinChangeContext: PinChangeContext, pinChangeHandler: PinChangeHandler) {
-        if (pinChangeContext.lastRecoverableError().isPresent) {
+    override fun changePin(
+        context: PinChangeContext,
+        handler: PinChangeHandler
+    ) {
+        if (context.lastRecoverableError().isPresent) {
             Timber.asTree().sdk("PIN change failed. Please try again.")
         } else {
             Timber.asTree().sdk("Please start PIN change.")
         }
 
         val operationState = stateRepository.get() ?: throw BusinessException.invalidState()
-        operationState.pinChangeHandler = pinChangeHandler
+        operationState.pinChangeHandler = handler
 
         val cancellableContinuation =
             operationState.cancellableContinuation ?: throw BusinessException.invalidState()
 
         cancellableContinuation.resume(
             ChangePinResponse(
-                pinChangeContext.authenticatorProtectionStatus(),
-                pinChangeContext.lastRecoverableError().orElse(null)
+                context.authenticatorProtectionStatus(),
+                context.lastRecoverableError().orElse(null)
             )
         )
     }

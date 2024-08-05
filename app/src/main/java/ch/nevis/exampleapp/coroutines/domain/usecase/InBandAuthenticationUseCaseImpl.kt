@@ -18,6 +18,7 @@ import ch.nevis.mobile.sdk.api.operation.selection.AuthenticatorSelector
 import ch.nevis.mobile.sdk.api.operation.userverification.BiometricUserVerifier
 import ch.nevis.mobile.sdk.api.operation.userverification.DevicePasscodeUserVerifier
 import ch.nevis.mobile.sdk.api.operation.userverification.FingerprintUserVerifier
+import ch.nevis.mobile.sdk.api.operation.userverification.PasswordUserVerifier
 import ch.nevis.mobile.sdk.api.operation.userverification.PinUserVerifier
 import ch.nevis.mobile.sdk.api.util.Consumer
 import kotlinx.coroutines.suspendCancellableCoroutine
@@ -45,6 +46,11 @@ class InBandAuthenticationUseCaseImpl(
      * An instance of a [PinUserVerifier] implementation.
      */
     private val pinUserVerifier: PinUserVerifier,
+
+    /**
+     * An instance of a [PasswordUserVerifier] implementation.
+     */
+    private val passwordUserVerifier: PasswordUserVerifier,
 
     /**
      * An instance of a [FingerprintUserVerifier] implementation.
@@ -86,6 +92,7 @@ class InBandAuthenticationUseCaseImpl(
                 .username(username)
                 .authenticatorSelector(authenticatorSelector)
                 .pinUserVerifier(pinUserVerifier)
+                .passwordUserVerifier(passwordUserVerifier)
                 .fingerprintUserVerifier(fingerprintUserVerifier)
                 .biometricUserVerifier(biometricUserVerifier)
                 .devicePasscodeUserVerifier(devicePasscodeUserVerifier)

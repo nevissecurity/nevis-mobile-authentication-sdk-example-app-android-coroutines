@@ -4,7 +4,7 @@
  * Copyright © 2022. Nevis Security AG. All rights reserved.
  */
 
-package ch.nevis.exampleapp.coroutines.domain.interaction
+package ch.nevis.exampleapp.coroutines.domain.interaction.pin
 
 import ch.nevis.exampleapp.coroutines.domain.model.error.BusinessException
 import ch.nevis.exampleapp.coroutines.domain.model.response.VerifyPinResponse
@@ -31,25 +31,25 @@ class PinUserVerifierImpl(
 
     //region PinUserVerifier
     override fun verifyPin(
-        pinUserVerificationContext: PinUserVerificationContext,
-        pinUserVerificationHandler: PinUserVerificationHandler
+        context: PinUserVerificationContext,
+        handler: PinUserVerificationHandler
     ) {
-        if (pinUserVerificationContext.lastRecoverableError().isPresent) {
+        if (context.lastRecoverableError().isPresent) {
             Timber.asTree().sdk("PIN user verification failed. Please try again.")
         } else {
             Timber.asTree().sdk("Please start PIN user verification.")
         }
 
         val operationState = stateRepository.get() ?: throw BusinessException.invalidState()
-        operationState.pinUserVerificationHandler = pinUserVerificationHandler
+        operationState.pinUserVerificationHandler = handler
 
         val cancellableContinuation =
             operationState.cancellableContinuation ?: throw BusinessException.invalidState()
 
         cancellableContinuation.resume(
             VerifyPinResponse(
-                pinUserVerificationContext.lastRecoverableError().orElse(null),
-                pinUserVerificationContext.authenticatorProtectionStatus()
+                context.lastRecoverableError().orElse(null),
+                context.authenticatorProtectionStatus()
             )
         )
     }

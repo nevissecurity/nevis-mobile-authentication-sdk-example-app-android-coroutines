@@ -12,7 +12,7 @@ import androidx.activity.OnBackPressedCallback
  * A common implementation of [OnBackPressedCallback] class that cancels
  * the running operation if there is any.
  */
-class CancelOperationOnBackPressedCallback(
+open class CancelOperationOnBackPressedCallback(
 
     /**
      * The view model that runs/handles the cancellable operation.

@@ -14,6 +14,7 @@ import ch.nevis.exampleapp.coroutines.domain.model.response.Response
 import ch.nevis.exampleapp.coroutines.domain.model.state.UserInteractionOperationState
 import ch.nevis.exampleapp.coroutines.domain.repository.OperationStateRepository
 import ch.nevis.mobile.sdk.api.operation.authcloudapi.AuthCloudApiError
+import ch.nevis.mobile.sdk.api.operation.password.PasswordEnroller
 import ch.nevis.mobile.sdk.api.operation.pin.PinEnroller
 import ch.nevis.mobile.sdk.api.operation.selection.AuthenticatorSelector
 import ch.nevis.mobile.sdk.api.operation.userverification.BiometricUserVerifier
@@ -50,6 +51,11 @@ class AuthCloudApiRegistrationUseCaseImpl(
      * An instance of a [PinEnroller] implementation.
      */
     private val pinEnroller: PinEnroller,
+
+    /**
+     * An instance of a [PasswordEnroller] implementation.
+     */
+    private val passwordEnroller: PasswordEnroller,
 
     /**
      * An instance of a [FingerprintUserVerifier] implementation.
@@ -93,6 +99,7 @@ class AuthCloudApiRegistrationUseCaseImpl(
                     .authenticatorSelector(authenticatorSelector)
                     .deviceInformation(createDeviceInformationUseCaseResponse.deviceInformation)
                     .pinEnroller(pinEnroller)
+                    .passwordEnroller(passwordEnroller)
                     .fingerprintUserVerifier(fingerprintUserVerifier)
                     .biometricUserVerifier(biometricUserVerifier)
                     .devicePasscodeUserVerifier(devicePasscodeUserVerifier)

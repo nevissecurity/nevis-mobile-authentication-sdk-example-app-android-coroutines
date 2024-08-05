@@ -41,6 +41,10 @@ data class AuthenticatorItem(
      * The value is calculated based on [AuthenticatorItem.isPolicyCompliant] and [AuthenticatorItem.isUserEnrolled] flags.
      */
     fun isEnabled(): Boolean {
-        return isPolicyCompliant && (aaid == Authenticator.PIN_AUTHENTICATOR_AAID || isUserEnrolled)
+        return isPolicyCompliant && (
+            aaid == Authenticator.PIN_AUTHENTICATOR_AAID ||
+            aaid == Authenticator.PASSWORD_AUTHENTICATOR_AAID ||
+            isUserEnrolled
+        )
     }
 }

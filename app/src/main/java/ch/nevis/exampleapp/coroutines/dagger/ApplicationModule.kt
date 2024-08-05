@@ -26,9 +26,16 @@ import ch.nevis.exampleapp.coroutines.data.repository.OperationStateRepositoryIm
 import ch.nevis.exampleapp.coroutines.domain.client.ClientProvider
 import ch.nevis.exampleapp.coroutines.domain.client.ClientProviderImpl
 import ch.nevis.exampleapp.coroutines.domain.interaction.*
+import ch.nevis.exampleapp.coroutines.domain.interaction.password.PasswordChangerImpl
+import ch.nevis.exampleapp.coroutines.domain.interaction.password.PasswordEnrollerImpl
+import ch.nevis.exampleapp.coroutines.domain.interaction.password.PasswordUserVerifierImpl
+import ch.nevis.exampleapp.coroutines.domain.interaction.pin.PinChangerImpl
+import ch.nevis.exampleapp.coroutines.domain.interaction.pin.PinEnrollerImpl
+import ch.nevis.exampleapp.coroutines.domain.interaction.pin.PinUserVerifierImpl
 import ch.nevis.exampleapp.coroutines.domain.log.SdkLogger
 import ch.nevis.exampleapp.coroutines.domain.log.SdkLoggerImpl
 import ch.nevis.exampleapp.coroutines.domain.model.operation.Operation
+import ch.nevis.exampleapp.coroutines.domain.model.state.ChangePasswordOperationState
 import ch.nevis.exampleapp.coroutines.domain.model.state.ChangePinOperationState
 import ch.nevis.exampleapp.coroutines.domain.model.state.UserInteractionOperationState
 import ch.nevis.exampleapp.coroutines.domain.repository.LoginRepository
@@ -36,15 +43,21 @@ import ch.nevis.exampleapp.coroutines.domain.repository.OperationStateRepository
 import ch.nevis.exampleapp.coroutines.domain.usecase.*
 import ch.nevis.exampleapp.coroutines.domain.validation.AuthenticatorValidator
 import ch.nevis.exampleapp.coroutines.domain.validation.AuthenticatorValidatorImpl
+import ch.nevis.exampleapp.coroutines.domain.validation.PasswordPolicyImpl
 import ch.nevis.mobile.sdk.api.Configuration
 import ch.nevis.mobile.sdk.api.authorization.AuthorizationProvider
 import ch.nevis.mobile.sdk.api.localdata.Authenticator.BIOMETRIC_AUTHENTICATOR_AAID
 import ch.nevis.mobile.sdk.api.localdata.Authenticator.DEVICE_PASSCODE_AUTHENTICATOR_AAID
 import ch.nevis.mobile.sdk.api.localdata.Authenticator.FINGERPRINT_AUTHENTICATOR_AAID
+import ch.nevis.mobile.sdk.api.localdata.Authenticator.PASSWORD_AUTHENTICATOR_AAID
 import ch.nevis.mobile.sdk.api.localdata.Authenticator.PIN_AUTHENTICATOR_AAID
 import ch.nevis.mobile.sdk.api.operation.AuthenticationError
 import ch.nevis.mobile.sdk.api.operation.OperationError
 import ch.nevis.mobile.sdk.api.operation.authcloudapi.AuthCloudApiError
+import ch.nevis.mobile.sdk.api.operation.password.PasswordChangeError
+import ch.nevis.mobile.sdk.api.operation.password.PasswordChanger
+import ch.nevis.mobile.sdk.api.operation.password.PasswordEnroller
+import ch.nevis.mobile.sdk.api.operation.password.PasswordPolicy
 import ch.nevis.mobile.sdk.api.operation.pin.PinChangeError
 import ch.nevis.mobile.sdk.api.operation.pin.PinChanger
 import ch.nevis.mobile.sdk.api.operation.pin.PinEnroller
@@ -53,6 +66,7 @@ import ch.nevis.mobile.sdk.api.operation.selection.AuthenticatorSelector
 import ch.nevis.mobile.sdk.api.operation.userverification.BiometricUserVerifier
 import ch.nevis.mobile.sdk.api.operation.userverification.DevicePasscodeUserVerifier
 import ch.nevis.mobile.sdk.api.operation.userverification.FingerprintUserVerifier
+import ch.nevis.mobile.sdk.api.operation.userverification.PasswordUserVerifier
 import ch.nevis.mobile.sdk.api.operation.userverification.PinUserVerifier
 import ch.nevis.mobile.sdk.api.util.Consumer
 import dagger.Module
@@ -143,6 +157,7 @@ class ApplicationModule {
     @Provides
     fun provideAuthenticatorAllowlist(): List<String> = listOf(
         PIN_AUTHENTICATOR_AAID,
+        PASSWORD_AUTHENTICATOR_AAID,
         FINGERPRINT_AUTHENTICATOR_AAID,
         BIOMETRIC_AUTHENTICATOR_AAID,
         DEVICE_PASSCODE_AUTHENTICATOR_AAID
@@ -186,6 +201,10 @@ class ApplicationModule {
     @Provides
     @Singleton
     fun provideAuthenticatorValidator(): AuthenticatorValidator = AuthenticatorValidatorImpl()
+
+    @Provides
+    fun providePasswordPolicy(@ApplicationContext context: Context): PasswordPolicy =
+        PasswordPolicyImpl(context)
     //endregion
 
     //region Data Sources
@@ -201,6 +220,10 @@ class ApplicationModule {
         CacheImpl()
 
     @Provides
+    fun provideChangePasswordOperationStateCache(): Cache<ChangePasswordOperationState> =
+        CacheImpl()
+
+    @Provides
     fun provideUserInteractionOperationStateCache(): Cache<UserInteractionOperationState> =
         CacheImpl()
     //endregion
@@ -209,6 +232,11 @@ class ApplicationModule {
     @Provides
     @Singleton
     fun provideChangePinOperationStateRepository(cache: Cache<ChangePinOperationState>): OperationStateRepository<ChangePinOperationState> =
+        OperationStateRepositoryImpl(cache)
+
+    @Provides
+    @Singleton
+    fun provideChangePasswordOperationStateRepository(cache: Cache<ChangePasswordOperationState>): OperationStateRepository<ChangePasswordOperationState> =
         OperationStateRepositoryImpl(cache)
 
     @Provides
@@ -271,6 +299,24 @@ class ApplicationModule {
         PinEnrollerImpl(stateRepository)
 
     @Provides
+    fun providePasswordChanger(
+        passwordPolicy: PasswordPolicy,
+        stateRepository: OperationStateRepository<ChangePasswordOperationState>
+    ): PasswordChanger =
+        PasswordChangerImpl(passwordPolicy, stateRepository)
+
+    @Provides
+    fun providePasswordEnroller(
+        passwordPolicy: PasswordPolicy,
+        stateRepository: OperationStateRepository<UserInteractionOperationState>
+    ): PasswordEnroller =
+        PasswordEnrollerImpl(passwordPolicy, stateRepository)
+
+    @Provides
+    fun providePasswordUserVerifier(stateRepository: OperationStateRepository<UserInteractionOperationState>): PasswordUserVerifier =
+        PasswordUserVerifierImpl(stateRepository)
+
+    @Provides
     fun provideFingerprintUserVerifier(stateRepository: OperationStateRepository<UserInteractionOperationState>): FingerprintUserVerifier =
         FingerprintUserVerifierImpl(stateRepository)
 
@@ -299,6 +345,10 @@ class ApplicationModule {
         OnSuccessImpl(stateRepository)
 
     @Provides
+    fun provideOnSuccessForChangePasswordOperation(stateRepository: OperationStateRepository<ChangePasswordOperationState>): Runnable =
+        OnSuccessImpl(stateRepository)
+
+    @Provides
     fun provideOnErrorForUserInteractionOperation(
         stateRepository: OperationStateRepository<UserInteractionOperationState>,
         errorHandlerChain: ErrorHandlerChain
@@ -309,6 +359,12 @@ class ApplicationModule {
         stateRepository: OperationStateRepository<ChangePinOperationState>,
         errorHandlerChain: ErrorHandlerChain
     ): Consumer<PinChangeError> = OnErrorImpl(stateRepository, errorHandlerChain)
+
+    @Provides
+    fun provideOnErrorForChangePasswordOperation(
+        stateRepository: OperationStateRepository<ChangePasswordOperationState>,
+        errorHandlerChain: ErrorHandlerChain
+    ): Consumer<PasswordChangeError> = OnErrorImpl(stateRepository, errorHandlerChain)
 
     @Provides
     fun provideOnAuthCloudApiError(
@@ -368,6 +424,7 @@ class ApplicationModule {
         @Named(AUTHENTICATION_AUTHENTICATOR_SELECTOR)
         authenticatorSelector: AuthenticatorSelector,
         pinUserVerifier: PinUserVerifier,
+        passwordUserVerifier: PasswordUserVerifier,
         fingerprintUserVerifier: FingerprintUserVerifier,
         biometricUserVerifier: BiometricUserVerifier,
         devicePasscodeUserVerifier: DevicePasscodeUserVerifier,
@@ -377,6 +434,7 @@ class ApplicationModule {
         stateRepository,
         authenticatorSelector,
         pinUserVerifier,
+        passwordUserVerifier,
         fingerprintUserVerifier,
         biometricUserVerifier,
         devicePasscodeUserVerifier,
@@ -392,6 +450,7 @@ class ApplicationModule {
         @Named(AUTHENTICATION_AUTHENTICATOR_SELECTOR)
         authenticatorSelector: AuthenticatorSelector,
         pinUserVerifier: PinUserVerifier,
+        passwordUserVerifier: PasswordUserVerifier,
         fingerprintUserVerifier: FingerprintUserVerifier,
         biometricUserVerifier: BiometricUserVerifier,
         devicePasscodeUserVerifier: DevicePasscodeUserVerifier,
@@ -401,6 +460,7 @@ class ApplicationModule {
         stateRepository,
         authenticatorSelector,
         pinUserVerifier,
+        passwordUserVerifier,
         fingerprintUserVerifier,
         biometricUserVerifier,
         devicePasscodeUserVerifier,
@@ -443,6 +503,32 @@ class ApplicationModule {
         VerifyPinUseCaseImpl(stateRepository)
 
     @Provides
+    fun provideSetPasswordUseCase(stateRepository: OperationStateRepository<UserInteractionOperationState>): SetPasswordUseCase =
+        SetPasswordUseCaseImpl(stateRepository)
+
+    @Provides
+    fun provideStartChangePasswordUseCase(
+        clientProvider: ClientProvider,
+        stateRepository: OperationStateRepository<ChangePasswordOperationState>,
+        passwordChanger: PasswordChanger,
+        onError: Consumer<PasswordChangeError>
+    ): StartChangePasswordUseCase = StartChangePasswordUseCaseImpl(
+        clientProvider,
+        stateRepository,
+        passwordChanger,
+        provideOnSuccessForChangePasswordOperation(stateRepository),
+        onError
+    )
+
+    @Provides
+    fun provideChangePasswordUseCase(stateRepository: OperationStateRepository<ChangePasswordOperationState>): ChangePasswordUseCase =
+        ChangePasswordUseCaseImpl(stateRepository)
+
+    @Provides
+    fun provideVerifyPasswordUseCase(stateRepository: OperationStateRepository<UserInteractionOperationState>): VerifyPasswordUseCase =
+        VerifyPasswordUseCaseImpl(stateRepository)
+
+    @Provides
     fun provideVerifyFingerprintUseCase(stateRepository: OperationStateRepository<UserInteractionOperationState>): VerifyFingerprintUseCase =
         VerifyFingerprintUseCaseImpl(stateRepository)
 
@@ -465,7 +551,9 @@ class ApplicationModule {
         @Named(AUTHENTICATION_AUTHENTICATOR_SELECTOR)
         authenticationAuthenticatorSelector: AuthenticatorSelector,
         pinEnroller: PinEnroller,
+        passwordEnroller: PasswordEnroller,
         pinUserVerifier: PinUserVerifier,
+        passwordUserVerifier: PasswordUserVerifier,
         fingerprintUserVerifier: FingerprintUserVerifier,
         biometricUserVerifier: BiometricUserVerifier,
         devicePasscodeUserVerifier: DevicePasscodeUserVerifier,
@@ -478,7 +566,9 @@ class ApplicationModule {
         registrationAuthenticatorSelector,
         authenticationAuthenticatorSelector,
         pinEnroller,
+        passwordEnroller,
         pinUserVerifier,
+        passwordUserVerifier,
         fingerprintUserVerifier,
         biometricUserVerifier,
         devicePasscodeUserVerifier,
@@ -505,6 +595,7 @@ class ApplicationModule {
         @Named(REGISTRATION_AUTHENTICATOR_SELECTOR)
         authenticatorSelector: AuthenticatorSelector,
         pinEnroller: PinEnroller,
+        passwordEnroller: PasswordEnroller,
         fingerprintUserVerifier: FingerprintUserVerifier,
         biometricUserVerifier: BiometricUserVerifier,
         devicePasscodeUserVerifier: DevicePasscodeUserVerifier,
@@ -515,6 +606,7 @@ class ApplicationModule {
         createDeviceInformationUseCase,
         authenticatorSelector,
         pinEnroller,
+        passwordEnroller,
         fingerprintUserVerifier,
         biometricUserVerifier,
         devicePasscodeUserVerifier,
@@ -534,6 +626,7 @@ class ApplicationModule {
         @Named(REGISTRATION_AUTHENTICATOR_SELECTOR)
         authenticatorSelector: AuthenticatorSelector,
         pinEnroller: PinEnroller,
+        passwordEnroller: PasswordEnroller,
         fingerprintUserVerifier: FingerprintUserVerifier,
         biometricUserVerifier: BiometricUserVerifier,
         devicePasscodeUserVerifier: DevicePasscodeUserVerifier,
@@ -544,6 +637,7 @@ class ApplicationModule {
         createDeviceInformationUseCase,
         authenticatorSelector,
         pinEnroller,
+        passwordEnroller,
         fingerprintUserVerifier,
         biometricUserVerifier,
         devicePasscodeUserVerifier,

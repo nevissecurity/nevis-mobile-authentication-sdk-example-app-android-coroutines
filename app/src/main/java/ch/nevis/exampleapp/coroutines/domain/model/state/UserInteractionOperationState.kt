@@ -8,6 +8,7 @@ package ch.nevis.exampleapp.coroutines.domain.model.state
 
 import ch.nevis.exampleapp.coroutines.domain.model.operation.Operation
 import ch.nevis.exampleapp.coroutines.domain.model.response.Response
+import ch.nevis.mobile.sdk.api.operation.password.PasswordEnrollmentHandler
 import ch.nevis.mobile.sdk.api.operation.pin.PinEnrollmentHandler
 import ch.nevis.mobile.sdk.api.operation.selection.AccountSelectionHandler
 import ch.nevis.mobile.sdk.api.operation.selection.AuthenticatorSelectionHandler
@@ -15,6 +16,7 @@ import ch.nevis.mobile.sdk.api.operation.userverification.BiometricUserVerificat
 import ch.nevis.mobile.sdk.api.operation.userverification.DevicePasscodeUserVerificationHandler
 import ch.nevis.mobile.sdk.api.operation.userverification.FingerprintUserVerificationHandler
 import ch.nevis.mobile.sdk.api.operation.userverification.OsAuthenticationListenHandler
+import ch.nevis.mobile.sdk.api.operation.userverification.PasswordUserVerificationHandler
 import ch.nevis.mobile.sdk.api.operation.userverification.PinUserVerificationHandler
 import kotlinx.coroutines.CancellableContinuation
 
@@ -45,14 +47,24 @@ data class UserInteractionOperationState(
     var authenticatorSelectionHandler: AuthenticatorSelectionHandler? = null,
 
     /**
+     * [PinEnrollmentHandler] object received during a registration operation.
+     */
+    var pinEnrollmentHandler: PinEnrollmentHandler? = null,
+
+    /**
+     * [PasswordEnrollmentHandler] object received during a registration operation.
+     */
+    var passwordEnrollmentHandler: PasswordEnrollmentHandler? = null,
+
+    /**
      * [PinUserVerificationHandler] object received during an authentication operation.
      */
     var pinUserVerificationHandler: PinUserVerificationHandler? = null,
 
     /**
-     * [PinEnrollmentHandler] object received during a registration operation.
+     * [PasswordUserVerificationHandler] object received during an authentication operation.
      */
-    var pinEnrollmentHandler: PinEnrollmentHandler? = null,
+    var passwordUserVerificationHandler: PasswordUserVerificationHandler? = null,
 
     /**
      * [FingerprintUserVerificationHandler] object received during an authentication or a registration operation.
@@ -83,8 +95,10 @@ data class UserInteractionOperationState(
     override fun reset() {
         username = null
         authenticatorSelectionHandler = null
-        pinUserVerificationHandler = null
         pinEnrollmentHandler = null
+        passwordEnrollmentHandler = null
+        pinUserVerificationHandler = null
+        passwordUserVerificationHandler = null
         fingerprintUserVerificationHandler = null
         biometricUserVerificationHandler = null
         devicePasscodeUserVerificationHandler = null
