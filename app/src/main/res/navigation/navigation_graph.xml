@@ -67,15 +67,15 @@
         android:id="@+id/action_global_selectAccountFragment"
         app:destination="@id/selectAccountFragment" />
     <fragment
-        android:id="@+id/pinFragment"
-        android:name="ch.nevis.exampleapp.coroutines.ui.pin.PinFragment"
-        android:label="fragment_pin"
-        tools:layout="@layout/fragment_pin" >
+        android:id="@+id/credentialFragment"
+        android:name="ch.nevis.exampleapp.coroutines.ui.credential.CredentialFragment"
+        android:label="fragment_credential"
+        tools:layout="@layout/fragment_credential" >
         <argument
             android:name="parameter"
-            app:argType="ch.nevis.exampleapp.coroutines.ui.pin.parameter.PinNavigationParameter" />
+            app:argType="ch.nevis.exampleapp.coroutines.ui.credential.parameter.CredentialNavigationParameter" />
     </fragment>
-    <action android:id="@+id/action_global_pinFragment" app:destination="@id/pinFragment" />
+    <action android:id="@+id/action_global_credentialFragment" app:destination="@id/credentialFragment" />
     <fragment
         android:id="@+id/changeDeviceInformationFragment"
         android:name="ch.nevis.exampleapp.coroutines.ui.changeDeviceInformation.ChangeDeviceInformationFragment"

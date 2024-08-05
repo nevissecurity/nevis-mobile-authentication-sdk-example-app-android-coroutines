@@ -15,6 +15,7 @@ import ch.nevis.exampleapp.coroutines.domain.model.state.UserInteractionOperatio
 import ch.nevis.exampleapp.coroutines.domain.repository.OperationStateRepository
 import ch.nevis.mobile.sdk.api.authorization.AuthorizationProvider
 import ch.nevis.mobile.sdk.api.operation.OperationError
+import ch.nevis.mobile.sdk.api.operation.password.PasswordEnroller
 import ch.nevis.mobile.sdk.api.operation.pin.PinEnroller
 import ch.nevis.mobile.sdk.api.operation.selection.AuthenticatorSelector
 import ch.nevis.mobile.sdk.api.operation.userverification.BiometricUserVerifier
@@ -51,6 +52,11 @@ class InBandRegistrationUseCaseImpl(
      * An instance of a [PinEnroller] implementation.
      */
     private val pinEnroller: PinEnroller,
+
+    /**
+     * An instance of a [PasswordEnroller] implementation.
+     */
+    private val passwordEnroller: PasswordEnroller,
 
     /**
      * An instance of a [FingerprintUserVerifier] implementation.
@@ -96,10 +102,11 @@ class InBandRegistrationUseCaseImpl(
                 val operation = client.operations().registration()
                     .username(extId)
                     .authenticatorSelector(authenticatorSelector)
+                    .pinEnroller(pinEnroller)
+                    .passwordEnroller(passwordEnroller)
                     .fingerprintUserVerifier(fingerprintUserVerifier)
                     .biometricUserVerifier(biometricUserVerifier)
                     .devicePasscodeUserVerifier(devicePasscodeUserVerifier)
-                    .pinEnroller(pinEnroller)
                     .deviceInformation(createDeviceInformationUseCaseResponse.deviceInformation)
                     .onSuccess(onSuccess)
                     .onError(onError)

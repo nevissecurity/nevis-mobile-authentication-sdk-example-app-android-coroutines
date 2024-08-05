@@ -21,6 +21,7 @@ import ch.nevis.exampleapp.coroutines.domain.model.response.PayloadDecodeComplet
 import ch.nevis.exampleapp.coroutines.domain.model.response.Response
 import ch.nevis.exampleapp.coroutines.ui.base.ResponseObserverFragment
 import ch.nevis.exampleapp.coroutines.ui.util.handleDispatchTokenResponse
+import ch.nevis.mobile.sdk.api.localdata.Authenticator
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -71,7 +72,11 @@ class HomeFragment : ResponseObserverFragment() {
         }
 
         binding.changePinButton.setOnClickListener {
-            viewModel.changePin()
+            viewModel.changeCredential(Authenticator.PIN_AUTHENTICATOR_AAID)
+        }
+
+        binding.changePasswordButton.setOnClickListener {
+            viewModel.changeCredential(Authenticator.PASSWORD_AUTHENTICATOR_AAID)
         }
 
         binding.changeDeviceInformationButton.setOnClickListener {

@@ -6,7 +6,7 @@
     <string name="auth_cloud_registration_hint_app_link_uri">App link URI</string>
     <string name="auth_cloud_registration_confirm_button_title">OK</string>
 
-    <string name="business_error_type_accounts_not_found">There are not any registered accounts.</string>
+    <string name="business_error_type_accounts_not_found">There are no registered accounts.</string>
     <string name="business_error_type_client_not_initialized">The SDK client has not beet initialized.</string>
     <string name="business_error_type_device_information_not_found">There is no registered device information.</string>
     <string name="business_error_type_invalid_state">Invalid application state.</string>
@@ -89,6 +89,7 @@
     <string name="home_in_band_authentication_button_title">In-band Authentication</string>
     <string name="home_deregister_button_title">Deregistration</string>
     <string name="home_change_pin_button_title">PIN Change</string>
+    <string name="home_change_password_button_title">Password Change</string>
     <string name="home_change_device_information_button_title">Change Device Information</string>
     <string name="home_auth_cloud_registration_button_title">Auth Cloud API Registration</string>
     <string name="home_delete_authenticators_button_title">Delete Authenticators</string>
@@ -97,6 +98,7 @@
     <string name="operation_authentication">Authentication</string>
     <string name="operation_change_device_information">Change Device Information</string>
     <string name="operation_change_pin">Change PIN</string>
+    <string name="operation_change_password">Change Password</string>
     <string name="operation_decode_oob_payload">Payload Decoding</string>
     <string name="operation_deregistration">De-registration</string>
     <string name="operation_init_client">Client Initialization</string>
@@ -106,17 +108,36 @@
     <string name="operation_local_data">Local Data operation</string>
 
     <string name="pin_confirm_button_title">OK</string>
+
+    <string name="pin_title_change">Change PIN</string>
+    <string name="pin_title_enrollment">Create PIN</string>
+    <string name="pin_title_verify">Verify PIN</string>
+    <string name="pin_description_change">Please define a 6 digit PIN.</string>
+    <string name="pin_description_enrollment">Please define a 6 digit PIN.</string>
+    <string name="pin_description_verify">Please enter your PIN to complete the process.</string>
     <string name="pin_hint_old_pin">Old PIN</string>
-    <string name="pin_hint_new_pin">New PIN</string>
     <string name="pin_hint_pin">PIN</string>
-    <string name="pin_message_cool_down">Too many failed attempt.\nPlease wait %d seconds and try again.</string>
-    <string name="pin_message_locked_out">Sorry, but your PIN authenticator has been locked out.</string>
-    <string name="pin_title_change_pin">Change PIN</string>
-    <string name="pin_title_create_pin">Create PIN</string>
-    <string name="pin_title_verify_pin">Verify PIN</string>
-    <string name="pin_message_change_pin">Please define a 6 digit PIN.</string>
-    <string name="pin_message_create_pin">Please define a 6 digit PIN.</string>
-    <string name="pin_message_verify_pin">Please enter your PIN to complete the process.</string>
+    <string name="pin_protection_status_locked_out">Your PIN is blocked.</string>
+    <string name="pin_protection_status_last_retry_with_cool_down">You have 1 try left.\nPlease retry in %d seconds.\nAfter that your PIN will be blocked.</string>
+    <string name="pin_protection_status_last_retry_without_cool_down">You have 1 try left.\nAfter that your PIN will be blocked.</string>
+    <string name="pin_protection_status_retries_with_cool_down">You have %1$d tries left.\nPlease retry in %2$d seconds.</string>
+    <string name="pin_protection_status_retries_without_cool_down">You have %d tries left.</string>
+
+    <string name="password_title_change">Change Password</string>
+    <string name="password_title_enrollment">Create Password</string>
+    <string name="password_title_verify">Verify Password</string>
+    <string name="password_description_change">Please define a Password.</string>
+    <string name="password_description_enrollment">Please define a Password.</string>
+    <string name="password_description_verify">Please enter your Password to complete the process.</string>
+    <string name="password_hint_old_password">Old Password</string>
+    <string name="password_hint_password">Password</string>
+    <string name="password_protection_status_locked_out">Your Password is blocked.</string>
+    <string name="password_protection_status_last_retry_with_cool_down">You have 1 try left.\nPlease retry in %d seconds.\nAfter that your Password will be blocked.</string>
+    <string name="password_protection_status_last_retry_without_cool_down">You have 1 try left.\nAfter that your Password will be blocked.</string>
+    <string name="password_protection_status_retries_with_cool_down">You have %1$d tries left.\nPlease retry in %2$d seconds.</string>
+    <string name="password_protection_status_retries_without_cool_down">You have %d tries left.</string>
+    <string name="password_policy_error_message">The password must not be password.</string>
+    <string name="password_policy_error_cause">The password is password.</string>
 
     <string name="rational_dialog_message_camera">Please allow camera usage for QR scanner.</string>
     <string name="rational_dialog_ok_button_title">OK</string>
@@ -145,6 +166,7 @@
     <string name="verify_user_device_passcode_prompt_title">Device Passcode Verification</string>
 
     <string name="authenticator_pin_title">PIN</string>
+    <string name="authenticator_password_title">Password</string>
     <string name="authenticator_biometric_title">Biometric</string>
     <string name="authenticator_fingerprint_title">Fingerprint</string>
     <string name="authenticator_device_passcode_title">Device Passcode</string>

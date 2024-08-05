@@ -21,12 +21,14 @@ import ch.nevis.mobile.sdk.api.operation.OperationError
 import ch.nevis.mobile.sdk.api.operation.outofband.OutOfBandAuthentication
 import ch.nevis.mobile.sdk.api.operation.outofband.OutOfBandPayload
 import ch.nevis.mobile.sdk.api.operation.outofband.OutOfBandRegistration
+import ch.nevis.mobile.sdk.api.operation.password.PasswordEnroller
 import ch.nevis.mobile.sdk.api.operation.pin.PinEnroller
 import ch.nevis.mobile.sdk.api.operation.selection.AccountSelector
 import ch.nevis.mobile.sdk.api.operation.selection.AuthenticatorSelector
 import ch.nevis.mobile.sdk.api.operation.userverification.BiometricUserVerifier
 import ch.nevis.mobile.sdk.api.operation.userverification.DevicePasscodeUserVerifier
 import ch.nevis.mobile.sdk.api.operation.userverification.FingerprintUserVerifier
+import ch.nevis.mobile.sdk.api.operation.userverification.PasswordUserVerifier
 import ch.nevis.mobile.sdk.api.operation.userverification.PinUserVerifier
 import ch.nevis.mobile.sdk.api.util.Consumer
 import kotlinx.coroutines.Runnable
@@ -76,9 +78,19 @@ class ProcessOutOfBandPayloadUseCaseImpl(
     private val pinEnroller: PinEnroller,
 
     /**
+     * An instance of a [PasswordEnroller] implementation.
+     */
+    private val passwordEnroller: PasswordEnroller,
+
+    /**
      * An instance of a [PinUserVerifier] implementation for authentication cases.
      */
     private val pinUserVerifier: PinUserVerifier,
+
+    /**
+     * An instance of a [PasswordUserVerifier] implementation.
+     */
+    private val passwordUserVerifier: PasswordUserVerifier,
 
     /**
      * An instance of a [FingerprintUserVerifier] implementation.
@@ -194,6 +206,7 @@ class ProcessOutOfBandPayloadUseCaseImpl(
                 .accountSelector(accountSelector)
                 .authenticatorSelector(authenticationAuthenticatorSelector)
                 .pinUserVerifier(pinUserVerifier)
+                .passwordUserVerifier(passwordUserVerifier)
                 .fingerprintUserVerifier(fingerprintUserVerifier)
                 .biometricUserVerifier(biometricUserVerifier)
                 .devicePasscodeUserVerifier(devicePasscodeUserVerifier)
@@ -223,6 +236,7 @@ class ProcessOutOfBandPayloadUseCaseImpl(
                 .deviceInformation(deviceInformation)
                 .authenticatorSelector(registrationAuthenticatorSelector)
                 .pinEnroller(pinEnroller)
+                .passwordEnroller(passwordEnroller)
                 .fingerprintUserVerifier(fingerprintUserVerifier)
                 .biometricUserVerifier(biometricUserVerifier)
                 .devicePasscodeUserVerifier(devicePasscodeUserVerifier)

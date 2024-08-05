@@ -41,6 +41,11 @@ enum class Operation(
     CHANGE_PIN(R.string.operation_change_pin),
 
     /**
+     * Change Password
+     */
+    CHANGE_PASSWORD(R.string.operation_change_password),
+
+    /**
      * Out-of-band authentication
      */
     OUT_OF_BAND_AUTHENTICATION(R.string.operation_authentication),

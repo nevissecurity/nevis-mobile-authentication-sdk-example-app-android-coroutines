@@ -218,7 +218,7 @@ For Kotlin coroutines, suspend functions, SDK calls have to be wrapped into a [s
 
 The example application wraps the SDK calls in the use-case implementations in their `suspend fun execute(...)` functions. It runs the SDK call inside a `suspendCancellableCoroutine` block and caches the received `cancellableContinuation` object. When a interaction callback is called by the SDK the `cancellableContinuation` will be get from the cache and it will be resumed to resume the suspended block/function.
 
-As an example check the [InBandAuthenticationUseCaseImpl](app/src/main/java/ch/nevis/exampleapp/coroutines/domain/usecase/InBandAuthenticationUseCaseImpl.kt) and the [AuthenticationAuthenticatorSelectorImpl](app/src/main/java/ch/nevis/exampleapp/coroutines/domain/interaction/AuthenticationAuthenticatorSelectorImpl.kt).
+As an example check the [InBandAuthenticationUseCaseImpl](app/src/main/java/ch/nevis/exampleapp/coroutines/domain/usecase/InBandAuthenticationUseCaseImpl.kt) and the [AuthenticatorSelectorImpl](app/src/main/java/ch/nevis/exampleapp/coroutines/domain/interaction/AuthenticatorSelectorImpl.kt) classes.
 
 ## Integration Notes
 
@@ -271,6 +271,10 @@ The [DeregisterUseCaseImpl](app/src/main/java/ch/nevis/exampleapp/coroutines/dom
 #### Change PIN
 
 The change PIN operation is implemented in the [StartChangePinUseCaseImpl](app/src/main/java/ch/nevis/exampleapp/coroutines/domain/usecase/StartChangePinUseCaseImpl.kt) and [ChangePinUseCaseImpl](app/src/main/java/ch/nevis/exampleapp/coroutines/domain/usecase/ChangePinUseCaseImpl.kt) classes with which you can modify the PIN of a registered PIN authenticator for a given user.
+
+#### Change Password
+
+The change Password operation is implemented in the [StartChangePasswordUseCaseImpl](app/src/main/java/ch/nevis/exampleapp/coroutines/domain/usecase/StartChangePasswordUseCaseImpl.kt) and [ChangePasswordUseCaseImpl](app/src/main/java/ch/nevis/exampleapp/coroutines/domain/usecase/ChangePasswordUseCaseImpl.kt) classes with which you can modify the password of a registered Password authenticator for a given user.
 
 #### Change device information
 

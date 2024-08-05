@@ -14,8 +14,10 @@ import ch.nevis.exampleapp.coroutines.domain.model.error.BusinessException
 import ch.nevis.exampleapp.coroutines.domain.model.operation.Operation
 import ch.nevis.exampleapp.coroutines.domain.model.response.AuthenticationCompletedResponse
 import ch.nevis.exampleapp.coroutines.domain.model.response.CancelledResponse
+import ch.nevis.exampleapp.coroutines.domain.model.response.ChangePasswordResponse
 import ch.nevis.exampleapp.coroutines.domain.model.response.ChangePinResponse
 import ch.nevis.exampleapp.coroutines.domain.model.response.CompletedResponse
+import ch.nevis.exampleapp.coroutines.domain.model.response.EnrollPasswordResponse
 import ch.nevis.exampleapp.coroutines.domain.model.response.EnrollPinResponse
 import ch.nevis.exampleapp.coroutines.domain.model.response.ErrorResponse
 import ch.nevis.exampleapp.coroutines.domain.model.response.Response
@@ -24,9 +26,11 @@ import ch.nevis.exampleapp.coroutines.domain.model.response.SelectAuthenticatorR
 import ch.nevis.exampleapp.coroutines.domain.model.response.VerifyBiometricResponse
 import ch.nevis.exampleapp.coroutines.domain.model.response.VerifyDevicePasscodeResponse
 import ch.nevis.exampleapp.coroutines.domain.model.response.VerifyFingerprintResponse
+import ch.nevis.exampleapp.coroutines.domain.model.response.VerifyPasswordResponse
 import ch.nevis.exampleapp.coroutines.domain.model.response.VerifyPinResponse
-import ch.nevis.exampleapp.coroutines.ui.pin.model.PinViewMode
-import ch.nevis.exampleapp.coroutines.ui.pin.parameter.PinNavigationParameter
+import ch.nevis.exampleapp.coroutines.ui.credential.model.CredentialViewMode
+import ch.nevis.exampleapp.coroutines.ui.credential.parameter.PasswordNavigationParameter
+import ch.nevis.exampleapp.coroutines.ui.credential.parameter.PinNavigationParameter
 import ch.nevis.exampleapp.coroutines.ui.result.parameter.ResultNavigationParameter
 import ch.nevis.exampleapp.coroutines.ui.selectAccount.parameter.SelectAccountNavigationParameter
 import ch.nevis.exampleapp.coroutines.ui.selectAuthenticator.parameter.SelectAuthenticatorNavigationParameter
@@ -111,10 +115,39 @@ abstract class ResponseObserverFragment : Fragment() {
 
             is EnrollPinResponse -> {
                 val navigationParameter = PinNavigationParameter(
-                    PinViewMode.ENROLL_PIN,
+                    CredentialViewMode.ENROLLMENT,
                     lastRecoverableError = response.lastRecoverableError
                 )
-                val action = NavigationGraphDirections.actionGlobalPinFragment(navigationParameter)
+                val action = NavigationGraphDirections.actionGlobalCredentialFragment(navigationParameter)
+                navController.navigate(action)
+            }
+
+            is EnrollPasswordResponse -> {
+                val navigationParameter = PasswordNavigationParameter(
+                    CredentialViewMode.ENROLLMENT,
+                    lastRecoverableError = response.lastRecoverableError
+                )
+                val action = NavigationGraphDirections.actionGlobalCredentialFragment(navigationParameter)
+                navController.navigate(action)
+            }
+
+            is VerifyPinResponse -> {
+                val navigationParameter = PinNavigationParameter(
+                    CredentialViewMode.VERIFICATION,
+                    response.lastRecoverableError,
+                    response.pinAuthenticatorProtectionStatus,
+                )
+                val action = NavigationGraphDirections.actionGlobalCredentialFragment(navigationParameter)
+                navController.navigate(action)
+            }
+
+            is VerifyPasswordResponse -> {
+                val navigationParameter = PasswordNavigationParameter(
+                    CredentialViewMode.VERIFICATION,
+                    response.lastRecoverableError,
+                    response.passwordAuthenticatorProtectionStatus,
+                )
+                val action = NavigationGraphDirections.actionGlobalCredentialFragment(navigationParameter)
                 navController.navigate(action)
             }
 
@@ -148,13 +181,23 @@ abstract class ResponseObserverFragment : Fragment() {
                 navController.navigate(action)
             }
 
-            is VerifyPinResponse -> {
+            is ChangePinResponse -> {
                 val navigationParameter = PinNavigationParameter(
-                    PinViewMode.VERIFY_PIN,
-                    response.pinAuthenticatorProtectionStatus,
-                    response.lastRecoverableError
+                    CredentialViewMode.CHANGE,
+                    response.lastRecoverableError,
+                    response.pinAuthenticatorProtectionStatus
                 )
-                val action = NavigationGraphDirections.actionGlobalPinFragment(navigationParameter)
+                val action = NavigationGraphDirections.actionGlobalCredentialFragment(navigationParameter)
+                navController.navigate(action)
+            }
+
+            is ChangePasswordResponse -> {
+                val navigationParameter = PasswordNavigationParameter(
+                    CredentialViewMode.CHANGE,
+                    response.lastRecoverableError,
+                    response.passwordAuthenticatorProtectionStatus
+                )
+                val action = NavigationGraphDirections.actionGlobalCredentialFragment(navigationParameter)
                 navController.navigate(action)
             }
 
@@ -192,16 +235,6 @@ abstract class ResponseObserverFragment : Fragment() {
                     ResultNavigationParameter.forCancelledOperation(response.operation)
                 val action =
                     NavigationGraphDirections.actionGlobalResultFragment(navigationParameter)
-                navController.navigate(action)
-            }
-
-            is ChangePinResponse -> {
-                val navigationParameter = PinNavigationParameter(
-                    PinViewMode.CHANGE_PIN,
-                    response.pinAuthenticatorProtectionStatus,
-                    response.lastRecoverableError
-                )
-                val action = NavigationGraphDirections.actionGlobalPinFragment(navigationParameter)
                 navController.navigate(action)
             }
 

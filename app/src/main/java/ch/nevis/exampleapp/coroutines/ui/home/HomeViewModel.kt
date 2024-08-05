@@ -16,6 +16,8 @@ import ch.nevis.exampleapp.coroutines.domain.usecase.DeleteAuthenticatorsUseCase
 import ch.nevis.exampleapp.coroutines.domain.usecase.GetAccountsUseCase
 import ch.nevis.exampleapp.coroutines.domain.usecase.GetAuthenticatorsUseCase
 import ch.nevis.exampleapp.coroutines.domain.usecase.InitializeClientUseCase
+import ch.nevis.exampleapp.coroutines.domain.usecase.StartChangePasswordUseCase
+import ch.nevis.exampleapp.coroutines.domain.usecase.StartChangePinUseCase
 import ch.nevis.exampleapp.coroutines.ui.base.OutOfBandOperationViewModel
 import ch.nevis.mobile.sdk.api.localdata.Account
 import ch.nevis.mobile.sdk.api.localdata.Authenticator
@@ -49,6 +51,16 @@ class HomeViewModel @Inject constructor(
      * An instance of a [GetAuthenticatorsUseCase] implementation.
      */
     private val getAuthenticatorsUseCase: GetAuthenticatorsUseCase,
+
+    /**
+     * An instance of a [StartChangePinUseCase] implementation.
+     */
+    private val startChangePinUseCase: StartChangePinUseCase,
+
+    /**
+     * An instance of a [StartChangePasswordUseCase] implementation.
+     */
+    private val startChangePasswordUseCase: StartChangePasswordUseCase,
 
     /**
      * An instance of a [DeleteAuthenticatorsUseCase] implementation.
@@ -100,35 +112,43 @@ class HomeViewModel @Inject constructor(
     }
 
     /**
-     * Starts a change PIN operation.
+     * Starts a change credential operation.
+     *
+     * @param authenticatorType The AAID of the current authenticator.
      */
-    fun changePin() {
+    fun changeCredential(authenticatorType: String) {
         viewModelScope.launch(errorHandler) {
             var response: Response? = getAuthenticatorsUseCase.execute()
 
             if (response is GetAuthenticatorsResponse) {
                 var accounts: Set<Account>? = null
                 response.authenticators.forEach {
-                    if (it.aaid() == Authenticator.PIN_AUTHENTICATOR_AAID) {
+                    if (it.aaid() == authenticatorType) {
                         accounts = it.registration().registeredAccounts()
                     }
                 }
 
                 response = accounts?.let {
-                    if (it.isNotEmpty()) {
-                        SelectAccountResponse(
-                            Operation.CHANGE_PIN,
-                            it
-                        )
-                    } else {
-                        null
+                    when (it.size) {
+                        0 -> ErrorResponse(BusinessException.accountsNotFound())
+                        1 -> when (authenticatorType) {
+                            Authenticator.PIN_AUTHENTICATOR_AAID ->
+                                startChangePinUseCase.execute(it.first().username())
+                            Authenticator.PASSWORD_AUTHENTICATOR_AAID ->
+                                startChangePasswordUseCase.execute(it.first().username())
+                            else -> ErrorResponse(BusinessException.invalidState())
+                        }
+                        else -> when (authenticatorType) {
+                            Authenticator.PIN_AUTHENTICATOR_AAID ->
+                                SelectAccountResponse(Operation.CHANGE_PIN, it)
+                            Authenticator.PASSWORD_AUTHENTICATOR_AAID ->
+                                SelectAccountResponse(Operation.CHANGE_PASSWORD, it)
+                            else -> ErrorResponse(BusinessException.invalidState())
+                        }
                     }
                 }
             }
-
-            mutableResponseLiveData.postValue(
-                response ?: ErrorResponse(BusinessException.accountsNotFound())
-            )
+            mutableResponseLiveData.postValue(response)
         }
     }
 

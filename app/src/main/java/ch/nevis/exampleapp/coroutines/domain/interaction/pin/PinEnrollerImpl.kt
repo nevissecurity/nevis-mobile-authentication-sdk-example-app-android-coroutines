@@ -4,7 +4,7 @@
  * Copyright © 2022. Nevis Security AG. All rights reserved.
  */
 
-package ch.nevis.exampleapp.coroutines.domain.interaction
+package ch.nevis.exampleapp.coroutines.domain.interaction.pin
 
 import ch.nevis.exampleapp.coroutines.domain.model.error.BusinessException
 import ch.nevis.exampleapp.coroutines.domain.model.response.EnrollPinResponse
@@ -31,10 +31,10 @@ class PinEnrollerImpl(
 
     //region PinEnroller
     override fun enrollPin(
-        pinEnrollmentContext: PinEnrollmentContext,
-        pinEnrollmentHandler: PinEnrollmentHandler
+        context: PinEnrollmentContext,
+        handler: PinEnrollmentHandler
     ) {
-        if (pinEnrollmentContext.lastRecoverableError().isPresent) {
+        if (context.lastRecoverableError().isPresent) {
             Timber.asTree().sdk("PIN enrollment failed. Please try again.")
         } else {
             Timber.asTree().sdk("Please start PIN enrollment.")
@@ -42,14 +42,14 @@ class PinEnrollerImpl(
 
         val operationState =
             stateRepository.get() ?: throw BusinessException.invalidState()
-        operationState.pinEnrollmentHandler = pinEnrollmentHandler
+        operationState.pinEnrollmentHandler = handler
 
         val cancellableContinuation =
             operationState.cancellableContinuation ?: throw BusinessException.invalidState()
 
         cancellableContinuation.resume(
             EnrollPinResponse(
-                pinEnrollmentContext.lastRecoverableError().orElse(null)
+                context.lastRecoverableError().orElse(null)
             )
         )
     }

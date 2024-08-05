@@ -43,6 +43,7 @@ fun Authenticator.isUserEnrolled(username: String, allowClass2Sensors: Boolean):
 fun Authenticator.titleResId(): Int {
     return when (val aaid = aaid()) {
         PIN_AUTHENTICATOR_AAID -> R.string.authenticator_pin_title
+        PASSWORD_AUTHENTICATOR_AAID -> R.string.authenticator_password_title
         BIOMETRIC_AUTHENTICATOR_AAID -> R.string.authenticator_biometric_title
         FINGERPRINT_AUTHENTICATOR_AAID -> R.string.authenticator_fingerprint_title
         DEVICE_PASSCODE_AUTHENTICATOR_AAID -> R.string.authenticator_device_passcode_title
