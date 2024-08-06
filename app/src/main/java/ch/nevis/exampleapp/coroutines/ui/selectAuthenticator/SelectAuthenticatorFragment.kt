@@ -24,6 +24,8 @@ import dagger.hilt.android.AndroidEntryPoint
  * This view renders the available authenticators as a list and the user
  * can select one of them. The selected authenticator will be sent back
  * to previous view in the backstack.
+ *
+ * @constructor Creates a new instance.
  */
 @AndroidEntryPoint
 class SelectAuthenticatorFragment : ResponseObserverFragment(),
@@ -53,6 +55,7 @@ class SelectAuthenticatorFragment : ResponseObserverFragment(),
     //endregion
 
     //region Fragment
+    /** @suppress */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -61,6 +64,7 @@ class SelectAuthenticatorFragment : ResponseObserverFragment(),
         return binding.root
     }
 
+    /** @suppress */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val context = context ?: return
@@ -78,6 +82,7 @@ class SelectAuthenticatorFragment : ResponseObserverFragment(),
         )
     }
 
+    /** @suppress */
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

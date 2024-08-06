@@ -14,17 +14,16 @@ import kotlinx.parcelize.Parcelize
 
 /**
  * Navigation parameter of the Credential view in case of PIN authenticator.
+ *
+ * @constructor Creates a new instance.
+ * @param credentialViewMode The mode, the Credential view intend to be used/initialized.
+ * @param lastRecoverableError The last recoverable error. It exists only if there was already a failed
+ *      Password operation attempt.
+ * @param pinAuthenticatorProtectionStatus Status object of the PIN authenticator.
  */
 @Parcelize
 data class PinNavigationParameter(
-    /**
-     * The mode, the Credential view intend to be used/initialized.
-     */
     override val credentialViewMode: CredentialViewMode,
-
-    /**
-     * The last recoverable error. It exists only if there was already a failed PIN operation attempt.
-     */
     @IgnoredOnParcel
     override val lastRecoverableError: RecoverableError? = null,
 

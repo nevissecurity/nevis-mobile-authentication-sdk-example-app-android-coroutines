@@ -14,6 +14,10 @@ import kotlinx.parcelize.Parcelize
 
 /**
  * Navigation parameter class for Select Account view.
+ *
+ * @constructor Creates a new instance.
+ * @param operation The operation type the account was selection requested for.
+ * @param accounts The list of available accounts the user can select from.
  */
 @Parcelize
 data class SelectAccountNavigationParameter(

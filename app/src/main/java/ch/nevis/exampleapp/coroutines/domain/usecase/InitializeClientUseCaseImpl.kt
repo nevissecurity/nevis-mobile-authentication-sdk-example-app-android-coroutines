@@ -27,16 +27,13 @@ import kotlin.coroutines.resume
  * - Using a [Semaphore] object in this implementation.
  * - Only one instance must be exist of this implementation. It is ensured by injecting this implementation
  * as singleton by Dagger Hilt.
+ *
+ * @constructor Creates a new instance.
+ * @param clientProvider An instance of [ClientProvider] interface implementation.
+ * @param context An Android [Context] object used for initializing [ch.nevis.mobile.sdk.api.MobileAuthenticationClient].
  */
 class InitializeClientUseCaseImpl(
-    /**
-     * An instance of a [ClientProvider] implementation.
-     */
     private val clientProvider: ClientProvider,
-
-    /**
-     * An Android [Context] object used for initializing [ch.nevis.mobile.sdk.api.MobileAuthenticationClient].
-     */
     private val context: Context,
 ) : InitializeClientUseCase {
 

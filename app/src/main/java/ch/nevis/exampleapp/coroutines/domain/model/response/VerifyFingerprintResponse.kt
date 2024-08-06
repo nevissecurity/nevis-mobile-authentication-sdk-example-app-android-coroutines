@@ -10,8 +10,14 @@ import androidx.annotation.StringRes
 import ch.nevis.mobile.sdk.api.operation.userverification.FingerprintUserVerificationError
 
 /**
- * Response class that indicates the SDK operation asks the user to verify herself/himself using fingerprint authentication.
- * Typically when this response is received a [ch.nevis.exampleapp.coroutines.domain.usecase.VerifyFingerprintUseCase] is started.
+ * Response class that indicates the SDK operation asks the user to verify herself/himself using fingerprint
+ * authentication. Typically when this response is received a [ch.nevis.exampleapp.coroutines.domain.usecase.VerifyFingerprintUseCase]
+ * is started.
+ *
+ * @constructor Creates a new instance.
+ * @param authenticatorTitleResId String resource identifier of the title of the authenticator.
+ * @param lastRecoverableError The last recoverable error. It exists only if there was already a failed
+ *  fingerprint verification attempt.
  */
 class VerifyFingerprintResponse(
     /**

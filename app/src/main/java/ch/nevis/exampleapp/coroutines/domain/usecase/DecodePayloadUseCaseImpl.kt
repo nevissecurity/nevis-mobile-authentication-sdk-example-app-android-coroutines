@@ -18,11 +18,11 @@ import kotlin.coroutines.resume
 
 /**
  * Default implementation of [DecodePayloadUseCase] interface.
+ *
+ * @constructor Creates a new instance.
+ * @param clientProvider An instance of a [ClientProvider] implementation.
  */
 class DecodePayloadUseCaseImpl(
-    /**
-     * An instance of a [ClientProvider] implementation.
-     */
     private val clientProvider: ClientProvider
 ) : DecodePayloadUseCase {
 

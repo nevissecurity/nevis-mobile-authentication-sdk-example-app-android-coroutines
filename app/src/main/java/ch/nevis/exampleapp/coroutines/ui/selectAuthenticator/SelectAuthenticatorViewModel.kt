@@ -15,12 +15,12 @@ import javax.inject.Inject
 
 /**
  * View model implementation for Select Authenticator view.
+ *
+ * @constructor Creates a new instance. An instance of a [SelectAuthenticatorUseCase] implementation.
+ * @param selectAuthenticatorUseCase
  */
 @HiltViewModel
 class SelectAuthenticatorViewModel @Inject constructor(
-    /**
-     * An instance of a [SelectAuthenticatorUseCase] implementation.
-     */
     private val selectAuthenticatorUseCase: SelectAuthenticatorUseCase
 ) : CancellableOperationViewModel() {
 

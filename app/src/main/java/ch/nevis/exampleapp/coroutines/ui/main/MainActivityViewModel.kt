@@ -17,13 +17,12 @@ import javax.inject.Inject
 
 /**
  * View model implementation of Main activity.
+ *
+ * @constructor Creates a new instance.
+ * @param sdkLogger An injected instance of an implementation of [SdkLogger] interface.
  */
 @HiltViewModel
 class MainActivityViewModel @Inject constructor(
-
-    /**
-     * An injected instance of an implementation of [SdkLogger] interface.
-     */
     private val sdkLogger: SdkLogger
 ): ViewModel(), SdkLogReceiver {
 
@@ -42,6 +41,10 @@ class MainActivityViewModel @Inject constructor(
      * Log [LiveData] that is used to post new [LogItem] objects to observers.
      */
     private val _log = MutableLiveData<LogItem>()
+
+    /**
+     * Log [LiveData] that is used to post new [LogItem] objects to observers.
+     */
     val log: LiveData<LogItem> = _log
     //endregion
 

@@ -20,6 +20,8 @@ import dagger.hilt.android.AndroidEntryPoint
 /**
  * [androidx.fragment.app.Fragment] implementation of Transaction Confirmation view where the user
  * can allow or deny further processing of the operation based on the displayed transaction data.
+ *
+ * @constructor Creates a new instance.
  */
 @AndroidEntryPoint
 class TransactionConfirmationFragment : ResponseObserverFragment() {
@@ -43,6 +45,7 @@ class TransactionConfirmationFragment : ResponseObserverFragment() {
     //endregion
 
     //region Fragment
+    /** @suppress */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -50,6 +53,7 @@ class TransactionConfirmationFragment : ResponseObserverFragment() {
         return binding.root
     }
 
+    /** @suppress */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -73,6 +77,7 @@ class TransactionConfirmationFragment : ResponseObserverFragment() {
         )
     }
 
+    /** @suppress */
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

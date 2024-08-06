@@ -21,15 +21,16 @@ import kotlin.coroutines.resume
  * Default implementation of [PinChanger] interface. It stores the PIN change step context
  * into its state and resumes the cancellableContinuation found in state with [ChangePinResponse]
  * indicating that the running operation waiting for a new PIN.
+ *
+ * @constructor Creates a new instance.
+ * @param stateRepository The state repository that stores the state of the running operation.
  */
 class PinChangerImpl(
-    /**
-     * The state repository that stores the state of the running operation.
-     */
     private val stateRepository: OperationStateRepository<ChangePinOperationState>
 ) : PinChanger {
 
     //region PinChanger
+    /** @suppress */
     override fun changePin(
         context: PinChangeContext,
         handler: PinChangeHandler

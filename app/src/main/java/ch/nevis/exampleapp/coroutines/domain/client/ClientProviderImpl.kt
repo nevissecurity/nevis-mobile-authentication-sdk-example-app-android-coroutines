@@ -10,6 +10,8 @@ import ch.nevis.mobile.sdk.api.MobileAuthenticationClient
 
 /**
  * Default implementation of [ClientProvider] interface.
+ *
+ * @constructor Creates a new instance.
  */
 class ClientProviderImpl : ClientProvider {
 

@@ -14,6 +14,9 @@ import ch.nevis.mobile.sdk.api.localdata.Authenticator
  * Typically the received [Authenticator] set is shown to the user and he/she selects one of them.
  * After the authenticator selection [ch.nevis.exampleapp.coroutines.domain.usecase.SelectAuthenticatorUseCase] is called
  * to continue the operation.
+ *
+ * @constructor Creates a new instance.
+ * @param authenticatorItems The set of available authenticators the user has to choose from.
  */
 class SelectAuthenticatorResponse(
     /**

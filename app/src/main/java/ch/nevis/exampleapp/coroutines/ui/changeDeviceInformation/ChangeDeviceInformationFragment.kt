@@ -21,6 +21,8 @@ import dagger.hilt.android.AndroidEntryPoint
  * [androidx.fragment.app.Fragment] implementation of Change Device Information view where the user
  * can see the current device information and she/he cna enter a new device information name and send it
  * to the client as input for a change device information operation.
+ *
+ * @constructor Creates a new instance.
  */
 @AndroidEntryPoint
 class ChangeDeviceInformationFragment : ResponseObserverFragment() {
@@ -39,6 +41,7 @@ class ChangeDeviceInformationFragment : ResponseObserverFragment() {
     //endregion
 
     //region Fragment
+    /** @suppress */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -47,6 +50,7 @@ class ChangeDeviceInformationFragment : ResponseObserverFragment() {
         return binding.root
     }
 
+    /** @suppress */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -57,6 +61,7 @@ class ChangeDeviceInformationFragment : ResponseObserverFragment() {
         }
     }
 
+    /** @suppress */
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

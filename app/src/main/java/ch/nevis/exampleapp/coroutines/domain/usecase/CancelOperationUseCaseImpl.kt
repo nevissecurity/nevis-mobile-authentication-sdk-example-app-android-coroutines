@@ -8,6 +8,7 @@ package ch.nevis.exampleapp.coroutines.domain.usecase
 
 import ch.nevis.exampleapp.coroutines.domain.model.response.CancelledResponse
 import ch.nevis.exampleapp.coroutines.domain.model.response.Response
+import ch.nevis.exampleapp.coroutines.domain.model.state.ChangePasswordOperationState
 import ch.nevis.exampleapp.coroutines.domain.model.state.ChangePinOperationState
 import ch.nevis.exampleapp.coroutines.domain.model.state.UserInteractionOperationState
 import ch.nevis.exampleapp.coroutines.domain.repository.OperationStateRepository
@@ -17,17 +18,19 @@ import kotlin.coroutines.resume
 /**
  * Default implementation of [CancelOperationUseCase] interface that discovers all known
  * [OperationStateRepository] and tries to find cancel the running operation.
+ *
+ * @constructor Creates a new instance.
+ * @param userInteractionOperationStateRepository An instance of an [OperationStateRepository]
+ *  implementation that may hold an [UserInteractionOperationState].
+ * @param changePinOperationStateRepository An instance of an [OperationStateRepository]
+ *  implementation that may hold an [ChangePinOperationState].
+ * @param changePasswordOperationStateRepository An instance of an [OperationStateRepository]
+ *  implementation that may hold an [ChangePasswordOperationState].
  */
 class CancelOperationUseCaseImpl(
-    /**
-     * An instance of an [OperationStateRepository] implementation that may hold an [UserInteractionOperationState].
-     */
     private val userInteractionOperationStateRepository: OperationStateRepository<UserInteractionOperationState>,
-
-    /**
-     * An instance of an [OperationStateRepository] implementation that may hold an [ChangePinOperationState].
-     */
-    private val changePinOperationStateRepository: OperationStateRepository<ChangePinOperationState>
+    private val changePinOperationStateRepository: OperationStateRepository<ChangePinOperationState>,
+    private val changePasswordOperationStateRepository: OperationStateRepository<ChangePasswordOperationState>
 ) : CancelOperationUseCase {
 
     //region CancelOperationUseCase
@@ -37,6 +40,12 @@ class CancelOperationUseCaseImpl(
             changePinOperationStateRepository.get()?.let {
                 it.cancellableContinuation = cancellableContinuation
                 it.pinChangeHandler?.cancel()
+                cancelled = true
+            }
+
+            changePasswordOperationStateRepository.get()?.let {
+                it.cancellableContinuation = cancellableContinuation
+                it.passwordChangeHandler?.cancel()
                 cancelled = true
             }
 

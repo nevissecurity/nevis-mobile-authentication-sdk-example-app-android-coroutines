@@ -29,42 +29,24 @@ import javax.inject.Inject
 
 /**
  * View model implementation of Home view.
+ *
+ * @constructor Creates a new instance.
+ * @param configurationProvider An instance of a [ConfigurationProvider] implementation.
+ * @param initializeClientUseCase An instance of a [InitializeClientUseCase] implementation.
+ * @param getAccountsUseCase An instance of a [GetAccountsUseCase] implementation.
+ * @param getAuthenticatorsUseCase An instance of a [GetAuthenticatorsUseCase] implementation.
+ * @param startChangePinUseCase An instance of a [StartChangePinUseCase] implementation.
+ * @param startChangePasswordUseCase An instance of a [StartChangePasswordUseCase] implementation.
+ * @param deleteAuthenticatorsUseCase An instance of a [DeleteAuthenticatorsUseCase] implementation.
  */
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    /**
-     * An instance of a [ConfigurationProvider] implementation.
-     */
     private val configurationProvider: ConfigurationProvider,
-
-    /**
-     * An instance of a [InitializeClientUseCase] implementation.
-     */
     private val initializeClientUseCase: InitializeClientUseCase,
-
-    /**
-     * An instance of a [GetAccountsUseCase] implementation.
-     */
     private val getAccountsUseCase: GetAccountsUseCase,
-
-    /**
-     * An instance of a [GetAuthenticatorsUseCase] implementation.
-     */
     private val getAuthenticatorsUseCase: GetAuthenticatorsUseCase,
-
-    /**
-     * An instance of a [StartChangePinUseCase] implementation.
-     */
     private val startChangePinUseCase: StartChangePinUseCase,
-
-    /**
-     * An instance of a [StartChangePasswordUseCase] implementation.
-     */
     private val startChangePasswordUseCase: StartChangePasswordUseCase,
-
-    /**
-     * An instance of a [DeleteAuthenticatorsUseCase] implementation.
-     */
     private val deleteAuthenticatorsUseCase: DeleteAuthenticatorsUseCase,
 ) : OutOfBandOperationViewModel() {
 

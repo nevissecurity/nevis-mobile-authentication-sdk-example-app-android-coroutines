@@ -15,11 +15,12 @@ import com.google.mlkit.vision.common.InputImage
 
 /**
  * A [ImageAnalysis.Analyzer] implementation for QR Reader view to process images as barcodes.
+ *
+ * @constructor Creates a new instance.
+ * @param barcodesReceivedListener A [BarcodesReceivedListener] implementation that will be notified
+ *  when barcode(s) are read/received.
  */
 class QrCodeAnalyzer(
-    /**
-     * A [BarcodesReceivedListener] implementation that will be notified when barcode(s) are read/received.
-     */
     private val barcodesReceivedListener: BarcodesReceivedListener
 ) : ImageAnalysis.Analyzer {
 
@@ -41,6 +42,7 @@ class QrCodeAnalyzer(
     //endregion
 
     //region ImageAnalysis.Analyzer
+    /** @suppress */
     @androidx.annotation.OptIn(androidx.camera.core.ExperimentalGetImage::class)
     override fun analyze(imageProxy: ImageProxy) {
         imageProxy.image?.let {

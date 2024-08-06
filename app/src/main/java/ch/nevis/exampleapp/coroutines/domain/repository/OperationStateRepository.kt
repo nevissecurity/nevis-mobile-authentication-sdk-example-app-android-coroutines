@@ -32,4 +32,3 @@ interface OperationStateRepository<T : OperationState> {
      */
     fun reset()
 }
-

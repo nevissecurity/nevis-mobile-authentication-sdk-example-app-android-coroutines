@@ -12,6 +12,11 @@ import ch.nevis.mobile.sdk.api.localdata.Authenticator
 /**
  * Represents an authenticator that is listed and can be selected by the user on select authenticator view.
  *
+ * @constructor Creates a new instance.
+ * @param aaid The AAID of the authenticator.
+ * @param isPolicyCompliant The flag that tells whether the authenticator is server policy compliant.
+ * @param isUserEnrolled The flag that tells whether the user already enrolled the authenticator.
+ * @param titleResId String resource identifier of the title of the authenticator.
  * @throws IllegalArgumentException when an unknown AAID is used.
  */
 data class AuthenticatorItem(

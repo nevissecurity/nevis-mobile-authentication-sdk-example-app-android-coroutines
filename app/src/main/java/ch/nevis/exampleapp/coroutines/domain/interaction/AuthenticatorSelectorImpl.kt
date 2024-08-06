@@ -41,33 +41,22 @@ enum class AuthenticatorSelectorOperation {
 
 /**
  * Default implementation of [AuthenticatorSelector] interface.
- */
-class AuthenticatorSelectorImpl(
-    /**
-     * An instance of a [ConfigurationProvider] implementation.
-     */
+ *
+ * @constructor Creates a new instance.
+ * @param configurationProvider An instance of a [ConfigurationProvider] interface implementation.
+ * @param authenticatorValidator An instance of a [AuthenticatorValidator] interface implementation.
+ * @param settings An instance of a [Settings] interface implementation.
+ * @param operation The current operation.
+ */class AuthenticatorSelectorImpl(
     private val configurationProvider: ConfigurationProvider,
-
-    /**
-     * The state repository that stores the state of the running operation.
-     */
     private val stateRepository: OperationStateRepository<UserInteractionOperationState>,
-
-    /**
-     * An instance of an [AuthenticatorValidator] interface implementation.
-     */
     private val authenticatorValidator: AuthenticatorValidator,
-
-    /**
-     * An instance of a [Settings] interface implementation.
-     */
     private val settings: Settings,
-
-    /**
-     * The current operation.
-     */
     private val operation: AuthenticatorSelectorOperation
 ) : AuthenticatorSelector {
+
+    //region AuthenticatorSelector
+    /** @suppress */
     override fun selectAuthenticator(
         context: AuthenticatorSelectionContext,
         handler: AuthenticatorSelectionHandler
@@ -118,4 +107,5 @@ class AuthenticatorSelectorImpl(
             SelectAuthenticatorResponse(authenticatorItems)
         )
     }
+    //endregion
 }

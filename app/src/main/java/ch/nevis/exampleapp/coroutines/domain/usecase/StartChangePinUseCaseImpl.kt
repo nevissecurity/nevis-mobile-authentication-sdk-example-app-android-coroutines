@@ -10,7 +10,6 @@ import ch.nevis.exampleapp.coroutines.domain.client.ClientProvider
 import ch.nevis.exampleapp.coroutines.domain.model.error.BusinessException
 import ch.nevis.exampleapp.coroutines.domain.model.response.Response
 import ch.nevis.exampleapp.coroutines.domain.model.state.ChangePinOperationState
-import ch.nevis.exampleapp.coroutines.domain.model.state.UserInteractionOperationState
 import ch.nevis.exampleapp.coroutines.domain.repository.OperationStateRepository
 import ch.nevis.mobile.sdk.api.operation.pin.PinChangeError
 import ch.nevis.mobile.sdk.api.operation.pin.PinChanger
@@ -20,31 +19,20 @@ import kotlinx.coroutines.suspendCancellableCoroutine
 
 /**
  * Default implementation of [StartChangePinUseCase] interface.
+ *
+ * @constructor Creates a new instance.
+ * @param clientProvider An instance of [ClientProvider] interface implementation.
+ * @param stateRepository An instance of an [OperationStateRepository] implementation that may hold
+ *  a [ChangePinOperationState].
+ * @param pinChanger An instance of [PinChanger] interface implementation.
+ * @param onSuccess An instance of a [Runnable] implementation.
+ * @param onError An instance of a [Consumer] implementation that accepts a [PinChangeError] object.
  */
 class StartChangePinUseCaseImpl(
-    /**
-     * An instance of a [ClientProvider] implementation.
-     */
     private val clientProvider: ClientProvider,
-
-    /**
-     * An instance of an [OperationStateRepository] implementation that may hold an [UserInteractionOperationState].
-     */
     private val stateRepository: OperationStateRepository<ChangePinOperationState>,
-
-    /**
-     * An instance of a [PinChanger] implementation.
-     */
     private val pinChanger: PinChanger,
-
-    /**
-     * An instance of a [Runnable] implementation.
-     */
     private val onSuccess: Runnable,
-
-    /**
-     * An instance of a [Consumer] implementation that accepts a [PinChangeError] object.
-     */
     private val onError: Consumer<PinChangeError>
 ) : StartChangePinUseCase {
 

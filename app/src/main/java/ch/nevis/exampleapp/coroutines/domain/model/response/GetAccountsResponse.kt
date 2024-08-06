@@ -10,6 +10,9 @@ import ch.nevis.mobile.sdk.api.localdata.Account
 
 /**
  * A [Response] class that holds the requested [Account] set.
+ *
+ * @constructor Creates a new instance.
+ * @param accounts The requested [Account] set.
  */
 data class GetAccountsResponse(
 

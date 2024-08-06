@@ -20,25 +20,23 @@ import javax.inject.Inject
 
 /**
  * View model implementation for Verify User view.
+ *
+ * @constructor Creates a new instance.
+ * @param verifyBiometricUseCase An instance of a [VerifyBiometricUseCase] implementation.
+ * @param verifyDevicePasscodeUseCase An instance of a [VerifyDevicePasscodeUseCase] implementation.
+ * @param verifyFingerprintUseCase An instance of a [VerifyFingerprintUseCase] implementation.
  */
 @HiltViewModel
 class VerifyUserViewModel @Inject constructor(
-    /**
-     * An instance of a [VerifyBiometricUseCase] implementation.
-     */
     private val verifyBiometricUseCase: VerifyBiometricUseCase,
-
-    /**
-     * An instance of a [VerifyDevicePasscodeUseCase] implementation.
-     */
     private val verifyDevicePasscodeUseCase: VerifyDevicePasscodeUseCase,
-
-    /**
-     * An instance of a [VerifyFingerprintUseCase] implementation.
-     */
     private val verifyFingerprintUseCase: VerifyFingerprintUseCase
 ) : CancellableOperationViewModel() {
 
+    //region Properties
+    /**
+     * The mode, the Verify User view intend to be used/initialized.
+     */
     private lateinit var verifyUserViewMode: VerifyUserViewMode
 
     /**
@@ -52,6 +50,7 @@ class VerifyUserViewModel @Inject constructor(
      * the dialog shown by the OS.
      */
     private lateinit var devicePasscodePromptOptions: DevicePasscodePromptOptions
+    //endregion
 
     //region Public Interface
     /**

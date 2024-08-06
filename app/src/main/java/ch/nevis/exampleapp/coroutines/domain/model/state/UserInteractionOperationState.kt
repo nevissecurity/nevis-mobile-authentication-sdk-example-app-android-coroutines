@@ -22,12 +22,34 @@ import kotlinx.coroutines.CancellableContinuation
 
 /**
  * [OperationState] implementation for registration and authentication operations.
+ *
+ * @constructor Creates a new instance.
+ * @param operation The [Operation] the state relates to.
+ * @param username The username that is identifies the account used during the authentication if it
+ *  can be determined, otherwise null.
+ * @param accountSelectionHandler [AccountSelectionHandler] object received during an out-of-band
+ *  authentication operation.
+ * @param authenticatorSelectionHandler [AuthenticatorSelectionHandler] object received during an
+ *  authentication or a registration operation.
+ * @param pinEnrollmentHandler [PinEnrollmentHandler] object received during a registration operation.
+ * @param passwordEnrollmentHandler [PasswordEnrollmentHandler] object received during a registration
+ *  operation.
+ * @param pinUserVerificationHandler [PinUserVerificationHandler] object received during an authentication
+ *  operation.
+ * @param passwordUserVerificationHandler [PasswordUserVerificationHandler] object received during an
+ *  authentication operation.
+ * @param fingerprintUserVerificationHandler [FingerprintUserVerificationHandler] object received during
+ *  an authentication or a registration operation.
+ * @param biometricUserVerificationHandler [BiometricUserVerificationHandler] object received during
+ *  an authentication or a registration operation.
+ * @param devicePasscodeUserVerificationHandler [DevicePasscodeUserVerificationHandler] object received
+ *  during an authentication or a registration operation.
+ * @param osAuthenticationListenHandler [OsAuthenticationListenHandler] object received during an authentication
+ *  or a registration operation.
+ * @param cancellableContinuation A [CancellableContinuation] instance of a `suspendCancellableCoroutine`
+ *  Kotlin coroutine block.
  */
 data class UserInteractionOperationState(
-
-    /**
-     * Overridden operation property.
-     */
     override val operation: Operation,
 
     /**
@@ -42,7 +64,7 @@ data class UserInteractionOperationState(
     var accountSelectionHandler: AccountSelectionHandler? = null,
 
     /**
-     * [AccountSelectionHandler] object received during an authentication or a registration operation.
+     * [AuthenticatorSelectionHandler] object received during an authentication or a registration operation.
      */
     var authenticatorSelectionHandler: AuthenticatorSelectionHandler? = null,
 
@@ -86,10 +108,6 @@ data class UserInteractionOperationState(
      */
     var osAuthenticationListenHandler: OsAuthenticationListenHandler? = null,
 
-    /**
-     * A [CancellableContinuation] instance of a `suspendCancellableCoroutine` Kotlin coroutine block.
-     * The [CancellableContinuation] will be resumed when the SDK finished an operation step.
-     */
     override var cancellableContinuation: CancellableContinuation<Response>? = null
 ) : OperationState() {
     override fun reset() {

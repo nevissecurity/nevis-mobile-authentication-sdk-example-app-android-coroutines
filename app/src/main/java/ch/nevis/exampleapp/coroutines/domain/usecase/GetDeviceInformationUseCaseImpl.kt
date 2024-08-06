@@ -17,11 +17,11 @@ import ch.nevis.exampleapp.coroutines.domain.model.response.Response
  * [ch.nevis.mobile.sdk.api.localdata.DeviceInformation] from the client and returns it as a
  * [DeviceInformationResponse]. If there isn't any stored device information in the client an
  * [ErrorResponse] will be returned.
+ *
+ * @constructor Creates a new instance.
+ * @param clientProvider An instance of [ClientProvider] interface implementation.
  */
 class GetDeviceInformationUseCaseImpl(
-    /**
-     * An instance of a [ClientProvider] implementation.
-     */
     private val clientProvider: ClientProvider
 ) : GetDeviceInformationUseCase {
 

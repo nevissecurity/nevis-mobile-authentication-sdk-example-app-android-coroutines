@@ -13,12 +13,13 @@ import kotlinx.coroutines.CancellableContinuation
 
 /**
  * [OperationState] implementation for change PIN operation.
+ *
+ * @constructor Creates a new instance.
+ * @param cancellableContinuation A [CancellableContinuation] instance of a `suspendCancellableCoroutine`
+ *  Kotlin coroutine block. The [CancellableContinuation] will be resumed when the SDK finished an
+ *  operation step.
  */
 data class ChangePinOperationState(
-    /**
-     * A [CancellableContinuation] instance of a `suspendCancellableCoroutine` Kotlin coroutine block.
-     * The [CancellableContinuation] will be resumed when the SDK finished an operation step.
-     */
     override var cancellableContinuation: CancellableContinuation<Response>? = null
 ) : OperationState() {
 

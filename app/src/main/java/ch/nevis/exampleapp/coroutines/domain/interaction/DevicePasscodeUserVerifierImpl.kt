@@ -22,15 +22,16 @@ import kotlin.coroutines.resume
  * Default implementation of [DevicePasscodeUserVerifier] interface. It stores the device passcode verification
  * step context into its state and resumes the cancellableContinuation found in state with [VerifyDevicePasscodeResponse]
  * indicating that the running operation waiting for a device passcode verification.
+ *
+ * @constructor Creates a new instance.
+ * @param stateRepository The state repository that stores the state of the running operation.
  */
 class DevicePasscodeUserVerifierImpl(
-    /**
-     * The state repository that stores the state of the running operation.
-     */
     private val stateRepository: OperationStateRepository<UserInteractionOperationState>
 ) : DevicePasscodeUserVerifier {
 
     //region DevicePasscodeUserVerifier
+    /** @suppress */
     override fun verifyDevicePasscode(
         devicePasscodeUserVerificationContext: DevicePasscodeUserVerificationContext,
         devicePasscodeUserVerificationHandler: DevicePasscodeUserVerificationHandler
@@ -51,6 +52,7 @@ class DevicePasscodeUserVerifierImpl(
         )
     }
 
+    /** @suppress */
     override fun onValidCredentialsProvided() {
         Timber.asTree()
             .sdk("Valid credentials provided during device passcode verification.")

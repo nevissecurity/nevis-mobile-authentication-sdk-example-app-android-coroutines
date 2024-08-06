@@ -14,7 +14,7 @@ import retrofit2.http.Headers
 import retrofit2.http.POST
 
 /**
- * Retrofit end-point interface for legacy login.
+ * Retrofit end-point interface for login.
  */
 interface LoginEndPoint {
 

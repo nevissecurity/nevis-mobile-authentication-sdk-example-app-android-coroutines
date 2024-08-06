@@ -14,11 +14,12 @@ import kotlinx.coroutines.suspendCancellableCoroutine
 
 /**
  * Default implementation of [ChangePinUseCase] interface.
+ *
+ * @constructor Creates a new instance.
+ * @param stateRepository An instance of an [OperationStateRepository] implementation that may hold
+ *  a [ChangePinOperationState].
  */
 class ChangePinUseCaseImpl(
-    /**
-     * An instance of an [OperationStateRepository] implementation that may hold an [ChangePinOperationState].
-     */
     private val stateRepository: OperationStateRepository<ChangePinOperationState>
 ) : ChangePinUseCase {
 

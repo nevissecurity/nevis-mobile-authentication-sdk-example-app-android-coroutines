@@ -12,6 +12,9 @@ import ch.nevis.exampleapp.coroutines.domain.repository.OperationStateRepository
 
 /**
  * Default implementation of [OperationStateRepository] interface.
+ *
+ * @constructor Creates a new instance.
+ * @param cache The state cache for operations.
  */
 class OperationStateRepositoryImpl<T : OperationState>(
     private val cache: Cache<T>

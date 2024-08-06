@@ -11,6 +11,10 @@ import ch.nevis.mobile.sdk.api.MobileAuthenticationClientError
 
 /**
  * A sub-class of [Exception] that hold a [MobileAuthenticationClientError] and an optional [Operation] value.
+ *
+ * @constructor Creates a new instance.
+ * @param operation The [Operation] the error relates to or null if it cannot be determined.
+ * @param error The [MobileAuthenticationClientError] object that represents the error.
  */
 class MobileAuthenticationClientException(
 

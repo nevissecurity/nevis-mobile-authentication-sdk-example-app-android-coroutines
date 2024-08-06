@@ -10,6 +10,9 @@ import ch.nevis.exampleapp.coroutines.domain.model.operation.Operation
 
 /**
  * Response class indicates that the user cancelled the operation, the operation stopped.
+ *
+ * @constructor Creates a new instance.
+ * @param operation The [Operation] that was cancelled if it can be determined otherwise null.
  */
 class CancelledResponse(
     /**

@@ -10,6 +10,11 @@ import ch.nevis.mobile.sdk.api.authorization.Cookie
 
 /**
  * A [Response] class that represents the result of a successful legacy login.
+ *
+ * @constructor Creates a new instance.
+ * @param extId External identifier of the user.
+ * @param cookies List of [Cookie] for further authentication, e.g. for [ch.nevis.mobile.sdk.api.authorization.AuthorizationProvider.CookieAuthorizationProvider]
+ *  creation.
  */
 data class LoginResponse(
 

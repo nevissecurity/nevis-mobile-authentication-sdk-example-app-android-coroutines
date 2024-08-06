@@ -14,11 +14,12 @@ import kotlinx.coroutines.suspendCancellableCoroutine
 
 /**
  * Default implementation of [ChangePasswordUseCase] interface.
+ *
+ * @constructor Creates a new instance.
+ * @param stateRepository An instance of an [OperationStateRepository] implementation that may hold
+ * a [ChangePasswordOperationState].
  */
 class ChangePasswordUseCaseImpl(
-    /**
-     * An instance of an [OperationStateRepository] implementation that may hold an [ChangePasswordOperationState].
-     */
     private val stateRepository: OperationStateRepository<ChangePasswordOperationState>
 ) : ChangePasswordUseCase {
 

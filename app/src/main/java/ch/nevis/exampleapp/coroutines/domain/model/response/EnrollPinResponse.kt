@@ -12,6 +12,10 @@ import ch.nevis.mobile.sdk.api.operation.pin.PinEnrollmentError
  * A [Response] class that indicates the registration operation is waiting for PIN enrollment.
  * To continue the operation after this response is received [ch.nevis.exampleapp.coroutines.domain.usecase.SetPinUseCase]
  * has to be started with the new PIN entered by the user.
+ *
+ * @constructor Creates a new instance.
+ * @param lastRecoverableError The last recoverable error. It exists only if there was already a failed
+ *  PIN enrollment attempt.
  */
 class EnrollPinResponse(
     /**

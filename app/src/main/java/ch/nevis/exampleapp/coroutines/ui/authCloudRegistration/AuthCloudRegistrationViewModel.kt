@@ -15,12 +15,12 @@ import javax.inject.Inject
 
 /**
  * View model implementation of Auth Cloud API Registration view.
+ *
+ * @constructor Creates a new instance.
+ * @param authCloudApiRegistrationUseCase An instance of a [AuthCloudApiRegistrationUseCase] implementation.
  */
 @HiltViewModel
 class AuthCloudRegistrationViewModel @Inject constructor(
-    /**
-     * An instance of a [AuthCloudApiRegistrationUseCase] implementation.
-     */
     private val authCloudApiRegistrationUseCase: AuthCloudApiRegistrationUseCase
 ) : OperationViewModel() {
 

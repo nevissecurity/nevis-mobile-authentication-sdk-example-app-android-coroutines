@@ -8,6 +8,8 @@ package ch.nevis.exampleapp.coroutines.common.error
 
 /**
  * Default implementation of [ErrorHandlerChain] interface.
+ *
+ * @constructor Creates a new instance.
  */
 class ErrorHandlerChainImpl : ErrorHandlerChain {
 

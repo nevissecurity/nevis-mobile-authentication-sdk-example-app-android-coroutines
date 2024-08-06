@@ -12,6 +12,8 @@ import javax.inject.Inject
 
 /**
  * View model implementation of QR Reader view.
+ *
+ * @constructor Creates a new instance.
  */
 @HiltViewModel
 class QrReaderViewModel @Inject constructor() : OutOfBandOperationViewModel()

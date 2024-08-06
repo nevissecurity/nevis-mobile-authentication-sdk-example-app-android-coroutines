@@ -9,5 +9,7 @@ package ch.nevis.exampleapp.coroutines.domain.model.response
 /**
  * A [Response] class that indicates the [ch.nevis.mobile.sdk.api.MobileAuthenticationClient] initialization
  * was successfully completed.
+ *
+ * @constructor Creates a new instance.
  */
 class InitializeClientCompletedResponse : Response

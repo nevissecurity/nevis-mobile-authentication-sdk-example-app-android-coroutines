@@ -19,11 +19,11 @@ import kotlin.coroutines.resume
 
 /**
  * Default implementation of [DeregisterUseCase] interface.
+ *
+ * @constructor Creates a new instance.
+ * @param clientProvider An instance of a [ClientProvider] implementation.
  */
 class DeregisterUseCaseImpl(
-    /**
-     * An instance of a [ClientProvider] implementation.
-     */
     private val clientProvider: ClientProvider
 ) : DeregisterUseCase {
 

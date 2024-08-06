@@ -6,10 +6,9 @@
 
 package ch.nevis.exampleapp.coroutines.ui.selectAuthenticator
 
-
 /**
- * Interface declaration of a listener that is used by [AuthenticatorsRecyclerViewAdapter] to notify the implementations
- * of this interface about authentication selection.
+ * Interface declaration of a listener that is used by [AuthenticatorsRecyclerViewAdapter] to notify
+ * the implementations of this interface about authentication selection.
  */
 interface AuthenticatorSelectedListener {
 

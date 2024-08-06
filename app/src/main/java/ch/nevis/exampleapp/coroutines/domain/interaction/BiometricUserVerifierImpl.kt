@@ -22,15 +22,16 @@ import kotlin.coroutines.resume
  * Default implementation of [BiometricUserVerifier] interface. It stores the biometric verification step context
  * into its state and resumes the cancellableContinuation found in state with [VerifyBiometricResponse]
  * indicating that the running operation waiting for a biometric verification.
+ *
+ * @constructor Creates a new instance.
+ * @param stateRepository The state repository that stores the state of the running operation.
  */
 class BiometricUserVerifierImpl(
-    /**
-     * The state repository that stores the state of the running operation.
-     */
     private val stateRepository: OperationStateRepository<UserInteractionOperationState>
 ) : BiometricUserVerifier {
 
     //region BiometricUserVerifier
+    /** @suppress */
     override fun verifyBiometric(
         biometricUserVerificationContext: BiometricUserVerificationContext,
         biometricUserVerificationHandler: BiometricUserVerificationHandler
@@ -51,6 +52,7 @@ class BiometricUserVerifierImpl(
         )
     }
 
+    /** @suppress */
     override fun onValidCredentialsProvided() {
         Timber.asTree()
             .sdk("Valid credentials provided during biometric verification.")

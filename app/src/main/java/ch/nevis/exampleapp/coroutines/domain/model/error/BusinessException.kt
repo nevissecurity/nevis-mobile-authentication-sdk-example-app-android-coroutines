@@ -12,31 +12,34 @@ import ch.nevis.exampleapp.coroutines.R
  * Enumeration of business exception types.
  */
 enum class BusinessExceptionType(
+    /**
+     * The resource identifier used for the description.
+     */
     val resId: Int
 ) {
 
     /**
-     * Registered accounts not found
+     * Registered accounts not found.
      */
     ACCOUNTS_NOT_FOUND(R.string.business_error_type_accounts_not_found),
 
     /**
-     * Client not initialized
+     * Client not initialized.
      */
     CLIENT_NOT_INITIALIZED(R.string.business_error_type_client_not_initialized),
 
     /**
-     * Device information not found
+     * Device information not found.
      */
     DEVICE_INFORMATION_NOT_FOUND(R.string.business_error_type_device_information_not_found),
 
     /**
-     * Invalid state
+     * Invalid state.
      */
     INVALID_STATE(R.string.business_error_type_invalid_state),
 
     /**
-     * Legacy login failed
+     * Legacy login failed.
      */
     LOGIN_FAILED(R.string.business_error_type_login_failed)
 }
@@ -50,6 +53,9 @@ class BusinessException private constructor(
      */
     val type: BusinessExceptionType
 ) : Exception() {
+    /**
+     * Collection of available [BusinessException] types.
+     */
     companion object {
 
         /**

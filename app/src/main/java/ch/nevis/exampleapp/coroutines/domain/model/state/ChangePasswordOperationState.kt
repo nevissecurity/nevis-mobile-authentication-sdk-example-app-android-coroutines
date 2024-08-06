@@ -13,12 +13,12 @@ import kotlinx.coroutines.CancellableContinuation
 
 /**
  * [OperationState] implementation for change Password operation.
+ *
+ * @constructor Creates a new instance.
+ * @param cancellableContinuation A [CancellableContinuation] instance of a `suspendCancellableCoroutine`
+ *  Kotlin coroutine block.
  */
 data class ChangePasswordOperationState(
-    /**
-     * A [CancellableContinuation] instance of a `suspendCancellableCoroutine` Kotlin coroutine block.
-     * The [CancellableContinuation] will be resumed when the SDK finished an operation step.
-     */
     override var cancellableContinuation: CancellableContinuation<Response>? = null
 ) : OperationState() {
 

@@ -23,15 +23,16 @@ import kotlin.coroutines.resume
  * Default implementation of [AccountSelector] interface. It stores the account selection step context
  * into its state and resumes the cancellableContinuation found in state with [SelectAccountResponse]
  * indicating that the running operation waiting for an account selection.
+ *
+ * @constructor Creates a new instance.
+ * @param stateRepository The state repository that stores the state of the running operation.
  */
 class AccountSelectorImpl(
-    /**
-     * The state repository that stores the state of the running operation.
-     */
     private val stateRepository: OperationStateRepository<UserInteractionOperationState>
 ) : AccountSelector {
 
     //region AccountSelector
+    /** @suppress */
     override fun selectAccount(
         accountSelectionContext: AccountSelectionContext,
         accountSelectionHandler: AccountSelectionHandler
@@ -68,6 +69,7 @@ class AccountSelectorImpl(
     //endregion
 
     //region Private Interface
+    /** @suppress */
     private fun validAccounts(context: AccountSelectionContext): Set<Account> {
         val validAccounts = mutableSetOf<Account>()
         context.authenticators().forEach { authenticator ->

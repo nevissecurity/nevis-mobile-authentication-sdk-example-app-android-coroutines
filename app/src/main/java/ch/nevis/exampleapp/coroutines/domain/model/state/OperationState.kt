@@ -12,6 +12,8 @@ import kotlinx.coroutines.CancellableContinuation
 
 /**
  * Abstract class that represents a base operation state.
+ *
+ * @constructor Creates a new instance.
  */
 abstract class OperationState {
 
