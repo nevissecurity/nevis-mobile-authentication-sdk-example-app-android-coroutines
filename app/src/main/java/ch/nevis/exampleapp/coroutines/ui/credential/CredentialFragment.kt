@@ -1,7 +1,7 @@
 /**
  * Nevis Mobile Authentication SDK Example App
  *
- * Copyright © 2022. Nevis Security AG. All rights reserved.
+ * Copyright © 2022-2024. Nevis Security AG. All rights reserved.
  */
 
 package ch.nevis.exampleapp.coroutines.ui.credential
@@ -256,6 +256,7 @@ class CredentialFragment : ResponseObserverFragment() {
             override fun onFinish() {
                 setViewState(true)
                 updateMessage(remainingRetries, 0)
+                timer = null
             }
         }.start()
     }
