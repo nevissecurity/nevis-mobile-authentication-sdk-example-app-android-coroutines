@@ -6,7 +6,7 @@ on:
     types: [opened, edited, synchronize, reopened]
 
 env:
-  JAVA_VERSION: '11'
+  JAVA_VERSION: '17'
   RUBY_VERSION: '3.0'
 
 jobs:
