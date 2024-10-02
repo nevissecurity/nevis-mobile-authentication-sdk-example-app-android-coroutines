@@ -33,9 +33,8 @@ Before you start compiling and using the example applications please ensure you 
 - Android 6 or later, with API level 23
 - Android 10 or later, with API level 29, for the biometric authenticator to work
 - Android 11 or later, with API level 30, for the device passcode authenticator to work
-- Android Studio 3.5.1 or later
-- JDK 11
-- Gradle 7.2 or later
+- JDK 17
+- Gradle 8.7 or later
 
 ### Github Account
 

@@ -1,7 +1,7 @@
 /**
  * Nevis Mobile Authentication SDK Example App
  *
- * Copyright © 2022. Nevis Security AG. All rights reserved.
+ * Copyright © 2022-2024. Nevis Security AG. All rights reserved.
  */
 
 package ch.nevis.exampleapp.coroutines.ui.base
@@ -56,7 +56,7 @@ abstract class ResponseObserverFragment : Fragment() {
      * handler chain instance.
      */
     @Inject
-    protected lateinit var errorHandlerChain: ErrorHandlerChain
+    lateinit var errorHandlerChain: ErrorHandlerChain
 
     //region Fragment
     /** @suppress */

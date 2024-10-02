@@ -1,7 +1,7 @@
 /**
  * Nevis Mobile Authentication SDK Example App
  *
- * Copyright © 2022. Nevis Security AG. All rights reserved.
+ * Copyright © 2022-2024. Nevis Security AG. All rights reserved.
  */
 
 package ch.nevis.exampleapp.coroutines.ui.base
@@ -41,13 +41,13 @@ abstract class OperationViewModel : ViewModel() {
      * An instance of a [FinishOperationUseCase] implementation.
      */
     @Inject
-    protected lateinit var finishOperationUseCase: FinishOperationUseCase
+    lateinit var finishOperationUseCase: FinishOperationUseCase
 
     /**
      * An instance of a [DeregisterUseCase] implementation.
      */
     @Inject
-    protected lateinit var deregisterUseCase: DeregisterUseCase
+    lateinit var deregisterUseCase: DeregisterUseCase
 
     /**
      * Common [CoroutineExceptionHandler] error handler implementation that can be used by the sub-classes of this abstract view model.

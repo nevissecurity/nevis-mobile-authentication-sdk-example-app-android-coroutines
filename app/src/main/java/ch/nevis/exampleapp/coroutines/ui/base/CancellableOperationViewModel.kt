@@ -1,7 +1,7 @@
 /**
  * Nevis Mobile Authentication SDK Example App
  *
- * Copyright © 2022. Nevis Security AG. All rights reserved.
+ * Copyright © 2022-2024. Nevis Security AG. All rights reserved.
  */
 
 package ch.nevis.exampleapp.coroutines.ui.base
@@ -27,7 +27,7 @@ abstract class CancellableOperationViewModel : OperationViewModel() {
      * An instance of a [CancelOperationUseCase] implementation.
      */
     @Inject
-    protected lateinit var cancelOperationUseCase: CancelOperationUseCase
+    lateinit var cancelOperationUseCase: CancelOperationUseCase
     //endregion
 
     //region Public Interface

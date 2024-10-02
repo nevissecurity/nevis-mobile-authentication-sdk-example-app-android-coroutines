@@ -1,9 +1,9 @@
 buildscript {
-    ext.coroutine_version = "1.6.4"
-    ext.dagger_hilt_version = "2.44.2"
-    ext.gradle_version = '7.3.1'
-    ext.kotlin_version = "1.8.10"
-    ext.navigation_version = "2.5.3"
+    ext.coroutine_version = "1.8.0"
+    ext.dagger_hilt_version = "2.51.1"
+    ext.gradle_version = '8.6.1'
+    ext.kotlin_version = "1.9.23"
+    ext.navigation_version = "2.8.1"
     ext.dokka_version = "1.9.20"
     ext.customFooterMessage = "© 2024 made with ❤️ by Nevis"
     ext.customLogoFile = projectDir.toString() + "/logo-style.css"

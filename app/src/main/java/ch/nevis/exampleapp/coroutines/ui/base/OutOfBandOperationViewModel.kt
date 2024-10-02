@@ -1,7 +1,7 @@
 /**
  * Nevis Mobile Authentication SDK Example App
  *
- * Copyright © 2022. Nevis Security AG. All rights reserved.
+ * Copyright © 2022-2024. Nevis Security AG. All rights reserved.
  */
 
 package ch.nevis.exampleapp.coroutines.ui.base
@@ -24,13 +24,13 @@ abstract class OutOfBandOperationViewModel : CancellableOperationViewModel() {
      * An instance of a [DecodePayloadUseCase] implementation.
      */
     @Inject
-    protected lateinit var decodePayloadUseCase: DecodePayloadUseCase
+    lateinit var decodePayloadUseCase: DecodePayloadUseCase
 
     /**
      * An instance of a [ProcessOutOfBandPayloadUseCase] implementation.
      */
     @Inject
-    protected lateinit var processOutOfBandPayloadUseCase: ProcessOutOfBandPayloadUseCase
+    lateinit var processOutOfBandPayloadUseCase: ProcessOutOfBandPayloadUseCase
     //endregion
 
     //region Public Interface
