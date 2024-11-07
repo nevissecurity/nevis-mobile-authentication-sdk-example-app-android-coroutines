@@ -1,7 +1,7 @@
 /**
  * Nevis Mobile Authentication SDK Example App
  *
- * Copyright © 2022. Nevis Security AG. All rights reserved.
+ * Copyright © 2022-2024. Nevis Security AG. All rights reserved.
  */
 
 package ch.nevis.exampleapp.coroutines.domain.interaction
@@ -54,13 +54,13 @@ class AccountSelectorImpl(
             cancellableContinuation.resume(ErrorResponse(BusinessException.accountsNotFound()))
         } else if (transactionConfirmationData == null && accounts.size == 1) {
             accountSelectionHandler.username(
-                accountSelectionContext.accounts().first().username()
+                accounts.first().username()
             )
         } else {
             cancellableContinuation.resume(
                 SelectAccountResponse(
                     operationState.operation,
-                    accountSelectionContext.accounts(),
+                    accounts,
                     transactionConfirmationData
                 )
             )
