@@ -1,7 +1,7 @@
 /**
  * Nevis Mobile Authentication SDK Example App
  *
- * Copyright © 2022. Nevis Security AG. All rights reserved.
+ * Copyright © 2022-2024. Nevis Security AG. All rights reserved.
  */
 
 package ch.nevis.exampleapp.coroutines.dagger
@@ -25,7 +25,15 @@ import ch.nevis.exampleapp.coroutines.data.repository.LoginRepositoryImpl
 import ch.nevis.exampleapp.coroutines.data.repository.OperationStateRepositoryImpl
 import ch.nevis.exampleapp.coroutines.domain.client.ClientProvider
 import ch.nevis.exampleapp.coroutines.domain.client.ClientProviderImpl
-import ch.nevis.exampleapp.coroutines.domain.interaction.*
+import ch.nevis.exampleapp.coroutines.domain.interaction.AccountSelectorImpl
+import ch.nevis.exampleapp.coroutines.domain.interaction.AuthenticatorSelectorImpl
+import ch.nevis.exampleapp.coroutines.domain.interaction.AuthenticatorSelectorOperation
+import ch.nevis.exampleapp.coroutines.domain.interaction.BiometricUserVerifierImpl
+import ch.nevis.exampleapp.coroutines.domain.interaction.DevicePasscodeUserVerifierImpl
+import ch.nevis.exampleapp.coroutines.domain.interaction.FingerprintUserVerifierImpl
+import ch.nevis.exampleapp.coroutines.domain.interaction.OnErrorImpl
+import ch.nevis.exampleapp.coroutines.domain.interaction.OnSuccessAuthenticationImpl
+import ch.nevis.exampleapp.coroutines.domain.interaction.OnSuccessImpl
 import ch.nevis.exampleapp.coroutines.domain.interaction.password.PasswordChangerImpl
 import ch.nevis.exampleapp.coroutines.domain.interaction.password.PasswordEnrollerImpl
 import ch.nevis.exampleapp.coroutines.domain.interaction.password.PasswordUserVerifierImpl
@@ -40,7 +48,64 @@ import ch.nevis.exampleapp.coroutines.domain.model.state.ChangePinOperationState
 import ch.nevis.exampleapp.coroutines.domain.model.state.UserInteractionOperationState
 import ch.nevis.exampleapp.coroutines.domain.repository.LoginRepository
 import ch.nevis.exampleapp.coroutines.domain.repository.OperationStateRepository
-import ch.nevis.exampleapp.coroutines.domain.usecase.*
+import ch.nevis.exampleapp.coroutines.domain.usecase.AuthCloudApiRegistrationUseCase
+import ch.nevis.exampleapp.coroutines.domain.usecase.AuthCloudApiRegistrationUseCaseImpl
+import ch.nevis.exampleapp.coroutines.domain.usecase.CancelOperationUseCase
+import ch.nevis.exampleapp.coroutines.domain.usecase.CancelOperationUseCaseImpl
+import ch.nevis.exampleapp.coroutines.domain.usecase.ChangeDeviceInformationUseCase
+import ch.nevis.exampleapp.coroutines.domain.usecase.ChangeDeviceInformationUseCaseImpl
+import ch.nevis.exampleapp.coroutines.domain.usecase.ChangePasswordUseCase
+import ch.nevis.exampleapp.coroutines.domain.usecase.ChangePasswordUseCaseImpl
+import ch.nevis.exampleapp.coroutines.domain.usecase.ChangePinUseCase
+import ch.nevis.exampleapp.coroutines.domain.usecase.ChangePinUseCaseImpl
+import ch.nevis.exampleapp.coroutines.domain.usecase.CreateDeviceInformationUseCase
+import ch.nevis.exampleapp.coroutines.domain.usecase.CreateDeviceInformationUseCaseImpl
+import ch.nevis.exampleapp.coroutines.domain.usecase.DecodePayloadUseCase
+import ch.nevis.exampleapp.coroutines.domain.usecase.DecodePayloadUseCaseImpl
+import ch.nevis.exampleapp.coroutines.domain.usecase.DeleteAuthenticatorsUseCase
+import ch.nevis.exampleapp.coroutines.domain.usecase.DeleteAuthenticatorsUseCaseImpl
+import ch.nevis.exampleapp.coroutines.domain.usecase.DeregisterUseCase
+import ch.nevis.exampleapp.coroutines.domain.usecase.DeregisterUseCaseImpl
+import ch.nevis.exampleapp.coroutines.domain.usecase.FinishOperationUseCase
+import ch.nevis.exampleapp.coroutines.domain.usecase.FinishOperationUseCaseImpl
+import ch.nevis.exampleapp.coroutines.domain.usecase.GetAccountsUseCase
+import ch.nevis.exampleapp.coroutines.domain.usecase.GetAccountsUseCaseImpl
+import ch.nevis.exampleapp.coroutines.domain.usecase.GetAuthenticatorsUseCase
+import ch.nevis.exampleapp.coroutines.domain.usecase.GetAuthenticatorsUseCaseImpl
+import ch.nevis.exampleapp.coroutines.domain.usecase.GetDeviceInformationUseCase
+import ch.nevis.exampleapp.coroutines.domain.usecase.GetDeviceInformationUseCaseImpl
+import ch.nevis.exampleapp.coroutines.domain.usecase.InBandAuthenticationUseCase
+import ch.nevis.exampleapp.coroutines.domain.usecase.InBandAuthenticationUseCaseImpl
+import ch.nevis.exampleapp.coroutines.domain.usecase.InBandRegistrationUseCase
+import ch.nevis.exampleapp.coroutines.domain.usecase.InBandRegistrationUseCaseImpl
+import ch.nevis.exampleapp.coroutines.domain.usecase.InitializeClientUseCase
+import ch.nevis.exampleapp.coroutines.domain.usecase.InitializeClientUseCaseImpl
+import ch.nevis.exampleapp.coroutines.domain.usecase.LoginUseCase
+import ch.nevis.exampleapp.coroutines.domain.usecase.LoginUseCaseImpl
+import ch.nevis.exampleapp.coroutines.domain.usecase.ProcessOutOfBandPayloadUseCase
+import ch.nevis.exampleapp.coroutines.domain.usecase.ProcessOutOfBandPayloadUseCaseImpl
+import ch.nevis.exampleapp.coroutines.domain.usecase.SelectAccountUseCase
+import ch.nevis.exampleapp.coroutines.domain.usecase.SelectAccountUseCaseImpl
+import ch.nevis.exampleapp.coroutines.domain.usecase.SelectAuthenticatorUseCase
+import ch.nevis.exampleapp.coroutines.domain.usecase.SelectAuthenticatorUseCaseImpl
+import ch.nevis.exampleapp.coroutines.domain.usecase.SetPasswordUseCase
+import ch.nevis.exampleapp.coroutines.domain.usecase.SetPasswordUseCaseImpl
+import ch.nevis.exampleapp.coroutines.domain.usecase.SetPinUseCase
+import ch.nevis.exampleapp.coroutines.domain.usecase.SetPinUseCaseImpl
+import ch.nevis.exampleapp.coroutines.domain.usecase.StartChangePasswordUseCase
+import ch.nevis.exampleapp.coroutines.domain.usecase.StartChangePasswordUseCaseImpl
+import ch.nevis.exampleapp.coroutines.domain.usecase.StartChangePinUseCase
+import ch.nevis.exampleapp.coroutines.domain.usecase.StartChangePinUseCaseImpl
+import ch.nevis.exampleapp.coroutines.domain.usecase.VerifyBiometricUseCase
+import ch.nevis.exampleapp.coroutines.domain.usecase.VerifyBiometricUseCaseImpl
+import ch.nevis.exampleapp.coroutines.domain.usecase.VerifyDevicePasscodeUseCase
+import ch.nevis.exampleapp.coroutines.domain.usecase.VerifyDevicePasscodeUseCaseImpl
+import ch.nevis.exampleapp.coroutines.domain.usecase.VerifyFingerprintUseCase
+import ch.nevis.exampleapp.coroutines.domain.usecase.VerifyFingerprintUseCaseImpl
+import ch.nevis.exampleapp.coroutines.domain.usecase.VerifyPasswordUseCase
+import ch.nevis.exampleapp.coroutines.domain.usecase.VerifyPasswordUseCaseImpl
+import ch.nevis.exampleapp.coroutines.domain.usecase.VerifyPinUseCase
+import ch.nevis.exampleapp.coroutines.domain.usecase.VerifyPinUseCaseImpl
 import ch.nevis.exampleapp.coroutines.domain.validation.AuthenticatorValidator
 import ch.nevis.exampleapp.coroutines.domain.validation.AuthenticatorValidatorImpl
 import ch.nevis.exampleapp.coroutines.domain.validation.PasswordPolicyImpl
@@ -158,6 +223,7 @@ class ApplicationModule {
         )
         return Configuration.builder()
             .packageInfo(packageInfo)
+            .facetId("android:apk-key-hash:ch.nevis.mobile.authentication.sdk.android.example")
             .baseUrl(URI.create("https://mycompany.com/"))
             .registrationRequestPath("/nevisfido/uaf/1.1/request/registration/")
             .registrationResponsePath("/nevisfido/uaf/1.1/registration/")
