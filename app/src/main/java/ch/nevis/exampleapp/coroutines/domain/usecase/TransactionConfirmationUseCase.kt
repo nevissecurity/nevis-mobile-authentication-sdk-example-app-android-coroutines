@@ -17,7 +17,7 @@ interface TransactionConfirmationUseCase {
     /**
      * Executes the use-case.
      *
-     * @param account The account that is used for the in-band authentication.
+     * @param account The account that is used for the out-of-band authentication.
      * @param transactionConfirmationMessage The transaction data/message that is be sent during an
      * authentication process.
      * @return A [Response] object that indicates the result of the use-case execution.

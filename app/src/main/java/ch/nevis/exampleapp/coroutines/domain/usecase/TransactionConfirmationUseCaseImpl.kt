@@ -14,7 +14,7 @@ import kotlin.coroutines.resume
 
 class TransactionConfirmationUseCaseImpl : TransactionConfirmationUseCase {
 
-    //region InBandAuthenticationUseCase
+    //region TransactionConfirmationUseCase
     override suspend fun execute(account: Account, transactionConfirmationMessage: String): Response {
         return suspendCancellableCoroutine { cancellableContinuation ->
             cancellableContinuation.resume(
