@@ -1,14 +1,13 @@
 /**
  * Nevis Mobile Authentication SDK Example App
  *
- * Copyright © 2022. Nevis Security AG. All rights reserved.
+ * Copyright © 2022-2024. Nevis Security AG. All rights reserved.
  */
 
 package ch.nevis.exampleapp.coroutines.ui.transactionConfirmation
 
 import androidx.lifecycle.viewModelScope
-import ch.nevis.exampleapp.coroutines.domain.model.operation.Operation
-import ch.nevis.exampleapp.coroutines.domain.model.response.SelectAccountResponse
+import ch.nevis.exampleapp.coroutines.domain.model.error.BusinessException
 import ch.nevis.exampleapp.coroutines.domain.usecase.SelectAccountUseCase
 import ch.nevis.exampleapp.coroutines.ui.base.CancellableOperationViewModel
 import ch.nevis.mobile.sdk.api.localdata.Account
@@ -31,19 +30,13 @@ class TransactionConfirmationViewModel @Inject constructor(
     /**
      * Confirms the transaction, the operation will be continued.
      *
-     * @param operation The confirmed operation.
-     * @param accounts The available accounts for the operations.
+     * @param account The previously selected account.
      */
-    fun confirm(operation: Operation, accounts: Set<Account>) {
+    fun confirm(account: Account?) {
+        account ?: throw BusinessException.invalidState()
+
         viewModelScope.launch(errorHandler) {
-            val response = if (accounts.size == 1) {
-                selectAccountUseCase.execute(accounts.first().username())
-            } else {
-                SelectAccountResponse(
-                    operation,
-                    accounts
-                )
-            }
+            val response = selectAccountUseCase.execute(account.username())
             mutableResponseLiveData.postValue(response)
         }
     }

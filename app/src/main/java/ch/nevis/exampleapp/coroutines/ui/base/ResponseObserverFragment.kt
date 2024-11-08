@@ -23,6 +23,7 @@ import ch.nevis.exampleapp.coroutines.domain.model.response.ErrorResponse
 import ch.nevis.exampleapp.coroutines.domain.model.response.Response
 import ch.nevis.exampleapp.coroutines.domain.model.response.SelectAccountResponse
 import ch.nevis.exampleapp.coroutines.domain.model.response.SelectAuthenticatorResponse
+import ch.nevis.exampleapp.coroutines.domain.model.response.TransactionConfirmationResponse
 import ch.nevis.exampleapp.coroutines.domain.model.response.VerifyBiometricResponse
 import ch.nevis.exampleapp.coroutines.domain.model.response.VerifyDevicePasscodeResponse
 import ch.nevis.exampleapp.coroutines.domain.model.response.VerifyFingerprintResponse
@@ -93,26 +94,23 @@ abstract class ResponseObserverFragment : Fragment() {
             }
 
             is SelectAccountResponse -> {
-                response.transactionConfirmationData?.also {
-                    val parameter = TransactionConfirmationNavigationParameter(
-                        response.operation,
-                        response.accounts,
-                        it.decodeToString()
-                    )
-                    val action =
-                        NavigationGraphDirections.actionGlobalTransactionConfirmationFragment(
-                            parameter
-                        )
-                    navController.navigate(action)
-                } ?: run {
-                    val parameter = SelectAccountNavigationParameter(
-                        response.operation,
-                        response.accounts
-                    )
-                    val action =
-                        NavigationGraphDirections.actionGlobalSelectAccountFragment(parameter)
-                    navController.navigate(action)
-                }
+                val navigationParameter = SelectAccountNavigationParameter(
+                    response.operation,
+                    response.accounts,
+                    response.transactionConfirmationMessage
+                )
+                val action =
+                    NavigationGraphDirections.actionGlobalSelectAccountFragment(navigationParameter)
+                navController.navigate(action)
+            }
+
+            is TransactionConfirmationResponse -> {
+                val navigationParameter = TransactionConfirmationNavigationParameter(
+                    response.account,
+                    response.transactionConfirmationMessage
+                )
+                val action = NavigationGraphDirections.actionGlobalTransactionConfirmationFragment(navigationParameter)
+                navController.navigate(action)
             }
 
             is EnrollPinResponse -> {

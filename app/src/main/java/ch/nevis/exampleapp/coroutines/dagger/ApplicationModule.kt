@@ -96,6 +96,8 @@ import ch.nevis.exampleapp.coroutines.domain.usecase.StartChangePasswordUseCase
 import ch.nevis.exampleapp.coroutines.domain.usecase.StartChangePasswordUseCaseImpl
 import ch.nevis.exampleapp.coroutines.domain.usecase.StartChangePinUseCase
 import ch.nevis.exampleapp.coroutines.domain.usecase.StartChangePinUseCaseImpl
+import ch.nevis.exampleapp.coroutines.domain.usecase.TransactionConfirmationUseCase
+import ch.nevis.exampleapp.coroutines.domain.usecase.TransactionConfirmationUseCaseImpl
 import ch.nevis.exampleapp.coroutines.domain.usecase.VerifyBiometricUseCase
 import ch.nevis.exampleapp.coroutines.domain.usecase.VerifyBiometricUseCaseImpl
 import ch.nevis.exampleapp.coroutines.domain.usecase.VerifyDevicePasscodeUseCase
@@ -796,6 +798,14 @@ class ApplicationModule {
     fun provideChangeDeviceInformationUseCase(
         clientProvider: ClientProvider
     ): ChangeDeviceInformationUseCase = ChangeDeviceInformationUseCaseImpl(clientProvider)
+
+    /**
+     * Provides use case for transaction confirmation.
+     *
+     * @return The use case for transaction confirmation.
+     */
+    @Provides
+    fun provideTransactionConfirmationUseCase(): TransactionConfirmationUseCase = TransactionConfirmationUseCaseImpl()
 
     /**
      * Provides use case for starting an in-band authentication operation.

@@ -1,13 +1,12 @@
 /**
  * Nevis Mobile Authentication SDK Example App
  *
- * Copyright © 2022. Nevis Security AG. All rights reserved.
+ * Copyright © 2022-2024. Nevis Security AG. All rights reserved.
  */
 
 package ch.nevis.exampleapp.coroutines.ui.transactionConfirmation.parameter
 
 import android.os.Parcelable
-import ch.nevis.exampleapp.coroutines.domain.model.operation.Operation
 import ch.nevis.mobile.sdk.api.localdata.Account
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
@@ -16,27 +15,21 @@ import kotlinx.parcelize.Parcelize
  * Navigation parameter class for Transaction Confirmation view.
  *
  * @constructor Creates a new instance.
- * @param operation The operation the account selection was requested for.
- * @param accounts The list of available accounts the user can select from.
- * @param transactionConfirmationData The transaction confirmation data/message that should be displayed
- *  on Transaction Confirmation view.
+ * @param account The previously selected account.
+ * @param transactionConfirmationMessage The transaction confirmation data/message that should be displayed
+ * on Transaction Confirmation view.
  */
 @Parcelize
 data class TransactionConfirmationNavigationParameter(
 
     /**
-     * The operation type the account was selection requested for.
-     */
-    val operation: Operation,
-
-    /**
-     * The list of available accounts the user can select from.
+     * The previously selected account.
      */
     @IgnoredOnParcel
-    val accounts: Set<Account>? = null,
+    val account: Account? = null,
 
     /**
      * The transaction confirmation data as a [String].
      */
-    val transactionConfirmationData: String
+    val transactionConfirmationMessage: String
 ) : Parcelable
