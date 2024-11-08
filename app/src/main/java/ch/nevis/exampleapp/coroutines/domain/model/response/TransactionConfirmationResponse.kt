@@ -10,9 +10,8 @@ import ch.nevis.mobile.sdk.api.localdata.Account
 
 /**
  * [Response] class that indicates a transaction confirmation has to be started.
- * Typically the received [Account] set is shown to the user and he/she selects one of them.
- * After the account selection [ch.nevis.exampleapp.coroutines.domain.usecase.SelectAccountUseCase] is called
- * to continue the operation.
+ * After the transaction confirmation, [ch.nevis.exampleapp.coroutines.domain.usecase.SelectAccountUseCase]
+ * should be called with the contained account to continue the operation.
  *
  * @constructor Creates a new instance.
  * @param account The previously selected account.
@@ -24,7 +23,7 @@ class TransactionConfirmationResponse (
     /**
      * The previously selected account.
      */
-    val account: Account? = null,
+    val account: Account,
 
     /**
      * The optional transaction data/message that is sent during an authentication process.
