@@ -1,7 +1,7 @@
 /**
  * Nevis Mobile Authentication SDK Example App
  *
- * Copyright © 2022. Nevis Security AG. All rights reserved.
+ * Copyright © 2022-2024. Nevis Security AG. All rights reserved.
  */
 
 package ch.nevis.exampleapp.coroutines.ui.selectAccount.parameter
@@ -31,5 +31,10 @@ data class SelectAccountNavigationParameter(
      * The list of available accounts the user can select from.
      */
     @IgnoredOnParcel
-    val accounts: Set<Account>? = null
+    val accounts: Set<Account>? = null,
+
+    /**
+     * The message to confirm if there is any.
+     */
+    val message: String? = null
 ) : Parcelable

@@ -9,6 +9,7 @@ package ch.nevis.exampleapp.coroutines.domain.interaction
 import ch.nevis.exampleapp.coroutines.domain.model.error.BusinessException
 import ch.nevis.exampleapp.coroutines.domain.model.response.ErrorResponse
 import ch.nevis.exampleapp.coroutines.domain.model.response.SelectAccountResponse
+import ch.nevis.exampleapp.coroutines.domain.model.response.TransactionConfirmationResponse
 import ch.nevis.exampleapp.coroutines.domain.model.state.UserInteractionOperationState
 import ch.nevis.exampleapp.coroutines.domain.repository.OperationStateRepository
 import ch.nevis.exampleapp.coroutines.timber.sdk
@@ -46,24 +47,33 @@ class AccountSelectorImpl(
         val cancellableContinuation =
             operationState.cancellableContinuation ?: throw BusinessException.invalidState()
 
-        val transactionConfirmationData =
+        val transactionConfirmationData: ByteArray? =
             accountSelectionContext.transactionConfirmationData().orElse(null)
         val accounts = validAccounts(accountSelectionContext)
 
-        if (accounts.isEmpty()) {
-            cancellableContinuation.resume(ErrorResponse(BusinessException.accountsNotFound()))
-        } else if (transactionConfirmationData == null && accounts.size == 1) {
-            accountSelectionHandler.username(
-                accounts.first().username()
-            )
-        } else {
-            cancellableContinuation.resume(
-                SelectAccountResponse(
-                    operationState.operation,
-                    accounts,
-                    transactionConfirmationData
+        when(accounts.size) {
+            0 -> cancellableContinuation.resume(ErrorResponse(BusinessException.accountsNotFound()))
+            1 -> {
+                if (transactionConfirmationData != null) {
+                    cancellableContinuation.resume(
+                        TransactionConfirmationResponse(
+                            account = accounts.first(),
+                            transactionConfirmationMessage = transactionConfirmationData.decodeToString()
+                        )
+                    )
+                } else {
+                    accountSelectionHandler.username(accounts.first().username())
+                }
+            }
+            else -> {
+                cancellableContinuation.resume(
+                    SelectAccountResponse(
+                        operation = operationState.operation,
+                        accounts = accounts,
+                        transactionConfirmationMessage = transactionConfirmationData?.decodeToString()
+                    )
                 )
-            )
+            }
         }
     }
     //endregion

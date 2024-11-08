@@ -1,7 +1,7 @@
 /**
  * Nevis Mobile Authentication SDK Example App
  *
- * Copyright © 2022. Nevis Security AG. All rights reserved.
+ * Copyright © 2022-2024. Nevis Security AG. All rights reserved.
  */
 
 package ch.nevis.exampleapp.coroutines.ui.transactionConfirmation
@@ -58,10 +58,7 @@ class TransactionConfirmationFragment : ResponseObserverFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.confirmButton.setOnClickListener {
-            viewModel.confirm(
-                navigationArguments.parameter.operation,
-                navigationArguments.parameter.accounts ?: setOf()
-            )
+            viewModel.confirm(navigationArguments.parameter.account)
         }
 
         binding.cancelButton.setOnClickListener {
@@ -69,7 +66,7 @@ class TransactionConfirmationFragment : ResponseObserverFragment() {
         }
 
         binding.transactionConfirmationDataTextView.text =
-            navigationArguments.parameter.transactionConfirmationData
+            navigationArguments.parameter.transactionConfirmationMessage
 
         requireActivity().onBackPressedDispatcher.addCallback(
             viewLifecycleOwner,
