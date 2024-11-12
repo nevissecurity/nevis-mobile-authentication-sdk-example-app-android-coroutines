@@ -10,7 +10,7 @@ on:
 
 env:
   JAVA_VERSION: '17'
-  RUBY_VERSION: '3.0'
+  RUBY_VERSION: '3.1'
   CURRENT_BUILD_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
 jobs:
