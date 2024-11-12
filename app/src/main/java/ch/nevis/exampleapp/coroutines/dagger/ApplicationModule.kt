@@ -233,6 +233,7 @@ class ApplicationModule {
             .authenticationResponsePath("/auth/fidouaf/authenticationresponse/")
             .deregistrationRequestPath("/nevisfido/uaf/1.1/request/deregistration/")
             .dispatchTargetResourcePath("/nevisfido/token/dispatch/targets/")
+            .deviceResourcePath("/nevisfido/devices/")
             .authenticationRetryIntervalInSeconds(15L)
             .build()
     }
