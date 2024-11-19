@@ -6,6 +6,10 @@ on:
     types: [opened, edited, synchronize, reopened]
 
 env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  GH_USERNAME: ${{ vars.GH_USERNAME }}
+  GH_PERSONAL_ACCESS_TOKEN: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
+
   JAVA_VERSION: '17'
   RUBY_VERSION: '3.1'
 
@@ -35,10 +39,6 @@ jobs:
 
       # Build the Android app
       - name: Run Fastlane
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_USERNAME: ${{ secrets.GH_USERNAME }}
-          GITHUB_PERSONAL_ACCESS_TOKEN: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
         uses: maierj/fastlane-action@v3.1.0
         with:
           lane: 'pr'
