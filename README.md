@@ -41,8 +41,8 @@ Before you start compiling and using the example applications please ensure you 
 SDK dependency used by this project are provided via [GitHub Packages](https://github.com/nevissecurity/nevis-mobile-authentication-sdk-android-package) that is used as a **Maven** repository. To access **GitHub Packages** a valid **GitHub** account and a **Personal Access Token** is needed. If you have not done it yet, please create a **Personal Access Token** with **Packages Read** permission. Once the **Personal Access Token** is created add the following properties to your global `gradle.properties` file (e.g.: `/Users/<YOUR USERNAME>/.gradle/gradle.properties`).
 
 ```properties
-GITHUB_USERNAME=<YOUR USERNAME>
-GITHUB_PERSONAL_ACCESS_TOKEN=<YOUR PERSONAL ACCESS TOKEN>
+GH_USERNAME=<YOUR USERNAME>
+GH_PERSONAL_ACCESS_TOKEN=<YOUR PERSONAL ACCESS TOKEN>
 ```
 
 ### Open the Project
