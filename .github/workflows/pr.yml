@@ -30,6 +30,10 @@ jobs:
           ruby-version: ${{ env.RUBY_VERSION }}
           bundler-cache: true
 
+      # Run RuboCop to lint Ruby code
+      - name: Run Ruby Linter
+        run: bundle exec rubocop
+
       # Ensure correct Java version is installed
       - name: Setup Java JDK
         uses: actions/setup-java@v4
