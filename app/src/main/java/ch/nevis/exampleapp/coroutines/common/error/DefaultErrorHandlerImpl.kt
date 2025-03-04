@@ -58,6 +58,11 @@ class DefaultErrorHandlerImpl(
      * @return The error message.
      */
     private fun getErrorMessage(error: MobileAuthenticationClientError): String {
+        // As this is an example app, we are directly showing the technical error occurring.
+        // Be aware that this is not to be considered best practice. Your own production app should
+        // handle the errors in a more appropriate manner  such as providing translations for all your
+        // supported languages as well as simplifying the error message presented to the end-user in
+        // a way non-technical adverse people can understand and act upon them.
         return when (error) {
             is OperationError -> error.errorCode().description()
             is ch.nevis.mobile.sdk.api.operation.authcloudapi.AuthCloudApiError.OperationError -> error.errorCode()
