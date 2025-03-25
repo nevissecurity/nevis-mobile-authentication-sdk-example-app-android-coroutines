@@ -89,8 +89,8 @@ subprojects {
                 reportUndocumented.set(true)
                 includes.from("module.md")
                 externalDocumentationLink {
-                    url.set(new URL("https://docs.nevis.net/mobilesdk/${getConfig("VERSION_NAME")}/api-references/javadoc/"))
-                    packageListUrl.set(new URL("https://docs.nevis.net/mobilesdk/${getConfig("VERSION_NAME")}/api-references/javadoc/element-list"))
+                    url.set(new URL("https://docs.nevis.net/mobilesdk/${getConfig("VERSION_API_REFERENCE")}/api-references/javadoc/"))
+                    packageListUrl.set(new URL("https://docs.nevis.net/mobilesdk/${getConfig("VERSION_API_REFERENCE")}/api-references/javadoc/element-list"))
                 }
             }
         }
@@ -116,8 +116,8 @@ subprojects {
                 reportUndocumented.set(true)
                 includes.from("module.md")
                 externalDocumentationLink {
-                    url.set(new URL("https://docs.nevis.net/mobilesdk/${getConfig("VERSION_NAME")}/api-references/javadoc/"))
-                    packageListUrl.set(new URL("https://docs.nevis.net/mobilesdk/${getConfig("VERSION_NAME")}/api-references/javadoc/element-list"))
+                    url.set(new URL("https://docs.nevis.net/mobilesdk/${getConfig("VERSION_API_REFERENCE")}/api-references/javadoc/"))
+                    packageListUrl.set(new URL("https://docs.nevis.net/mobilesdk/${getConfig("VERSION_API_REFERENCE")}/api-references/javadoc/element-list"))
                 }
             }
         }
