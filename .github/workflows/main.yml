@@ -17,7 +17,7 @@ env:
   CUSTOM_URI_SCHEME: ${{ vars.CUSTOM_URI_SCHEME }}
 
   JAVA_VERSION: '17'
-  RUBY_VERSION: '3.1'
+  RUBY_VERSION: '3.4.2'
   CURRENT_BUILD_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
 jobs:

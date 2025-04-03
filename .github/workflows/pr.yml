@@ -11,7 +11,7 @@ env:
   GH_PERSONAL_ACCESS_TOKEN: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
 
   JAVA_VERSION: '17'
-  RUBY_VERSION: '3.1'
+  RUBY_VERSION: '3.4.2'
 
 jobs:
   build:
