@@ -27,7 +27,7 @@ Build and tag the application
 
  * **`host_name`**: Authentication Cloud host name/instance name the build application will communicate with.
 
- * **`custom_uri_scheme`**: Custom deep link URI scheme of the built application. The application can be started using browser links those using this scheme.
+ * **`custom_uri_scheme`**: Custom deep link URI scheme of the built application.         The application can be started using browser links those using this scheme.
 
 
 

@@ -1,7 +1,13 @@
 source "https://rubygems.org"
 
-gem "fastlane"
-gem "java-properties"
+gem "fastlane", "~> 2.225"
+gem "java-properties", "~> 0.3.0"
+
+# These gems were loaded from the standard library by Fastlane,
+# but will no longer be part of the default gems since Ruby 3.4.0.
+# Includes them directly until Fastlane fixes it.
+gem "abbrev"
+gem "ostruct"
 
 group :development do
     gem "rubocop", "~> 1.63", require: false
