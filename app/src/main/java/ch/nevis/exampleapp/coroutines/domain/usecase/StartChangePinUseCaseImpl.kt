@@ -13,9 +13,9 @@ import ch.nevis.exampleapp.coroutines.domain.model.state.ChangePinOperationState
 import ch.nevis.exampleapp.coroutines.domain.repository.OperationStateRepository
 import ch.nevis.mobile.sdk.api.operation.pin.PinChangeError
 import ch.nevis.mobile.sdk.api.operation.pin.PinChanger
-import ch.nevis.mobile.sdk.api.util.Consumer
 import kotlinx.coroutines.Runnable
 import kotlinx.coroutines.suspendCancellableCoroutine
+import java.util.function.Consumer
 
 /**
  * Default implementation of [StartChangePinUseCase] interface.

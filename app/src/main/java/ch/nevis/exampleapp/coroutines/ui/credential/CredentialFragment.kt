@@ -123,7 +123,6 @@ class CredentialFragment : ResponseObserverFragment() {
                 lastRecoverableError = response.lastRecoverableError
             }
             is VerifyPinResponse -> {
-                lastRecoverableError = response.lastRecoverableError
                 credentialProtectionInformation = viewModel.pinProtectionInfo(response.pinAuthenticatorProtectionStatus)
             }
             is ChangePasswordResponse -> {
@@ -134,7 +133,6 @@ class CredentialFragment : ResponseObserverFragment() {
                 lastRecoverableError = response.lastRecoverableError
             }
             is VerifyPasswordResponse -> {
-                lastRecoverableError = response.lastRecoverableError
                 credentialProtectionInformation = viewModel.passwordProtectionInfo(response.passwordAuthenticatorProtectionStatus)
             }
             else -> super.processResponse(response)

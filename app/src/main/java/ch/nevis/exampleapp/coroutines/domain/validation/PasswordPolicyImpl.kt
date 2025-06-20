@@ -11,7 +11,7 @@ import ch.nevis.exampleapp.coroutines.R
 import ch.nevis.mobile.sdk.api.operation.password.PasswordChangeRecoverableError
 import ch.nevis.mobile.sdk.api.operation.password.PasswordEnrollmentError
 import ch.nevis.mobile.sdk.api.operation.password.PasswordPolicy
-import ch.nevis.mobile.sdk.api.util.Consumer
+import java.util.function.Consumer
 
 /**
  * Implementation of [PasswordPolicy] interface.

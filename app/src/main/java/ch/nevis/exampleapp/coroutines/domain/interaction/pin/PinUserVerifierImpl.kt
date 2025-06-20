@@ -38,11 +38,7 @@ class PinUserVerifierImpl(
         context: PinUserVerificationContext,
         handler: PinUserVerificationHandler
     ) {
-        if (context.lastRecoverableError().isPresent) {
-            Timber.asTree().sdk("PIN user verification failed. Please try again.")
-        } else {
-            Timber.asTree().sdk("Please start PIN user verification.")
-        }
+        Timber.asTree().sdk("Please start PIN user verification.")
 
         val operationState = stateRepository.get() ?: throw BusinessException.invalidState()
         operationState.pinUserVerificationHandler = handler
@@ -52,7 +48,6 @@ class PinUserVerifierImpl(
 
         cancellableContinuation.resume(
             VerifyPinResponse(
-                context.lastRecoverableError().orElse(null),
                 context.authenticatorProtectionStatus()
             )
         )

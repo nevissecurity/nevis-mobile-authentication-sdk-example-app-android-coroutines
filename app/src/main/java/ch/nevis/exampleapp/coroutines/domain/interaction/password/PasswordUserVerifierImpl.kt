@@ -36,11 +36,7 @@ class PasswordUserVerifierImpl(
         context: PasswordUserVerificationContext,
         handler: PasswordUserVerificationHandler
     ) {
-        if (context.lastRecoverableError().isPresent) {
-            Timber.asTree().sdk("Password user verification failed. Please try again.")
-        } else {
-            Timber.asTree().sdk("Please start Password user verification.")
-        }
+        Timber.asTree().sdk("Please start Password user verification.")
 
         val operationState = stateRepository.get() ?: throw BusinessException.invalidState()
         operationState.passwordUserVerificationHandler = handler
@@ -50,7 +46,6 @@ class PasswordUserVerifierImpl(
 
         cancellableContinuation.resume(
             VerifyPasswordResponse(
-                context.lastRecoverableError().orElse(null),
                 context.authenticatorProtectionStatus()
             )
         )

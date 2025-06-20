@@ -13,9 +13,9 @@ import ch.nevis.exampleapp.coroutines.domain.model.state.ChangePasswordOperation
 import ch.nevis.exampleapp.coroutines.domain.repository.OperationStateRepository
 import ch.nevis.mobile.sdk.api.operation.password.PasswordChangeError
 import ch.nevis.mobile.sdk.api.operation.password.PasswordChanger
-import ch.nevis.mobile.sdk.api.util.Consumer
 import kotlinx.coroutines.Runnable
 import kotlinx.coroutines.suspendCancellableCoroutine
+import java.util.function.Consumer
 
 /**
  * Default implementation of [StartChangePasswordUseCase] interface.

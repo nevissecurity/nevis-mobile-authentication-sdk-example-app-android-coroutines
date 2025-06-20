@@ -13,8 +13,8 @@ import ch.nevis.exampleapp.coroutines.domain.model.state.UserInteractionOperatio
 import ch.nevis.exampleapp.coroutines.domain.repository.OperationStateRepository
 import ch.nevis.exampleapp.coroutines.timber.sdk
 import ch.nevis.mobile.sdk.api.authorization.AuthorizationProvider
-import ch.nevis.mobile.sdk.api.util.Consumer
 import timber.log.Timber
+import java.util.function.Consumer
 import kotlin.coroutines.resume
 
 /**
