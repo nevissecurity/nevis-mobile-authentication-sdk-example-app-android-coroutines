@@ -1,10 +1,10 @@
 buildscript {
-    ext.coroutine_version = "1.8.0"
-    ext.dagger_hilt_version = "2.51.1"
-    ext.gradle_version = '8.6.1'
-    ext.kotlin_version = "1.9.23"
-    ext.navigation_version = "2.8.1"
-    ext.dokka_version = "1.9.20"
+    ext.coroutine_version = "1.10.2"
+    ext.dagger_hilt_version = "2.56.1"
+    ext.gradle_version = '8.10.1'
+    ext.kotlin_version = "2.1.21"
+    ext.navigation_version = "2.9.0"
+    ext.dokka_version = "2.0.0"
     ext.customFooterMessage = "© 2024 made with ❤️ by Nevis"
     ext.customLogoFile = projectDir.toString() + "/logo-style.css"
 
@@ -74,78 +74,20 @@ allprojects {
     }
 }
 
-subprojects {
-    apply plugin: "org.jetbrains.dokka"
-
-    tasks.named("dokkaHtml") {
-        moduleName.set("$rootProject.name-$project.name")
-        outputDirectory.set(file("build/dokka/$project.name"))
+dokka {
+    dokkaPublications.html {
+        outputDirectory.set(file("build/dokka/${project.name}"))
         failOnWarning.set(false)
         suppressInheritedMembers.set(true)
         suppressObviousFunctions.set(true)
-
-        dokkaSourceSets {
-            configureEach {
-                reportUndocumented.set(true)
-                includes.from("module.md")
-                externalDocumentationLink {
-                    url.set(new URL("https://docs.nevis.net/mobilesdk/${getConfig("VERSION_API_REFERENCE")}/api-references/javadoc/"))
-                    packageListUrl.set(new URL("https://docs.nevis.net/mobilesdk/${getConfig("VERSION_API_REFERENCE")}/api-references/javadoc/element-list"))
-                }
-            }
-        }
-
-        pluginsMapConfiguration.set(
-            [
-                "org.jetbrains.dokka.base.DokkaBase": """{
-                    "customStyleSheets": ["$customLogoFile"],
-                    "footerMessage": "$customFooterMessage"
-                }"""
-            ]
-        )
     }
 
-    tasks.named("dokkaHtmlPartial") {
-        moduleName.set("$rootProject.name-$project.name")
-        failOnWarning.set(false)
-        suppressInheritedMembers.set(true)
-        suppressObviousFunctions.set(true)
-
-        dokkaSourceSets {
-            configureEach {
-                reportUndocumented.set(true)
-                includes.from("module.md")
-                externalDocumentationLink {
-                    url.set(new URL("https://docs.nevis.net/mobilesdk/${getConfig("VERSION_API_REFERENCE")}/api-references/javadoc/"))
-                    packageListUrl.set(new URL("https://docs.nevis.net/mobilesdk/${getConfig("VERSION_API_REFERENCE")}/api-references/javadoc/element-list"))
-                }
-            }
-        }
-
-        pluginsMapConfiguration.set(
-            [
-                "org.jetbrains.dokka.base.DokkaBase": """{
-                    "customStyleSheets": ["$customLogoFile"],
-                    "footerMessage": "$customFooterMessage"
-                }"""
-            ]
-        )
+    pluginsConfiguration.html {
+        customStyleSheets.from(customLogoFile)
+        footerMessage.set(customFooterMessage)
     }
 }
 
-afterEvaluate {
-    tasks.named("dokkaHtmlMultiModule") {
-        pluginsMapConfiguration.set(
-            [
-                "org.jetbrains.dokka.base.DokkaBase": """{
-                    "customStyleSheets": ["$customLogoFile"],
-                    "footerMessage": "$customFooterMessage"
-                }"""
-            ]
-        )
-    }
-}
-
-tasks.register("clean", Delete) {
-    delete rootProject.layout.buildDirectory
+dependencies {
+    dokka(project(":app"))
 }

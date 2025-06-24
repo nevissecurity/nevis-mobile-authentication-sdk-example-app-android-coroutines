@@ -134,8 +134,7 @@ abstract class ResponseObserverFragment : Fragment() {
             is VerifyPinResponse -> {
                 val navigationParameter = PinNavigationParameter(
                     CredentialViewMode.VERIFICATION,
-                    response.lastRecoverableError,
-                    response.pinAuthenticatorProtectionStatus,
+                    pinAuthenticatorProtectionStatus = response.pinAuthenticatorProtectionStatus,
                 )
                 val action = NavigationGraphDirections.actionGlobalCredentialFragment(navigationParameter)
                 navController.navigate(action)
@@ -144,8 +143,7 @@ abstract class ResponseObserverFragment : Fragment() {
             is VerifyPasswordResponse -> {
                 val navigationParameter = PasswordNavigationParameter(
                     CredentialViewMode.VERIFICATION,
-                    response.lastRecoverableError,
-                    response.passwordAuthenticatorProtectionStatus,
+                    passwordAuthenticatorProtectionStatus = response.passwordAuthenticatorProtectionStatus,
                 )
                 val action = NavigationGraphDirections.actionGlobalCredentialFragment(navigationParameter)
                 navController.navigate(action)

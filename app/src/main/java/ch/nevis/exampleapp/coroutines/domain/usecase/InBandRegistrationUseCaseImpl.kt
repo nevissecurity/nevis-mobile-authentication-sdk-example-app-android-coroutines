@@ -21,8 +21,8 @@ import ch.nevis.mobile.sdk.api.operation.selection.AuthenticatorSelector
 import ch.nevis.mobile.sdk.api.operation.userverification.BiometricUserVerifier
 import ch.nevis.mobile.sdk.api.operation.userverification.DevicePasscodeUserVerifier
 import ch.nevis.mobile.sdk.api.operation.userverification.FingerprintUserVerifier
-import ch.nevis.mobile.sdk.api.util.Consumer
 import kotlinx.coroutines.suspendCancellableCoroutine
+import java.util.function.Consumer
 
 /**
  * Default implementation of [InBandRegistrationUseCase] interface.

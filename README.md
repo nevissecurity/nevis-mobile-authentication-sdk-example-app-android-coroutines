@@ -30,11 +30,11 @@ Before you start compiling and using the example applications please ensure you 
 
 ### Development Setup
 
-- Android 6 or later, with API level 23
+- Android 7 or later, with API level 24
 - Android 10 or later, with API level 29, for the biometric authenticator to work
 - Android 11 or later, with API level 30, for the device passcode authenticator to work
 - JDK 17
-- Gradle 8.7 or later
+- Gradle 8.14.2 or later
 
 ### Github Account
 
@@ -70,10 +70,10 @@ If you want to use `identitySuite` environment modify the configuration in metho
 ```kotlin
 @Provides
 @Singleton
-fun provideConfigurationProvider(application: Application): ConfigurationProvider =
+fun provideConfigurationProvider(): ConfigurationProvider =
     ConfigurationProviderImpl(
         Environment.AUTHENTICATION_CLOUD,
-        provideAuthenticationCloudConfiguration(application)
+        provideAuthenticationCloudConfiguration()
     )
 ```
 
@@ -82,10 +82,10 @@ to
 ```kotlin
 @Provides
 @Singleton
-fun provideConfigurationProvider(application: Application): ConfigurationProvider =
+fun provideConfigurationProvider(): ConfigurationProvider =
     ConfigurationProviderImpl(
         Environment.IDENTITY_SUITE,
-        provideIdentitySuiteConfiguration(application)
+        provideIdentitySuiteConfiguration()
     )
 ```
 
@@ -134,15 +134,6 @@ object FacetIdCalculator {
 	}
 }
 ```
-
-> [!NOTE]
-> An alternative way to set a constant Facet ID is to call `facetId(String facetId)` method of `ch.nevis.mobile.sdk.api.Configuration.Builder` in methods `provideAuthenticationCloudConfiguration` and `provideIdentitySuiteConfiguration` in [ApplicationModule](app/src/main/java/ch/nevis/exampleapp/coroutines/dagger/ApplicationModule.kt) file.
->
-> The value of the facet ID depends on the certificate used to build the application, which can change during the development, that is why this method has been introduced: by providing a constant facet ID and having
-> it referenced in the server server configuration, temporary changes in the APK signing certificate do not require
-> changes in the backend.
->
-> This method must be used for development scenarios only. For production code do not invoke this method and configure the backend with the facet ID that can be calculated with the code snippet above. See the chapter _Application Facet ID and the nevisFIDO Backend Configuration_ of the SDK reference guide for more details.
 
 ### Build & run
 

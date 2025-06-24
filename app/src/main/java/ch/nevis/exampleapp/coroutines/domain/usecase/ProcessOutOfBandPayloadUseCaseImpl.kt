@@ -30,9 +30,9 @@ import ch.nevis.mobile.sdk.api.operation.userverification.DevicePasscodeUserVeri
 import ch.nevis.mobile.sdk.api.operation.userverification.FingerprintUserVerifier
 import ch.nevis.mobile.sdk.api.operation.userverification.PasswordUserVerifier
 import ch.nevis.mobile.sdk.api.operation.userverification.PinUserVerifier
-import ch.nevis.mobile.sdk.api.util.Consumer
 import kotlinx.coroutines.Runnable
 import kotlinx.coroutines.suspendCancellableCoroutine
+import java.util.function.Consumer
 import kotlin.coroutines.resume
 
 /**
