@@ -1,10 +1,12 @@
 buildscript {
-    ext.coroutine_version = "1.10.2"
-    ext.dagger_hilt_version = "2.56.1"
-    ext.gradle_version = '8.10.1'
+    ext.agp_version = '8.10.1'
     ext.kotlin_version = "2.1.21"
+    ext.dagger_hilt_version = "2.56.1"
     ext.navigation_version = "2.9.0"
     ext.dokka_version = "2.0.0"
+    ext.coroutines_version = "1.10.2"
+    ext.camerax_version = "1.4.2"
+    ext.retrofit_version = "2.9.0"
     ext.customFooterMessage = "© 2024 made with ❤️ by Nevis"
     ext.customLogoFile = projectDir.toString() + "/logo-style.css"
 
@@ -14,11 +16,11 @@ buildscript {
     }
 
     dependencies {
-        classpath "com.android.tools.build:gradle:$gradle_version"
+        classpath "com.android.tools.build:gradle:$agp_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "com.google.dagger:hilt-android-gradle-plugin:$dagger_hilt_version"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navigation_version"
-        classpath "org.jetbrains.dokka:dokka-gradle-plugin:${dokka_version}"
+        classpath "org.jetbrains.dokka:dokka-gradle-plugin:$dokka_version"
     }
 }
 
