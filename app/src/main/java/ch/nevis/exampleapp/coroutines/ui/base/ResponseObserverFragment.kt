@@ -6,6 +6,8 @@
 
 package ch.nevis.exampleapp.coroutines.ui.base
 
+import android.os.Bundle
+import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import ch.nevis.exampleapp.coroutines.NavigationGraphDirections
@@ -61,9 +63,10 @@ abstract class ResponseObserverFragment : Fragment() {
 
     //region Fragment
     /** @suppress */
-    override fun onResume() {
-        super.onResume()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
+        // Observe the response live data to process the response when the view model posts a new response.
         viewModel.responseLiveData.observe(viewLifecycleOwner) {
             processResponse(it)
         }

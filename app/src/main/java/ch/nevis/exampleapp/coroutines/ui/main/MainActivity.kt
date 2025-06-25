@@ -12,6 +12,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,7 +23,9 @@ import ch.nevis.exampleapp.coroutines.common.error.ErrorHandlerChain
 import ch.nevis.exampleapp.coroutines.databinding.ActivityMainBinding
 import ch.nevis.exampleapp.coroutines.ui.util.navigateToHome
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import javax.inject.Inject
+import androidx.core.view.isGone
 
 /**
  * The main, start activity of the application. When the application starts this activity will be created and started.
@@ -66,14 +69,11 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.navigationHostFragmentContainerView) as NavHostFragment
         val graphInflater = navHostFragment.navController.navInflater
         val navGraph = graphInflater.inflate(R.navigation.navigation_graph)
-
-        val startDestinationId = R.id.homeFragment
-        navGraph.setStartDestination(startDestinationId)
         navHostFragment.navController.graph = navGraph
 
         // OnClickListener implementation of toggle (show/hide) log button.
         binding.logToggleButton.setOnClickListener {
-            if (binding.logRecyclerView.visibility == View.GONE) {
+            if (binding.logRecyclerView.isGone) {
                 binding.logRecyclerView.visibility = View.VISIBLE
                 binding.logToggleButton.text = getString(R.string.main_hide_log)
             } else {
@@ -106,19 +106,14 @@ class MainActivity : AppCompatActivity() {
         binding.logRecyclerView.adapter = logRecyclerViewAdapter
         binding.logRecyclerView.layoutManager = LinearLayoutManager(this)
 
-        // Observing log LiveData.
-        viewModel.log.observe(this) {
-            // Adding the new LogItem to the recycler view adapter.
-            logRecyclerViewAdapter.addLogItem(it)
-            binding.logRecyclerView.smoothScrollToPosition(logRecyclerViewAdapter.itemCount - 1)
+        // Observing log Flow.
+        lifecycleScope.launch {
+            viewModel.log.collect {
+                // Adding the new LogItem to the recycler view adapter.
+                logRecyclerViewAdapter.addLogItem(it)
+                binding.logRecyclerView.smoothScrollToPosition(logRecyclerViewAdapter.itemCount - 1)
+            }
         }
-    }
-
-    override fun onStop() {
-        super.onStop()
-
-        // Removing log LiveData observer.
-        viewModel.log.removeObservers(this)
     }
     //endregion
 

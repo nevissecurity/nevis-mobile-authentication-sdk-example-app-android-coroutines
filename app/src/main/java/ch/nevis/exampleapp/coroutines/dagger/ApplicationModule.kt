@@ -71,6 +71,8 @@ import ch.nevis.exampleapp.coroutines.domain.usecase.GetAuthenticatorsUseCase
 import ch.nevis.exampleapp.coroutines.domain.usecase.GetAuthenticatorsUseCaseImpl
 import ch.nevis.exampleapp.coroutines.domain.usecase.GetDeviceInformationUseCase
 import ch.nevis.exampleapp.coroutines.domain.usecase.GetDeviceInformationUseCaseImpl
+import ch.nevis.exampleapp.coroutines.domain.usecase.GetFidoUafAttestationInformationUseCase
+import ch.nevis.exampleapp.coroutines.domain.usecase.GetFidoUafAttestationInformationUseCaseImpl
 import ch.nevis.exampleapp.coroutines.domain.usecase.InBandAuthenticationUseCase
 import ch.nevis.exampleapp.coroutines.domain.usecase.InBandAuthenticationUseCaseImpl
 import ch.nevis.exampleapp.coroutines.domain.usecase.InBandRegistrationUseCase
@@ -79,6 +81,8 @@ import ch.nevis.exampleapp.coroutines.domain.usecase.InitializeClientUseCase
 import ch.nevis.exampleapp.coroutines.domain.usecase.InitializeClientUseCaseImpl
 import ch.nevis.exampleapp.coroutines.domain.usecase.LoginUseCase
 import ch.nevis.exampleapp.coroutines.domain.usecase.LoginUseCaseImpl
+import ch.nevis.exampleapp.coroutines.domain.usecase.MetaDataUseCase
+import ch.nevis.exampleapp.coroutines.domain.usecase.MetaDataUseCaseImpl
 import ch.nevis.exampleapp.coroutines.domain.usecase.ProcessOutOfBandPayloadUseCase
 import ch.nevis.exampleapp.coroutines.domain.usecase.ProcessOutOfBandPayloadUseCaseImpl
 import ch.nevis.exampleapp.coroutines.domain.usecase.SelectAccountUseCase
@@ -767,6 +771,26 @@ class ApplicationModule {
     fun provideChangeDeviceInformationUseCase(
         clientProvider: ClientProvider
     ): ChangeDeviceInformationUseCase = ChangeDeviceInformationUseCaseImpl(clientProvider)
+
+    /**
+     * Provides use case for retrieving the FIDO UAF attestation information.
+     *
+     * @param clientProvider An instance of [ClientProvider] interface implementation.
+     * @return The use case for retrieving the FIDO UAF attestation information.
+     */
+    @Provides
+    fun provideGetFidoUafAttestationInformationUseCase(
+        clientProvider: ClientProvider
+    ): GetFidoUafAttestationInformationUseCase = GetFidoUafAttestationInformationUseCaseImpl(clientProvider)
+
+    /**
+     * Provides use case for retrieving the meta data of Nevis Mobile Authentication SDK.
+     *
+     * @param context The Android [Context].
+     * @return The use case for retrieving the meta data of Nevis Mobile Authentication SDK.
+     */
+    @Provides
+    fun provideMetaDataUseCase(@ApplicationContext context: Context): MetaDataUseCase = MetaDataUseCaseImpl(context)
 
     /**
      * Provides use case for transaction confirmation.
