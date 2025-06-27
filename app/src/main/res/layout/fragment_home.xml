@@ -96,6 +96,109 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/home_in_band_registration_button_title"
-            android:layout_marginBottom="64dp" />
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:id="@+id/sdkVersionTitleTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/home_sdk_version"
+            android:textSize="16sp"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:id="@+id/sdkVersionValueTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/home_unknown"
+            android:textSize="12sp"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:id="@+id/facetIdTitleTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/home_facet_id"
+            android:textSize="16sp"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:id="@+id/facetIdValueTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/home_unknown"
+            android:textSize="12sp"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:id="@+id/certFingerprintTitleTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/home_certificate_fingerprint"
+            android:textSize="16sp"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:id="@+id/certFingerprintValueTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/home_unknown"
+            android:textSize="12sp"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:id="@+id/attestationTitleTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/home_fido_uaf_attestation"
+            android:textSize="16sp"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:id="@+id/attestationValueTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/home_unknown"
+            android:textSize="12sp"
+            android:layout_marginBottom="64dp"/>
+
+        <TextView
+            android:id="@+id/surrogateBasicTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:drawablePadding="16dp"
+            android:text="@string/home_fido_uaf_attestation_surrogate_basic"
+            android:textSize="12sp"
+            android:gravity="center_vertical"
+            android:visibility="gone"
+            tools:visibility="visible"
+            tools:drawableLeftCompat="@drawable/error_icon" />
+
+        <TextView
+            android:id="@+id/fullBasicDefaultTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:drawablePadding="16dp"
+            android:text="@string/home_fido_uaf_attestation_full_basic_default"
+            android:textSize="12sp"
+            android:gravity="center_vertical"
+            android:visibility="gone"
+            tools:visibility="visible"
+            tools:drawableLeftCompat="@drawable/error_icon" />
+
+        <TextView
+            android:id="@+id/fullBasicStrictTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="64dp"
+            android:drawablePadding="16dp"
+            android:text="@string/home_fido_uaf_attestation_full_basic_strict"
+            android:textSize="12sp"
+            android:gravity="center_vertical"
+            android:visibility="gone"
+            tools:visibility="visible"
+            tools:drawableLeftCompat="@drawable/error_icon" />
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

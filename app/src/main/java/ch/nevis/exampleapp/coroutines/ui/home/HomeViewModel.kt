@@ -15,7 +15,9 @@ import ch.nevis.exampleapp.coroutines.domain.model.response.*
 import ch.nevis.exampleapp.coroutines.domain.usecase.DeleteAuthenticatorsUseCase
 import ch.nevis.exampleapp.coroutines.domain.usecase.GetAccountsUseCase
 import ch.nevis.exampleapp.coroutines.domain.usecase.GetAuthenticatorsUseCase
+import ch.nevis.exampleapp.coroutines.domain.usecase.GetFidoUafAttestationInformationUseCase
 import ch.nevis.exampleapp.coroutines.domain.usecase.InitializeClientUseCase
+import ch.nevis.exampleapp.coroutines.domain.usecase.MetaDataUseCase
 import ch.nevis.exampleapp.coroutines.domain.usecase.StartChangePasswordUseCase
 import ch.nevis.exampleapp.coroutines.domain.usecase.StartChangePinUseCase
 import ch.nevis.exampleapp.coroutines.ui.base.OutOfBandOperationViewModel
@@ -35,6 +37,8 @@ import javax.inject.Inject
  * @param initializeClientUseCase An instance of a [InitializeClientUseCase] implementation.
  * @param getAccountsUseCase An instance of a [GetAccountsUseCase] implementation.
  * @param getAuthenticatorsUseCase An instance of a [GetAuthenticatorsUseCase] implementation.
+ * @param getFidoUafAttestationInformationUseCase An instance of a [GetFidoUafAttestationInformationUseCase] implementation.
+ * @param metaDataUseCase An instance of a [MetaDataUseCase] implementation.
  * @param startChangePinUseCase An instance of a [StartChangePinUseCase] implementation.
  * @param startChangePasswordUseCase An instance of a [StartChangePasswordUseCase] implementation.
  * @param deleteAuthenticatorsUseCase An instance of a [DeleteAuthenticatorsUseCase] implementation.
@@ -45,6 +49,8 @@ class HomeViewModel @Inject constructor(
     private val initializeClientUseCase: InitializeClientUseCase,
     private val getAccountsUseCase: GetAccountsUseCase,
     private val getAuthenticatorsUseCase: GetAuthenticatorsUseCase,
+    private val getFidoUafAttestationInformationUseCase: GetFidoUafAttestationInformationUseCase,
+    private val metaDataUseCase: MetaDataUseCase,
     private val startChangePinUseCase: StartChangePinUseCase,
     private val startChangePasswordUseCase: StartChangePasswordUseCase,
     private val deleteAuthenticatorsUseCase: DeleteAuthenticatorsUseCase,
@@ -63,12 +69,31 @@ class HomeViewModel @Inject constructor(
     }
 
     /**
-     * Starts initialization of Home view. This method should be called after a successful client
-     * initialization.
+     * Retrieves the list of registered accounts.
      */
-    fun initView() {
+    fun getAccounts() {
         viewModelScope.launch(errorHandler) {
             val response = getAccountsUseCase.execute()
+            mutableResponseLiveData.postValue(response)
+        }
+    }
+
+    /**
+     * Retrieves the meta data of Nevis Mobile Authentication SDK.
+     */
+    fun getMetaData() {
+        viewModelScope.launch(errorHandler) {
+            val response = metaDataUseCase.execute()
+            mutableResponseLiveData.postValue(response)
+        }
+    }
+
+    /**
+     * Retrieves the FIDO UAF attestation information.
+     */
+    fun getAttestationInformation() {
+        viewModelScope.launch(errorHandler) {
+            val response = getFidoUafAttestationInformationUseCase.execute()
             mutableResponseLiveData.postValue(response)
         }
     }

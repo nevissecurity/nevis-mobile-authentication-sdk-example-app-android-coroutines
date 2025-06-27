@@ -76,6 +76,10 @@ enum class Operation(
     /**
      * Local Data.
      */
-    LOCAL_DATA(R.string.operation_local_data)
+    LOCAL_DATA(R.string.operation_local_data),
 
+    /**
+     * Get FIDO UAF Attestation Information.
+     */
+    GET_FIDO_UAF_ATTESTATION_INFORMATION(R.string.operation_get_fido_uaf_attestation_information)
 }

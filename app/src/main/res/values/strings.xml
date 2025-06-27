@@ -94,6 +94,14 @@
     <string name="home_auth_cloud_registration_button_title">Auth Cloud API Registration</string>
     <string name="home_delete_authenticators_button_title">Delete Authenticators</string>
     <string name="home_in_band_registration_button_title">In-band Registration</string>
+    <string name="home_sdk_version">Nevis Mobile Authentication SDK</string>
+    <string name="home_facet_id">Facet Id</string>
+    <string name="home_certificate_fingerprint">Certificate Fingerprint</string>
+    <string name="home_fido_uaf_attestation">FIDO UAF Attestation Supported by Device</string>
+    <string name="home_fido_uaf_attestation_surrogate_basic">Surrogate basic</string>
+    <string name="home_fido_uaf_attestation_full_basic_default">Full basic default mode</string>
+    <string name="home_fido_uaf_attestation_full_basic_strict">Full basic strict mode</string>
+    <string name="home_unknown">Unknown</string>
 
     <string name="operation_authentication">Authentication</string>
     <string name="operation_change_device_information">Change Device Information</string>
@@ -106,6 +114,7 @@
     <string name="operation_process_oob_payload">Payload Processing</string>
     <string name="operation_registration">Registration</string>
     <string name="operation_local_data">Local Data operation</string>
+    <string name="operation_get_fido_uaf_attestation_information">Get FIDO UAF Attestation Information</string>
 
     <string name="pin_confirm_button_title">OK</string>
 

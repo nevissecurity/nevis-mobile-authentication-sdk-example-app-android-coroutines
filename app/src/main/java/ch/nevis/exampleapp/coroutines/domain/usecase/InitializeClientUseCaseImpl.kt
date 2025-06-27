@@ -13,10 +13,12 @@ import ch.nevis.exampleapp.coroutines.domain.model.operation.Operation
 import ch.nevis.exampleapp.coroutines.domain.model.response.ErrorResponse
 import ch.nevis.exampleapp.coroutines.domain.model.response.InitializeClientCompletedResponse
 import ch.nevis.exampleapp.coroutines.domain.model.response.Response
+import ch.nevis.exampleapp.coroutines.timber.sdk
 import ch.nevis.mobile.sdk.api.Configuration
 import ch.nevis.mobile.sdk.api.MobileAuthenticationClientInitializer
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.sync.Semaphore
+import timber.log.Timber
 import kotlin.coroutines.resume
 
 /**
@@ -47,6 +49,7 @@ class InitializeClientUseCaseImpl(
         semaphore.acquire()
         val client = clientProvider.get()
         return if (client != null) {
+            Timber.asTree().sdk("Client already initialized.")
             semaphore.release()
             InitializeClientCompletedResponse()
         } else {
@@ -55,6 +58,7 @@ class InitializeClientUseCaseImpl(
                     .context(context)
                     .configuration(configuration)
                     .onSuccess {
+                        Timber.asTree().sdk("Client initialization succeeded.")
                         clientProvider.save(it)
                         cancellableContinuation.resume(InitializeClientCompletedResponse())
                         semaphore.release()
