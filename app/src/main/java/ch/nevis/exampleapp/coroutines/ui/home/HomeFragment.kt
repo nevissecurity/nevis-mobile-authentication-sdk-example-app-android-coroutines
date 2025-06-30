@@ -10,13 +10,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import ch.nevis.exampleapp.coroutines.NavigationGraphDirections
 import ch.nevis.exampleapp.coroutines.R
 import ch.nevis.exampleapp.coroutines.databinding.FragmentHomeBinding
 import ch.nevis.exampleapp.coroutines.domain.model.response.GetAccountsResponse
+import ch.nevis.exampleapp.coroutines.domain.model.response.FidoUafAttestationInformationResponse
 import ch.nevis.exampleapp.coroutines.domain.model.response.InitializeClientCompletedResponse
+import ch.nevis.exampleapp.coroutines.domain.model.response.MetaDataResponse
 import ch.nevis.exampleapp.coroutines.domain.model.response.PayloadDecodeCompletedResponse
 import ch.nevis.exampleapp.coroutines.domain.model.response.Response
 import ch.nevis.exampleapp.coroutines.ui.base.ResponseObserverFragment
@@ -119,7 +122,7 @@ class HomeFragment : ResponseObserverFragment() {
         when (response) {
             is InitializeClientCompletedResponse -> {
                 viewModel.finishOperation()
-                viewModel.initView()
+                viewModel.getAccounts()
 
                 handleDispatchTokenResponse {
                     viewModel.decodeOutOfBandPayload(it)
@@ -130,6 +133,33 @@ class HomeFragment : ResponseObserverFragment() {
                     R.string.home_registered_accounts,
                     response.accounts.size
                 )
+                viewModel.getMetaData()
+            }
+            is MetaDataResponse -> {
+                binding.sdkVersionValueTextView.text = response.sdkVersion
+                binding.facetIdValueTextView.text = response.facetId
+                binding.certFingerprintValueTextView.text = response.certificateFingerprint
+                viewModel.getAttestationInformation()
+            }
+            is FidoUafAttestationInformationResponse-> {
+                val context = context ?: return
+
+                binding.attestationValueTextView.visibility = View.GONE
+
+                val successIcon = ContextCompat.getDrawable(context, R.drawable.success_icon)
+                val errorIcon = ContextCompat.getDrawable(context, R.drawable.error_icon)
+
+                val surrogateBasicIcon = if (response.onlySurrogateBasicSupported) successIcon else errorIcon
+                binding.surrogateBasicTextView.setCompoundDrawablesWithIntrinsicBounds(surrogateBasicIcon, null, null, null)
+                binding.surrogateBasicTextView.visibility = View.VISIBLE
+
+                val fullBasicDefaultIcon = if (response.onlyDefaultMode) successIcon else errorIcon
+                binding.fullBasicDefaultTextView.setCompoundDrawablesWithIntrinsicBounds(fullBasicDefaultIcon, null, null, null)
+                binding.fullBasicDefaultTextView.visibility = View.VISIBLE
+
+                val strictModeIcon = if (response.strictMode) successIcon else errorIcon
+                binding.fullBasicStrictTextView.setCompoundDrawablesWithIntrinsicBounds(strictModeIcon, null, null, null)
+                binding.fullBasicStrictTextView.visibility = View.VISIBLE
             }
             is PayloadDecodeCompletedResponse -> {
                 viewModel.processOutOfBandPayload(response.payload)
