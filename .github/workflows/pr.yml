@@ -14,9 +14,17 @@ env:
   RUBY_VERSION: '3.4.2'
 
 jobs:
+  validate-gradle-wrapper:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Gradle Wrapper Validation
+        uses: gradle/actions/wrapper-validation@v4
+
   build:
     name: Build
     runs-on: ubuntu-latest
+    needs: [validate-gradle-wrapper]
 
     steps:
       # Checkout the repository under $GITHUB_WORKSPACE
