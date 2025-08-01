@@ -21,9 +21,17 @@ env:
   CURRENT_BUILD_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
 jobs:
+  validate-gradle-wrapper:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Gradle Wrapper Validation
+        uses: gradle/actions/wrapper-validation@v4
+
   build_and_tag:
     name: Build and Tag
     runs-on: ubuntu-latest
+    needs: [validate-gradle-wrapper]
 
     steps:
       # Checkout the repository under $GITHUB_WORKSPACE
