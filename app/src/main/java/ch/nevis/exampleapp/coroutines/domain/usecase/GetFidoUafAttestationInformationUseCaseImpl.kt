@@ -17,6 +17,7 @@ import ch.nevis.exampleapp.coroutines.timber.sdk
 import ch.nevis.mobile.sdk.api.devicecapabilities.FidoUafAttestationInformation.OnlyDefaultMode
 import ch.nevis.mobile.sdk.api.devicecapabilities.FidoUafAttestationInformation.OnlySurrogateBasicSupported
 import ch.nevis.mobile.sdk.api.devicecapabilities.FidoUafAttestationInformation.StrictMode
+import ch.nevis.mobile.sdk.api.devicecapabilities.FidoUafAttestationInformation.StrictStrongBoxMode
 import kotlinx.coroutines.suspendCancellableCoroutine
 import timber.log.Timber
 import kotlin.coroutines.resume
@@ -57,6 +58,10 @@ class GetFidoUafAttestationInformationUseCaseImpl(
                         is StrictMode -> {
                             Timber.asTree().sdk("Full basic strict attestation mode supported.")
                             cancellableContinuation.resume(FidoUafAttestationInformationResponse.StrictMode())
+                        }
+                        is StrictStrongBoxMode -> {
+                            Timber.asTree().sdk("Full basic strict-strongbox attestation mode supported.")
+                            cancellableContinuation.resume(FidoUafAttestationInformationResponse.StrictStrongBoxMode())
                         }
                         else -> throw IllegalStateException("Unsupported attestation information type.")
                     }
