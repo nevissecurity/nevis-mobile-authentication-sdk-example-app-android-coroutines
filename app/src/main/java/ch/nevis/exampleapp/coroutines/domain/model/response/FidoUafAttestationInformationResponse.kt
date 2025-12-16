@@ -15,6 +15,7 @@ import ch.nevis.mobile.sdk.api.devicecapabilities.FidoUafAttestationInformation
  * @param onlySurrogateBasicSupported Indicates if only surrogate basic attestation is supported.
  * @param onlyDefaultMode Indicates if only default mode is supported.
  * @param strictMode Indicates if strict mode is supported.
+ * @param strictStrongBoxMode Indicates if strict-strongbox mode is supported.
  */
 sealed class FidoUafAttestationInformationResponse(
     /**
@@ -28,7 +29,11 @@ sealed class FidoUafAttestationInformationResponse(
     /**
      * Indicates if strict mode is supported.
      */
-    val strictMode: Boolean
+    val strictMode: Boolean,
+    /**
+     * Indicates if strict-strongbox mode is supported.
+     */
+    val strictStrongBoxMode: Boolean
 ) : Response {
     /**
      * Represents the case when only surrogate basic attestation is supported by the device.
@@ -36,7 +41,8 @@ sealed class FidoUafAttestationInformationResponse(
     class OnlySurrogateBasicSupported : FidoUafAttestationInformationResponse(
         onlySurrogateBasicSupported = true,
         onlyDefaultMode = false,
-        strictMode = false
+        strictMode = false,
+        strictStrongBoxMode = false
     )
 
     /**
@@ -45,7 +51,8 @@ sealed class FidoUafAttestationInformationResponse(
     class OnlyDefaultMode : FidoUafAttestationInformationResponse(
         onlySurrogateBasicSupported = true,
         onlyDefaultMode = true,
-        strictMode = false
+        strictMode = false,
+        strictStrongBoxMode = false
     )
 
     /**
@@ -54,6 +61,17 @@ sealed class FidoUafAttestationInformationResponse(
     class StrictMode : FidoUafAttestationInformationResponse(
         onlySurrogateBasicSupported = true,
         onlyDefaultMode = true,
-        strictMode = true
+        strictMode = true,
+        strictStrongBoxMode = false
+    )
+
+    /**
+     * Represents the case when surrogate basic, default, and strict and strict-strongbox attestation modes are all supported by the device.
+     */
+    class StrictStrongBoxMode : FidoUafAttestationInformationResponse(
+        onlySurrogateBasicSupported = true,
+        onlyDefaultMode = true,
+        strictMode = true,
+        strictStrongBoxMode = true
     )
 }

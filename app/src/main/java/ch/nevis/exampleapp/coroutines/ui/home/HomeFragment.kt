@@ -160,6 +160,10 @@ class HomeFragment : ResponseObserverFragment() {
                 val strictModeIcon = if (response.strictMode) successIcon else errorIcon
                 binding.fullBasicStrictTextView.setCompoundDrawablesWithIntrinsicBounds(strictModeIcon, null, null, null)
                 binding.fullBasicStrictTextView.visibility = View.VISIBLE
+
+                val strictStrongBoxModeIcon = if (response.strictStrongBoxMode) successIcon else errorIcon
+                binding.fullBasicStrictStrongBoxTextView.setCompoundDrawablesWithIntrinsicBounds(strictStrongBoxModeIcon, null, null, null)
+                binding.fullBasicStrictStrongBoxTextView.visibility = View.VISIBLE
             }
             is PayloadDecodeCompletedResponse -> {
                 viewModel.processOutOfBandPayload(response.payload)
