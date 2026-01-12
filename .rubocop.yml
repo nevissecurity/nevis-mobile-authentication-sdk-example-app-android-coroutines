@@ -1,71 +1,103 @@
-inherit_gem:
-  team_fastlane-rubocop: default.yml
-
 AllCops:
   NewCops: enable
-  TargetRubyVersion: 3.1
+  TargetRubyVersion: 3.4
 
-Rails:
-  Enabled: false
+# Layout Cops
 
 Layout/IndentationStyle:
+  Description: 'Uses spaces per indentation level.'
+  StyleGuide: 'https://rubystyle.guide/#spaces-indentation'
   EnforcedStyle: spaces
+
 Layout/IndentationWidth:
+  Description: 'Uses indentation width 4.'
+  StyleGuide: 'https://rubystyle.guide/#spaces-indentation'
   Width: 4
-Layout/ArgumentAlignment:
-  EnforcedStyle: with_first_argument
+
 Layout/FirstArgumentIndentation:
+  Description: 'Checks the indentation of the first argument in a method call.'
   EnforcedStyle: consistent_relative_to_receiver
+
 Layout/FirstHashElementIndentation:
+  Description: 'Checks the indentation of the first key in a hash literal.'
   EnforcedStyle: consistent
+
 Layout/FirstArrayElementIndentation:
+  Description: 'Checks the indentation of the first element in an array literal.'
   EnforcedStyle: consistent
-Layout/SpaceInsideHashLiteralBraces:
-  EnforcedStyle: space
-  EnforcedStyleForEmptyBraces: no_space
+
 Layout/LineLength:
+  Description: 'Limit lines to 150 characters.'
+  StyleGuide: 'https://rubystyle.guide/#max-line-length'
   Max: 150
 
-Naming/PredicateName:
-  Enabled: false
+# Naming Cops
+
+Naming/PredicatePrefix:
+  Description: 'The names of predicate methods (methods that return a boolean value) should end in a question mark.'
+  StyleGuide: 'https://rubystyle.guide/#bool-methods-qmark'
+  AllowedMethods:
+    - is_supported? # custom Fastlane actions
+
+# Style Cops
 
 Style/StringLiterals:
+  Description: 'Checks if uses of quotes match the configured preference.'
+  StyleGuide: 'https://rubystyle.guide/#consistent-string-literals'
   EnforcedStyle: double_quotes
-Style/TrailingCommaInArguments:
-  Enabled: false
-Style/TrailingCommaInArrayLiteral:
-  Enabled: false
-Style/TrailingCommaInHashLiteral:
-  Enabled: false
+
 Style/FrozenStringLiteralComment:
   Enabled: false
+
 Style/FetchEnvVar:
+  Description: 'Suggests ENV.fetch for the replacement of ENV[].'
+  StyleGuide: 'https://rubystyle.guide/#hash-fetch-defaults'
   Enabled: false
+
 Style/WordArray:
+  Description: 'Checks for array literals made up of word-like strings.'
+  StyleGuide: 'https://rubystyle.guide/#percent-w'
   EnforcedStyle: brackets
+
 Style/SymbolArray:
+  Description: 'Checks for array literals made up of symbols.'
+  StyleGuide: 'https://rubystyle.guide/#percent-i'
   EnforcedStyle: brackets
+
 Style/MultilineIfModifier:
+  Description: 'Checks for uses of if/unless modifiers with multiple-lines bodies.'
+  StyleGuide: 'https://rubystyle.guide/#no-multiline-if-modifiers'
   Enabled: false
+
 Style/RescueStandardError:
+  Description: 'Checks for rescuing StandardError.'
   EnforcedStyle: implicit
 
-Lint/ConstantDefinitionInBlock:
-  Exclude:
-    - 'fastlane/Fastfile'
-Lint/UselessAssignment:
-  Enabled: false
+# Metrics Cops
 
 Metrics/AbcSize:
-  Max: 51
+  Description: 'Checks that the ABC size of methods is not higher than the configured maximum.'
+  Max: 25
+
 Metrics/BlockLength:
-  AllowedMethods: platform
-  Max: 60
+  Description: 'Checks if the length of a block exceeds some maximum value.'
+  AllowedMethods:
+    - platform
+  Max: 50
+
 Metrics/ClassLength:
-  Max: 200
+  Description: 'Checks if the length of a class exceeds some maximum value.'
+  Max: 100
+
 Metrics/CyclomaticComplexity:
-  Max: 13
+  Description: 'Checks that the cyclomatic complexity of methods is not higher than the configured maximum.'
+  Max: 7
+
 Metrics/MethodLength:
-  Max: 70
+  Description: 'Checks if the length of a method exceeds some maximum value.'
+  StyleGuide: 'https://rubystyle.guide/#short-methods'
+  Max: 32
+
 Metrics/PerceivedComplexity:
-  Max: 13
+  Description: 'Tries to produce a complexity score that’s a measure of the complexity the reader experiences when looking at a method.'
+  Max: 7
