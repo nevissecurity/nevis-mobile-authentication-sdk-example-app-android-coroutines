@@ -52,6 +52,10 @@ jobs:
           distribution: 'zulu'
           java-version: ${{ env.JAVA_VERSION }}
 
+      # Run ktlint to lint Kotlin code
+      - name: Run Ktlint Check
+        run: ./gradlew ktlintCheck
+
       # Build the Android app
       - name: Run Fastlane
         uses: maierj/fastlane-action@v3.1.0
