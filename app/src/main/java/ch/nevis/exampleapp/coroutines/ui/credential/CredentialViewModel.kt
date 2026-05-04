@@ -17,12 +17,12 @@ import ch.nevis.exampleapp.coroutines.domain.model.error.BusinessException
 import ch.nevis.exampleapp.coroutines.domain.model.sdk.PasswordAuthenticatorProtectionStatusLastAttemptFailedImpl
 import ch.nevis.exampleapp.coroutines.domain.model.sdk.PinAuthenticatorProtectionStatusLastAttemptFailedImpl
 import ch.nevis.exampleapp.coroutines.domain.usecase.ChangePasswordUseCase
-import ch.nevis.exampleapp.coroutines.domain.util.message
 import ch.nevis.exampleapp.coroutines.domain.usecase.ChangePinUseCase
 import ch.nevis.exampleapp.coroutines.domain.usecase.SetPasswordUseCase
 import ch.nevis.exampleapp.coroutines.domain.usecase.SetPinUseCase
 import ch.nevis.exampleapp.coroutines.domain.usecase.VerifyPasswordUseCase
 import ch.nevis.exampleapp.coroutines.domain.usecase.VerifyPinUseCase
+import ch.nevis.exampleapp.coroutines.domain.util.message
 import ch.nevis.exampleapp.coroutines.timber.sdk
 import ch.nevis.exampleapp.coroutines.ui.base.CancellableOperationViewModel
 import ch.nevis.exampleapp.coroutines.ui.credential.model.CredentialProtectionInformation
@@ -35,9 +35,9 @@ import ch.nevis.mobile.sdk.api.operation.password.PasswordAuthenticatorProtectio
 import ch.nevis.mobile.sdk.api.operation.pin.PinAuthenticatorProtectionStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import javax.inject.Inject
 
 /**
  * View model implementation of Credential view.

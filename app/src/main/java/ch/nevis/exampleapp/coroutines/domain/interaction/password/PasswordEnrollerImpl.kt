@@ -15,8 +15,8 @@ import ch.nevis.mobile.sdk.api.operation.password.PasswordEnroller
 import ch.nevis.mobile.sdk.api.operation.password.PasswordEnrollmentContext
 import ch.nevis.mobile.sdk.api.operation.password.PasswordEnrollmentHandler
 import ch.nevis.mobile.sdk.api.operation.password.PasswordPolicy
-import timber.log.Timber
 import kotlin.coroutines.resume
+import timber.log.Timber
 
 /**
  * Default implementation of [PasswordEnroller] interface. Navigates to Credential view with the

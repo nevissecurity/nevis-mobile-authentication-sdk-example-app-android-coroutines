@@ -10,8 +10,8 @@ import androidx.lifecycle.viewModelScope
 import ch.nevis.exampleapp.coroutines.domain.usecase.SelectAuthenticatorUseCase
 import ch.nevis.exampleapp.coroutines.ui.base.CancellableOperationViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlinx.coroutines.launch
 
 /**
  * View model implementation for Select Authenticator view.

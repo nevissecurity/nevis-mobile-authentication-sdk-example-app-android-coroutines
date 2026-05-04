@@ -12,8 +12,8 @@ import ch.nevis.exampleapp.coroutines.domain.model.state.ChangePasswordOperation
 import ch.nevis.exampleapp.coroutines.domain.model.state.ChangePinOperationState
 import ch.nevis.exampleapp.coroutines.domain.model.state.UserInteractionOperationState
 import ch.nevis.exampleapp.coroutines.domain.repository.OperationStateRepository
-import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
+import kotlinx.coroutines.suspendCancellableCoroutine
 
 /**
  * Default implementation of [CancelOperationUseCase] interface that discovers all known

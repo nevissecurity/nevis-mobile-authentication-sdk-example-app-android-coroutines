@@ -12,8 +12,8 @@ import ch.nevis.exampleapp.coroutines.domain.model.operation.Operation
 import ch.nevis.exampleapp.coroutines.domain.model.response.CompletedResponse
 import ch.nevis.exampleapp.coroutines.domain.model.response.Response
 import ch.nevis.mobile.sdk.api.localdata.Account
-import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
+import kotlinx.coroutines.suspendCancellableCoroutine
 
 /**
  * Default implementation of [DeleteAuthenticatorsUseCase] interface.

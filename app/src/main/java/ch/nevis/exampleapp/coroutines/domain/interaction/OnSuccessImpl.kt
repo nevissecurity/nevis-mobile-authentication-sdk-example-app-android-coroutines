@@ -11,9 +11,9 @@ import ch.nevis.exampleapp.coroutines.domain.model.response.CompletedResponse
 import ch.nevis.exampleapp.coroutines.domain.model.state.OperationState
 import ch.nevis.exampleapp.coroutines.domain.repository.OperationStateRepository
 import ch.nevis.exampleapp.coroutines.timber.sdk
+import kotlin.coroutines.resume
 import kotlinx.coroutines.Runnable
 import timber.log.Timber
-import kotlin.coroutines.resume
 
 /**
  * Generic implementation of [Runnable] interface. It resumes the cancellableContinuation of the current

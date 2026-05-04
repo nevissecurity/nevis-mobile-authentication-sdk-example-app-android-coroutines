@@ -4,8 +4,8 @@ import androidx.annotation.MainThread
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import timber.log.Timber
 import java.util.concurrent.atomic.AtomicBoolean
+import timber.log.Timber
 
 /**
  * This is a 3rd party implementation of a [androidx.lifecycle.LiveData] that emits a posted value only once.

@@ -18,9 +18,9 @@ import ch.nevis.mobile.sdk.api.devicecapabilities.FidoUafAttestationInformation.
 import ch.nevis.mobile.sdk.api.devicecapabilities.FidoUafAttestationInformation.OnlySurrogateBasicSupported
 import ch.nevis.mobile.sdk.api.devicecapabilities.FidoUafAttestationInformation.StrictMode
 import ch.nevis.mobile.sdk.api.devicecapabilities.FidoUafAttestationInformation.StrictStrongBoxMode
+import kotlin.coroutines.resume
 import kotlinx.coroutines.suspendCancellableCoroutine
 import timber.log.Timber
-import kotlin.coroutines.resume
 
 /**
  * Default implementation of [GetFidoUafAttestationInformationUseCase] interface that queries the

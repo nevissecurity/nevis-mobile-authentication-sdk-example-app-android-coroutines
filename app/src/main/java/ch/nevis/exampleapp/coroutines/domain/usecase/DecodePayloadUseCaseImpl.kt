@@ -13,8 +13,8 @@ import ch.nevis.exampleapp.coroutines.domain.model.operation.Operation
 import ch.nevis.exampleapp.coroutines.domain.model.response.ErrorResponse
 import ch.nevis.exampleapp.coroutines.domain.model.response.PayloadDecodeCompletedResponse
 import ch.nevis.exampleapp.coroutines.domain.model.response.Response
-import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
+import kotlinx.coroutines.suspendCancellableCoroutine
 
 /**
  * Default implementation of [DecodePayloadUseCase] interface.

@@ -13,7 +13,7 @@ import ch.nevis.exampleapp.coroutines.domain.model.response.DeviceInformationRes
 import ch.nevis.exampleapp.coroutines.domain.model.response.Response
 import ch.nevis.mobile.sdk.api.localdata.DeviceInformation
 import java.text.DateFormat
-import java.util.*
+import java.util.Date
 
 /**
  * Default implementation of [CreateDeviceInformationUseCase] interface.

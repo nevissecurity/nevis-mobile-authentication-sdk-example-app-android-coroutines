@@ -8,7 +8,11 @@ package ch.nevis.exampleapp.coroutines.domain.util
 
 import ch.nevis.exampleapp.coroutines.R
 import ch.nevis.mobile.sdk.api.localdata.Authenticator
-import ch.nevis.mobile.sdk.api.localdata.Authenticator.*
+import ch.nevis.mobile.sdk.api.localdata.Authenticator.BIOMETRIC_AUTHENTICATOR_AAID
+import ch.nevis.mobile.sdk.api.localdata.Authenticator.DEVICE_PASSCODE_AUTHENTICATOR_AAID
+import ch.nevis.mobile.sdk.api.localdata.Authenticator.FINGERPRINT_AUTHENTICATOR_AAID
+import ch.nevis.mobile.sdk.api.localdata.Authenticator.PASSWORD_AUTHENTICATOR_AAID
+import ch.nevis.mobile.sdk.api.localdata.Authenticator.PIN_AUTHENTICATOR_AAID
 import ch.nevis.mobile.sdk.api.localdata.UserEnrollment
 
 /**

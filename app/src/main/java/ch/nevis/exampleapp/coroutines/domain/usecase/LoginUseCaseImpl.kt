@@ -10,8 +10,8 @@ import ch.nevis.exampleapp.coroutines.domain.model.error.BusinessException
 import ch.nevis.exampleapp.coroutines.domain.model.response.ErrorResponse
 import ch.nevis.exampleapp.coroutines.domain.model.response.Response
 import ch.nevis.exampleapp.coroutines.domain.repository.LoginRepository
-import timber.log.Timber
 import java.net.PasswordAuthentication
+import timber.log.Timber
 
 /**
  * Default implementation of [LoginUseCase] interface.

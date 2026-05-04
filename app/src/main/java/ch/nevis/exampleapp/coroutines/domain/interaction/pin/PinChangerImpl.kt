@@ -14,8 +14,8 @@ import ch.nevis.exampleapp.coroutines.timber.sdk
 import ch.nevis.mobile.sdk.api.operation.pin.PinChangeContext
 import ch.nevis.mobile.sdk.api.operation.pin.PinChangeHandler
 import ch.nevis.mobile.sdk.api.operation.pin.PinChanger
-import timber.log.Timber
 import kotlin.coroutines.resume
+import timber.log.Timber
 
 /**
  * Default implementation of [PinChanger] interface. It stores the PIN change step context

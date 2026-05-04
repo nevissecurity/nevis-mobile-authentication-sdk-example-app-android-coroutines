@@ -11,7 +11,11 @@ import ch.nevis.exampleapp.coroutines.common.configuration.ConfigurationProvider
 import ch.nevis.exampleapp.coroutines.common.configuration.Environment
 import ch.nevis.exampleapp.coroutines.domain.model.error.BusinessException
 import ch.nevis.exampleapp.coroutines.domain.model.operation.Operation
-import ch.nevis.exampleapp.coroutines.domain.model.response.*
+import ch.nevis.exampleapp.coroutines.domain.model.response.ErrorResponse
+import ch.nevis.exampleapp.coroutines.domain.model.response.GetAccountsResponse
+import ch.nevis.exampleapp.coroutines.domain.model.response.GetAuthenticatorsResponse
+import ch.nevis.exampleapp.coroutines.domain.model.response.Response
+import ch.nevis.exampleapp.coroutines.domain.model.response.SelectAccountResponse
 import ch.nevis.exampleapp.coroutines.domain.usecase.DeleteAuthenticatorsUseCase
 import ch.nevis.exampleapp.coroutines.domain.usecase.GetAccountsUseCase
 import ch.nevis.exampleapp.coroutines.domain.usecase.GetAuthenticatorsUseCase
@@ -24,10 +28,10 @@ import ch.nevis.exampleapp.coroutines.ui.base.OutOfBandOperationViewModel
 import ch.nevis.mobile.sdk.api.localdata.Account
 import ch.nevis.mobile.sdk.api.localdata.Authenticator
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
 
 /**
  * View model implementation of Home view.

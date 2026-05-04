@@ -15,8 +15,8 @@ import ch.nevis.exampleapp.coroutines.timber.sdk
 import ch.nevis.mobile.sdk.api.operation.userverification.DevicePasscodeUserVerificationContext
 import ch.nevis.mobile.sdk.api.operation.userverification.DevicePasscodeUserVerificationHandler
 import ch.nevis.mobile.sdk.api.operation.userverification.DevicePasscodeUserVerifier
-import timber.log.Timber
 import kotlin.coroutines.resume
+import timber.log.Timber
 
 /**
  * Default implementation of [DevicePasscodeUserVerifier] interface. It stores the device passcode verification

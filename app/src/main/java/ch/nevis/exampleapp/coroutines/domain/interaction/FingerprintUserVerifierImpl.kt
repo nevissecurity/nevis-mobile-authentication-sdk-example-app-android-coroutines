@@ -15,8 +15,8 @@ import ch.nevis.exampleapp.coroutines.timber.sdk
 import ch.nevis.mobile.sdk.api.operation.userverification.FingerprintUserVerificationContext
 import ch.nevis.mobile.sdk.api.operation.userverification.FingerprintUserVerificationHandler
 import ch.nevis.mobile.sdk.api.operation.userverification.FingerprintUserVerifier
-import timber.log.Timber
 import kotlin.coroutines.resume
+import timber.log.Timber
 
 /**
  * Default implementation of [FingerprintUserVerifier] interface. It stores the fingerprint verification step context

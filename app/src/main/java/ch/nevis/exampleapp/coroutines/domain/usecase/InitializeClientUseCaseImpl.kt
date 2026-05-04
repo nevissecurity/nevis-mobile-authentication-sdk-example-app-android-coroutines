@@ -16,10 +16,10 @@ import ch.nevis.exampleapp.coroutines.domain.model.response.Response
 import ch.nevis.exampleapp.coroutines.timber.sdk
 import ch.nevis.mobile.sdk.api.Configuration
 import ch.nevis.mobile.sdk.api.MobileAuthenticationClientInitializer
+import kotlin.coroutines.resume
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.sync.Semaphore
 import timber.log.Timber
-import kotlin.coroutines.resume
 
 /**
  * Default implementation of [InitializeClientUseCase] interface.

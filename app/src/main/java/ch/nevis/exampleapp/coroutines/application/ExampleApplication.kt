@@ -10,8 +10,8 @@ import android.app.Application
 import ch.nevis.exampleapp.coroutines.domain.log.SdkLogger
 import ch.nevis.exampleapp.coroutines.timber.ExampleAppTree
 import dagger.hilt.android.HiltAndroidApp
-import timber.log.Timber
 import javax.inject.Inject
+import timber.log.Timber
 
 /**
  * Simple sub-class of [Application] to enable Dagger Hilt capabilities and to initialize logging.

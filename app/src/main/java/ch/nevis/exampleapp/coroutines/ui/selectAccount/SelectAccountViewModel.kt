@@ -18,9 +18,9 @@ import ch.nevis.exampleapp.coroutines.domain.usecase.TransactionConfirmationUseC
 import ch.nevis.exampleapp.coroutines.ui.base.CancellableOperationViewModel
 import ch.nevis.mobile.sdk.api.localdata.Account
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Named
+import kotlinx.coroutines.launch
 
 /**
  * View model implementation for Select Account view.

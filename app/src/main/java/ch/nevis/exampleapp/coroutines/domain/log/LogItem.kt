@@ -6,7 +6,7 @@
 
 package ch.nevis.exampleapp.coroutines.domain.log
 
-import java.util.*
+import java.util.Date
 
 /**
  * A data class that represents a log item.

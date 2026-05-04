@@ -15,8 +15,8 @@ import ch.nevis.exampleapp.coroutines.ui.verifyUser.model.VerifyUserViewMode
 import ch.nevis.mobile.sdk.api.operation.userverification.BiometricPromptOptions
 import ch.nevis.mobile.sdk.api.operation.userverification.DevicePasscodePromptOptions
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlinx.coroutines.launch
 
 /**
  * View model implementation for Verify User view.

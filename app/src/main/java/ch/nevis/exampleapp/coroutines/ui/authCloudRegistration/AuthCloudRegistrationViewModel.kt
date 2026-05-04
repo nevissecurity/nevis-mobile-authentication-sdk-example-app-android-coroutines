@@ -10,8 +10,8 @@ import androidx.lifecycle.viewModelScope
 import ch.nevis.exampleapp.coroutines.domain.usecase.AuthCloudApiRegistrationUseCase
 import ch.nevis.exampleapp.coroutines.ui.base.OperationViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlinx.coroutines.launch
 
 /**
  * View model implementation of Auth Cloud API Registration view.

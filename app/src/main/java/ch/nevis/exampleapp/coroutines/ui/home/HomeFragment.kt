@@ -16,8 +16,8 @@ import androidx.navigation.fragment.findNavController
 import ch.nevis.exampleapp.coroutines.NavigationGraphDirections
 import ch.nevis.exampleapp.coroutines.R
 import ch.nevis.exampleapp.coroutines.databinding.FragmentHomeBinding
-import ch.nevis.exampleapp.coroutines.domain.model.response.GetAccountsResponse
 import ch.nevis.exampleapp.coroutines.domain.model.response.FidoUafAttestationInformationResponse
+import ch.nevis.exampleapp.coroutines.domain.model.response.GetAccountsResponse
 import ch.nevis.exampleapp.coroutines.domain.model.response.InitializeClientCompletedResponse
 import ch.nevis.exampleapp.coroutines.domain.model.response.MetaDataResponse
 import ch.nevis.exampleapp.coroutines.domain.model.response.PayloadDecodeCompletedResponse

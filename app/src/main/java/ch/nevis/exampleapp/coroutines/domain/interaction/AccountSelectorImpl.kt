@@ -17,8 +17,8 @@ import ch.nevis.mobile.sdk.api.localdata.Account
 import ch.nevis.mobile.sdk.api.operation.selection.AccountSelectionContext
 import ch.nevis.mobile.sdk.api.operation.selection.AccountSelectionHandler
 import ch.nevis.mobile.sdk.api.operation.selection.AccountSelector
-import timber.log.Timber
 import kotlin.coroutines.resume
+import timber.log.Timber
 
 /**
  * Default implementation of [AccountSelector] interface. It stores the account selection step context

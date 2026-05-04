@@ -12,6 +12,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isGone
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -23,9 +24,8 @@ import ch.nevis.exampleapp.coroutines.common.error.ErrorHandlerChain
 import ch.nevis.exampleapp.coroutines.databinding.ActivityMainBinding
 import ch.nevis.exampleapp.coroutines.ui.util.navigateToHome
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import javax.inject.Inject
-import androidx.core.view.isGone
+import kotlinx.coroutines.launch
 
 /**
  * The main, start activity of the application. When the application starts this activity will be created and started.

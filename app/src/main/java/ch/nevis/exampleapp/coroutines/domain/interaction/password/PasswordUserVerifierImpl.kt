@@ -15,8 +15,8 @@ import ch.nevis.exampleapp.coroutines.timber.sdk
 import ch.nevis.mobile.sdk.api.operation.userverification.PasswordUserVerificationContext
 import ch.nevis.mobile.sdk.api.operation.userverification.PasswordUserVerificationHandler
 import ch.nevis.mobile.sdk.api.operation.userverification.PasswordUserVerifier
-import timber.log.Timber
 import kotlin.coroutines.resume
+import timber.log.Timber
 
 /**
  * Default implementation of [PasswordUserVerifier] interface. It stores the password verification step context

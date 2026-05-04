@@ -14,9 +14,9 @@ import ch.nevis.exampleapp.coroutines.domain.model.state.OperationState
 import ch.nevis.exampleapp.coroutines.domain.repository.OperationStateRepository
 import ch.nevis.exampleapp.coroutines.timber.sdk
 import ch.nevis.mobile.sdk.api.MobileAuthenticationClientError
-import timber.log.Timber
 import java.util.function.Consumer
 import kotlin.coroutines.resume
+import timber.log.Timber
 
 /**
  * Generic implementation of a [Consumer] that accepts a [MobileAuthenticationClientError].

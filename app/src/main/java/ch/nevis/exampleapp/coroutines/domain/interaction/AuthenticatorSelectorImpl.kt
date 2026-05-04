@@ -20,8 +20,8 @@ import ch.nevis.exampleapp.coroutines.ui.selectAuthenticator.model.Authenticator
 import ch.nevis.mobile.sdk.api.operation.selection.AuthenticatorSelectionContext
 import ch.nevis.mobile.sdk.api.operation.selection.AuthenticatorSelectionHandler
 import ch.nevis.mobile.sdk.api.operation.selection.AuthenticatorSelector
-import timber.log.Timber
 import kotlin.coroutines.resume
+import timber.log.Timber
 
 /**
  * Supported operations during authenticator selection.

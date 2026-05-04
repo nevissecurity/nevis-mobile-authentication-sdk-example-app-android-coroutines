@@ -14,8 +14,8 @@ import ch.nevis.exampleapp.coroutines.timber.sdk
 import ch.nevis.mobile.sdk.api.operation.pin.PinEnroller
 import ch.nevis.mobile.sdk.api.operation.pin.PinEnrollmentContext
 import ch.nevis.mobile.sdk.api.operation.pin.PinEnrollmentHandler
-import timber.log.Timber
 import kotlin.coroutines.resume
+import timber.log.Timber
 
 /**
  * Default implementation of [PinEnroller] interface. It stores the PIN enrollment step context

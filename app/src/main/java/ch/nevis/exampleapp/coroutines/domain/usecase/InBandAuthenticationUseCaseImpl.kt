@@ -20,8 +20,8 @@ import ch.nevis.mobile.sdk.api.operation.userverification.DevicePasscodeUserVeri
 import ch.nevis.mobile.sdk.api.operation.userverification.FingerprintUserVerifier
 import ch.nevis.mobile.sdk.api.operation.userverification.PasswordUserVerifier
 import ch.nevis.mobile.sdk.api.operation.userverification.PinUserVerifier
-import kotlinx.coroutines.suspendCancellableCoroutine
 import java.util.function.Consumer
+import kotlinx.coroutines.suspendCancellableCoroutine
 
 /**
  * Default implementation of [InBandAuthenticationUseCase] interface.

@@ -29,9 +29,9 @@ import ch.nevis.exampleapp.coroutines.timber.sdk
 import ch.nevis.exampleapp.coroutines.ui.base.ResponseObserverFragment
 import com.google.mlkit.vision.barcode.common.Barcode
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
+import timber.log.Timber
 
 
 /**

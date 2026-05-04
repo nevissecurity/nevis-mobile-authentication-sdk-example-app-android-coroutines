@@ -10,8 +10,8 @@ import ch.nevis.exampleapp.coroutines.data.retrofit.LoginEndPoint
 import ch.nevis.exampleapp.coroutines.domain.model.error.BusinessException
 import ch.nevis.exampleapp.coroutines.domain.model.response.LoginResponse
 import ch.nevis.mobile.sdk.api.authorization.Cookie
-import retrofit2.Retrofit
 import java.net.PasswordAuthentication
+import retrofit2.Retrofit
 
 /**
  * Default implementation of [LoginDataSource] interface that uses Retrofit to retrieve the credentials
