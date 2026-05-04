@@ -1,7 +1,7 @@
 /**
  * Nevis Mobile Authentication SDK Example App
  *
- * Copyright © 2022. Nevis Security AG. All rights reserved.
+ * Copyright © 2022-2026. Nevis Security AG. All rights reserved.
  */
 
 package ch.nevis.exampleapp.coroutines.ui.home
@@ -141,7 +141,7 @@ class HomeFragment : ResponseObserverFragment() {
                 binding.certFingerprintValueTextView.text = response.certificateFingerprint
                 viewModel.getAttestationInformation()
             }
-            is FidoUafAttestationInformationResponse-> {
+            is FidoUafAttestationInformationResponse -> {
                 val context = context ?: return
 
                 binding.attestationValueTextView.visibility = View.GONE

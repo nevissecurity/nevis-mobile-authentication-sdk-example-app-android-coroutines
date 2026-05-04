@@ -1,7 +1,7 @@
 /**
  * Nevis Mobile Authentication SDK Example App
  *
- * Copyright © 2022. Nevis Security AG. All rights reserved.
+ * Copyright © 2022-2026. Nevis Security AG. All rights reserved.
  */
 
 package ch.nevis.exampleapp.coroutines.ui.main
@@ -27,7 +27,7 @@ import kotlinx.coroutines.launch
 @HiltViewModel
 class MainActivityViewModel @Inject constructor(
     private val sdkLogger: SdkLogger
-): ViewModel(), SdkLogReceiver {
+) : ViewModel(), SdkLogReceiver {
 
     //region Initialization
     /**

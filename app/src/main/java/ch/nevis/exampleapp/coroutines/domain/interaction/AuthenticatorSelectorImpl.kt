@@ -1,7 +1,7 @@
 /**
  * Nevis Mobile Authentication SDK Example App
  *
- * Copyright © 2024. Nevis Security AG. All rights reserved.
+ * Copyright © 2024-2026. Nevis Security AG. All rights reserved.
  */
 
 package ch.nevis.exampleapp.coroutines.domain.interaction
@@ -36,7 +36,7 @@ enum class AuthenticatorSelectorOperation {
     /**
      * Authentication operation.
      */
-    AUTHENTICATION,
+    AUTHENTICATION
 }
 
 /**
@@ -47,7 +47,8 @@ enum class AuthenticatorSelectorOperation {
  * @param authenticatorValidator An instance of a [AuthenticatorValidator] interface implementation.
  * @param settings An instance of a [Settings] interface implementation.
  * @param operation The current operation.
- */class AuthenticatorSelectorImpl(
+ */
+class AuthenticatorSelectorImpl(
     private val configurationProvider: ConfigurationProvider,
     private val stateRepository: OperationStateRepository<UserInteractionOperationState>,
     private val authenticatorValidator: AuthenticatorValidator,

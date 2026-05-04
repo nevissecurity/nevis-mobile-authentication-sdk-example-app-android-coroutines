@@ -1,7 +1,7 @@
 /**
  * Nevis Mobile Authentication SDK Example App
  *
- * Copyright © 2022-2024. Nevis Security AG. All rights reserved.
+ * Copyright © 2022-2026. Nevis Security AG. All rights reserved.
  */
 
 package ch.nevis.exampleapp.coroutines.dagger
@@ -318,7 +318,6 @@ class ApplicationModule {
         LoginDataSourceImpl(retrofit)
     //endregion
 
-
     //region Caches
     /**
      * Provides state cache for the PIN change operation.
@@ -421,7 +420,7 @@ class ApplicationModule {
         configurationProvider: ConfigurationProvider,
         stateRepository: OperationStateRepository<UserInteractionOperationState>,
         authenticatorValidator: AuthenticatorValidator,
-        settings: Settings,
+        settings: Settings
     ): AuthenticatorSelector =
         AuthenticatorSelectorImpl(
             configurationProvider,
@@ -447,7 +446,7 @@ class ApplicationModule {
         configurationProvider: ConfigurationProvider,
         stateRepository: OperationStateRepository<UserInteractionOperationState>,
         authenticatorValidator: AuthenticatorValidator,
-        settings: Settings,
+        settings: Settings
     ): AuthenticatorSelector =
         AuthenticatorSelectorImpl(
             configurationProvider,

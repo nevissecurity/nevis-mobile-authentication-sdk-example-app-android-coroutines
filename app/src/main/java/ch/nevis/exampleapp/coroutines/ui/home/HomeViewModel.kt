@@ -1,7 +1,7 @@
 /**
  * Nevis Mobile Authentication SDK Example App
  *
- * Copyright © 2022. Nevis Security AG. All rights reserved.
+ * Copyright © 2022-2026. Nevis Security AG. All rights reserved.
  */
 
 package ch.nevis.exampleapp.coroutines.ui.home
@@ -57,7 +57,7 @@ class HomeViewModel @Inject constructor(
     private val metaDataUseCase: MetaDataUseCase,
     private val startChangePinUseCase: StartChangePinUseCase,
     private val startChangePasswordUseCase: StartChangePasswordUseCase,
-    private val deleteAuthenticatorsUseCase: DeleteAuthenticatorsUseCase,
+    private val deleteAuthenticatorsUseCase: DeleteAuthenticatorsUseCase
 ) : OutOfBandOperationViewModel() {
 
     //region Public Interface

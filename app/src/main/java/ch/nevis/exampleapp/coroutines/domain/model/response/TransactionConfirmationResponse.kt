@@ -1,7 +1,7 @@
 /**
  * Nevis Mobile Authentication SDK Example App
  *
- * Copyright © 2024. Nevis Security AG. All rights reserved.
+ * Copyright © 2024-2026. Nevis Security AG. All rights reserved.
  */
 
 package ch.nevis.exampleapp.coroutines.domain.model.response
@@ -18,7 +18,7 @@ import ch.nevis.mobile.sdk.api.localdata.Account
  * @param transactionConfirmationMessage The transaction data/message that is be sent during an
  * authentication process.
  */
-class TransactionConfirmationResponse (
+class TransactionConfirmationResponse(
 
     /**
      * The previously selected account.

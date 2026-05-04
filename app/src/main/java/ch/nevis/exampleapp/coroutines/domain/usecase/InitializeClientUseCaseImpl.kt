@@ -1,7 +1,7 @@
 /**
  * Nevis Mobile Authentication SDK Example App
  *
- * Copyright © 2022. Nevis Security AG. All rights reserved.
+ * Copyright © 2022-2026. Nevis Security AG. All rights reserved.
  */
 
 package ch.nevis.exampleapp.coroutines.domain.usecase
@@ -36,7 +36,7 @@ import timber.log.Timber
  */
 class InitializeClientUseCaseImpl(
     private val clientProvider: ClientProvider,
-    private val context: Context,
+    private val context: Context
 ) : InitializeClientUseCase {
 
     /**

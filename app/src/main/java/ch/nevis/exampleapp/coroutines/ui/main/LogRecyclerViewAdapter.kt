@@ -1,7 +1,7 @@
 /**
  * Nevis Mobile Authentication SDK Example App
  *
- * Copyright © 2022. Nevis Security AG. All rights reserved.
+ * Copyright © 2022-2026. Nevis Security AG. All rights reserved.
  */
 
 package ch.nevis.exampleapp.coroutines.ui.main
@@ -26,7 +26,7 @@ import java.text.SimpleDateFormat
  */
 class LogRecyclerViewAdapter(
     private val context: Context
-): RecyclerView.Adapter<LogRecyclerViewAdapter.LogViewHolder>() {
+) : RecyclerView.Adapter<LogRecyclerViewAdapter.LogViewHolder>() {
 
     //region Properties
     /**
@@ -68,7 +68,7 @@ class LogRecyclerViewAdapter(
     override fun onBindViewHolder(holder: LogViewHolder, position: Int) {
         holder.messageTextView.text = null
 
-        log[position].let { logItem:LogItem ->
+        log[position].let { logItem: LogItem ->
             holder.logItem = logItem
             holder.messageTextView.text = context.getString(R.string.log_item, dateFormatter.format(logItem.date), logItem.message)
         }

@@ -1,7 +1,7 @@
 /**
  * Nevis Mobile Authentication SDK Example App
  *
- * Copyright © 2024. Nevis Security AG. All rights reserved.
+ * Copyright © 2024-2026. Nevis Security AG. All rights reserved.
  */
 
 package ch.nevis.exampleapp.coroutines.domain.util
@@ -24,16 +24,16 @@ fun PasswordAuthenticatorProtectionStatus.message(context: Context): String {
             when (remainingRetries()) {
                 1 -> {
                     if (coolDownTimeInSeconds() == 0L) {
-                        return context.getString(R.string.password_protection_status_last_retry_without_cool_down)
+                        context.getString(R.string.password_protection_status_last_retry_without_cool_down)
                     } else {
-                        return context.getString(R.string.password_protection_status_last_retry_with_cool_down, coolDownTimeInSeconds())
+                        context.getString(R.string.password_protection_status_last_retry_with_cool_down, coolDownTimeInSeconds())
                     }
                 }
                 else -> {
                     if (coolDownTimeInSeconds() == 0L) {
-                        return context.getString(R.string.password_protection_status_retries_without_cool_down, remainingRetries())
+                        context.getString(R.string.password_protection_status_retries_without_cool_down, remainingRetries())
                     } else {
-                        return context.getString(R.string.password_protection_status_retries_with_cool_down, remainingRetries(), coolDownTimeInSeconds())
+                        context.getString(R.string.password_protection_status_retries_with_cool_down, remainingRetries(), coolDownTimeInSeconds())
                     }
                 }
             }

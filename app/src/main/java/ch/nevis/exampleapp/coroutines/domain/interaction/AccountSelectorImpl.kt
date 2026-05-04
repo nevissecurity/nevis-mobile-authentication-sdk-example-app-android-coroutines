@@ -1,7 +1,7 @@
 /**
  * Nevis Mobile Authentication SDK Example App
  *
- * Copyright © 2022-2024. Nevis Security AG. All rights reserved.
+ * Copyright © 2022-2026. Nevis Security AG. All rights reserved.
  */
 
 package ch.nevis.exampleapp.coroutines.domain.interaction
@@ -51,7 +51,7 @@ class AccountSelectorImpl(
             accountSelectionContext.transactionConfirmationData().orElse(null)
         val accounts = validAccounts(accountSelectionContext)
 
-        when(accounts.size) {
+        when (accounts.size) {
             0 -> cancellableContinuation.resume(ErrorResponse(BusinessException.accountsNotFound()))
             1 -> {
                 if (transactionConfirmationData != null) {

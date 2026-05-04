@@ -1,7 +1,7 @@
 /**
  * Nevis Mobile Authentication SDK Example App
  *
- * Copyright © 2022. Nevis Security AG. All rights reserved.
+ * Copyright © 2022-2026. Nevis Security AG. All rights reserved.
  */
 
 package ch.nevis.exampleapp.coroutines.ui.qrReader
@@ -32,7 +32,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import timber.log.Timber
-
 
 /**
  * [androidx.fragment.app.Fragment] implementation of QR Reader view where the user can scan a QR code.
@@ -157,7 +156,6 @@ class QrReaderFragment : ResponseObserverFragment(), BarcodesReceivedListener {
             } catch (exception: Exception) {
                 errorHandlerChain.handle(exception)
             }
-
         }, ContextCompat.getMainExecutor(baseContext))
     }
 
@@ -174,7 +172,6 @@ class QrReaderFragment : ResponseObserverFragment(), BarcodesReceivedListener {
             ) == PackageManager.PERMISSION_GRANTED
         }
     }
-
 
     /**
      * Request permissions for camera usage.

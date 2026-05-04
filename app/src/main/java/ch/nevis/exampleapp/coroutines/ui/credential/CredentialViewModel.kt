@@ -1,7 +1,7 @@
 /**
  * Nevis Mobile Authentication SDK Example App
  *
- * Copyright © 2022. Nevis Security AG. All rights reserved.
+ * Copyright © 2022-2026. Nevis Security AG. All rights reserved.
  */
 
 package ch.nevis.exampleapp.coroutines.ui.credential
@@ -304,7 +304,7 @@ class CredentialViewModel @Inject constructor(
                 CredentialProtectionInformation(
                     isLocked = protectionStatus.coolDownTimeInSeconds() > 0,
                     remainingRetries = protectionStatus.remainingRetries(),
-                    coolDownTime = protectionStatus.coolDownTimeInSeconds(),
+                    coolDownTime = protectionStatus.coolDownTimeInSeconds()
                 )
             }
             is PasswordAuthenticatorProtectionStatus.LockedOut -> {
