@@ -19,13 +19,12 @@ import kotlinx.coroutines.suspendCancellableCoroutine
  * @param stateRepository An instance of an [OperationStateRepository] implementation that may hold
  * a [ChangePasswordOperationState].
  */
-class ChangePasswordUseCaseImpl(
-    private val stateRepository: OperationStateRepository<ChangePasswordOperationState>
-) : ChangePasswordUseCase {
+class ChangePasswordUseCaseImpl(private val stateRepository: OperationStateRepository<ChangePasswordOperationState>) :
+    ChangePasswordUseCase {
 
     //region ChangePasswordUseCase
-    override suspend fun execute(oldPassword: CharArray, newPassword: CharArray): Response {
-        return suspendCancellableCoroutine { cancellableContinuation ->
+    override suspend fun execute(oldPassword: CharArray, newPassword: CharArray): Response =
+        suspendCancellableCoroutine { cancellableContinuation ->
             val operationState = stateRepository.get() ?: throw BusinessException.invalidState()
             val passwordChangeHandler =
                 operationState.passwordChangeHandler ?: throw BusinessException.invalidState()
@@ -33,6 +32,5 @@ class ChangePasswordUseCaseImpl(
             operationState.passwordChangeHandler = null
             passwordChangeHandler.passwords(oldPassword, newPassword)
         }
-    }
     //endregion
 }

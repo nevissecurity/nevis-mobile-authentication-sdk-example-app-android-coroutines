@@ -22,9 +22,8 @@ import kotlinx.coroutines.launch
  * @param selectAccountUseCase An instance of a [SelectAccountUseCase] implementation.
  */
 @HiltViewModel
-class TransactionConfirmationViewModel @Inject constructor(
-    private val selectAccountUseCase: SelectAccountUseCase
-) : CancellableOperationViewModel() {
+class TransactionConfirmationViewModel @Inject constructor(private val selectAccountUseCase: SelectAccountUseCase) :
+    CancellableOperationViewModel() {
 
     //region Public Interface
     /**

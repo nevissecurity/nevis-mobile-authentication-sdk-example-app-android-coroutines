@@ -25,16 +25,11 @@ import timber.log.Timber
  * @constructor Creates a new instance.
  * @param stateRepository The state repository that stores the state of the running operation.
  */
-class PinChangerImpl(
-    private val stateRepository: OperationStateRepository<ChangePinOperationState>
-) : PinChanger {
+class PinChangerImpl(private val stateRepository: OperationStateRepository<ChangePinOperationState>) : PinChanger {
 
     //region PinChanger
     /** @suppress */
-    override fun changePin(
-        context: PinChangeContext,
-        handler: PinChangeHandler
-    ) {
+    override fun changePin(context: PinChangeContext, handler: PinChangeHandler) {
         if (context.lastRecoverableError().isPresent) {
             Timber.asTree().sdk("PIN change failed. Please try again.")
         } else {

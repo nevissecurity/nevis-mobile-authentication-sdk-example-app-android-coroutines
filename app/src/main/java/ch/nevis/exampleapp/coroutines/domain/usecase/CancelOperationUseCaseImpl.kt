@@ -34,36 +34,34 @@ class CancelOperationUseCaseImpl(
 ) : CancelOperationUseCase {
 
     //region CancelOperationUseCase
-    override suspend fun execute(): Response {
-        return suspendCancellableCoroutine { cancellableContinuation ->
-            var cancelled = false
-            changePinOperationStateRepository.get()?.let {
-                it.cancellableContinuation = cancellableContinuation
-                it.pinChangeHandler?.cancel()
-                cancelled = true
-            }
+    override suspend fun execute(): Response = suspendCancellableCoroutine { cancellableContinuation ->
+        var cancelled = false
+        changePinOperationStateRepository.get()?.let {
+            it.cancellableContinuation = cancellableContinuation
+            it.pinChangeHandler?.cancel()
+            cancelled = true
+        }
 
-            changePasswordOperationStateRepository.get()?.let {
-                it.cancellableContinuation = cancellableContinuation
-                it.passwordChangeHandler?.cancel()
-                cancelled = true
-            }
+        changePasswordOperationStateRepository.get()?.let {
+            it.cancellableContinuation = cancellableContinuation
+            it.passwordChangeHandler?.cancel()
+            cancelled = true
+        }
 
-            userInteractionOperationStateRepository.get()?.let {
-                it.cancellableContinuation = cancellableContinuation
-                it.accountSelectionHandler?.cancel()
-                it.authenticatorSelectionHandler?.cancel()
-                it.pinEnrollmentHandler?.cancel()
-                it.pinUserVerificationHandler?.cancel()
-                it.fingerprintUserVerificationHandler?.cancel()
-                it.biometricUserVerificationHandler?.cancel()
-                it.osAuthenticationListenHandler?.cancelAuthentication()
-                cancelled = true
-            }
+        userInteractionOperationStateRepository.get()?.let {
+            it.cancellableContinuation = cancellableContinuation
+            it.accountSelectionHandler?.cancel()
+            it.authenticatorSelectionHandler?.cancel()
+            it.pinEnrollmentHandler?.cancel()
+            it.pinUserVerificationHandler?.cancel()
+            it.fingerprintUserVerificationHandler?.cancel()
+            it.biometricUserVerificationHandler?.cancel()
+            it.osAuthenticationListenHandler?.cancelAuthentication()
+            cancelled = true
+        }
 
-            if (!cancelled) {
-                cancellableContinuation.resume(CancelledResponse())
-            }
+        if (!cancelled) {
+            cancellableContinuation.resume(CancelledResponse())
         }
     }
     //endregion

@@ -63,13 +63,15 @@ class SelectAccountViewModel @Inject constructor(
                 // Show it to the user for confirmation or cancellation
                 // The AccountSelectionHandler will be invoked or cancelled there.
                 confirm(transactionConfirmationMessage, account)
-            } else when (operation) {
-                Operation.AUTHENTICATION -> inBandAuthenticate(account.username())
-                Operation.DEREGISTRATION -> inBandAuthenticationForDeregistration(account.username())
-                Operation.CHANGE_PIN -> changePin(account.username())
-                Operation.CHANGE_PASSWORD -> changePassword(account.username())
-                Operation.OUT_OF_BAND_AUTHENTICATION -> outOfBandAuthentication(account.username())
-                else -> throw BusinessException.invalidState()
+            } else {
+                when (operation) {
+                    Operation.AUTHENTICATION -> inBandAuthenticate(account.username())
+                    Operation.DEREGISTRATION -> inBandAuthenticationForDeregistration(account.username())
+                    Operation.CHANGE_PIN -> changePin(account.username())
+                    Operation.CHANGE_PASSWORD -> changePassword(account.username())
+                    Operation.OUT_OF_BAND_AUTHENTICATION -> outOfBandAuthentication(account.username())
+                    else -> throw BusinessException.invalidState()
+                }
             }
         }
     }

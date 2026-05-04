@@ -26,9 +26,8 @@ import timber.log.Timber
  * @constructor Creates a new instance.
  * @param stateRepository The state repository that stores the state of the running operation.
  */
-class DevicePasscodeUserVerifierImpl(
-    private val stateRepository: OperationStateRepository<UserInteractionOperationState>
-) : DevicePasscodeUserVerifier {
+class DevicePasscodeUserVerifierImpl(private val stateRepository: OperationStateRepository<UserInteractionOperationState>) :
+    DevicePasscodeUserVerifier {
 
     //region DevicePasscodeUserVerifier
     /** @suppress */

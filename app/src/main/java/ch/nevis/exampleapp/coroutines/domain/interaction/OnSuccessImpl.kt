@@ -22,9 +22,7 @@ import timber.log.Timber
  * @constructor Creates a new instance.
  * @param stateRepository The state repository that stores the state of the running operation.
  */
-class OnSuccessImpl<T : OperationState>(
-    private val stateRepository: OperationStateRepository<T>
-) : Runnable {
+class OnSuccessImpl<T : OperationState>(private val stateRepository: OperationStateRepository<T>) : Runnable {
 
     //region Runnable
     /** @suppress */

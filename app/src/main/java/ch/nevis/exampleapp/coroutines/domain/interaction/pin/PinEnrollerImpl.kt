@@ -25,16 +25,11 @@ import timber.log.Timber
  * @constructor Creates a new instance.
  * @param stateRepository The state repository that stores the state of the running operation.
  */
-class PinEnrollerImpl(
-    private val stateRepository: OperationStateRepository<UserInteractionOperationState>
-) : PinEnroller {
+class PinEnrollerImpl(private val stateRepository: OperationStateRepository<UserInteractionOperationState>) : PinEnroller {
 
     //region PinEnroller
     /** @suppress */
-    override fun enrollPin(
-        context: PinEnrollmentContext,
-        handler: PinEnrollmentHandler
-    ) {
+    override fun enrollPin(context: PinEnrollmentContext, handler: PinEnrollmentHandler) {
         if (context.lastRecoverableError().isPresent) {
             Timber.asTree().sdk("PIN enrollment failed. Please try again.")
         } else {

@@ -16,11 +16,8 @@ import ch.nevis.mobile.sdk.api.operation.selection.AuthenticatorSelectionContext
  */
 class AuthenticatorValidatorImpl : AuthenticatorValidator {
     //region AuthenticatorValidator
-    override fun validateForRegistration(
-        context: AuthenticatorSelectionContext,
-        authenticatorAllowlist: List<String>
-    ): Set<Authenticator> {
-        return context.authenticators()
+    override fun validateForRegistration(context: AuthenticatorSelectionContext, authenticatorAllowlist: List<String>): Set<Authenticator> =
+        context.authenticators()
             .filter { authenticatorAllowlist.contains(it.aaid()) }
             .filter {
                 // Do not display:
@@ -29,33 +26,27 @@ class AuthenticatorValidatorImpl : AuthenticatorValidator {
                 //  - not OS supported authenticators.
                 //  - prefer Biometrics authenticator on Android
                 it.isSupportedByHardware &&
-                        it.isSupportedByOs &&
-                        context.isPolicyCompliant(it.aaid()) &&
-                        filterFingerprintIfNecessary(context, it)
+                    it.isSupportedByOs &&
+                    context.isPolicyCompliant(it.aaid()) &&
+                    filterFingerprintIfNecessary(context, it)
             }.toSet()
-    }
 
     override fun validateForAuthentication(
         context: AuthenticatorSelectionContext,
         authenticatorAllowlist: List<String>
-    ): Set<Authenticator> {
-        return context.authenticators()
-            .filter { authenticatorAllowlist.contains(it.aaid()) }
-            .filter {
-                // Do not display:
-                //  - non-registered authenticators
-                //  - not hardware supported authenticators
-                it.registration().isRegistered(context.account().username()) &&
-                        it.isSupportedByHardware
-            }.toSet()
-    }
+    ): Set<Authenticator> = context.authenticators()
+        .filter { authenticatorAllowlist.contains(it.aaid()) }
+        .filter {
+            // Do not display:
+            //  - non-registered authenticators
+            //  - not hardware supported authenticators
+            it.registration().isRegistered(context.account().username()) &&
+                it.isSupportedByHardware
+        }.toSet()
     //endregion
 
     //region Private Interface
-    private fun filterFingerprintIfNecessary(
-        context: AuthenticatorSelectionContext,
-        authenticator: Authenticator
-    ): Boolean {
+    private fun filterFingerprintIfNecessary(context: AuthenticatorSelectionContext, authenticator: Authenticator): Boolean {
         if (authenticator.aaid() != Authenticator.FINGERPRINT_AUTHENTICATOR_AAID) {
             return true
         }
@@ -89,8 +80,8 @@ class AuthenticatorValidatorImpl : AuthenticatorValidator {
         // cannot register fingerprint, do not propose to register fingerprint
         // (we favor biometric over fingerprint).
         return !isBiometricsRegistered &&
-                !canRegisterBiometrics &&
-                canRegisterFingerprint
+            !canRegisterBiometrics &&
+            canRegisterFingerprint
     }
     //endregion
 }

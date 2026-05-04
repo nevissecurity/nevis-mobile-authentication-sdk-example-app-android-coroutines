@@ -34,10 +34,7 @@ class PasswordChangerImpl(
 
     //region PasswordChanger
     /** @suppress */
-    override fun changePassword(
-        context: PasswordChangeContext,
-        handler: PasswordChangeHandler
-    ) {
+    override fun changePassword(context: PasswordChangeContext, handler: PasswordChangeHandler) {
         if (context.lastRecoverableError().isPresent) {
             Timber.asTree().sdk("Password change failed. Please try again.")
         } else {

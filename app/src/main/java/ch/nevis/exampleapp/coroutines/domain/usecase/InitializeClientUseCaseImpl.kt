@@ -34,10 +34,7 @@ import timber.log.Timber
  * @param clientProvider An instance of [ClientProvider] interface implementation.
  * @param context An Android [Context] object used for initializing [ch.nevis.mobile.sdk.api.MobileAuthenticationClient].
  */
-class InitializeClientUseCaseImpl(
-    private val clientProvider: ClientProvider,
-    private val context: Context
-) : InitializeClientUseCase {
+class InitializeClientUseCaseImpl(private val clientProvider: ClientProvider, private val context: Context) : InitializeClientUseCase {
 
     /**
      * A [Semaphore] object that is used to ensure only one client initialization is executed.

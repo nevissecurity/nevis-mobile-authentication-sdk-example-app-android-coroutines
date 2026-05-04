@@ -19,9 +19,7 @@ import kotlinx.coroutines.CancellableContinuation
  *  Kotlin coroutine block. The [CancellableContinuation] will be resumed when the SDK finished an
  *  operation step.
  */
-data class ChangePinOperationState(
-    override var cancellableContinuation: CancellableContinuation<Response>? = null
-) : OperationState() {
+data class ChangePinOperationState(override var cancellableContinuation: CancellableContinuation<Response>? = null) : OperationState() {
 
     //region Properties
     /**

@@ -62,10 +62,7 @@ class CredentialFragment : ResponseObserverFragment() {
 
     //region Fragment
     /** @suppress */
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentCredentialBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -174,15 +171,11 @@ class CredentialFragment : ResponseObserverFragment() {
      * @param lastRecoverableError The last recoverable error. It exists only if there was already a failed PIN operation attempt.
      * @param credentialProtectionInformation The authenticator protection information.
      */
-    private fun updateUI(
-        lastRecoverableError: RecoverableError?,
-        credentialProtectionInformation: CredentialProtectionInformation?
-    ) {
+    private fun updateUI(lastRecoverableError: RecoverableError?, credentialProtectionInformation: CredentialProtectionInformation?) {
         lastRecoverableError?.let {
             var errorMessage = it.description()
             if (it.cause().isPresent) {
                 errorMessage += " " + it.cause().get().message
-
             }
 
             binding.credentialTextInputLayout.error = errorMessage

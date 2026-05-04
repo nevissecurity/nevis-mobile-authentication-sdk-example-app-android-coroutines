@@ -22,9 +22,7 @@ class ErrorHandlerChainImpl : ErrorHandlerChain {
         errorHandlerChain.add(errorHandler)
     }
 
-    override fun remove(errorHandler: ErrorHandler): Boolean {
-        return errorHandlerChain.remove(errorHandler)
-    }
+    override fun remove(errorHandler: ErrorHandler): Boolean = errorHandlerChain.remove(errorHandler)
 
     override fun removeAll() {
         errorHandlerChain.clear()

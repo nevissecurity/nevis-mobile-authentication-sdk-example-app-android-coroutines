@@ -54,26 +54,24 @@ class InBandAuthenticationUseCaseImpl(
 ) : InBandAuthenticationUseCase {
 
     //region InBandAuthenticationUseCase
-    override suspend fun execute(username: String): Response {
-        return suspendCancellableCoroutine { cancellableContinuation ->
-            val operationState = UserInteractionOperationState(Operation.AUTHENTICATION)
-            operationState.cancellableContinuation = cancellableContinuation
-            operationState.username = username
-            stateRepository.save(operationState)
+    override suspend fun execute(username: String): Response = suspendCancellableCoroutine { cancellableContinuation ->
+        val operationState = UserInteractionOperationState(Operation.AUTHENTICATION)
+        operationState.cancellableContinuation = cancellableContinuation
+        operationState.username = username
+        stateRepository.save(operationState)
 
-            val client = clientProvider.get() ?: throw BusinessException.clientNotInitialized()
-            client.operations().authentication()
-                .username(username)
-                .authenticatorSelector(authenticatorSelector)
-                .pinUserVerifier(pinUserVerifier)
-                .passwordUserVerifier(passwordUserVerifier)
-                .fingerprintUserVerifier(fingerprintUserVerifier)
-                .biometricUserVerifier(biometricUserVerifier)
-                .devicePasscodeUserVerifier(devicePasscodeUserVerifier)
-                .onSuccess(onSuccess)
-                .onError(onError)
-                .execute()
-        }
+        val client = clientProvider.get() ?: throw BusinessException.clientNotInitialized()
+        client.operations().authentication()
+            .username(username)
+            .authenticatorSelector(authenticatorSelector)
+            .pinUserVerifier(pinUserVerifier)
+            .passwordUserVerifier(passwordUserVerifier)
+            .fingerprintUserVerifier(fingerprintUserVerifier)
+            .biometricUserVerifier(biometricUserVerifier)
+            .devicePasscodeUserVerifier(devicePasscodeUserVerifier)
+            .onSuccess(onSuccess)
+            .onError(onError)
+            .execute()
     }
     //endregion
 }

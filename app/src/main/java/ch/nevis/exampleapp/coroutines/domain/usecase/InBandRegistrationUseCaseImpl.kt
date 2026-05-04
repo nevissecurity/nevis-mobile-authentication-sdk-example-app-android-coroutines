@@ -57,10 +57,7 @@ class InBandRegistrationUseCaseImpl(
 ) : InBandRegistrationUseCase {
 
     //region InBandRegistrationUseCase
-    override suspend fun execute(
-        extId: String,
-        authorizationProvider: AuthorizationProvider?
-    ): Response {
+    override suspend fun execute(extId: String, authorizationProvider: AuthorizationProvider?): Response {
         val createDeviceInformationUseCaseResponse = createDeviceInformationUseCase.execute()
         return if (createDeviceInformationUseCaseResponse is DeviceInformationResponse) {
             suspendCancellableCoroutine { cancellableContinuation ->

@@ -39,7 +39,9 @@ import timber.log.Timber
  * @constructor Creates a new instance.
  */
 @AndroidEntryPoint
-class QrReaderFragment : ResponseObserverFragment(), BarcodesReceivedListener {
+class QrReaderFragment :
+    ResponseObserverFragment(),
+    BarcodesReceivedListener {
 
     //region Properties
     /**
@@ -71,10 +73,7 @@ class QrReaderFragment : ResponseObserverFragment(), BarcodesReceivedListener {
 
     //region Fragment
     /** @suppress */
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentQrReaderBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -168,7 +167,8 @@ class QrReaderFragment : ResponseObserverFragment(), BarcodesReceivedListener {
         val baseContext = activity?.baseContext ?: return false
         return REQUIRED_PERMISSIONS.all {
             ContextCompat.checkSelfPermission(
-                baseContext, it
+                baseContext,
+                it
             ) == PackageManager.PERMISSION_GRANTED
         }
     }
@@ -185,9 +185,7 @@ class QrReaderFragment : ResponseObserverFragment(), BarcodesReceivedListener {
      *
      * @return The result pf permission check.
      */
-    private fun shouldShowRequestPermissionsRationale(): Boolean {
-        return REQUIRED_PERMISSIONS.any { shouldShowRequestPermissionRationale(it) }
-    }
+    private fun shouldShowRequestPermissionsRationale(): Boolean = REQUIRED_PERMISSIONS.any { shouldShowRequestPermissionRationale(it) }
 
     /**
      * Shows rational dialog to the user.

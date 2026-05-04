@@ -18,9 +18,8 @@ import kotlinx.coroutines.CancellableContinuation
  * @param cancellableContinuation A [CancellableContinuation] instance of a `suspendCancellableCoroutine`
  *  Kotlin coroutine block.
  */
-data class ChangePasswordOperationState(
-    override var cancellableContinuation: CancellableContinuation<Response>? = null
-) : OperationState() {
+data class ChangePasswordOperationState(override var cancellableContinuation: CancellableContinuation<Response>? = null) :
+    OperationState() {
 
     //region Properties
     /**

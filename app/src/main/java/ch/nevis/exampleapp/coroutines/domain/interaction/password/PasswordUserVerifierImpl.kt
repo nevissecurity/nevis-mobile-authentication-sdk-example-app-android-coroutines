@@ -26,16 +26,12 @@ import timber.log.Timber
  * @constructor Creates a new instance.
  * @param stateRepository The state repository that stores the state of the running operation.
  */
-class PasswordUserVerifierImpl(
-    private val stateRepository: OperationStateRepository<UserInteractionOperationState>
-) : PasswordUserVerifier {
+class PasswordUserVerifierImpl(private val stateRepository: OperationStateRepository<UserInteractionOperationState>) :
+    PasswordUserVerifier {
 
     //region PasswordUserVerifier
     /** @suppress */
-    override fun verifyPassword(
-        context: PasswordUserVerificationContext,
-        handler: PasswordUserVerificationHandler
-    ) {
+    override fun verifyPassword(context: PasswordUserVerificationContext, handler: PasswordUserVerificationHandler) {
         Timber.asTree().sdk("Please start Password user verification.")
 
         val operationState = stateRepository.get() ?: throw BusinessException.invalidState()

@@ -28,16 +28,11 @@ import timber.log.Timber
  * @constructor Creates a new instance.
  * @param stateRepository The state repository that stores the state of the running operation.
  */
-class AccountSelectorImpl(
-    private val stateRepository: OperationStateRepository<UserInteractionOperationState>
-) : AccountSelector {
+class AccountSelectorImpl(private val stateRepository: OperationStateRepository<UserInteractionOperationState>) : AccountSelector {
 
     //region AccountSelector
     /** @suppress */
-    override fun selectAccount(
-        accountSelectionContext: AccountSelectionContext,
-        accountSelectionHandler: AccountSelectionHandler
-    ) {
+    override fun selectAccount(accountSelectionContext: AccountSelectionContext, accountSelectionHandler: AccountSelectionHandler) {
         Timber.asTree().sdk("Please select one of the received available accounts!")
 
         val operationState =

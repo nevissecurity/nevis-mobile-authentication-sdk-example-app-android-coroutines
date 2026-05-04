@@ -22,13 +22,11 @@ import kotlinx.coroutines.suspendCancellableCoroutine
  * @constructor Creates a new instance.
  * @param clientProvider An instance of a [ClientProvider] implementation.
  */
-class DecodePayloadUseCaseImpl(
-    private val clientProvider: ClientProvider
-) : DecodePayloadUseCase {
+class DecodePayloadUseCaseImpl(private val clientProvider: ClientProvider) : DecodePayloadUseCase {
 
     //region DecodePayloadUseCase
-    override suspend fun execute(json: String?, base64UrlEncoded: String?): Response {
-        return suspendCancellableCoroutine { cancellableContinuation ->
+    override suspend fun execute(json: String?, base64UrlEncoded: String?): Response =
+        suspendCancellableCoroutine { cancellableContinuation ->
             val client = clientProvider.get() ?: throw BusinessException.clientNotInitialized()
             val operation = client.operations().outOfBandPayloadDecode()
                 .onSuccess {
@@ -54,6 +52,5 @@ class DecodePayloadUseCaseImpl(
             }
             operation.execute()
         }
-    }
     //endregion
 }

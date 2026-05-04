@@ -37,20 +37,18 @@ class StartChangePasswordUseCaseImpl(
 ) : StartChangePasswordUseCase {
 
     //region StartChangePasswordUseCase
-    override suspend fun execute(username: String): Response {
-        return suspendCancellableCoroutine { cancellableContinuation ->
-            val operationState = ChangePasswordOperationState()
-            operationState.cancellableContinuation = cancellableContinuation
-            stateRepository.save(operationState)
+    override suspend fun execute(username: String): Response = suspendCancellableCoroutine { cancellableContinuation ->
+        val operationState = ChangePasswordOperationState()
+        operationState.cancellableContinuation = cancellableContinuation
+        stateRepository.save(operationState)
 
-            val client = clientProvider.get() ?: throw BusinessException.clientNotInitialized()
-            client.operations().passwordChange()
-                .username(username)
-                .passwordChanger(passwordChanger)
-                .onSuccess(onSuccess)
-                .onError(onError)
-                .execute()
-        }
+        val client = clientProvider.get() ?: throw BusinessException.clientNotInitialized()
+        client.operations().passwordChange()
+            .username(username)
+            .passwordChanger(passwordChanger)
+            .onSuccess(onSuccess)
+            .onError(onError)
+            .execute()
     }
     //endregion
 }

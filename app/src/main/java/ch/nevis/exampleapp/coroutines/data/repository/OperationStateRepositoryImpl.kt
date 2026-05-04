@@ -16,18 +16,14 @@ import ch.nevis.exampleapp.coroutines.domain.repository.OperationStateRepository
  * @constructor Creates a new instance.
  * @param cache The state cache for operations.
  */
-class OperationStateRepositoryImpl<T : OperationState>(
-    private val cache: Cache<T>
-) : OperationStateRepository<T> {
+class OperationStateRepositoryImpl<T : OperationState>(private val cache: Cache<T>) : OperationStateRepository<T> {
 
     //region OperationStateRepository
     override fun save(state: T) {
         cache.save(state)
     }
 
-    override fun get(): T? {
-        return cache.get()
-    }
+    override fun get(): T? = cache.get()
 
     override fun reset() {
         cache.reset()

@@ -58,10 +58,7 @@ class AuthenticatorSelectorImpl(
 
     //region AuthenticatorSelector
     /** @suppress */
-    override fun selectAuthenticator(
-        context: AuthenticatorSelectionContext,
-        handler: AuthenticatorSelectionHandler
-    ) {
+    override fun selectAuthenticator(context: AuthenticatorSelectionContext, handler: AuthenticatorSelectionHandler) {
         Timber.asTree().sdk("Please select one of the received available authenticators!")
 
         val operationState =

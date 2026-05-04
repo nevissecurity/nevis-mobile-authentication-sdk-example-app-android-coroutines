@@ -21,9 +21,7 @@ import retrofit2.Retrofit
  * @param retrofit An instance of [Retrofit].
  *
  */
-class LoginDataSourceImpl(
-    private val retrofit: Retrofit
-) : LoginDataSource {
+class LoginDataSourceImpl(private val retrofit: Retrofit) : LoginDataSource {
 
     //region LoginDataSource
     override suspend fun execute(passwordAuthentication: PasswordAuthentication): LoginResponse {

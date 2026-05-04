@@ -19,20 +19,16 @@ import kotlinx.coroutines.suspendCancellableCoroutine
  * @param stateRepository An instance of an [OperationStateRepository] implementation that may hold
  *  a [ChangePinOperationState].
  */
-class ChangePinUseCaseImpl(
-    private val stateRepository: OperationStateRepository<ChangePinOperationState>
-) : ChangePinUseCase {
+class ChangePinUseCaseImpl(private val stateRepository: OperationStateRepository<ChangePinOperationState>) : ChangePinUseCase {
 
     //region ChangePinUseCase
-    override suspend fun execute(oldPin: CharArray, newPin: CharArray): Response {
-        return suspendCancellableCoroutine { cancellableContinuation ->
-            val operationState = stateRepository.get() ?: throw BusinessException.invalidState()
-            val pinChangeHandler =
-                operationState.pinChangeHandler ?: throw BusinessException.invalidState()
-            operationState.cancellableContinuation = cancellableContinuation
-            operationState.pinChangeHandler = null
-            pinChangeHandler.pins(oldPin, newPin)
-        }
+    override suspend fun execute(oldPin: CharArray, newPin: CharArray): Response = suspendCancellableCoroutine { cancellableContinuation ->
+        val operationState = stateRepository.get() ?: throw BusinessException.invalidState()
+        val pinChangeHandler =
+            operationState.pinChangeHandler ?: throw BusinessException.invalidState()
+        operationState.cancellableContinuation = cancellableContinuation
+        operationState.pinChangeHandler = null
+        pinChangeHandler.pins(oldPin, newPin)
     }
     //endregion
 }

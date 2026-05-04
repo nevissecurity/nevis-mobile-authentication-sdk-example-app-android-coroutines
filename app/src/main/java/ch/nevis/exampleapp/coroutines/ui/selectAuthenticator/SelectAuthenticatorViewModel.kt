@@ -20,9 +20,8 @@ import kotlinx.coroutines.launch
  * @param selectAuthenticatorUseCase
  */
 @HiltViewModel
-class SelectAuthenticatorViewModel @Inject constructor(
-    private val selectAuthenticatorUseCase: SelectAuthenticatorUseCase
-) : CancellableOperationViewModel() {
+class SelectAuthenticatorViewModel @Inject constructor(private val selectAuthenticatorUseCase: SelectAuthenticatorUseCase) :
+    CancellableOperationViewModel() {
 
     //region Public Interface
     /**

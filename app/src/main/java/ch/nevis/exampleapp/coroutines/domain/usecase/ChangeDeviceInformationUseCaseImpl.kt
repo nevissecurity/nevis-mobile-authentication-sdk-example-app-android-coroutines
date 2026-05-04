@@ -22,17 +22,11 @@ import kotlinx.coroutines.suspendCancellableCoroutine
  * @constructor Creates a new instance.
  * @param clientProvider An instance of a [ClientProvider] implementation.
  */
-class ChangeDeviceInformationUseCaseImpl(
-    private val clientProvider: ClientProvider
-) : ChangeDeviceInformationUseCase {
+class ChangeDeviceInformationUseCaseImpl(private val clientProvider: ClientProvider) : ChangeDeviceInformationUseCase {
 
     //region ChangeDeviceInformationUseCase
-    override suspend fun execute(
-        name: String,
-        fcmRegistrationToken: String?,
-        disablePushNotifications: Boolean
-    ): Response {
-        return suspendCancellableCoroutine { cancellableContinuation ->
+    override suspend fun execute(name: String, fcmRegistrationToken: String?, disablePushNotifications: Boolean): Response =
+        suspendCancellableCoroutine { cancellableContinuation ->
             val client = clientProvider.get() ?: throw BusinessException.clientNotInitialized()
             val operation = client.operations().deviceInformationChange()
                 .name(name)
@@ -62,6 +56,5 @@ class ChangeDeviceInformationUseCaseImpl(
 
             operation.execute()
         }
-    }
     //endregion
 }

@@ -34,10 +34,7 @@ class PinUserVerifierImpl(
 
     //region PinUserVerifier
     /** @suppress */
-    override fun verifyPin(
-        context: PinUserVerificationContext,
-        handler: PinUserVerificationHandler
-    ) {
+    override fun verifyPin(context: PinUserVerificationContext, handler: PinUserVerificationHandler) {
         Timber.asTree().sdk("Please start PIN user verification.")
 
         val operationState = stateRepository.get() ?: throw BusinessException.invalidState()

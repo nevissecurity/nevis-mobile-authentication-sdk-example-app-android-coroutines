@@ -21,24 +21,20 @@ import java.util.function.Consumer
  * @constructor Creates a new instance.
  * @param context An Android [Context] object for [String] resource resolving.
  */
-class PasswordPolicyImpl(
-    private val context: Context,
-) : PasswordPolicy {
+class PasswordPolicyImpl(private val context: Context) : PasswordPolicy {
 
     //region PasswordPolicy
     /** @suppress */
-    override fun validatePasswordForEnrollment(
-        password: CharArray,
-        onSuccess: Runnable,
-        errorConsumer: Consumer<PasswordEnrollmentError>
-    ) {
+    override fun validatePasswordForEnrollment(password: CharArray, onSuccess: Runnable, errorConsumer: Consumer<PasswordEnrollmentError>) {
         if (isValid(password)) {
             onSuccess.run()
         } else {
-            errorConsumer.accept(PasswordEnrollmentError.builder()
-                .description(context.getString(R.string.password_policy_error_message))
-                .cause(Exception(context.getString(R.string.password_policy_error_cause)))
-                .build())
+            errorConsumer.accept(
+                PasswordEnrollmentError.builder()
+                    .description(context.getString(R.string.password_policy_error_message))
+                    .cause(Exception(context.getString(R.string.password_policy_error_cause)))
+                    .build()
+            )
         }
     }
 
@@ -51,10 +47,12 @@ class PasswordPolicyImpl(
         if (isValid(password)) {
             onSuccess.run()
         } else {
-            errorConsumer.accept(PasswordChangeRecoverableError.CustomValidationError.builder()
-                .description(context.getString(R.string.password_policy_error_message))
-                .cause(Exception(context.getString(R.string.password_policy_error_cause)))
-                .build())
+            errorConsumer.accept(
+                PasswordChangeRecoverableError.CustomValidationError.builder()
+                    .description(context.getString(R.string.password_policy_error_message))
+                    .cause(Exception(context.getString(R.string.password_policy_error_cause)))
+                    .build()
+            )
         }
     }
     //endregion
@@ -65,8 +63,6 @@ class PasswordPolicyImpl(
      *
      * @param password The password to validate.
      */
-    private fun isValid(password: CharArray): Boolean {
-        return String(password).trim() != "password"
-    }
+    private fun isValid(password: CharArray): Boolean = String(password).trim() != "password"
     //endregion
 }

@@ -21,9 +21,7 @@ import kotlinx.coroutines.suspendCancellableCoroutine
  * @constructor Creates a new instance.
  * @param clientProvider An instance of a [ClientProvider] implementation.
  */
-class DeleteAuthenticatorsUseCaseImpl(
-    private val clientProvider: ClientProvider
-) : DeleteAuthenticatorsUseCase {
+class DeleteAuthenticatorsUseCaseImpl(private val clientProvider: ClientProvider) : DeleteAuthenticatorsUseCase {
 
     //region DeleteAuthenticatorsUseCase
     override suspend fun execute(accounts: Set<Account>): Response {
@@ -41,12 +39,10 @@ class DeleteAuthenticatorsUseCaseImpl(
      *
      * @param username The username that identifies the account whose authenticators must be deleted locally.
      */
-    private suspend fun deleteAuthenticators(username: String) {
-        return suspendCancellableCoroutine { cancellableContinuation ->
-            val client = clientProvider.get() ?: throw BusinessException.clientNotInitialized()
-            client.localData().deleteAuthenticator(username)
-            cancellableContinuation.resume(Unit)
-        }
+    private suspend fun deleteAuthenticators(username: String) = suspendCancellableCoroutine { cancellableContinuation ->
+        val client = clientProvider.get() ?: throw BusinessException.clientNotInitialized()
+        client.localData().deleteAuthenticator(username)
+        cancellableContinuation.resume(Unit)
     }
     //endregion
 }

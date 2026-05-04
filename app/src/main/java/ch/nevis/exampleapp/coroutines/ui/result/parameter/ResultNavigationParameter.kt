@@ -45,12 +45,10 @@ data class ResultNavigationParameter(
          * @param operation The related operation if there is any.
          * @return The created [ResultNavigationParameter] object.
          */
-        fun forCancelledOperation(operation: Operation? = null): ResultNavigationParameter {
-            return ResultNavigationParameter(
-                R.string.result_title_cancelled,
-                operation
-            )
-        }
+        fun forCancelledOperation(operation: Operation? = null): ResultNavigationParameter = ResultNavigationParameter(
+            R.string.result_title_cancelled,
+            operation
+        )
 
         /**
          * Creates a [ResultNavigationParameter] instance for general successful operation case.
@@ -58,12 +56,10 @@ data class ResultNavigationParameter(
          * @param operation The related operation if there is any.
          * @return The created [ResultNavigationParameter] object.
          */
-        fun forSuccessfulOperation(operation: Operation? = null): ResultNavigationParameter {
-            return ResultNavigationParameter(
-                R.string.result_title_success,
-                operation
-            )
-        }
+        fun forSuccessfulOperation(operation: Operation? = null): ResultNavigationParameter = ResultNavigationParameter(
+            R.string.result_title_success,
+            operation
+        )
     }
     //endregion
 }

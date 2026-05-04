@@ -1,4 +1,4 @@
-/**
+/*
  * Nevis Mobile Authentication SDK Example App
  *
  * Copyright © 2022-2026. Nevis Security AG. All rights reserved.
@@ -25,9 +25,9 @@ import kotlinx.coroutines.launch
  * @param sdkLogger An injected instance of an implementation of [SdkLogger] interface.
  */
 @HiltViewModel
-class MainActivityViewModel @Inject constructor(
-    private val sdkLogger: SdkLogger
-) : ViewModel(), SdkLogReceiver {
+class MainActivityViewModel @Inject constructor(private val sdkLogger: SdkLogger) :
+    ViewModel(),
+    SdkLogReceiver {
 
     //region Initialization
     /**

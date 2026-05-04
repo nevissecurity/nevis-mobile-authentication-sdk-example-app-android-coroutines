@@ -21,8 +21,5 @@ interface DeregisterUseCase {
      * @param authorizationProvider The [AuthorizationProvider] that should be used for the deregistration process.
      * @return A [Response] object, the result of the use-case execution.
      */
-    suspend fun execute(
-        username: String? = null,
-        authorizationProvider: AuthorizationProvider? = null
-    ): Response
+    suspend fun execute(username: String? = null, authorizationProvider: AuthorizationProvider? = null): Response
 }

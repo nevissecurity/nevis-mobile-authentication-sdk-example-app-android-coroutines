@@ -26,9 +26,8 @@ import timber.log.Timber
  * @constructor Creates a new instance.
  * @param stateRepository The state repository that stores the state of the running operation.
  */
-class BiometricUserVerifierImpl(
-    private val stateRepository: OperationStateRepository<UserInteractionOperationState>
-) : BiometricUserVerifier {
+class BiometricUserVerifierImpl(private val stateRepository: OperationStateRepository<UserInteractionOperationState>) :
+    BiometricUserVerifier {
 
     //region BiometricUserVerifier
     /** @suppress */

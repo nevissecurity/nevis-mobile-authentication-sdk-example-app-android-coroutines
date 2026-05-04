@@ -28,7 +28,8 @@ import dagger.hilt.android.AndroidEntryPoint
  * @constructor Creates a new instance.
  */
 @AndroidEntryPoint
-class SelectAuthenticatorFragment : ResponseObserverFragment(),
+class SelectAuthenticatorFragment :
+    ResponseObserverFragment(),
     AuthenticatorSelectedListener {
 
     //region Properties
@@ -56,10 +57,7 @@ class SelectAuthenticatorFragment : ResponseObserverFragment(),
 
     //region Fragment
     /** @suppress */
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentSelectAuthenticatorBinding.inflate(inflater, container, false)
         return binding.root
     }

@@ -26,9 +26,8 @@ import timber.log.Timber
  * @constructor Creates a new instance.
  * @param stateRepository The state repository that stores the state of the running operation.
  */
-class FingerprintUserVerifierImpl(
-    private val stateRepository: OperationStateRepository<UserInteractionOperationState>
-) : FingerprintUserVerifier {
+class FingerprintUserVerifierImpl(private val stateRepository: OperationStateRepository<UserInteractionOperationState>) :
+    FingerprintUserVerifier {
 
     //region FingerprintUserVerifier
     /** @suppress */

@@ -20,9 +20,8 @@ import kotlinx.coroutines.launch
  * @param authCloudApiRegistrationUseCase An instance of a [AuthCloudApiRegistrationUseCase] implementation.
  */
 @HiltViewModel
-class AuthCloudRegistrationViewModel @Inject constructor(
-    private val authCloudApiRegistrationUseCase: AuthCloudApiRegistrationUseCase
-) : OperationViewModel() {
+class AuthCloudRegistrationViewModel @Inject constructor(private val authCloudApiRegistrationUseCase: AuthCloudApiRegistrationUseCase) :
+    OperationViewModel() {
 
     //region Public Interface
     /**

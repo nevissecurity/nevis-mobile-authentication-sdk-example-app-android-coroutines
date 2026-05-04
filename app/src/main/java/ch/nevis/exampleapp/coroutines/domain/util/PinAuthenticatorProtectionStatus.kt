@@ -16,28 +16,30 @@ import ch.nevis.mobile.sdk.api.operation.pin.PinAuthenticatorProtectionStatus
  * @param context An Android [Context] object for [String] resource resolving.
  * @return The localized description of the instance.
  */
-fun PinAuthenticatorProtectionStatus.message(context: Context): String {
-    return when (this) {
-        is PinAuthenticatorProtectionStatus.Unlocked -> String()
-        is PinAuthenticatorProtectionStatus.LockedOut -> context.getString(R.string.pin_protection_status_locked_out)
-        is PinAuthenticatorProtectionStatus.LastAttemptFailed -> {
-            when (remainingRetries()) {
-                1 -> {
-                    if (coolDownTimeInSeconds() == 0L) {
-                        context.getString(R.string.pin_protection_status_last_retry_without_cool_down)
-                    } else {
-                        context.getString(R.string.pin_protection_status_last_retry_with_cool_down, coolDownTimeInSeconds())
-                    }
+fun PinAuthenticatorProtectionStatus.message(context: Context): String = when (this) {
+    is PinAuthenticatorProtectionStatus.Unlocked -> String()
+    is PinAuthenticatorProtectionStatus.LockedOut -> context.getString(R.string.pin_protection_status_locked_out)
+    is PinAuthenticatorProtectionStatus.LastAttemptFailed -> {
+        when (remainingRetries()) {
+            1 -> {
+                if (coolDownTimeInSeconds() == 0L) {
+                    context.getString(R.string.pin_protection_status_last_retry_without_cool_down)
+                } else {
+                    context.getString(R.string.pin_protection_status_last_retry_with_cool_down, coolDownTimeInSeconds())
                 }
-                else -> {
-                    if (coolDownTimeInSeconds() == 0L) {
-                        context.getString(R.string.pin_protection_status_retries_without_cool_down, remainingRetries())
-                    } else {
-                        context.getString(R.string.pin_protection_status_retries_with_cool_down, remainingRetries(), coolDownTimeInSeconds())
-                    }
+            }
+            else -> {
+                if (coolDownTimeInSeconds() == 0L) {
+                    context.getString(R.string.pin_protection_status_retries_without_cool_down, remainingRetries())
+                } else {
+                    context.getString(
+                        R.string.pin_protection_status_retries_with_cool_down,
+                        remainingRetries(),
+                        coolDownTimeInSeconds()
+                    )
                 }
             }
         }
-        else -> throw IllegalStateException("Unsupported PIN authenticator protection status.")
     }
+    else -> throw IllegalStateException("Unsupported PIN authenticator protection status.")
 }

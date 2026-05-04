@@ -17,9 +17,7 @@ import java.net.PasswordAuthentication
  * @constructor Creates a new instance.
  * @param loginDataSource A [LoginDataSource] instance to extract the [LoginResponse] from data layer.
  */
-class LoginRepositoryImpl(
-    private val loginDataSource: LoginDataSource
-) : LoginRepository {
+class LoginRepositoryImpl(private val loginDataSource: LoginDataSource) : LoginRepository {
 
     //region LoginRepository
     override suspend fun execute(passwordAuthentication: PasswordAuthentication): LoginResponse {

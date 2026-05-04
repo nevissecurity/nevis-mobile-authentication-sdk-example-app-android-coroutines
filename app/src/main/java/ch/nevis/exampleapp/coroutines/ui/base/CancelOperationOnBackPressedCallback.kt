@@ -15,9 +15,7 @@ import androidx.activity.OnBackPressedCallback
  * @constructor Creates a new instance.
  * @param viewModel The view model that runs/handles the cancellable operation.
  */
-open class CancelOperationOnBackPressedCallback(
-    private val viewModel: CancellableOperationViewModel
-) : OnBackPressedCallback(true) {
+open class CancelOperationOnBackPressedCallback(private val viewModel: CancellableOperationViewModel) : OnBackPressedCallback(true) {
 
     //region OnBackPressedCallback
     /** @suppress */

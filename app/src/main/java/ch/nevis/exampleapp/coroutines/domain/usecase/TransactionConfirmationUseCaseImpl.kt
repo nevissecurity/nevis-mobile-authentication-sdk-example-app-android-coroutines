@@ -20,8 +20,8 @@ import kotlinx.coroutines.suspendCancellableCoroutine
 class TransactionConfirmationUseCaseImpl : TransactionConfirmationUseCase {
 
     //region TransactionConfirmationUseCase
-    override suspend fun execute(account: Account, transactionConfirmationMessage: String): Response {
-        return suspendCancellableCoroutine { cancellableContinuation ->
+    override suspend fun execute(account: Account, transactionConfirmationMessage: String): Response =
+        suspendCancellableCoroutine { cancellableContinuation ->
             cancellableContinuation.resume(
                 TransactionConfirmationResponse(
                     account,
@@ -29,6 +29,5 @@ class TransactionConfirmationUseCaseImpl : TransactionConfirmationUseCase {
                 )
             )
         }
-    }
     //endregion
 }

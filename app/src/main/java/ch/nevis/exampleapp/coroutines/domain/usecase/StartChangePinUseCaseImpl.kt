@@ -37,20 +37,18 @@ class StartChangePinUseCaseImpl(
 ) : StartChangePinUseCase {
 
     //region StartChangePinUseCase
-    override suspend fun execute(username: String): Response {
-        return suspendCancellableCoroutine { cancellableContinuation ->
-            val operationState = ChangePinOperationState()
-            operationState.cancellableContinuation = cancellableContinuation
-            stateRepository.save(operationState)
+    override suspend fun execute(username: String): Response = suspendCancellableCoroutine { cancellableContinuation ->
+        val operationState = ChangePinOperationState()
+        operationState.cancellableContinuation = cancellableContinuation
+        stateRepository.save(operationState)
 
-            val client = clientProvider.get() ?: throw BusinessException.clientNotInitialized()
-            client.operations().pinChange()
-                .username(username)
-                .pinChanger(pinChanger)
-                .onSuccess(onSuccess)
-                .onError(onError)
-                .execute()
-        }
+        val client = clientProvider.get() ?: throw BusinessException.clientNotInitialized()
+        client.operations().pinChange()
+            .username(username)
+            .pinChanger(pinChanger)
+            .onSuccess(onSuccess)
+            .onError(onError)
+            .execute()
     }
     //endregion
 }

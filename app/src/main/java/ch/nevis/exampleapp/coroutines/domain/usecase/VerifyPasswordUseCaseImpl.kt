@@ -19,21 +19,18 @@ import kotlinx.coroutines.suspendCancellableCoroutine
  * @param stateRepository An instance of an [OperationStateRepository] implementation that may hold
  *  a [UserInteractionOperationState].
  */
-class VerifyPasswordUseCaseImpl(
-    private val stateRepository: OperationStateRepository<UserInteractionOperationState>
-) : VerifyPasswordUseCase {
+class VerifyPasswordUseCaseImpl(private val stateRepository: OperationStateRepository<UserInteractionOperationState>) :
+    VerifyPasswordUseCase {
 
     //region VerifyPasswordUseCase
-    override suspend fun execute(password: CharArray): Response {
-        return suspendCancellableCoroutine { cancellableContinuation ->
-            val operationState =
-                stateRepository.get() ?: throw BusinessException.invalidState()
-            val passwordUserVerificationHandler =
-                operationState.passwordUserVerificationHandler ?: throw BusinessException.invalidState()
-            operationState.cancellableContinuation = cancellableContinuation
-            operationState.passwordUserVerificationHandler = null
-            passwordUserVerificationHandler.verifyPassword(password)
-        }
+    override suspend fun execute(password: CharArray): Response = suspendCancellableCoroutine { cancellableContinuation ->
+        val operationState =
+            stateRepository.get() ?: throw BusinessException.invalidState()
+        val passwordUserVerificationHandler =
+            operationState.passwordUserVerificationHandler ?: throw BusinessException.invalidState()
+        operationState.cancellableContinuation = cancellableContinuation
+        operationState.passwordUserVerificationHandler = null
+        passwordUserVerificationHandler.verifyPassword(password)
     }
     //endregion
 }

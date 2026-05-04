@@ -38,10 +38,7 @@ class PasswordEnrollerImpl(
 
     //region PasswordEnroller
     /** @suppress */
-    override fun enrollPassword(
-        context: PasswordEnrollmentContext,
-        handler: PasswordEnrollmentHandler
-    ) {
+    override fun enrollPassword(context: PasswordEnrollmentContext, handler: PasswordEnrollmentHandler) {
         if (context.lastRecoverableError().isPresent) {
             Timber.asTree().sdk("Password enrollment failed. Please try again.")
         } else {
