@@ -1,7 +1,7 @@
 /**
  * Nevis Mobile Authentication SDK Example App
  *
- * Copyright © 2022. Nevis Security AG. All rights reserved.
+ * Copyright © 2022-2026. Nevis Security AG. All rights reserved.
  */
 
 package ch.nevis.exampleapp.coroutines.ui.changeDeviceInformation
@@ -42,10 +42,7 @@ class ChangeDeviceInformationFragment : ResponseObserverFragment() {
 
     //region Fragment
     /** @suppress */
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentChangeDeviceInformationBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -71,8 +68,7 @@ class ChangeDeviceInformationFragment : ResponseObserverFragment() {
     //region ResponseObserverFragment
     override fun processResponse(response: Response) {
         when (response) {
-            is DeviceInformationResponse -> binding.currentNameTextView.text =
-                response.deviceInformation.name()
+            is DeviceInformationResponse -> binding.currentNameTextView.text = response.deviceInformation.name()
             else -> super.processResponse(response)
         }
     }

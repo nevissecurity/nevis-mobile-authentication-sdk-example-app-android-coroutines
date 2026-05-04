@@ -13,9 +13,9 @@ import ch.nevis.exampleapp.coroutines.ui.base.OperationViewModel
 import ch.nevis.mobile.sdk.api.authorization.AuthorizationProvider.CookieAuthorizationProvider
 import ch.nevis.mobile.sdk.api.authorization.Cookie
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import java.net.PasswordAuthentication
 import javax.inject.Inject
+import kotlinx.coroutines.launch
 
 /**
  * View model implementation of Legacy Login view.

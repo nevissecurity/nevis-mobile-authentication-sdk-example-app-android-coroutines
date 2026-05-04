@@ -21,8 +21,8 @@ import ch.nevis.mobile.sdk.api.operation.selection.AuthenticatorSelector
 import ch.nevis.mobile.sdk.api.operation.userverification.BiometricUserVerifier
 import ch.nevis.mobile.sdk.api.operation.userverification.DevicePasscodeUserVerifier
 import ch.nevis.mobile.sdk.api.operation.userverification.FingerprintUserVerifier
-import kotlinx.coroutines.suspendCancellableCoroutine
 import java.util.function.Consumer
+import kotlinx.coroutines.suspendCancellableCoroutine
 
 /**
  * Default implementation of [InBandRegistrationUseCase] interface.
@@ -57,10 +57,7 @@ class InBandRegistrationUseCaseImpl(
 ) : InBandRegistrationUseCase {
 
     //region InBandRegistrationUseCase
-    override suspend fun execute(
-        extId: String,
-        authorizationProvider: AuthorizationProvider?
-    ): Response {
+    override suspend fun execute(extId: String, authorizationProvider: AuthorizationProvider?): Response {
         val createDeviceInformationUseCaseResponse = createDeviceInformationUseCase.execute()
         return if (createDeviceInformationUseCaseResponse is DeviceInformationResponse) {
             suspendCancellableCoroutine { cancellableContinuation ->

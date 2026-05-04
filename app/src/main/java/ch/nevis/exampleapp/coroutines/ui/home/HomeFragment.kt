@@ -1,7 +1,7 @@
 /**
  * Nevis Mobile Authentication SDK Example App
  *
- * Copyright © 2022. Nevis Security AG. All rights reserved.
+ * Copyright © 2022-2026. Nevis Security AG. All rights reserved.
  */
 
 package ch.nevis.exampleapp.coroutines.ui.home
@@ -16,8 +16,8 @@ import androidx.navigation.fragment.findNavController
 import ch.nevis.exampleapp.coroutines.NavigationGraphDirections
 import ch.nevis.exampleapp.coroutines.R
 import ch.nevis.exampleapp.coroutines.databinding.FragmentHomeBinding
-import ch.nevis.exampleapp.coroutines.domain.model.response.GetAccountsResponse
 import ch.nevis.exampleapp.coroutines.domain.model.response.FidoUafAttestationInformationResponse
+import ch.nevis.exampleapp.coroutines.domain.model.response.GetAccountsResponse
 import ch.nevis.exampleapp.coroutines.domain.model.response.InitializeClientCompletedResponse
 import ch.nevis.exampleapp.coroutines.domain.model.response.MetaDataResponse
 import ch.nevis.exampleapp.coroutines.domain.model.response.PayloadDecodeCompletedResponse
@@ -50,10 +50,7 @@ class HomeFragment : ResponseObserverFragment() {
 
     //region Fragment
     /** @suppress */
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -141,7 +138,7 @@ class HomeFragment : ResponseObserverFragment() {
                 binding.certFingerprintValueTextView.text = response.certificateFingerprint
                 viewModel.getAttestationInformation()
             }
-            is FidoUafAttestationInformationResponse-> {
+            is FidoUafAttestationInformationResponse -> {
                 val context = context ?: return
 
                 binding.attestationValueTextView.visibility = View.GONE

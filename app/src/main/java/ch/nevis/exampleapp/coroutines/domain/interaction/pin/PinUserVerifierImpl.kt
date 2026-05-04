@@ -14,8 +14,8 @@ import ch.nevis.exampleapp.coroutines.timber.sdk
 import ch.nevis.mobile.sdk.api.operation.userverification.PinUserVerificationContext
 import ch.nevis.mobile.sdk.api.operation.userverification.PinUserVerificationHandler
 import ch.nevis.mobile.sdk.api.operation.userverification.PinUserVerifier
-import timber.log.Timber
 import kotlin.coroutines.resume
+import timber.log.Timber
 
 /**
  * Default implementation of [PinUserVerifier] interface. It stores the PIN verification step context
@@ -34,10 +34,7 @@ class PinUserVerifierImpl(
 
     //region PinUserVerifier
     /** @suppress */
-    override fun verifyPin(
-        context: PinUserVerificationContext,
-        handler: PinUserVerificationHandler
-    ) {
+    override fun verifyPin(context: PinUserVerificationContext, handler: PinUserVerificationHandler) {
         Timber.asTree().sdk("Please start PIN user verification.")
 
         val operationState = stateRepository.get() ?: throw BusinessException.invalidState()

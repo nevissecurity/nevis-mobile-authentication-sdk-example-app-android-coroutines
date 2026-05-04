@@ -14,8 +14,8 @@ import ch.nevis.exampleapp.coroutines.domain.model.response.CompletedResponse
 import ch.nevis.exampleapp.coroutines.domain.model.response.ErrorResponse
 import ch.nevis.exampleapp.coroutines.domain.model.response.Response
 import ch.nevis.mobile.sdk.api.authorization.AuthorizationProvider
-import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
+import kotlinx.coroutines.suspendCancellableCoroutine
 
 /**
  * Default implementation of [DeregisterUseCase] interface.
@@ -23,15 +23,10 @@ import kotlin.coroutines.resume
  * @constructor Creates a new instance.
  * @param clientProvider An instance of a [ClientProvider] implementation.
  */
-class DeregisterUseCaseImpl(
-    private val clientProvider: ClientProvider
-) : DeregisterUseCase {
+class DeregisterUseCaseImpl(private val clientProvider: ClientProvider) : DeregisterUseCase {
 
     //region DeregisterUseCase
-    override suspend fun execute(
-        username: String?,
-        authorizationProvider: AuthorizationProvider?
-    ): Response {
+    override suspend fun execute(username: String?, authorizationProvider: AuthorizationProvider?): Response {
         var response: Response? = null
         val client = clientProvider.get() ?: throw BusinessException.clientNotInitialized()
         val localData = client.localData()
@@ -58,11 +53,8 @@ class DeregisterUseCaseImpl(
      * @param username The username of the user that is the owner of the authenticator.
      * @return A [Response] object that indicates the result of this single deregistration operation.
      */
-    private suspend fun deregister(
-        username: String,
-        authorizationProvider: AuthorizationProvider? = null
-    ): Response {
-        return suspendCancellableCoroutine { cancellableContinuation ->
+    private suspend fun deregister(username: String, authorizationProvider: AuthorizationProvider? = null): Response =
+        suspendCancellableCoroutine { cancellableContinuation ->
             val client = clientProvider.get() ?: throw BusinessException.clientNotInitialized()
             val operation = client.operations().deregistration()
                 .username(username)
@@ -88,6 +80,5 @@ class DeregisterUseCaseImpl(
 
             operation.execute()
         }
-    }
     //endregion
 }

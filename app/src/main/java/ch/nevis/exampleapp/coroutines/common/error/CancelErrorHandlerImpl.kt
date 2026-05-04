@@ -21,9 +21,7 @@ import timber.log.Timber
  * @constructor Creates a new instance.
  * @param navController The navigation controller.
  */
-class CancelErrorHandlerImpl(
-    private val navController: NavController
-) : ErrorHandler {
+class CancelErrorHandlerImpl(private val navController: NavController) : ErrorHandler {
 
     //region ErrorHandler
     override fun handle(error: Throwable): Boolean {
@@ -56,12 +54,10 @@ class CancelErrorHandlerImpl(
         return false
     }
 
-    private fun getOperation(error: Throwable): Operation? {
-        return if (error is MobileAuthenticationClientException) {
-            error.operation
-        } else {
-            null
-        }
+    private fun getOperation(error: Throwable): Operation? = if (error is MobileAuthenticationClientException) {
+        error.operation
+    } else {
+        null
     }
     //endregion
 }

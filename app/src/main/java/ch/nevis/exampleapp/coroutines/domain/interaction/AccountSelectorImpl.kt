@@ -1,7 +1,7 @@
 /**
  * Nevis Mobile Authentication SDK Example App
  *
- * Copyright © 2022-2024. Nevis Security AG. All rights reserved.
+ * Copyright © 2022-2026. Nevis Security AG. All rights reserved.
  */
 
 package ch.nevis.exampleapp.coroutines.domain.interaction
@@ -17,8 +17,8 @@ import ch.nevis.mobile.sdk.api.localdata.Account
 import ch.nevis.mobile.sdk.api.operation.selection.AccountSelectionContext
 import ch.nevis.mobile.sdk.api.operation.selection.AccountSelectionHandler
 import ch.nevis.mobile.sdk.api.operation.selection.AccountSelector
-import timber.log.Timber
 import kotlin.coroutines.resume
+import timber.log.Timber
 
 /**
  * Default implementation of [AccountSelector] interface. It stores the account selection step context
@@ -28,16 +28,11 @@ import kotlin.coroutines.resume
  * @constructor Creates a new instance.
  * @param stateRepository The state repository that stores the state of the running operation.
  */
-class AccountSelectorImpl(
-    private val stateRepository: OperationStateRepository<UserInteractionOperationState>
-) : AccountSelector {
+class AccountSelectorImpl(private val stateRepository: OperationStateRepository<UserInteractionOperationState>) : AccountSelector {
 
     //region AccountSelector
     /** @suppress */
-    override fun selectAccount(
-        accountSelectionContext: AccountSelectionContext,
-        accountSelectionHandler: AccountSelectionHandler
-    ) {
+    override fun selectAccount(accountSelectionContext: AccountSelectionContext, accountSelectionHandler: AccountSelectionHandler) {
         Timber.asTree().sdk("Please select one of the received available accounts!")
 
         val operationState =
@@ -51,7 +46,7 @@ class AccountSelectorImpl(
             accountSelectionContext.transactionConfirmationData().orElse(null)
         val accounts = validAccounts(accountSelectionContext)
 
-        when(accounts.size) {
+        when (accounts.size) {
             0 -> cancellableContinuation.resume(ErrorResponse(BusinessException.accountsNotFound()))
             1 -> {
                 if (transactionConfirmationData != null) {

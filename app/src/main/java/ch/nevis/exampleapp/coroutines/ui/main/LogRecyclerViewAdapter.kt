@@ -1,7 +1,7 @@
 /**
  * Nevis Mobile Authentication SDK Example App
  *
- * Copyright © 2022. Nevis Security AG. All rights reserved.
+ * Copyright © 2022-2026. Nevis Security AG. All rights reserved.
  */
 
 package ch.nevis.exampleapp.coroutines.ui.main
@@ -24,9 +24,7 @@ import java.text.SimpleDateFormat
  * @param context An Android [Context] object for resolving resources and to obtain a [LayoutInflater]
  *  instance.
  */
-class LogRecyclerViewAdapter(
-    private val context: Context
-): RecyclerView.Adapter<LogRecyclerViewAdapter.LogViewHolder>() {
+class LogRecyclerViewAdapter(private val context: Context) : RecyclerView.Adapter<LogRecyclerViewAdapter.LogViewHolder>() {
 
     //region Properties
     /**
@@ -60,15 +58,14 @@ class LogRecyclerViewAdapter(
 
     //region RecyclerView.Adapter
     /** @suppress */
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LogViewHolder {
-        return LogViewHolder(layoutInflater.inflate(R.layout.item_log, parent, false))
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LogViewHolder =
+        LogViewHolder(layoutInflater.inflate(R.layout.item_log, parent, false))
 
     /** @suppress */
     override fun onBindViewHolder(holder: LogViewHolder, position: Int) {
         holder.messageTextView.text = null
 
-        log[position].let { logItem:LogItem ->
+        log[position].let { logItem: LogItem ->
             holder.logItem = logItem
             holder.messageTextView.text = context.getString(R.string.log_item, dateFormatter.format(logItem.date), logItem.message)
         }
@@ -85,9 +82,7 @@ class LogRecyclerViewAdapter(
      * @constructor Creates a new instance.
      * @param itemView The item view provided by recycler view.
      */
-    inner class LogViewHolder(
-        itemView: View
-    ) : RecyclerView.ViewHolder(itemView) {
+    inner class LogViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         //region Properties
         /**

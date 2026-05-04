@@ -8,8 +8,8 @@ package ch.nevis.exampleapp.coroutines.ui.base
 
 import androidx.lifecycle.viewModelScope
 import ch.nevis.exampleapp.coroutines.domain.usecase.CancelOperationUseCase
-import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlinx.coroutines.launch
 
 /**
  * Abstract, base view model implementation for view models those are related to cancellable operations.

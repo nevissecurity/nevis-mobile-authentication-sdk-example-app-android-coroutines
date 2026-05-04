@@ -1,7 +1,7 @@
-/**
+/*
  * Nevis Mobile Authentication SDK Example App
  *
- * Copyright © 2022. Nevis Security AG. All rights reserved.
+ * Copyright © 2022-2026. Nevis Security AG. All rights reserved.
  */
 
 package ch.nevis.exampleapp.coroutines.ui.main
@@ -12,11 +12,11 @@ import ch.nevis.exampleapp.coroutines.domain.log.LogItem
 import ch.nevis.exampleapp.coroutines.domain.log.SdkLogReceiver
 import ch.nevis.exampleapp.coroutines.domain.log.SdkLogger
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 /**
  * View model implementation of Main activity.
@@ -25,9 +25,9 @@ import javax.inject.Inject
  * @param sdkLogger An injected instance of an implementation of [SdkLogger] interface.
  */
 @HiltViewModel
-class MainActivityViewModel @Inject constructor(
-    private val sdkLogger: SdkLogger
-): ViewModel(), SdkLogReceiver {
+class MainActivityViewModel @Inject constructor(private val sdkLogger: SdkLogger) :
+    ViewModel(),
+    SdkLogReceiver {
 
     //region Initialization
     /**

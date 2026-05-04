@@ -1,7 +1,7 @@
 /**
  * Nevis Mobile Authentication SDK Example App
  *
- * Copyright © 2022-2024. Nevis Security AG. All rights reserved.
+ * Copyright © 2022-2026. Nevis Security AG. All rights reserved.
  */
 
 package ch.nevis.exampleapp.coroutines.dagger
@@ -141,12 +141,12 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.Runnable
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import java.util.function.Consumer
 import javax.inject.Named
 import javax.inject.Singleton
+import kotlinx.coroutines.Runnable
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 /**
  * Main Dagger Hilt configuration module of the example application.
@@ -192,11 +192,9 @@ class ApplicationModule {
      */
     @Provides
     @Singleton
-    fun provideAuthenticationCloudConfiguration(): Configuration {
-        return Configuration.authCloudBuilder()
-            .hostname("myinstance.mauth.nevis.cloud")
-            .build()
-    }
+    fun provideAuthenticationCloudConfiguration(): Configuration = Configuration.authCloudBuilder()
+        .hostname("myinstance.mauth.nevis.cloud")
+        .build()
 
     /**
      * Provides Identity Suite specific configuration.
@@ -205,11 +203,9 @@ class ApplicationModule {
      */
     @Provides
     @Singleton
-    fun provideIdentitySuiteConfiguration(): Configuration {
-        return Configuration.admin4PatternBuilder()
-            .hostname("idsuite")
-            .build()
-    }
+    fun provideIdentitySuiteConfiguration(): Configuration = Configuration.admin4PatternBuilder()
+        .hostname("idsuite")
+        .build()
 
     /**
      * Provides the list of allowed authenticators.
@@ -232,12 +228,11 @@ class ApplicationModule {
      */
     @Provides
     @Singleton
-    fun provideConfigurationProvider(): ConfigurationProvider =
-        ConfigurationProviderImpl(
-            Environment.AUTHENTICATION_CLOUD,
-            provideAuthenticationCloudConfiguration(),
-            provideAuthenticatorAllowlist()
-        )
+    fun provideConfigurationProvider(): ConfigurationProvider = ConfigurationProviderImpl(
+        Environment.AUTHENTICATION_CLOUD,
+        provideAuthenticationCloudConfiguration(),
+        provideAuthenticatorAllowlist()
+    )
     //endregion
 
     //region Client
@@ -302,8 +297,7 @@ class ApplicationModule {
      * @return The password policy.
      */
     @Provides
-    fun providePasswordPolicy(@ApplicationContext context: Context): PasswordPolicy =
-        PasswordPolicyImpl(context)
+    fun providePasswordPolicy(@ApplicationContext context: Context): PasswordPolicy = PasswordPolicyImpl(context)
     //endregion
 
     //region Data Sources
@@ -314,10 +308,8 @@ class ApplicationModule {
      * @return The login related data source.
      */
     @Provides
-    fun provideLoginDataSource(retrofit: Retrofit): LoginDataSource =
-        LoginDataSourceImpl(retrofit)
+    fun provideLoginDataSource(retrofit: Retrofit): LoginDataSource = LoginDataSourceImpl(retrofit)
     //endregion
-
 
     //region Caches
     /**
@@ -326,8 +318,7 @@ class ApplicationModule {
      * @return The state cache for the PIN change operation.
      */
     @Provides
-    fun provideChangePinOperationStateCache(): Cache<ChangePinOperationState> =
-        CacheImpl()
+    fun provideChangePinOperationStateCache(): Cache<ChangePinOperationState> = CacheImpl()
 
     /**
      * Provides state cache for the Password change operation.
@@ -335,8 +326,7 @@ class ApplicationModule {
      * @return The state cache for the Password change operation.
      */
     @Provides
-    fun provideChangePasswordOperationStateCache(): Cache<ChangePasswordOperationState> =
-        CacheImpl()
+    fun provideChangePasswordOperationStateCache(): Cache<ChangePasswordOperationState> = CacheImpl()
 
     /**
      * Provides state cache for user interaction related operations.
@@ -344,8 +334,7 @@ class ApplicationModule {
      * @return The state cache for user interaction related operations.
      */
     @Provides
-    fun provideUserInteractionOperationStateCache(): Cache<UserInteractionOperationState> =
-        CacheImpl()
+    fun provideUserInteractionOperationStateCache(): Cache<UserInteractionOperationState> = CacheImpl()
     //endregion
 
     //region Repositories
@@ -368,8 +357,9 @@ class ApplicationModule {
      */
     @Provides
     @Singleton
-    fun provideChangePasswordOperationStateRepository(cache: Cache<ChangePasswordOperationState>): OperationStateRepository<ChangePasswordOperationState> =
-        OperationStateRepositoryImpl(cache)
+    fun provideChangePasswordOperationStateRepository(
+        cache: Cache<ChangePasswordOperationState>
+    ): OperationStateRepository<ChangePasswordOperationState> = OperationStateRepositoryImpl(cache)
 
     /**
      * Provides state repository for user interaction related operations.
@@ -379,8 +369,9 @@ class ApplicationModule {
      */
     @Provides
     @Singleton
-    fun provideUserInteractionOperationStateRepository(cache: Cache<UserInteractionOperationState>): OperationStateRepository<UserInteractionOperationState> =
-        OperationStateRepositoryImpl(cache)
+    fun provideUserInteractionOperationStateRepository(
+        cache: Cache<UserInteractionOperationState>
+    ): OperationStateRepository<UserInteractionOperationState> = OperationStateRepositoryImpl(cache)
 
     /**
      * Provides repository for login feature.
@@ -389,8 +380,7 @@ class ApplicationModule {
      * @return The repository for login feature.
      */
     @Provides
-    fun provideLoginRepository(loginDataSource: LoginDataSource): LoginRepository =
-        LoginRepositoryImpl(loginDataSource)
+    fun provideLoginRepository(loginDataSource: LoginDataSource): LoginRepository = LoginRepositoryImpl(loginDataSource)
     //endregion
 
     //region Interaction
@@ -421,15 +411,14 @@ class ApplicationModule {
         configurationProvider: ConfigurationProvider,
         stateRepository: OperationStateRepository<UserInteractionOperationState>,
         authenticatorValidator: AuthenticatorValidator,
-        settings: Settings,
-    ): AuthenticatorSelector =
-        AuthenticatorSelectorImpl(
-            configurationProvider,
-            stateRepository,
-            authenticatorValidator,
-            settings,
-            AuthenticatorSelectorOperation.REGISTRATION
-        )
+        settings: Settings
+    ): AuthenticatorSelector = AuthenticatorSelectorImpl(
+        configurationProvider,
+        stateRepository,
+        authenticatorValidator,
+        settings,
+        AuthenticatorSelectorOperation.REGISTRATION
+    )
 
     /**
      * Provides the authenticator selector for authentication operation.
@@ -447,15 +436,14 @@ class ApplicationModule {
         configurationProvider: ConfigurationProvider,
         stateRepository: OperationStateRepository<UserInteractionOperationState>,
         authenticatorValidator: AuthenticatorValidator,
-        settings: Settings,
-    ): AuthenticatorSelector =
-        AuthenticatorSelectorImpl(
-            configurationProvider,
-            stateRepository,
-            authenticatorValidator,
-            settings,
-            AuthenticatorSelectorOperation.AUTHENTICATION
-        )
+        settings: Settings
+    ): AuthenticatorSelector = AuthenticatorSelectorImpl(
+        configurationProvider,
+        stateRepository,
+        authenticatorValidator,
+        settings,
+        AuthenticatorSelectorOperation.AUTHENTICATION
+    )
 
     /**
      * Provides the PIN changer.
@@ -465,8 +453,7 @@ class ApplicationModule {
      * @return The PIN changer.
      */
     @Provides
-    fun providePinChanger(stateRepository: OperationStateRepository<ChangePinOperationState>): PinChanger =
-        PinChangerImpl(stateRepository)
+    fun providePinChanger(stateRepository: OperationStateRepository<ChangePinOperationState>): PinChanger = PinChangerImpl(stateRepository)
 
     /**
      * Provides the PIN user verifier.
@@ -502,8 +489,7 @@ class ApplicationModule {
     fun providePasswordChanger(
         passwordPolicy: PasswordPolicy,
         stateRepository: OperationStateRepository<ChangePasswordOperationState>
-    ): PasswordChanger =
-        PasswordChangerImpl(passwordPolicy, stateRepository)
+    ): PasswordChanger = PasswordChangerImpl(passwordPolicy, stateRepository)
 
     /**
      * Provides the Password enroller.
@@ -517,8 +503,7 @@ class ApplicationModule {
     fun providePasswordEnroller(
         passwordPolicy: PasswordPolicy,
         stateRepository: OperationStateRepository<UserInteractionOperationState>
-    ): PasswordEnroller =
-        PasswordEnrollerImpl(passwordPolicy, stateRepository)
+    ): PasswordEnroller = PasswordEnrollerImpl(passwordPolicy, stateRepository)
 
     /**
      * Provides the Password user verifier.
@@ -561,8 +546,9 @@ class ApplicationModule {
      * @return The device passcode user verifier.
      */
     @Provides
-    fun provideDevicePasscodeUserVerifier(stateRepository: OperationStateRepository<UserInteractionOperationState>): DevicePasscodeUserVerifier =
-        DevicePasscodeUserVerifierImpl(stateRepository)
+    fun provideDevicePasscodeUserVerifier(
+        stateRepository: OperationStateRepository<UserInteractionOperationState>
+    ): DevicePasscodeUserVerifier = DevicePasscodeUserVerifierImpl(stateRepository)
 
     /**
      * Provides the [Consumer] for successful authentication that accepts an [AuthorizationProvider] object.
@@ -573,8 +559,9 @@ class ApplicationModule {
      *  object.
      */
     @Provides
-    fun provideOnSuccessAuthentication(stateRepository: OperationStateRepository<UserInteractionOperationState>): Consumer<AuthorizationProvider> =
-        OnSuccessAuthenticationImpl(stateRepository)
+    fun provideOnSuccessAuthentication(
+        stateRepository: OperationStateRepository<UserInteractionOperationState>
+    ): Consumer<AuthorizationProvider> = OnSuccessAuthenticationImpl(stateRepository)
 
     /**
      * Provides the [Consumer] for successful authentication during deregistration that accepts an
@@ -585,8 +572,9 @@ class ApplicationModule {
      * @return The [Consumer] for successful authentication during Deregistration operation.
      */
     @Provides
-    fun provideOnSuccessAuthenticationForDeregistration(stateRepository: OperationStateRepository<UserInteractionOperationState>): Consumer<AuthorizationProvider> =
-        OnSuccessAuthenticationImpl(stateRepository, Operation.DEREGISTRATION)
+    fun provideOnSuccessAuthenticationForDeregistration(
+        stateRepository: OperationStateRepository<UserInteractionOperationState>
+    ): Consumer<AuthorizationProvider> = OnSuccessAuthenticationImpl(stateRepository, Operation.DEREGISTRATION)
 
     /**
      * Provides the [Runnable] implementation for successful user interaction operations.
@@ -702,10 +690,7 @@ class ApplicationModule {
      */
     @Provides
     @Singleton
-    fun provideInitializeClientUseCase(
-        clientProvider: ClientProvider,
-        @ApplicationContext context: Context
-    ): InitializeClientUseCase =
+    fun provideInitializeClientUseCase(clientProvider: ClientProvider, @ApplicationContext context: Context): InitializeClientUseCase =
         InitializeClientUseCaseImpl(
             clientProvider,
             context
@@ -718,8 +703,7 @@ class ApplicationModule {
      * @return The use case for retrieving the registered accounts.
      */
     @Provides
-    fun provideGetAccountsUseCase(clientProvider: ClientProvider): GetAccountsUseCase =
-        GetAccountsUseCaseImpl(clientProvider)
+    fun provideGetAccountsUseCase(clientProvider: ClientProvider): GetAccountsUseCase = GetAccountsUseCaseImpl(clientProvider)
 
     /**
      * Provides use case for retrieving the authenticators.
@@ -768,9 +752,8 @@ class ApplicationModule {
      * @return The use case for starting a change device information operation.
      */
     @Provides
-    fun provideChangeDeviceInformationUseCase(
-        clientProvider: ClientProvider
-    ): ChangeDeviceInformationUseCase = ChangeDeviceInformationUseCaseImpl(clientProvider)
+    fun provideChangeDeviceInformationUseCase(clientProvider: ClientProvider): ChangeDeviceInformationUseCase =
+        ChangeDeviceInformationUseCaseImpl(clientProvider)
 
     /**
      * Provides use case for retrieving the FIDO UAF attestation information.
@@ -779,9 +762,8 @@ class ApplicationModule {
      * @return The use case for retrieving the FIDO UAF attestation information.
      */
     @Provides
-    fun provideGetFidoUafAttestationInformationUseCase(
-        clientProvider: ClientProvider
-    ): GetFidoUafAttestationInformationUseCase = GetFidoUafAttestationInformationUseCaseImpl(clientProvider)
+    fun provideGetFidoUafAttestationInformationUseCase(clientProvider: ClientProvider): GetFidoUafAttestationInformationUseCase =
+        GetFidoUafAttestationInformationUseCaseImpl(clientProvider)
 
     /**
      * Provides use case for retrieving the meta data of Nevis Mobile Authentication SDK.
@@ -901,8 +883,9 @@ class ApplicationModule {
      * @return The use case for selecting an authenticator during an authentication or registration operation.
      */
     @Provides
-    fun provideSelectAuthenticatorUseCase(stateRepository: OperationStateRepository<UserInteractionOperationState>): SelectAuthenticatorUseCase =
-        SelectAuthenticatorUseCaseImpl(stateRepository)
+    fun provideSelectAuthenticatorUseCase(
+        stateRepository: OperationStateRepository<UserInteractionOperationState>
+    ): SelectAuthenticatorUseCase = SelectAuthenticatorUseCaseImpl(stateRepository)
 
     /**
      * Provides use case for setting a new PIN during a registration operation.
@@ -1026,8 +1009,9 @@ class ApplicationModule {
      * @return The use case for verifying the user using fingerprint authenticator.
      */
     @Provides
-    fun provideVerifyFingerprintUseCase(stateRepository: OperationStateRepository<UserInteractionOperationState>): VerifyFingerprintUseCase =
-        VerifyFingerprintUseCaseImpl(stateRepository)
+    fun provideVerifyFingerprintUseCase(
+        stateRepository: OperationStateRepository<UserInteractionOperationState>
+    ): VerifyFingerprintUseCase = VerifyFingerprintUseCaseImpl(stateRepository)
 
     /**
      * Provides use case for verifying the user using biometric authenticator.
@@ -1048,8 +1032,9 @@ class ApplicationModule {
      * @return The use case for verifying the user using device passcode authenticator.
      */
     @Provides
-    fun provideVerifyDevicePasscodeUseCase(stateRepository: OperationStateRepository<UserInteractionOperationState>): VerifyDevicePasscodeUseCase =
-        VerifyDevicePasscodeUseCaseImpl(stateRepository)
+    fun provideVerifyDevicePasscodeUseCase(
+        stateRepository: OperationStateRepository<UserInteractionOperationState>
+    ): VerifyDevicePasscodeUseCase = VerifyDevicePasscodeUseCaseImpl(stateRepository)
 
     /**
      * Provides use case for starting a process out-of-band payload operation.
@@ -1117,10 +1102,7 @@ class ApplicationModule {
      * @return The use case for decoding an out-of-band payload.
      */
     @Provides
-    fun provideDecodePayloadUseCase(
-        clientProvider: ClientProvider
-    ): DecodePayloadUseCase =
-        DecodePayloadUseCaseImpl(clientProvider)
+    fun provideDecodePayloadUseCase(clientProvider: ClientProvider): DecodePayloadUseCase = DecodePayloadUseCaseImpl(clientProvider)
 
     /**
      * Provides use case for deregister registered accounts, authenticators.
@@ -1129,8 +1111,7 @@ class ApplicationModule {
      * @return The use case for deregister registered accounts, authenticators.
      */
     @Provides
-    fun provideDeregisterUseCase(clientProvider: ClientProvider): DeregisterUseCase =
-        DeregisterUseCaseImpl(clientProvider)
+    fun provideDeregisterUseCase(clientProvider: ClientProvider): DeregisterUseCase = DeregisterUseCaseImpl(clientProvider)
 
     /**
      * Provides use case for starting an Auth Cloud API registration operation.
@@ -1184,8 +1165,7 @@ class ApplicationModule {
      * @return The use case for login.
      */
     @Provides
-    fun provideLoginUseCase(loginRepository: LoginRepository): LoginUseCase =
-        LoginUseCaseImpl(loginRepository)
+    fun provideLoginUseCase(loginRepository: LoginRepository): LoginUseCase = LoginUseCaseImpl(loginRepository)
 
     /**
      * Provides use case for starting an in-band registration operation.

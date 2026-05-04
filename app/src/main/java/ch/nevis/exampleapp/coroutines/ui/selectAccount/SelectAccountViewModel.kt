@@ -18,9 +18,9 @@ import ch.nevis.exampleapp.coroutines.domain.usecase.TransactionConfirmationUseC
 import ch.nevis.exampleapp.coroutines.ui.base.CancellableOperationViewModel
 import ch.nevis.mobile.sdk.api.localdata.Account
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Named
+import kotlinx.coroutines.launch
 
 /**
  * View model implementation for Select Account view.
@@ -63,13 +63,15 @@ class SelectAccountViewModel @Inject constructor(
                 // Show it to the user for confirmation or cancellation
                 // The AccountSelectionHandler will be invoked or cancelled there.
                 confirm(transactionConfirmationMessage, account)
-            } else when (operation) {
-                Operation.AUTHENTICATION -> inBandAuthenticate(account.username())
-                Operation.DEREGISTRATION -> inBandAuthenticationForDeregistration(account.username())
-                Operation.CHANGE_PIN -> changePin(account.username())
-                Operation.CHANGE_PASSWORD -> changePassword(account.username())
-                Operation.OUT_OF_BAND_AUTHENTICATION -> outOfBandAuthentication(account.username())
-                else -> throw BusinessException.invalidState()
+            } else {
+                when (operation) {
+                    Operation.AUTHENTICATION -> inBandAuthenticate(account.username())
+                    Operation.DEREGISTRATION -> inBandAuthenticationForDeregistration(account.username())
+                    Operation.CHANGE_PIN -> changePin(account.username())
+                    Operation.CHANGE_PASSWORD -> changePassword(account.username())
+                    Operation.OUT_OF_BAND_AUTHENTICATION -> outOfBandAuthentication(account.username())
+                    else -> throw BusinessException.invalidState()
+                }
             }
         }
     }

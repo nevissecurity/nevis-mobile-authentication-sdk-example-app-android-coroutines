@@ -10,8 +10,8 @@ import ch.nevis.exampleapp.coroutines.domain.model.error.BusinessException
 import ch.nevis.exampleapp.coroutines.domain.model.response.ErrorResponse
 import ch.nevis.exampleapp.coroutines.domain.model.response.Response
 import ch.nevis.exampleapp.coroutines.domain.repository.LoginRepository
-import timber.log.Timber
 import java.net.PasswordAuthentication
+import timber.log.Timber
 
 /**
  * Default implementation of [LoginUseCase] interface.
@@ -20,9 +20,7 @@ import java.net.PasswordAuthentication
  * @param loginRepository An instance of a [LoginRepository] implementation that is used for the login
  *  process.
  */
-class LoginUseCaseImpl(
-    private val loginRepository: LoginRepository
-) : LoginUseCase {
+class LoginUseCaseImpl(private val loginRepository: LoginRepository) : LoginUseCase {
 
     //region LoginUseCase
     override suspend fun execute(passwordAuthentication: PasswordAuthentication): Response {

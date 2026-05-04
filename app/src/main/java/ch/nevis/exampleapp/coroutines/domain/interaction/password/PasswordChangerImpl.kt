@@ -15,8 +15,8 @@ import ch.nevis.mobile.sdk.api.operation.password.PasswordChangeContext
 import ch.nevis.mobile.sdk.api.operation.password.PasswordChangeHandler
 import ch.nevis.mobile.sdk.api.operation.password.PasswordChanger
 import ch.nevis.mobile.sdk.api.operation.password.PasswordPolicy
-import timber.log.Timber
 import kotlin.coroutines.resume
+import timber.log.Timber
 
 /**
  * Default implementation of [PasswordChanger] interface. It stores the password change step context
@@ -34,10 +34,7 @@ class PasswordChangerImpl(
 
     //region PasswordChanger
     /** @suppress */
-    override fun changePassword(
-        context: PasswordChangeContext,
-        handler: PasswordChangeHandler
-    ) {
+    override fun changePassword(context: PasswordChangeContext, handler: PasswordChangeHandler) {
         if (context.lastRecoverableError().isPresent) {
             Timber.asTree().sdk("Password change failed. Please try again.")
         } else {

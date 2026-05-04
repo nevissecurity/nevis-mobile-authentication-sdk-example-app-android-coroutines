@@ -45,11 +45,6 @@ data class AuthenticatorItem(
      * Tells that if this authenticator item is selectable on select authenticator view or not.
      * The value is calculated based on [AuthenticatorItem.isPolicyCompliant] and [AuthenticatorItem.isUserEnrolled] flags.
      */
-    fun isEnabled(): Boolean {
-        return isPolicyCompliant && (
-            aaid == Authenticator.PIN_AUTHENTICATOR_AAID ||
-            aaid == Authenticator.PASSWORD_AUTHENTICATOR_AAID ||
-            isUserEnrolled
-        )
-    }
+    fun isEnabled(): Boolean = isPolicyCompliant &&
+        (aaid == Authenticator.PIN_AUTHENTICATOR_AAID || aaid == Authenticator.PASSWORD_AUTHENTICATOR_AAID || isUserEnrolled)
 }

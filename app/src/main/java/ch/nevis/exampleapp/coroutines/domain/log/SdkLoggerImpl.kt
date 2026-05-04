@@ -1,21 +1,20 @@
 /**
  * Nevis Mobile Authentication SDK Example App
  *
- * Copyright © 2022. Nevis Security AG. All rights reserved.
+ * Copyright © 2022-2026. Nevis Security AG. All rights reserved.
  */
 
 package ch.nevis.exampleapp.coroutines.domain.log
 
 import java.lang.ref.WeakReference
-import java.util.*
-import kotlin.collections.ArrayList
+import java.util.Date
 
 /**
  * Default implementation of [SdkLogger] interface. It simply stores the logged messages in an [ArrayList] object.
  *
  * @constructor Creates a new instance.
  */
-class SdkLoggerImpl: SdkLogger {
+class SdkLoggerImpl : SdkLogger {
 
     //region Properties
     /**

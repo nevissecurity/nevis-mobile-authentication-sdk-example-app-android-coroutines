@@ -15,8 +15,8 @@ import ch.nevis.exampleapp.coroutines.timber.sdk
 import ch.nevis.mobile.sdk.api.operation.userverification.DevicePasscodeUserVerificationContext
 import ch.nevis.mobile.sdk.api.operation.userverification.DevicePasscodeUserVerificationHandler
 import ch.nevis.mobile.sdk.api.operation.userverification.DevicePasscodeUserVerifier
-import timber.log.Timber
 import kotlin.coroutines.resume
+import timber.log.Timber
 
 /**
  * Default implementation of [DevicePasscodeUserVerifier] interface. It stores the device passcode verification
@@ -26,9 +26,8 @@ import kotlin.coroutines.resume
  * @constructor Creates a new instance.
  * @param stateRepository The state repository that stores the state of the running operation.
  */
-class DevicePasscodeUserVerifierImpl(
-    private val stateRepository: OperationStateRepository<UserInteractionOperationState>
-) : DevicePasscodeUserVerifier {
+class DevicePasscodeUserVerifierImpl(private val stateRepository: OperationStateRepository<UserInteractionOperationState>) :
+    DevicePasscodeUserVerifier {
 
     //region DevicePasscodeUserVerifier
     /** @suppress */

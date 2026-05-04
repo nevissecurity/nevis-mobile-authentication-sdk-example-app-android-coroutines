@@ -21,9 +21,7 @@ import ch.nevis.exampleapp.coroutines.domain.model.response.Response
  * @constructor Creates a new instance.
  * @param clientProvider An instance of [ClientProvider] interface implementation.
  */
-class GetDeviceInformationUseCaseImpl(
-    private val clientProvider: ClientProvider
-) : GetDeviceInformationUseCase {
+class GetDeviceInformationUseCaseImpl(private val clientProvider: ClientProvider) : GetDeviceInformationUseCase {
 
     //region GetDeviceInformationUseCase
     /**

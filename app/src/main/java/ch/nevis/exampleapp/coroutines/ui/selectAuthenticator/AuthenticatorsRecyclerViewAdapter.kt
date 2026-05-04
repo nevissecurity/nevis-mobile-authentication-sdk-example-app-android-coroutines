@@ -69,7 +69,6 @@ class AuthenticatorsRecyclerViewAdapter(
      * @constructor Creates a new instance.
      * @param binding The binding.
      */
-    class AuthenticatorViewHolder(val binding: ItemAuthenticatorBinding) :
-        RecyclerView.ViewHolder(binding.root)
+    class AuthenticatorViewHolder(val binding: ItemAuthenticatorBinding) : RecyclerView.ViewHolder(binding.root)
     //endregion
 }

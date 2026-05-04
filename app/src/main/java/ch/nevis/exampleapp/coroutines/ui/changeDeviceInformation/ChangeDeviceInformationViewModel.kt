@@ -11,8 +11,8 @@ import ch.nevis.exampleapp.coroutines.domain.usecase.ChangeDeviceInformationUseC
 import ch.nevis.exampleapp.coroutines.domain.usecase.GetDeviceInformationUseCase
 import ch.nevis.exampleapp.coroutines.ui.base.OperationViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlinx.coroutines.launch
 
 /**
  * View model implementation of Change Device Information view.

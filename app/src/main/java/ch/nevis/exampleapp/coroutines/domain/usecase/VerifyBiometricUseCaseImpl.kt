@@ -20,13 +20,12 @@ import kotlinx.coroutines.suspendCancellableCoroutine
  * @param stateRepository An instance of an [OperationStateRepository] implementation that may hold
  *  a [UserInteractionOperationState].
  */
-class VerifyBiometricUseCaseImpl(
-    private val stateRepository: OperationStateRepository<UserInteractionOperationState>
-) : VerifyBiometricUseCase {
+class VerifyBiometricUseCaseImpl(private val stateRepository: OperationStateRepository<UserInteractionOperationState>) :
+    VerifyBiometricUseCase {
 
     //region VerifyBiometricUseCase
-    override suspend fun execute(biometricPromptOptions: BiometricPromptOptions): Response {
-        return suspendCancellableCoroutine { cancellableContinuation ->
+    override suspend fun execute(biometricPromptOptions: BiometricPromptOptions): Response =
+        suspendCancellableCoroutine { cancellableContinuation ->
             val operationState =
                 stateRepository.get() ?: throw BusinessException.invalidState()
             val biometricUserVerificationHandler = operationState.biometricUserVerificationHandler
@@ -35,6 +34,5 @@ class VerifyBiometricUseCaseImpl(
             operationState.biometricUserVerificationHandler = null
             biometricUserVerificationHandler.listenForOsCredentials(biometricPromptOptions)
         }
-    }
     //endregion
 }

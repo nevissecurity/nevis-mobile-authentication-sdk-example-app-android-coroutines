@@ -20,9 +20,7 @@ class CacheImpl<T> : Cache<T> {
         this.item = item
     }
 
-    override fun get(): T? {
-        return item
-    }
+    override fun get(): T? = item
 
     override fun reset() {
         item = null

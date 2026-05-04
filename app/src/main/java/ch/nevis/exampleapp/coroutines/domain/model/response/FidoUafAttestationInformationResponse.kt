@@ -38,40 +38,44 @@ sealed class FidoUafAttestationInformationResponse(
     /**
      * Represents the case when only surrogate basic attestation is supported by the device.
      */
-    class OnlySurrogateBasicSupported : FidoUafAttestationInformationResponse(
-        onlySurrogateBasicSupported = true,
-        onlyDefaultMode = false,
-        strictMode = false,
-        strictStrongBoxMode = false
-    )
+    class OnlySurrogateBasicSupported :
+        FidoUafAttestationInformationResponse(
+            onlySurrogateBasicSupported = true,
+            onlyDefaultMode = false,
+            strictMode = false,
+            strictStrongBoxMode = false
+        )
 
     /**
      * Represents the case when both surrogate basic and default attestation modes are supported by the device.
      */
-    class OnlyDefaultMode : FidoUafAttestationInformationResponse(
-        onlySurrogateBasicSupported = true,
-        onlyDefaultMode = true,
-        strictMode = false,
-        strictStrongBoxMode = false
-    )
+    class OnlyDefaultMode :
+        FidoUafAttestationInformationResponse(
+            onlySurrogateBasicSupported = true,
+            onlyDefaultMode = true,
+            strictMode = false,
+            strictStrongBoxMode = false
+        )
 
     /**
      * Represents the case when surrogate basic, default, and strict attestation modes are all supported by the device.
      */
-    class StrictMode : FidoUafAttestationInformationResponse(
-        onlySurrogateBasicSupported = true,
-        onlyDefaultMode = true,
-        strictMode = true,
-        strictStrongBoxMode = false
-    )
+    class StrictMode :
+        FidoUafAttestationInformationResponse(
+            onlySurrogateBasicSupported = true,
+            onlyDefaultMode = true,
+            strictMode = true,
+            strictStrongBoxMode = false
+        )
 
     /**
      * Represents the case when surrogate basic, default, and strict and strict-strongbox attestation modes are all supported by the device.
      */
-    class StrictStrongBoxMode : FidoUafAttestationInformationResponse(
-        onlySurrogateBasicSupported = true,
-        onlyDefaultMode = true,
-        strictMode = true,
-        strictStrongBoxMode = true
-    )
+    class StrictStrongBoxMode :
+        FidoUafAttestationInformationResponse(
+            onlySurrogateBasicSupported = true,
+            onlyDefaultMode = true,
+            strictMode = true,
+            strictStrongBoxMode = true
+        )
 }

@@ -71,8 +71,7 @@ class BusinessException private constructor(
         /**
          * Helper static method to initialize a [BusinessException] with type [BusinessExceptionType.DEVICE_INFORMATION_NOT_FOUND].
          */
-        fun deviceInformationNotFound() =
-            BusinessException(BusinessExceptionType.DEVICE_INFORMATION_NOT_FOUND)
+        fun deviceInformationNotFound() = BusinessException(BusinessExceptionType.DEVICE_INFORMATION_NOT_FOUND)
 
         /**
          * Helper static method to initialize a [BusinessException] with type [BusinessExceptionType.INVALID_STATE].

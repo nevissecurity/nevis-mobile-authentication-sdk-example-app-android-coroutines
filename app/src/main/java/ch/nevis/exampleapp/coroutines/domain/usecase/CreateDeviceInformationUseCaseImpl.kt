@@ -13,7 +13,7 @@ import ch.nevis.exampleapp.coroutines.domain.model.response.DeviceInformationRes
 import ch.nevis.exampleapp.coroutines.domain.model.response.Response
 import ch.nevis.mobile.sdk.api.localdata.DeviceInformation
 import java.text.DateFormat
-import java.util.*
+import java.util.Date
 
 /**
  * Default implementation of [CreateDeviceInformationUseCase] interface.
@@ -23,16 +23,12 @@ import java.util.*
  * @constructor Creates a new instance.
  * @param context The Android [Context].
  */
-class CreateDeviceInformationUseCaseImpl(
-    private val context: Context
-) : CreateDeviceInformationUseCase {
+class CreateDeviceInformationUseCaseImpl(private val context: Context) : CreateDeviceInformationUseCase {
 
     //region CreateDeviceInformationUseCase
-    override suspend fun execute(): Response {
-        return DeviceInformationResponse(
-            DeviceInformation.builder().name(initDeviceInformationName()).build()
-        )
-    }
+    override suspend fun execute(): Response = DeviceInformationResponse(
+        DeviceInformation.builder().name(initDeviceInformationName()).build()
+    )
     //endregion
 
     //region Private Interface

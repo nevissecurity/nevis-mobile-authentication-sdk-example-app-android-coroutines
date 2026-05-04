@@ -13,9 +13,9 @@ import ch.nevis.exampleapp.coroutines.domain.model.state.UserInteractionOperatio
 import ch.nevis.exampleapp.coroutines.domain.repository.OperationStateRepository
 import ch.nevis.exampleapp.coroutines.timber.sdk
 import ch.nevis.mobile.sdk.api.authorization.AuthorizationProvider
-import timber.log.Timber
 import java.util.function.Consumer
 import kotlin.coroutines.resume
+import timber.log.Timber
 
 /**
  * An authentication specific implementation of [Consumer] interface that accepts an [AuthorizationProvider]

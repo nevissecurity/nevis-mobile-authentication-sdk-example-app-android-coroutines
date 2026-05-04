@@ -10,8 +10,8 @@ import androidx.lifecycle.viewModelScope
 import ch.nevis.exampleapp.coroutines.domain.usecase.DecodePayloadUseCase
 import ch.nevis.exampleapp.coroutines.domain.usecase.ProcessOutOfBandPayloadUseCase
 import ch.nevis.mobile.sdk.api.operation.outofband.OutOfBandPayload
-import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlinx.coroutines.launch
 
 /**
  * Abstract, base view model implementation for view models those are related to out-of-band operations.

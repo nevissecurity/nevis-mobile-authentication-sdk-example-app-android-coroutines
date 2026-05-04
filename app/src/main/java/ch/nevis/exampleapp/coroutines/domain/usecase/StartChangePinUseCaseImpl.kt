@@ -13,9 +13,9 @@ import ch.nevis.exampleapp.coroutines.domain.model.state.ChangePinOperationState
 import ch.nevis.exampleapp.coroutines.domain.repository.OperationStateRepository
 import ch.nevis.mobile.sdk.api.operation.pin.PinChangeError
 import ch.nevis.mobile.sdk.api.operation.pin.PinChanger
+import java.util.function.Consumer
 import kotlinx.coroutines.Runnable
 import kotlinx.coroutines.suspendCancellableCoroutine
-import java.util.function.Consumer
 
 /**
  * Default implementation of [StartChangePinUseCase] interface.
@@ -37,20 +37,18 @@ class StartChangePinUseCaseImpl(
 ) : StartChangePinUseCase {
 
     //region StartChangePinUseCase
-    override suspend fun execute(username: String): Response {
-        return suspendCancellableCoroutine { cancellableContinuation ->
-            val operationState = ChangePinOperationState()
-            operationState.cancellableContinuation = cancellableContinuation
-            stateRepository.save(operationState)
+    override suspend fun execute(username: String): Response = suspendCancellableCoroutine { cancellableContinuation ->
+        val operationState = ChangePinOperationState()
+        operationState.cancellableContinuation = cancellableContinuation
+        stateRepository.save(operationState)
 
-            val client = clientProvider.get() ?: throw BusinessException.clientNotInitialized()
-            client.operations().pinChange()
-                .username(username)
-                .pinChanger(pinChanger)
-                .onSuccess(onSuccess)
-                .onError(onError)
-                .execute()
-        }
+        val client = clientProvider.get() ?: throw BusinessException.clientNotInitialized()
+        client.operations().pinChange()
+            .username(username)
+            .pinChanger(pinChanger)
+            .onSuccess(onSuccess)
+            .onError(onError)
+            .execute()
     }
     //endregion
 }

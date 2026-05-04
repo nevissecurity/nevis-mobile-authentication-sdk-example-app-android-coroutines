@@ -41,10 +41,7 @@ class ErrorFragment : Fragment() {
 
     //region Fragment
     /** @suppress */
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentErrorBinding.inflate(inflater, container, false)
         return binding.root
     }

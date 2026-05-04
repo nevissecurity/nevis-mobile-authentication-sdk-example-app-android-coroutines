@@ -19,23 +19,20 @@ import kotlinx.coroutines.suspendCancellableCoroutine
  * @param stateRepository An instance of an [OperationStateRepository] implementation that may hold
  *  a [UserInteractionOperationState].
  */
-class VerifyFingerprintUseCaseImpl(
-    private val stateRepository: OperationStateRepository<UserInteractionOperationState>
-) : VerifyFingerprintUseCase {
+class VerifyFingerprintUseCaseImpl(private val stateRepository: OperationStateRepository<UserInteractionOperationState>) :
+    VerifyFingerprintUseCase {
 
     //region VerifyFingerprintUseCase
-    override suspend fun execute(): Response {
-        return suspendCancellableCoroutine { cancellableContinuation ->
-            val operationState =
-                stateRepository.get() ?: throw BusinessException.invalidState()
-            val fingerprintUserVerificationHandler =
-                operationState.fingerprintUserVerificationHandler
-                    ?: throw BusinessException.invalidState()
-            operationState.cancellableContinuation = cancellableContinuation
-            operationState.fingerprintUserVerificationHandler = null
-            operationState.osAuthenticationListenHandler =
-                fingerprintUserVerificationHandler.listenForOsCredentials()
-        }
+    override suspend fun execute(): Response = suspendCancellableCoroutine { cancellableContinuation ->
+        val operationState =
+            stateRepository.get() ?: throw BusinessException.invalidState()
+        val fingerprintUserVerificationHandler =
+            operationState.fingerprintUserVerificationHandler
+                ?: throw BusinessException.invalidState()
+        operationState.cancellableContinuation = cancellableContinuation
+        operationState.fingerprintUserVerificationHandler = null
+        operationState.osAuthenticationListenHandler =
+            fingerprintUserVerificationHandler.listenForOsCredentials()
     }
     //endregion
 }

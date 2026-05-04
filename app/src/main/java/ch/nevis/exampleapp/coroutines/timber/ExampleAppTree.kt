@@ -1,7 +1,7 @@
 /**
  * Nevis Mobile Authentication SDK Example App
  *
- * Copyright © 2022. Nevis Security AG. All rights reserved.
+ * Copyright © 2022-2026. Nevis Security AG. All rights reserved.
  */
 
 package ch.nevis.exampleapp.coroutines.timber
@@ -17,9 +17,7 @@ import timber.log.Timber
  * @constructor Creates a new instance.
  * @param sdkLogger An instance of an implementation of [SdkLogger] interface.
  */
-class ExampleAppTree(
-    private val sdkLogger: SdkLogger
-): Timber.DebugTree() {
+class ExampleAppTree(private val sdkLogger: SdkLogger) : Timber.DebugTree() {
 
     //region Constants
     /**

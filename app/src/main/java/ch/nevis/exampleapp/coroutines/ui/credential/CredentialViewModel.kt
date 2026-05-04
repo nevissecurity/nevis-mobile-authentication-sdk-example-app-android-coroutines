@@ -1,7 +1,7 @@
 /**
  * Nevis Mobile Authentication SDK Example App
  *
- * Copyright © 2022. Nevis Security AG. All rights reserved.
+ * Copyright © 2022-2026. Nevis Security AG. All rights reserved.
  */
 
 package ch.nevis.exampleapp.coroutines.ui.credential
@@ -17,12 +17,12 @@ import ch.nevis.exampleapp.coroutines.domain.model.error.BusinessException
 import ch.nevis.exampleapp.coroutines.domain.model.sdk.PasswordAuthenticatorProtectionStatusLastAttemptFailedImpl
 import ch.nevis.exampleapp.coroutines.domain.model.sdk.PinAuthenticatorProtectionStatusLastAttemptFailedImpl
 import ch.nevis.exampleapp.coroutines.domain.usecase.ChangePasswordUseCase
-import ch.nevis.exampleapp.coroutines.domain.util.message
 import ch.nevis.exampleapp.coroutines.domain.usecase.ChangePinUseCase
 import ch.nevis.exampleapp.coroutines.domain.usecase.SetPasswordUseCase
 import ch.nevis.exampleapp.coroutines.domain.usecase.SetPinUseCase
 import ch.nevis.exampleapp.coroutines.domain.usecase.VerifyPasswordUseCase
 import ch.nevis.exampleapp.coroutines.domain.usecase.VerifyPinUseCase
+import ch.nevis.exampleapp.coroutines.domain.util.message
 import ch.nevis.exampleapp.coroutines.timber.sdk
 import ch.nevis.exampleapp.coroutines.ui.base.CancellableOperationViewModel
 import ch.nevis.exampleapp.coroutines.ui.credential.model.CredentialProtectionInformation
@@ -35,9 +35,9 @@ import ch.nevis.mobile.sdk.api.operation.password.PasswordAuthenticatorProtectio
 import ch.nevis.mobile.sdk.api.operation.pin.PinAuthenticatorProtectionStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import javax.inject.Inject
 
 /**
  * View model implementation of Credential view.
@@ -120,23 +120,21 @@ class CredentialViewModel @Inject constructor(
      * @return The title string resource identifier.
      */
     @StringRes
-    fun title(): Int {
-        return when (credentialViewMode) {
-            CredentialViewMode.CHANGE -> when (credentialType) {
-                Authenticator.PIN_AUTHENTICATOR_AAID -> R.string.pin_title_change
-                Authenticator.PASSWORD_AUTHENTICATOR_AAID -> R.string.password_title_change
-                else -> throw BusinessException.invalidState()
-            }
-            CredentialViewMode.ENROLLMENT -> when (credentialType) {
-                Authenticator.PIN_AUTHENTICATOR_AAID -> R.string.pin_title_enrollment
-                Authenticator.PASSWORD_AUTHENTICATOR_AAID -> R.string.password_title_enrollment
-                else -> throw BusinessException.invalidState()
-            }
-            CredentialViewMode.VERIFICATION -> when (credentialType) {
-                Authenticator.PIN_AUTHENTICATOR_AAID -> R.string.pin_title_verify
-                Authenticator.PASSWORD_AUTHENTICATOR_AAID -> R.string.password_title_verify
-                else -> throw BusinessException.invalidState()
-            }
+    fun title(): Int = when (credentialViewMode) {
+        CredentialViewMode.CHANGE -> when (credentialType) {
+            Authenticator.PIN_AUTHENTICATOR_AAID -> R.string.pin_title_change
+            Authenticator.PASSWORD_AUTHENTICATOR_AAID -> R.string.password_title_change
+            else -> throw BusinessException.invalidState()
+        }
+        CredentialViewMode.ENROLLMENT -> when (credentialType) {
+            Authenticator.PIN_AUTHENTICATOR_AAID -> R.string.pin_title_enrollment
+            Authenticator.PASSWORD_AUTHENTICATOR_AAID -> R.string.password_title_enrollment
+            else -> throw BusinessException.invalidState()
+        }
+        CredentialViewMode.VERIFICATION -> when (credentialType) {
+            Authenticator.PIN_AUTHENTICATOR_AAID -> R.string.pin_title_verify
+            Authenticator.PASSWORD_AUTHENTICATOR_AAID -> R.string.password_title_verify
+            else -> throw BusinessException.invalidState()
         }
     }
 
@@ -146,23 +144,21 @@ class CredentialViewModel @Inject constructor(
      * @return The description string resource identifier.
      */
     @StringRes
-    fun description(): Int {
-        return when (credentialViewMode) {
-            CredentialViewMode.CHANGE -> when (credentialType) {
-                Authenticator.PIN_AUTHENTICATOR_AAID -> R.string.pin_description_change
-                Authenticator.PASSWORD_AUTHENTICATOR_AAID -> R.string.password_description_change
-                else -> throw BusinessException.invalidState()
-            }
-            CredentialViewMode.ENROLLMENT -> when (credentialType) {
-                Authenticator.PIN_AUTHENTICATOR_AAID -> R.string.pin_description_enrollment
-                Authenticator.PASSWORD_AUTHENTICATOR_AAID -> R.string.password_description_enrollment
-                else -> throw BusinessException.invalidState()
-            }
-            CredentialViewMode.VERIFICATION -> when (credentialType) {
-                Authenticator.PIN_AUTHENTICATOR_AAID -> R.string.pin_description_verify
-                Authenticator.PASSWORD_AUTHENTICATOR_AAID -> R.string.password_description_verify
-                else -> throw BusinessException.invalidState()
-            }
+    fun description(): Int = when (credentialViewMode) {
+        CredentialViewMode.CHANGE -> when (credentialType) {
+            Authenticator.PIN_AUTHENTICATOR_AAID -> R.string.pin_description_change
+            Authenticator.PASSWORD_AUTHENTICATOR_AAID -> R.string.password_description_change
+            else -> throw BusinessException.invalidState()
+        }
+        CredentialViewMode.ENROLLMENT -> when (credentialType) {
+            Authenticator.PIN_AUTHENTICATOR_AAID -> R.string.pin_description_enrollment
+            Authenticator.PASSWORD_AUTHENTICATOR_AAID -> R.string.password_description_enrollment
+            else -> throw BusinessException.invalidState()
+        }
+        CredentialViewMode.VERIFICATION -> when (credentialType) {
+            Authenticator.PIN_AUTHENTICATOR_AAID -> R.string.pin_description_verify
+            Authenticator.PASSWORD_AUTHENTICATOR_AAID -> R.string.password_description_verify
+            else -> throw BusinessException.invalidState()
         }
     }
 
@@ -172,12 +168,10 @@ class CredentialViewModel @Inject constructor(
      * @return The credential text field hint string resource identifier.
      */
     @StringRes
-    fun credentialTextFieldHint(): Int {
-        return when (credentialType) {
-            Authenticator.PIN_AUTHENTICATOR_AAID -> R.string.pin_hint_pin
-            Authenticator.PASSWORD_AUTHENTICATOR_AAID -> R.string.password_hint_password
-            else -> throw BusinessException.invalidState()
-        }
+    fun credentialTextFieldHint(): Int = when (credentialType) {
+        Authenticator.PIN_AUTHENTICATOR_AAID -> R.string.pin_hint_pin
+        Authenticator.PASSWORD_AUTHENTICATOR_AAID -> R.string.password_hint_password
+        else -> throw BusinessException.invalidState()
     }
 
     /**
@@ -185,12 +179,10 @@ class CredentialViewModel @Inject constructor(
      *
      * @return The old credential text field hint string resource identifier.
      */
-    fun oldCredentialTextFieldHint(): Int {
-        return when (credentialType) {
-            Authenticator.PIN_AUTHENTICATOR_AAID -> R.string.pin_hint_old_pin
-            Authenticator.PASSWORD_AUTHENTICATOR_AAID -> R.string.password_hint_old_password
-            else -> throw IllegalStateException("Unsupported credential type.")
-        }
+    fun oldCredentialTextFieldHint(): Int = when (credentialType) {
+        Authenticator.PIN_AUTHENTICATOR_AAID -> R.string.pin_hint_old_pin
+        Authenticator.PASSWORD_AUTHENTICATOR_AAID -> R.string.password_hint_old_password
+        else -> throw IllegalStateException("Unsupported credential type.")
     }
 
     /**
@@ -198,11 +190,9 @@ class CredentialViewModel @Inject constructor(
      *
      * @return The visibility flag of old credential text field.
      */
-    fun oldCredentialVisibility(): Int {
-        return when (credentialViewMode) {
-            CredentialViewMode.CHANGE -> View.VISIBLE
-            else -> View.GONE
-        }
+    fun oldCredentialVisibility(): Int = when (credentialViewMode) {
+        CredentialViewMode.CHANGE -> View.VISIBLE
+        else -> View.GONE
     }
 
     /**
@@ -210,14 +200,16 @@ class CredentialViewModel @Inject constructor(
      *
      * @return The input type of text field.
      */
-    fun textFieldInputType(): Int {
-        return when (credentialType) {
-            Authenticator.PIN_AUTHENTICATOR_AAID -> (InputType.TYPE_CLASS_NUMBER or
-                    InputType.TYPE_NUMBER_VARIATION_PASSWORD)
-            Authenticator.PASSWORD_AUTHENTICATOR_AAID -> (InputType.TYPE_CLASS_TEXT or
-                    InputType.TYPE_TEXT_VARIATION_PASSWORD)
-            else -> throw IllegalStateException("Unsupported credential type.")
-        }
+    fun textFieldInputType(): Int = when (credentialType) {
+        Authenticator.PIN_AUTHENTICATOR_AAID -> (
+            InputType.TYPE_CLASS_NUMBER or
+                InputType.TYPE_NUMBER_VARIATION_PASSWORD
+            )
+        Authenticator.PASSWORD_AUTHENTICATOR_AAID -> (
+            InputType.TYPE_CLASS_TEXT or
+                InputType.TYPE_TEXT_VARIATION_PASSWORD
+            )
+        else -> throw IllegalStateException("Unsupported credential type.")
     }
 
     /**
@@ -226,20 +218,18 @@ class CredentialViewModel @Inject constructor(
      * @param parameter The [CredentialNavigationParameter] that was received by the owner [CredentialFragment].
      * @return The created [CredentialProtectionInformation] instance.
      */
-    fun protectionInfo(parameter: CredentialNavigationParameter): CredentialProtectionInformation? {
-        return when (parameter) {
-            is PinNavigationParameter -> {
-                parameter.pinAuthenticatorProtectionStatus?.let {
-                    pinProtectionInfo(it)
-                }
+    fun protectionInfo(parameter: CredentialNavigationParameter): CredentialProtectionInformation? = when (parameter) {
+        is PinNavigationParameter -> {
+            parameter.pinAuthenticatorProtectionStatus?.let {
+                pinProtectionInfo(it)
             }
-            is PasswordNavigationParameter -> {
-                parameter.passwordAuthenticatorProtectionStatus?.let {
-                    passwordProtectionInfo(it)
-                }
-            }
-            else -> throw BusinessException.invalidState()
         }
+        is PasswordNavigationParameter -> {
+            parameter.passwordAuthenticatorProtectionStatus?.let {
+                passwordProtectionInfo(it)
+            }
+        }
+        else -> throw BusinessException.invalidState()
     }
 
     /**
@@ -249,35 +239,35 @@ class CredentialViewModel @Inject constructor(
      * @return The PIN authenticator specific [CredentialProtectionInformation] instance.
      */
     @SuppressLint("DefaultLocale")
-    fun pinProtectionInfo(protectionStatus: PinAuthenticatorProtectionStatus): CredentialProtectionInformation {
-        return when (protectionStatus) {
-            is PinAuthenticatorProtectionStatus.Unlocked -> {
-                Timber.asTree().sdk("PIN authenticator is unlocked.")
-                CredentialProtectionInformation()
-            }
-            is PinAuthenticatorProtectionStatus.LastAttemptFailed -> {
-                Timber.asTree().sdk("Last attempt failed using the PIN authenticator.")
-                Timber.asTree()
-                    .sdk(String.format(
+    fun pinProtectionInfo(protectionStatus: PinAuthenticatorProtectionStatus): CredentialProtectionInformation = when (protectionStatus) {
+        is PinAuthenticatorProtectionStatus.Unlocked -> {
+            Timber.asTree().sdk("PIN authenticator is unlocked.")
+            CredentialProtectionInformation()
+        }
+        is PinAuthenticatorProtectionStatus.LastAttemptFailed -> {
+            Timber.asTree().sdk("Last attempt failed using the PIN authenticator.")
+            Timber.asTree()
+                .sdk(
+                    String.format(
                         "Remaining tries: %d, cool down period: %d",
                         protectionStatus.remainingRetries(),
-                        protectionStatus.coolDownTimeInSeconds())
+                        protectionStatus.coolDownTimeInSeconds()
                     )
-                CredentialProtectionInformation(
-                    isLocked = protectionStatus.coolDownTimeInSeconds() > 0,
-                    remainingRetries = protectionStatus.remainingRetries(),
-                    coolDownTime = protectionStatus.coolDownTimeInSeconds(),
                 )
-            }
-            is PinAuthenticatorProtectionStatus.LockedOut -> {
-                Timber.asTree().sdk("PIN authenticator is locked.")
-                CredentialProtectionInformation(
-                    isLocked = true,
-                    message = protectionStatus.message(context)
-                )
-            }
-            else -> throw IllegalStateException("Unsupported PIN authenticator protection status.")
+            CredentialProtectionInformation(
+                isLocked = protectionStatus.coolDownTimeInSeconds() > 0,
+                remainingRetries = protectionStatus.remainingRetries(),
+                coolDownTime = protectionStatus.coolDownTimeInSeconds()
+            )
         }
+        is PinAuthenticatorProtectionStatus.LockedOut -> {
+            Timber.asTree().sdk("PIN authenticator is locked.")
+            CredentialProtectionInformation(
+                isLocked = true,
+                message = protectionStatus.message(context)
+            )
+        }
+        else -> throw IllegalStateException("Unsupported PIN authenticator protection status.")
     }
 
     /**
@@ -287,8 +277,8 @@ class CredentialViewModel @Inject constructor(
      * @return The Password authenticator specific [CredentialProtectionInformation] instance.
      */
     @SuppressLint("DefaultLocale")
-    fun passwordProtectionInfo(protectionStatus: PasswordAuthenticatorProtectionStatus): CredentialProtectionInformation {
-        return when (protectionStatus) {
+    fun passwordProtectionInfo(protectionStatus: PasswordAuthenticatorProtectionStatus): CredentialProtectionInformation =
+        when (protectionStatus) {
             is PasswordAuthenticatorProtectionStatus.Unlocked -> {
                 Timber.asTree().sdk("Password authenticator is unlocked.")
                 CredentialProtectionInformation()
@@ -296,15 +286,17 @@ class CredentialViewModel @Inject constructor(
             is PasswordAuthenticatorProtectionStatus.LastAttemptFailed -> {
                 Timber.asTree().sdk("Last attempt failed using the Password authenticator.")
                 Timber.asTree()
-                    .sdk(String.format(
-                        "Remaining tries: %d, cool down period: %d",
-                        protectionStatus.remainingRetries(),
-                        protectionStatus.coolDownTimeInSeconds())
+                    .sdk(
+                        String.format(
+                            "Remaining tries: %d, cool down period: %d",
+                            protectionStatus.remainingRetries(),
+                            protectionStatus.coolDownTimeInSeconds()
+                        )
                     )
                 CredentialProtectionInformation(
                     isLocked = protectionStatus.coolDownTimeInSeconds() > 0,
                     remainingRetries = protectionStatus.remainingRetries(),
-                    coolDownTime = protectionStatus.coolDownTimeInSeconds(),
+                    coolDownTime = protectionStatus.coolDownTimeInSeconds()
                 )
             }
             is PasswordAuthenticatorProtectionStatus.LockedOut -> {
@@ -316,7 +308,6 @@ class CredentialViewModel @Inject constructor(
             }
             else -> throw IllegalStateException("Unsupported Password authenticator protection status.")
         }
-    }
 
     /**
      * Gets authenticator protection information specific message.
@@ -325,20 +316,18 @@ class CredentialViewModel @Inject constructor(
      * @param coolDownTime The time that must be passed before the user can try to provide credentials again.
      * @return The authenticator protection information specific message.
      */
-    fun message(remainingRetries: Int, coolDownTime: Long): String {
-        return when (credentialType) {
-            Authenticator.PIN_AUTHENTICATOR_AAID ->
-                PinAuthenticatorProtectionStatusLastAttemptFailedImpl(
-                    remainingRetries = remainingRetries,
-                    coolDownTimeInSeconds = coolDownTime
-                ).message(context)
-            Authenticator.PASSWORD_AUTHENTICATOR_AAID ->
-                PasswordAuthenticatorProtectionStatusLastAttemptFailedImpl(
-                    remainingRetries = remainingRetries,
-                    coolDownTimeInSeconds = coolDownTime
-                ).message(context)
-            else -> String()
-        }
+    fun message(remainingRetries: Int, coolDownTime: Long): String = when (credentialType) {
+        Authenticator.PIN_AUTHENTICATOR_AAID ->
+            PinAuthenticatorProtectionStatusLastAttemptFailedImpl(
+                remainingRetries = remainingRetries,
+                coolDownTimeInSeconds = coolDownTime
+            ).message(context)
+        Authenticator.PASSWORD_AUTHENTICATOR_AAID ->
+            PasswordAuthenticatorProtectionStatusLastAttemptFailedImpl(
+                remainingRetries = remainingRetries,
+                coolDownTimeInSeconds = coolDownTime
+            ).message(context)
+        else -> String()
     }
 
     /**

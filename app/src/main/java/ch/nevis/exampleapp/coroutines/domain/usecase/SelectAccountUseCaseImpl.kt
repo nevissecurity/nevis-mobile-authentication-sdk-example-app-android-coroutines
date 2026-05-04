@@ -19,21 +19,18 @@ import kotlinx.coroutines.suspendCancellableCoroutine
  * @param stateRepository An instance of an [OperationStateRepository] implementation that may hold
  *  a [UserInteractionOperationState].
  */
-class SelectAccountUseCaseImpl(
-    private val stateRepository: OperationStateRepository<UserInteractionOperationState>
-) : SelectAccountUseCase {
+class SelectAccountUseCaseImpl(private val stateRepository: OperationStateRepository<UserInteractionOperationState>) :
+    SelectAccountUseCase {
 
     //region SelectAccountUseCase
-    override suspend fun execute(username: String): Response {
-        return suspendCancellableCoroutine { cancellableContinuation ->
-            val operationState =
-                stateRepository.get() ?: throw BusinessException.invalidState()
-            val accountSelectionHandler =
-                operationState.accountSelectionHandler ?: throw BusinessException.invalidState()
-            operationState.cancellableContinuation = cancellableContinuation
-            operationState.accountSelectionHandler = null
-            accountSelectionHandler.username(username)
-        }
+    override suspend fun execute(username: String): Response = suspendCancellableCoroutine { cancellableContinuation ->
+        val operationState =
+            stateRepository.get() ?: throw BusinessException.invalidState()
+        val accountSelectionHandler =
+            operationState.accountSelectionHandler ?: throw BusinessException.invalidState()
+        operationState.cancellableContinuation = cancellableContinuation
+        operationState.accountSelectionHandler = null
+        accountSelectionHandler.username(username)
     }
     //endregion
 }

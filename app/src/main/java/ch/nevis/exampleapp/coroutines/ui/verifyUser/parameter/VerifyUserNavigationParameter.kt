@@ -1,7 +1,7 @@
 /**
  * Nevis Mobile Authentication SDK Example App
  *
- * Copyright © 2022. Nevis Security AG. All rights reserved.
+ * Copyright © 2022-2026. Nevis Security AG. All rights reserved.
  */
 
 package ch.nevis.exampleapp.coroutines.ui.verifyUser.parameter
@@ -29,5 +29,5 @@ data class VerifyUserNavigationParameter(
      * String resource identifier of the title of the authenticator.
      */
     @StringRes
-    val authenticatorTitleResId: Int,
+    val authenticatorTitleResId: Int
 ) : Parcelable

@@ -18,16 +18,14 @@ import dagger.hilt.android.qualifiers.ApplicationContext
  */
 class MetaDataUseCaseImpl(
     @ApplicationContext
-    private val context: Context,
+    private val context: Context
 ) : MetaDataUseCase {
 
     //region MetaDataUseCase
-    override suspend fun execute(): Response {
-        return MetaDataResponse(
-            sdkVersion = MetaData.mobileAuthenticationVersion().toString(),
-            facetId = MetaData.applicationFacetId(context),
-            certificateFingerprint = MetaData.signingCertificateSha256(context)
-        )
-    }
+    override suspend fun execute(): Response = MetaDataResponse(
+        sdkVersion = MetaData.mobileAuthenticationVersion().toString(),
+        facetId = MetaData.applicationFacetId(context),
+        certificateFingerprint = MetaData.signingCertificateSha256(context)
+    )
     //endregion
 }

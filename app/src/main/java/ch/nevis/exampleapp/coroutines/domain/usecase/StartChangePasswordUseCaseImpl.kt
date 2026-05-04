@@ -13,9 +13,9 @@ import ch.nevis.exampleapp.coroutines.domain.model.state.ChangePasswordOperation
 import ch.nevis.exampleapp.coroutines.domain.repository.OperationStateRepository
 import ch.nevis.mobile.sdk.api.operation.password.PasswordChangeError
 import ch.nevis.mobile.sdk.api.operation.password.PasswordChanger
+import java.util.function.Consumer
 import kotlinx.coroutines.Runnable
 import kotlinx.coroutines.suspendCancellableCoroutine
-import java.util.function.Consumer
 
 /**
  * Default implementation of [StartChangePasswordUseCase] interface.
@@ -37,20 +37,18 @@ class StartChangePasswordUseCaseImpl(
 ) : StartChangePasswordUseCase {
 
     //region StartChangePasswordUseCase
-    override suspend fun execute(username: String): Response {
-        return suspendCancellableCoroutine { cancellableContinuation ->
-            val operationState = ChangePasswordOperationState()
-            operationState.cancellableContinuation = cancellableContinuation
-            stateRepository.save(operationState)
+    override suspend fun execute(username: String): Response = suspendCancellableCoroutine { cancellableContinuation ->
+        val operationState = ChangePasswordOperationState()
+        operationState.cancellableContinuation = cancellableContinuation
+        stateRepository.save(operationState)
 
-            val client = clientProvider.get() ?: throw BusinessException.clientNotInitialized()
-            client.operations().passwordChange()
-                .username(username)
-                .passwordChanger(passwordChanger)
-                .onSuccess(onSuccess)
-                .onError(onError)
-                .execute()
-        }
+        val client = clientProvider.get() ?: throw BusinessException.clientNotInitialized()
+        client.operations().passwordChange()
+            .username(username)
+            .passwordChanger(passwordChanger)
+            .onSuccess(onSuccess)
+            .onError(onError)
+            .execute()
     }
     //endregion
 }

@@ -1,7 +1,7 @@
 /**
  * Nevis Mobile Authentication SDK Example App
  *
- * Copyright © 2022-2024. Nevis Security AG. All rights reserved.
+ * Copyright © 2022-2026. Nevis Security AG. All rights reserved.
  */
 
 package ch.nevis.exampleapp.coroutines.ui.base
@@ -137,7 +137,7 @@ abstract class ResponseObserverFragment : Fragment() {
             is VerifyPinResponse -> {
                 val navigationParameter = PinNavigationParameter(
                     CredentialViewMode.VERIFICATION,
-                    pinAuthenticatorProtectionStatus = response.pinAuthenticatorProtectionStatus,
+                    pinAuthenticatorProtectionStatus = response.pinAuthenticatorProtectionStatus
                 )
                 val action = NavigationGraphDirections.actionGlobalCredentialFragment(navigationParameter)
                 navController.navigate(action)
@@ -146,7 +146,7 @@ abstract class ResponseObserverFragment : Fragment() {
             is VerifyPasswordResponse -> {
                 val navigationParameter = PasswordNavigationParameter(
                     CredentialViewMode.VERIFICATION,
-                    passwordAuthenticatorProtectionStatus = response.passwordAuthenticatorProtectionStatus,
+                    passwordAuthenticatorProtectionStatus = response.passwordAuthenticatorProtectionStatus
                 )
                 val action = NavigationGraphDirections.actionGlobalCredentialFragment(navigationParameter)
                 navController.navigate(action)

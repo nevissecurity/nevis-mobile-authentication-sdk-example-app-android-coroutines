@@ -1,7 +1,7 @@
 /**
  * Nevis Mobile Authentication SDK Example App
  *
- * Copyright © 2022. Nevis Security AG. All rights reserved.
+ * Copyright © 2022-2026. Nevis Security AG. All rights reserved.
  */
 
 package ch.nevis.exampleapp.coroutines.domain.usecase
@@ -16,10 +16,10 @@ import ch.nevis.exampleapp.coroutines.domain.model.response.Response
 import ch.nevis.exampleapp.coroutines.timber.sdk
 import ch.nevis.mobile.sdk.api.Configuration
 import ch.nevis.mobile.sdk.api.MobileAuthenticationClientInitializer
+import kotlin.coroutines.resume
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.sync.Semaphore
 import timber.log.Timber
-import kotlin.coroutines.resume
 
 /**
  * Default implementation of [InitializeClientUseCase] interface.
@@ -34,10 +34,7 @@ import kotlin.coroutines.resume
  * @param clientProvider An instance of [ClientProvider] interface implementation.
  * @param context An Android [Context] object used for initializing [ch.nevis.mobile.sdk.api.MobileAuthenticationClient].
  */
-class InitializeClientUseCaseImpl(
-    private val clientProvider: ClientProvider,
-    private val context: Context,
-) : InitializeClientUseCase {
+class InitializeClientUseCaseImpl(private val clientProvider: ClientProvider, private val context: Context) : InitializeClientUseCase {
 
     /**
      * A [Semaphore] object that is used to ensure only one client initialization is executed.

@@ -14,8 +14,8 @@ import ch.nevis.exampleapp.coroutines.timber.sdk
 import ch.nevis.mobile.sdk.api.operation.pin.PinEnroller
 import ch.nevis.mobile.sdk.api.operation.pin.PinEnrollmentContext
 import ch.nevis.mobile.sdk.api.operation.pin.PinEnrollmentHandler
-import timber.log.Timber
 import kotlin.coroutines.resume
+import timber.log.Timber
 
 /**
  * Default implementation of [PinEnroller] interface. It stores the PIN enrollment step context
@@ -25,16 +25,11 @@ import kotlin.coroutines.resume
  * @constructor Creates a new instance.
  * @param stateRepository The state repository that stores the state of the running operation.
  */
-class PinEnrollerImpl(
-    private val stateRepository: OperationStateRepository<UserInteractionOperationState>
-) : PinEnroller {
+class PinEnrollerImpl(private val stateRepository: OperationStateRepository<UserInteractionOperationState>) : PinEnroller {
 
     //region PinEnroller
     /** @suppress */
-    override fun enrollPin(
-        context: PinEnrollmentContext,
-        handler: PinEnrollmentHandler
-    ) {
+    override fun enrollPin(context: PinEnrollmentContext, handler: PinEnrollmentHandler) {
         if (context.lastRecoverableError().isPresent) {
             Timber.asTree().sdk("PIN enrollment failed. Please try again.")
         } else {

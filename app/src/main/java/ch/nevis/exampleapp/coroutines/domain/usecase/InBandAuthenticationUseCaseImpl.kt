@@ -20,8 +20,8 @@ import ch.nevis.mobile.sdk.api.operation.userverification.DevicePasscodeUserVeri
 import ch.nevis.mobile.sdk.api.operation.userverification.FingerprintUserVerifier
 import ch.nevis.mobile.sdk.api.operation.userverification.PasswordUserVerifier
 import ch.nevis.mobile.sdk.api.operation.userverification.PinUserVerifier
-import kotlinx.coroutines.suspendCancellableCoroutine
 import java.util.function.Consumer
+import kotlinx.coroutines.suspendCancellableCoroutine
 
 /**
  * Default implementation of [InBandAuthenticationUseCase] interface.
@@ -54,26 +54,24 @@ class InBandAuthenticationUseCaseImpl(
 ) : InBandAuthenticationUseCase {
 
     //region InBandAuthenticationUseCase
-    override suspend fun execute(username: String): Response {
-        return suspendCancellableCoroutine { cancellableContinuation ->
-            val operationState = UserInteractionOperationState(Operation.AUTHENTICATION)
-            operationState.cancellableContinuation = cancellableContinuation
-            operationState.username = username
-            stateRepository.save(operationState)
+    override suspend fun execute(username: String): Response = suspendCancellableCoroutine { cancellableContinuation ->
+        val operationState = UserInteractionOperationState(Operation.AUTHENTICATION)
+        operationState.cancellableContinuation = cancellableContinuation
+        operationState.username = username
+        stateRepository.save(operationState)
 
-            val client = clientProvider.get() ?: throw BusinessException.clientNotInitialized()
-            client.operations().authentication()
-                .username(username)
-                .authenticatorSelector(authenticatorSelector)
-                .pinUserVerifier(pinUserVerifier)
-                .passwordUserVerifier(passwordUserVerifier)
-                .fingerprintUserVerifier(fingerprintUserVerifier)
-                .biometricUserVerifier(biometricUserVerifier)
-                .devicePasscodeUserVerifier(devicePasscodeUserVerifier)
-                .onSuccess(onSuccess)
-                .onError(onError)
-                .execute()
-        }
+        val client = clientProvider.get() ?: throw BusinessException.clientNotInitialized()
+        client.operations().authentication()
+            .username(username)
+            .authenticatorSelector(authenticatorSelector)
+            .pinUserVerifier(pinUserVerifier)
+            .passwordUserVerifier(passwordUserVerifier)
+            .fingerprintUserVerifier(fingerprintUserVerifier)
+            .biometricUserVerifier(biometricUserVerifier)
+            .devicePasscodeUserVerifier(devicePasscodeUserVerifier)
+            .onSuccess(onSuccess)
+            .onError(onError)
+            .execute()
     }
     //endregion
 }

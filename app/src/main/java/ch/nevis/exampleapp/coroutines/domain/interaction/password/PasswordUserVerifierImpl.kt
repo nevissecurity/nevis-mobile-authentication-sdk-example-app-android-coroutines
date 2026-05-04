@@ -15,8 +15,8 @@ import ch.nevis.exampleapp.coroutines.timber.sdk
 import ch.nevis.mobile.sdk.api.operation.userverification.PasswordUserVerificationContext
 import ch.nevis.mobile.sdk.api.operation.userverification.PasswordUserVerificationHandler
 import ch.nevis.mobile.sdk.api.operation.userverification.PasswordUserVerifier
-import timber.log.Timber
 import kotlin.coroutines.resume
+import timber.log.Timber
 
 /**
  * Default implementation of [PasswordUserVerifier] interface. It stores the password verification step context
@@ -26,16 +26,12 @@ import kotlin.coroutines.resume
  * @constructor Creates a new instance.
  * @param stateRepository The state repository that stores the state of the running operation.
  */
-class PasswordUserVerifierImpl(
-    private val stateRepository: OperationStateRepository<UserInteractionOperationState>
-) : PasswordUserVerifier {
+class PasswordUserVerifierImpl(private val stateRepository: OperationStateRepository<UserInteractionOperationState>) :
+    PasswordUserVerifier {
 
     //region PasswordUserVerifier
     /** @suppress */
-    override fun verifyPassword(
-        context: PasswordUserVerificationContext,
-        handler: PasswordUserVerificationHandler
-    ) {
+    override fun verifyPassword(context: PasswordUserVerificationContext, handler: PasswordUserVerificationHandler) {
         Timber.asTree().sdk("Please start Password user verification.")
 
         val operationState = stateRepository.get() ?: throw BusinessException.invalidState()

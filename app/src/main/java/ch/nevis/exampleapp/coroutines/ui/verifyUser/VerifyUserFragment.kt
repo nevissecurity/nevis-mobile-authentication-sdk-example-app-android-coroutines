@@ -52,10 +52,7 @@ class VerifyUserFragment : ResponseObserverFragment() {
 
     //region Fragment
     /** @suppress */
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentVerifyUserBinding.inflate(inflater, container, false)
         return binding.root
     }

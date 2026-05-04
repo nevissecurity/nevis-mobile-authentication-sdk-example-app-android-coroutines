@@ -20,7 +20,5 @@ interface DeleteAuthenticatorsUseCase {
      * @param accounts The set of enrolled accounts.
      * @return A [Response] object, the result of the use-case execution.
      */
-    suspend fun execute(
-        accounts: Set<Account>
-    ): Response
+    suspend fun execute(accounts: Set<Account>): Response
 }

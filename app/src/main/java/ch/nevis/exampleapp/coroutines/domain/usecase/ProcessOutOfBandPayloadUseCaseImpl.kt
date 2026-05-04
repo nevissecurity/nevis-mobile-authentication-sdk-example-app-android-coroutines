@@ -30,10 +30,10 @@ import ch.nevis.mobile.sdk.api.operation.userverification.DevicePasscodeUserVeri
 import ch.nevis.mobile.sdk.api.operation.userverification.FingerprintUserVerifier
 import ch.nevis.mobile.sdk.api.operation.userverification.PasswordUserVerifier
 import ch.nevis.mobile.sdk.api.operation.userverification.PinUserVerifier
-import kotlinx.coroutines.Runnable
-import kotlinx.coroutines.suspendCancellableCoroutine
 import java.util.function.Consumer
 import kotlin.coroutines.resume
+import kotlinx.coroutines.Runnable
+import kotlinx.coroutines.suspendCancellableCoroutine
 
 /**
  * Default implementation of [ProcessOutOfBandPayloadUseCase] interface.
@@ -87,17 +87,13 @@ class ProcessOutOfBandPayloadUseCaseImpl(
      * Private, inner [Response] class to indicate that based on the [OutOfBandPayload] a out-of-band
      * authentication must be started.
      */
-    private data class OutOfBandAuthenticationResponse(
-        val authentication: OutOfBandAuthentication
-    ) : Response
+    private data class OutOfBandAuthenticationResponse(val authentication: OutOfBandAuthentication) : Response
 
     /**
      * Private, inner [Response] class to indicate that based on the [OutOfBandPayload] a out-of-band
      * registration must be started.
      */
-    private data class OutOfBandRegistrationResponse(
-        val registration: OutOfBandRegistration
-    ) : Response
+    private data class OutOfBandRegistrationResponse(val registration: OutOfBandRegistration) : Response
     //endregion
 
     //region ProcessOutOfBandPayloadUseCase
@@ -153,8 +149,8 @@ class ProcessOutOfBandPayloadUseCaseImpl(
      * @param outOfBandAuthentication The [OutOfBandAuthentication] operation to be executed.
      * @return A [Response] object that indicates the result of the use-case execution.
      */
-    private suspend fun authenticate(outOfBandAuthentication: OutOfBandAuthentication): Response {
-        return suspendCancellableCoroutine { cancellableContinuation ->
+    private suspend fun authenticate(outOfBandAuthentication: OutOfBandAuthentication): Response =
+        suspendCancellableCoroutine { cancellableContinuation ->
             val operationState =
                 UserInteractionOperationState(Operation.OUT_OF_BAND_AUTHENTICATION)
             operationState.cancellableContinuation = cancellableContinuation
@@ -172,7 +168,6 @@ class ProcessOutOfBandPayloadUseCaseImpl(
                 .onError(onError)
                 .execute()
         }
-    }
 
     /**
      * Sets-up and executes the given out-of-band registration.
@@ -181,11 +176,8 @@ class ProcessOutOfBandPayloadUseCaseImpl(
      * @param deviceInformation The device information.
      * @return A [Response] object that indicates the result of the use-case execution.
      */
-    private suspend fun register(
-        outOfBandRegistration: OutOfBandRegistration,
-        deviceInformation: DeviceInformation
-    ): Response {
-        return suspendCancellableCoroutine { cancellableContinuation ->
+    private suspend fun register(outOfBandRegistration: OutOfBandRegistration, deviceInformation: DeviceInformation): Response =
+        suspendCancellableCoroutine { cancellableContinuation ->
             val operationState =
                 UserInteractionOperationState(Operation.OUT_OF_BAND_REGISTRATION)
             operationState.cancellableContinuation = cancellableContinuation
@@ -203,6 +195,5 @@ class ProcessOutOfBandPayloadUseCaseImpl(
                 .onError(onError)
                 .execute()
         }
-    }
     //endregion
 }

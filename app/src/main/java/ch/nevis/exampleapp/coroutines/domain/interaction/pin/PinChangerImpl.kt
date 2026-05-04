@@ -14,8 +14,8 @@ import ch.nevis.exampleapp.coroutines.timber.sdk
 import ch.nevis.mobile.sdk.api.operation.pin.PinChangeContext
 import ch.nevis.mobile.sdk.api.operation.pin.PinChangeHandler
 import ch.nevis.mobile.sdk.api.operation.pin.PinChanger
-import timber.log.Timber
 import kotlin.coroutines.resume
+import timber.log.Timber
 
 /**
  * Default implementation of [PinChanger] interface. It stores the PIN change step context
@@ -25,16 +25,11 @@ import kotlin.coroutines.resume
  * @constructor Creates a new instance.
  * @param stateRepository The state repository that stores the state of the running operation.
  */
-class PinChangerImpl(
-    private val stateRepository: OperationStateRepository<ChangePinOperationState>
-) : PinChanger {
+class PinChangerImpl(private val stateRepository: OperationStateRepository<ChangePinOperationState>) : PinChanger {
 
     //region PinChanger
     /** @suppress */
-    override fun changePin(
-        context: PinChangeContext,
-        handler: PinChangeHandler
-    ) {
+    override fun changePin(context: PinChangeContext, handler: PinChangeHandler) {
         if (context.lastRecoverableError().isPresent) {
             Timber.asTree().sdk("PIN change failed. Please try again.")
         } else {

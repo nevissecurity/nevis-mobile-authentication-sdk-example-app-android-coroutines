@@ -12,8 +12,8 @@ import ch.nevis.exampleapp.coroutines.domain.usecase.SelectAccountUseCase
 import ch.nevis.exampleapp.coroutines.ui.base.CancellableOperationViewModel
 import ch.nevis.mobile.sdk.api.localdata.Account
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlinx.coroutines.launch
 
 /**
  * View model implementation of Transaction Confirmation view.
@@ -22,9 +22,8 @@ import javax.inject.Inject
  * @param selectAccountUseCase An instance of a [SelectAccountUseCase] implementation.
  */
 @HiltViewModel
-class TransactionConfirmationViewModel @Inject constructor(
-    private val selectAccountUseCase: SelectAccountUseCase
-) : CancellableOperationViewModel() {
+class TransactionConfirmationViewModel @Inject constructor(private val selectAccountUseCase: SelectAccountUseCase) :
+    CancellableOperationViewModel() {
 
     //region Public Interface
     /**

@@ -15,8 +15,8 @@ import ch.nevis.exampleapp.coroutines.timber.sdk
 import ch.nevis.mobile.sdk.api.operation.userverification.BiometricUserVerificationContext
 import ch.nevis.mobile.sdk.api.operation.userverification.BiometricUserVerificationHandler
 import ch.nevis.mobile.sdk.api.operation.userverification.BiometricUserVerifier
-import timber.log.Timber
 import kotlin.coroutines.resume
+import timber.log.Timber
 
 /**
  * Default implementation of [BiometricUserVerifier] interface. It stores the biometric verification step context
@@ -26,9 +26,8 @@ import kotlin.coroutines.resume
  * @constructor Creates a new instance.
  * @param stateRepository The state repository that stores the state of the running operation.
  */
-class BiometricUserVerifierImpl(
-    private val stateRepository: OperationStateRepository<UserInteractionOperationState>
-) : BiometricUserVerifier {
+class BiometricUserVerifierImpl(private val stateRepository: OperationStateRepository<UserInteractionOperationState>) :
+    BiometricUserVerifier {
 
     //region BiometricUserVerifier
     /** @suppress */

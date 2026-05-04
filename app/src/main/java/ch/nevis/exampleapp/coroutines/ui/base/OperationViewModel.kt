@@ -15,9 +15,9 @@ import ch.nevis.exampleapp.coroutines.domain.usecase.DeregisterUseCase
 import ch.nevis.exampleapp.coroutines.domain.usecase.FinishOperationUseCase
 import ch.nevis.exampleapp.coroutines.ui.util.SingleLiveEvent
 import ch.nevis.mobile.sdk.api.authorization.AuthorizationProvider
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 /**
  * Base, abstract view model implementation for view models those deal with operations.

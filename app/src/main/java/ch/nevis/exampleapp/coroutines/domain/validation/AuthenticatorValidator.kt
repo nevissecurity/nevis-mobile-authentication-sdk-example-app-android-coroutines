@@ -20,10 +20,7 @@ interface AuthenticatorValidator {
      * @param authenticatorAllowlist List of allowlisted authenticators.
      * @return List of allowed authenticators.
      */
-    fun validateForRegistration(
-        context: AuthenticatorSelectionContext,
-        authenticatorAllowlist: List<String>
-    ): Set<Authenticator>
+    fun validateForRegistration(context: AuthenticatorSelectionContext, authenticatorAllowlist: List<String>): Set<Authenticator>
 
     /**
      * Validates authenticators for authentication operation.
@@ -32,8 +29,5 @@ interface AuthenticatorValidator {
      * @param authenticatorAllowlist List of allowlisted authenticators.
      * @return List of allowed authenticators.
      */
-    fun validateForAuthentication(
-        context: AuthenticatorSelectionContext,
-        authenticatorAllowlist: List<String>
-    ): Set<Authenticator>
+    fun validateForAuthentication(context: AuthenticatorSelectionContext, authenticatorAllowlist: List<String>): Set<Authenticator>
 }
