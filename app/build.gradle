@@ -1,8 +1,7 @@
 plugins {
     id 'com.android.application'
-    id 'kotlin-android'
     id 'kotlin-parcelize'
-    id 'kotlin-kapt'
+    id 'com.google.devtools.ksp'
     id 'dagger.hilt.android.plugin'
     id 'androidx.navigation.safeargs.kotlin'
     id 'org.jetbrains.dokka'
@@ -35,12 +34,12 @@ static def readVersionName(project) {
 
 android {
     namespace 'ch.nevis.exampleapp.coroutines'
-    compileSdk 35
+    compileSdk 36
 
     defaultConfig {
         applicationId "ch.nevis.exampleapp.coroutines"
         minSdkVersion 24
-        targetSdkVersion 35
+        targetSdkVersion 36
         versionCode readVersionCode(this)
         versionName readVersionName(this)
 
@@ -66,9 +65,11 @@ android {
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
     }
+}
 
-    kotlinOptions {
-        jvmTarget = 11
+kotlin {
+    compilerOptions {
+        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11
     }
 }
 
@@ -103,7 +104,7 @@ dependencies {
 
     // Dagger Hilt
     implementation "com.google.dagger:hilt-android:$dagger_hilt_version"
-    kapt "com.google.dagger:hilt-compiler:$dagger_hilt_version"
+    ksp "com.google.dagger:hilt-compiler:$dagger_hilt_version"
 
     // Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$navigation_version"
@@ -113,7 +114,7 @@ dependencies {
     debugImplementation "ch.nevis:nevis-mobile-authentication-sdk-android-debug:$NEVIS_MOBILE_AUTHENTICATION_SDK_VERSION"
 
     // Logging
-    implementation 'com.jakewharton.timber:timber:4.7.1'
+    implementation 'com.jakewharton.timber:timber:5.0.1'
 
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"

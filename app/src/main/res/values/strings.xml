@@ -132,6 +132,7 @@
     <string name="pin_protection_status_last_retry_without_cool_down">You have 1 try left.\nAfter that your PIN will be blocked.</string>
     <string name="pin_protection_status_retries_with_cool_down">You have %1$d tries left.\nPlease retry in %2$d seconds.</string>
     <string name="pin_protection_status_retries_without_cool_down">You have %d tries left.</string>
+    <string name="pin_change_user_not_responsive_error">PIN change failed because of a time-out</string>
 
     <string name="password_title_change">Change Password</string>
     <string name="password_title_enrollment">Create Password</string>
@@ -148,6 +149,7 @@
     <string name="password_protection_status_retries_without_cool_down">You have %d tries left.</string>
     <string name="password_policy_error_message">The password must not be password.</string>
     <string name="password_policy_error_cause">The password is password.</string>
+    <string name="password_change_user_not_responsive_error">Password change failed because of a time-out</string>
 
     <string name="rational_dialog_message_camera">Please allow camera usage for QR scanner.</string>
     <string name="rational_dialog_ok_button_title">OK</string>

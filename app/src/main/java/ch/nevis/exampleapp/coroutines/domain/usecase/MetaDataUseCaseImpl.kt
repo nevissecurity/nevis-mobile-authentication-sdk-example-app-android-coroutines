@@ -17,7 +17,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
  * Authentication SDK and returns them in a [MetaDataResponse].
  */
 class MetaDataUseCaseImpl(
-    @ApplicationContext
+    @param:ApplicationContext
     private val context: Context
 ) : MetaDataUseCase {
 
