@@ -47,7 +47,7 @@ class CredentialViewModel @Inject constructor(
     /**
      * An Android [Context] object for [String] resource resolving.
      */
-    @ApplicationContext
+    @param:ApplicationContext
     private val context: Context,
 
     /**

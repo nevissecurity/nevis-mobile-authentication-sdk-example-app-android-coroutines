@@ -24,7 +24,7 @@ data class ResultNavigationParameter(
     /**
      * String resource identifier of the title of Result screen.
      */
-    @StringRes
+    @field:StringRes
     val titleResId: Int,
 
     /**

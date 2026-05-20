@@ -38,9 +38,9 @@ class SelectAccountViewModel @Inject constructor(
     private val startChangePinUseCase: StartChangePinUseCase,
     private val startChangePasswordUseCase: StartChangePasswordUseCase,
     private val transactionConfirmationUseCase: TransactionConfirmationUseCase,
-    @Named(ApplicationModule.IN_BAND_AUTHENTICATION_USE_CASE_DEFAULT)
+    @param:Named(ApplicationModule.IN_BAND_AUTHENTICATION_USE_CASE_DEFAULT)
     private val inBandAuthenticationUseCase: InBandAuthenticationUseCase,
-    @Named(ApplicationModule.IN_BAND_AUTHENTICATION_USE_CASE_FOR_DEREGISTRATION)
+    @param:Named(ApplicationModule.IN_BAND_AUTHENTICATION_USE_CASE_FOR_DEREGISTRATION)
     private val inBandAuthenticationForDeregistrationUseCase: InBandAuthenticationUseCase,
     private val selectAccountUseCase: SelectAccountUseCase
 ) : CancellableOperationViewModel() {

@@ -40,16 +40,12 @@ class GetFidoUafAttestationInformationUseCaseImpl(private val clientProvider: Cl
                     is OnlySurrogateBasicSupported -> {
                         Timber.asTree()
                             .sdk("Only surrogate basic attestation supported.")
-                        if (information.cause() != null) {
-                            Timber.asTree().sdk("Cause: ${information.cause()}")
-                        }
+                        Timber.asTree().sdk("Cause: ${information.cause()}")
                         cancellableContinuation.resume(FidoUafAttestationInformationResponse.OnlySurrogateBasicSupported())
                     }
                     is OnlyDefaultMode -> {
                         Timber.asTree().sdk("Full basic default attestation mode supported.")
-                        if (information.cause() != null) {
-                            Timber.asTree().sdk("Cause: ${information.cause()}")
-                        }
+                        Timber.asTree().sdk("Cause: ${information.cause()}")
                         cancellableContinuation.resume(FidoUafAttestationInformationResponse.OnlyDefaultMode())
                     }
                     is StrictMode -> {

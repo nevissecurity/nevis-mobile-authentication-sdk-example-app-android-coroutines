@@ -21,6 +21,6 @@ class VerifyBiometricResponse(
     /**
      * String resource identifier of the title of the authenticator.
      */
-    @StringRes
+    @field:StringRes
     val authenticatorTitleResId: Int
 ) : Response

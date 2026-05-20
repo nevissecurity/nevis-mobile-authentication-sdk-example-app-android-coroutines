@@ -18,7 +18,7 @@ import javax.inject.Inject
  * @param context The Android [Context].
  */
 class SettingsImpl @Inject constructor(
-    @ApplicationContext
+    @param:ApplicationContext
     private val context: Context
 ) : Settings {
     override val allowClass2Sensors = context.resources.getBoolean(R.bool.allow_class2_sensors)
