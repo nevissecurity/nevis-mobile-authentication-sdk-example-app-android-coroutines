@@ -18,7 +18,7 @@ import ch.nevis.mobile.sdk.api.operation.password.PasswordAuthenticatorProtectio
  */
 fun PasswordAuthenticatorProtectionStatus.message(context: Context): String = when (this) {
     is PasswordAuthenticatorProtectionStatus.Unlocked -> String()
-    is PasswordAuthenticatorProtectionStatus.LockedOut -> context.getString(R.string.pin_protection_status_locked_out)
+    is PasswordAuthenticatorProtectionStatus.LockedOut -> context.getString(R.string.password_protection_status_locked_out)
     is PasswordAuthenticatorProtectionStatus.LastAttemptFailed -> {
         when (remainingRetries()) {
             1 -> {
