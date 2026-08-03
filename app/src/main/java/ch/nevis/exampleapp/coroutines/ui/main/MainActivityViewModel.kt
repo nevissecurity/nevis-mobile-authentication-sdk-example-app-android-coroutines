@@ -30,9 +30,6 @@ class MainActivityViewModel @Inject constructor(private val sdkLogger: SdkLogger
     SdkLogReceiver {
 
     //region Initialization
-    /**
-     * Initialization.
-     */
     init {
         // At initialization time we add this view model to the [SdkLogger] as a log receiver.
         sdkLogger.addLogReceiver(this)
@@ -41,6 +38,7 @@ class MainActivityViewModel @Inject constructor(private val sdkLogger: SdkLogger
     //endregion
 
     //region Properties
+
     /**
      * Internal [Channel] used to buffer and deliver [LogItem] events to observers.
      */

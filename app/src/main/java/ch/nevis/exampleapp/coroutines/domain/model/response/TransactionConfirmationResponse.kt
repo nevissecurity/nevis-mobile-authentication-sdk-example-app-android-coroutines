@@ -1,4 +1,4 @@
-/**
+/*
  * Nevis Mobile Authentication SDK Example App
  *
  * Copyright © 2024-2026. Nevis Security AG. All rights reserved.
@@ -15,7 +15,7 @@ import ch.nevis.mobile.sdk.api.localdata.Account
  *
  * @constructor Creates a new instance.
  * @param account The previously selected account.
- * @param transactionConfirmationMessage The transaction data/message that is be sent during an
+ * @param transactionConfirmationMessage The transaction data/message that is being sent during an
  * authentication process.
  */
 class TransactionConfirmationResponse(

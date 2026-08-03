@@ -7,7 +7,7 @@
     <string name="auth_cloud_registration_confirm_button_title">OK</string>
 
     <string name="business_error_type_accounts_not_found">There are no registered accounts.</string>
-    <string name="business_error_type_client_not_initialized">The SDK client has not beet initialized.</string>
+    <string name="business_error_type_client_not_initialized">The SDK client has not been initialized.</string>
     <string name="business_error_type_device_information_not_found">There is no registered device information.</string>
     <string name="business_error_type_invalid_state">Invalid application state.</string>
     <string name="business_error_type_login_failed">Login failed.</string>

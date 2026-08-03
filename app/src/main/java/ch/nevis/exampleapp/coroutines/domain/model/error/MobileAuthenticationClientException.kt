@@ -1,4 +1,4 @@
-/**
+/*
  * Nevis Mobile Authentication SDK Example App
  *
  * Copyright © 2022. Nevis Security AG. All rights reserved.
@@ -10,7 +10,7 @@ import ch.nevis.exampleapp.coroutines.domain.model.operation.Operation
 import ch.nevis.mobile.sdk.api.MobileAuthenticationClientError
 
 /**
- * A sub-class of [Exception] that hold a [MobileAuthenticationClientError] and an optional [Operation] value.
+ * A subclass of [Exception] that hold a [MobileAuthenticationClientError] and an optional [Operation] value.
  *
  * @constructor Creates a new instance.
  * @param operation The [Operation] the error relates to or null if it cannot be determined.

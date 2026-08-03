@@ -31,7 +31,7 @@ Before you start compiling and using the example applications please ensure you 
 ### Server-side Environment
 
 - In case you are planning to use [Authentication Cloud](https://docs.nevis.net/authcloud/) you need an _Authentication Cloud_ instance provided by Nevis and an [access key](https://docs.nevis.net/authcloud/access-app/access-key) to use it.
-- In case you are planning to use an [Identity Suite](https://docs.nevis.net/nevislifetimesupport/) environment ensure that the environment is up and running and you have all necessary URLs and permissions to access it.
+- In case you are planning to use an [Identity Suite](https://docs.nevis.net/nevislifetimesupport/) environment ensure that the environment is up and running, and you have all necessary URLs and permissions to access it.
 
 ### Development Setup
 
@@ -41,7 +41,7 @@ Before you start compiling and using the example applications please ensure you 
 - JDK 17
 - Gradle 9.5.1 or later
 
-### Github Account
+### GitHub Account
 
 SDK dependency used by this project are provided via [GitHub Packages](https://github.com/nevissecurity/nevis-mobile-authentication-sdk-android-package) that is used as a **Maven** repository. To access **GitHub Packages** a valid **GitHub** account and a **Personal Access Token** is needed. If you have not done it yet, please create a **Personal Access Token** with **Packages Read** permission. Once the **Personal Access Token** is created add the following properties to your global `gradle.properties` file (e.g.: `/Users/<YOUR USERNAME>/.gradle/gradle.properties`).
 
@@ -120,7 +120,7 @@ Change the `myaccessapp` scheme value in the following `intent-filter` with the 
 
 The FIDO server (i.e. nevisFIDO) must be configured with the facet ID(s) of your application(s). If the facet ID of your application is not referenced by the nevisFIDO configuration, the operations will fail with an **UNTRUSTED_FACET_ID** error.
 
-By default the SDK assumes that the facet ID to be used is the one that follows the [FIDO UAF 1.1 Specifications](https://fidoalliance.org/specs/fido-uaf-v1.1-ps-20170202/fido-appid-and-facets-v1.1-ps-20170202.html#h4_determining-the-facetid-of-a-calling-application) that is the facet ID on Android should follow the `android:apk-key-hash:HASH_VALUE` format, where the `HASH_VALUE` is Base64 encoded SHA-256 hash of the APK signing certificate.
+By default, the SDK assumes that the facet ID to be used is the one that follows the [FIDO UAF 1.1 Specifications](https://fidoalliance.org/specs/fido-uaf-v1.1-ps-20170202/fido-appid-and-facets-v1.1-ps-20170202.html#h4_determining-the-facetid-of-a-calling-application) that is the facet ID on Android should follow the `android:apk-key-hash:HASH_VALUE` format, where the `HASH_VALUE` is Base64 encoded SHA-256 hash of the APK signing certificate.
 
 The facet ID can be calculated using the following code snippet:
 
@@ -211,7 +211,7 @@ client?.operations().authentication()
 Because the SDK uses callback concept if we ran the code above in a coroutine scope then the process cannot be suspended, the call will return immediately and later a callback instance will be called by the SDK outside the coroutine scope and suspend function.
 For Kotlin coroutines, suspend functions, SDK calls have to be wrapped into a [suspend cancellable coroutine](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/suspend-cancellable-coroutine.html).
 
-The example application wraps the SDK calls in the use-case implementations in their `suspend fun execute(...)` functions. It runs the SDK call inside a `suspendCancellableCoroutine` block and caches the received `cancellableContinuation` object. When a interaction callback is called by the SDK the `cancellableContinuation` will be get from the cache and it will be resumed to resume the suspended block/function.
+The example application wraps the SDK calls in the use-case implementations in their `suspend fun execute(...)` functions. It runs the SDK call inside a `suspendCancellableCoroutine` block and caches the received `cancellableContinuation` object. When an interaction callback is called by the SDK the `cancellableContinuation` will be got from the cache, and it will be resumed to resume the suspended block/function.
 
 As an example check the [InBandAuthenticationUseCaseImpl](app/src/main/java/ch/nevis/exampleapp/coroutines/domain/usecase/InBandAuthenticationUseCaseImpl.kt) and the [AuthenticatorSelectorImpl](app/src/main/java/ch/nevis/exampleapp/coroutines/domain/interaction/AuthenticatorSelectorImpl.kt) classes.
 
@@ -262,7 +262,7 @@ Before being able to authenticate using the Nevis Mobile Authentication SDK, go 
 If the application is using a backend using the Nevis Authentication Cloud, the [AuthCloudApiRegistrationUseCaseImpl](app/src/main/java/ch/nevis/exampleapp/coroutines/domain/usecase/AuthCloudApiRegistrationUseCaseImpl.kt) class will be used by passing the `enrollment` response or an `appLinkUri`.
 
 When the backend used by the application does not use the Nevis Authentication Cloud the name of the user to be registered is passed to the [InBandRegistrationUseCaseImpl](app/src/main/java/ch/nevis/exampleapp/coroutines/domain/usecase/InBandRegistrationUseCaseImpl.kt) class.
-If authorization is required by the backend to register, provide an [AuthorizationProvider](https://docs.nevis.net/mobilesdk/api-references/javadoc/ch/nevis/mobile/sdk/api/authorization/AuthorizationProvider.html). In the example app a [CookieAuthorizationProvider](https://docs.nevis.net/mobilesdk/api-references/javadoc/ch/nevis/mobile/sdk/api/authorization/AuthorizationProvider.CookieAuthorizationProvider.html) is created from the cookies (see [LegacyLoginViewModel](app/src/main/java/ch/nevis/exampleapp/coroutines/ui/legacyLogin/LegacyLoginViewModel.kt) obtained by the [LoginUseCaseImpl](app/src/main/java/ch/nevis/exampleapp/coroutines/domain/usecase/LoginUseCaseImpl.kt) class.
+If authorization is required by the backend to register, provide an [AuthorizationProvider](https://docs.nevis.net/mobilesdk/api-references/javadoc/ch/nevis/mobile/sdk/api/authorization/AuthorizationProvider.html). In the example app a [CookieAuthorizationProvider](https://docs.nevis.net/mobilesdk/api-references/javadoc/ch/nevis/mobile/sdk/api/authorization/AuthorizationProvider.CookieAuthorizationProvider.html) is created from the cookies (see [LegacyLoginViewModel](app/src/main/java/ch/nevis/exampleapp/coroutines/ui/legacyLogin/LegacyLoginViewModel.kt)) obtained by the [LoginUseCaseImpl](app/src/main/java/ch/nevis/exampleapp/coroutines/domain/usecase/LoginUseCaseImpl.kt) class.
 
 #### Out-of-band registration
 

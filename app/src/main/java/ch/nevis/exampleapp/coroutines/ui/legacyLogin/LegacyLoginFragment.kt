@@ -1,4 +1,4 @@
-/**
+/*
  * Nevis Mobile Authentication SDK Example App
  *
  * Copyright © 2022. Nevis Security AG. All rights reserved.
@@ -42,6 +42,7 @@ class LegacyLoginFragment : ResponseObserverFragment() {
     //endregion
 
     //region Fragment
+
     /** @suppress */
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentLegacyLoginBinding.inflate(inflater, container, false)
@@ -74,6 +75,7 @@ class LegacyLoginFragment : ResponseObserverFragment() {
             is LoginResponse -> {
                 viewModel.register(response.extId, response.cookies)
             }
+
             else -> super.processResponse(response)
         }
     }

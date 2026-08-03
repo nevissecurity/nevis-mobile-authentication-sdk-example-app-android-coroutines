@@ -1,4 +1,4 @@
-/**
+/*
  * Nevis Mobile Authentication SDK Example App
  *
  * Copyright © 2022-2026. Nevis Security AG. All rights reserved.
@@ -41,6 +41,7 @@ class ChangeDeviceInformationFragment : ResponseObserverFragment() {
     //endregion
 
     //region Fragment
+
     /** @suppress */
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentChangeDeviceInformationBinding.inflate(inflater, container, false)

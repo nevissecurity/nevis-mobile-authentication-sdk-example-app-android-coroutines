@@ -1,4 +1,4 @@
-/**
+/*
  * Nevis Mobile Authentication SDK Example App
  *
  * Copyright © 2022. Nevis Security AG. All rights reserved.
@@ -123,7 +123,9 @@ class ProcessOutOfBandPayloadUseCaseImpl(
 
         return when (response) {
             is ErrorResponse -> response
+
             is OutOfBandAuthenticationResponse -> authenticate(response.authentication)
+
             is OutOfBandRegistrationResponse -> {
                 val createDeviceInformationUseCaseResponse =
                     createDeviceInformationUseCase.execute()
@@ -143,6 +145,7 @@ class ProcessOutOfBandPayloadUseCaseImpl(
     //endregion
 
     //region Private Interface
+
     /**
      * Sets-up and executes the given out-of-band authentication.
      *

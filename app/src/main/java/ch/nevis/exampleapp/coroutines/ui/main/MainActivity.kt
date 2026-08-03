@@ -1,4 +1,4 @@
-/**
+/*
  * Nevis Mobile Authentication SDK Example App
  *
  * Copyright © 2022. Nevis Security AG. All rights reserved.
@@ -118,6 +118,7 @@ class MainActivity : AppCompatActivity() {
     //endregion
 
     //region Private Interface
+
     /**
      * Processes the received [Intent]. This function checks if the intent has a [Intent.ACTION_VIEW] action and the data URI
      * contains `dispatchTokenResponse` query parameter. If yes, the application navigates to the home screen and passing

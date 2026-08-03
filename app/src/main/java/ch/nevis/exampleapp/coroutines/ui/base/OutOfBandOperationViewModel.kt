@@ -1,4 +1,4 @@
-/**
+/*
  * Nevis Mobile Authentication SDK Example App
  *
  * Copyright © 2022-2024. Nevis Security AG. All rights reserved.
@@ -34,6 +34,7 @@ abstract class OutOfBandOperationViewModel : CancellableOperationViewModel() {
     //endregion
 
     //region Public Interface
+
     /**
      * Starts decoding of out-of-band payload from the given dispatch token response.
      *

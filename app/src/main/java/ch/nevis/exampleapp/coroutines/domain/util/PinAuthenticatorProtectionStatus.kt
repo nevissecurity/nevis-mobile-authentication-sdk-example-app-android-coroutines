@@ -1,4 +1,4 @@
-/**
+/*
  * Nevis Mobile Authentication SDK Example App
  *
  * Copyright © 2024-2026. Nevis Security AG. All rights reserved.
@@ -18,7 +18,9 @@ import ch.nevis.mobile.sdk.api.operation.pin.PinAuthenticatorProtectionStatus
  */
 fun PinAuthenticatorProtectionStatus.message(context: Context): String = when (this) {
     is PinAuthenticatorProtectionStatus.Unlocked -> String()
+
     is PinAuthenticatorProtectionStatus.LockedOut -> context.getString(R.string.pin_protection_status_locked_out)
+
     is PinAuthenticatorProtectionStatus.LastAttemptFailed -> {
         when (remainingRetries()) {
             1 -> {
@@ -28,6 +30,7 @@ fun PinAuthenticatorProtectionStatus.message(context: Context): String = when (t
                     context.getString(R.string.pin_protection_status_last_retry_with_cool_down, coolDownTimeInSeconds())
                 }
             }
+
             else -> {
                 if (coolDownTimeInSeconds() == 0L) {
                     context.getString(R.string.pin_protection_status_retries_without_cool_down, remainingRetries())
@@ -41,5 +44,6 @@ fun PinAuthenticatorProtectionStatus.message(context: Context): String = when (t
             }
         }
     }
+
     else -> throw IllegalStateException("Unsupported PIN authenticator protection status.")
 }

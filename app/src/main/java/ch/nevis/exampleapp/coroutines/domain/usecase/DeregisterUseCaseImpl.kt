@@ -1,4 +1,4 @@
-/**
+/*
  * Nevis Mobile Authentication SDK Example App
  *
  * Copyright © 2022. Nevis Security AG. All rights reserved.
@@ -47,6 +47,7 @@ class DeregisterUseCaseImpl(private val clientProvider: ClientProvider) : Deregi
     //endregion
 
     //region Private Interface
+
     /**
      * Starts a single deregistration operation call and deregister a user/account.
      *

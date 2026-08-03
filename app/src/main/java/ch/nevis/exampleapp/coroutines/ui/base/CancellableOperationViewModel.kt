@@ -1,4 +1,4 @@
-/**
+/*
  * Nevis Mobile Authentication SDK Example App
  *
  * Copyright © 2022-2024. Nevis Security AG. All rights reserved.
@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
  * An operation may consist multiple steps e.g.: account selection, authenticator selection, user verification.
  * In this example application all steps are implemented as a separated view and each view has a view model
  * implementation. If a view and its view model are related to an operation step in which the operation can
- * be cancelled, then the view model of the actual operation step view must be a sub-class of this abstract
+ * be cancelled, then the view model of the actual operation step view must be a subclass of this abstract
  * view model.
  */
 abstract class CancellableOperationViewModel : OperationViewModel() {
@@ -31,6 +31,7 @@ abstract class CancellableOperationViewModel : OperationViewModel() {
     //endregion
 
     //region Public Interface
+
     /**
      * Cancels the current operation.
      */

@@ -1,4 +1,4 @@
-/**
+/*
  * Nevis Mobile Authentication SDK Example App
  *
  * Copyright © 2022-2026. Nevis Security AG. All rights reserved.
@@ -62,6 +62,7 @@ abstract class ResponseObserverFragment : Fragment() {
     lateinit var errorHandlerChain: ErrorHandlerChain
 
     //region Fragment
+
     /** @suppress */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -80,6 +81,7 @@ abstract class ResponseObserverFragment : Fragment() {
     //endregion
 
     //region Protected Interface
+
     /**
      * Processes a [Response] object.
      *

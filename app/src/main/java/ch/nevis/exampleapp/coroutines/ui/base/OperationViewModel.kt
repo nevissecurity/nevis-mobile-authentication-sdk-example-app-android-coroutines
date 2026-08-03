@@ -1,4 +1,4 @@
-/**
+/*
  * Nevis Mobile Authentication SDK Example App
  *
  * Copyright © 2022-2024. Nevis Security AG. All rights reserved.
@@ -50,7 +50,7 @@ abstract class OperationViewModel : ViewModel() {
     lateinit var deregisterUseCase: DeregisterUseCase
 
     /**
-     * Common [CoroutineExceptionHandler] error handler implementation that can be used by the sub-classes of this abstract view model.
+     * Common [CoroutineExceptionHandler] error handler implementation that can be used by the subclasses of this abstract view model.
      */
     protected val errorHandler = CoroutineExceptionHandler { _, throwable ->
         mutableResponseLiveData.postValue(ErrorResponse(throwable))
@@ -58,6 +58,7 @@ abstract class OperationViewModel : ViewModel() {
     //endregion
 
     //region Public Interface
+
     /**
      * Finishes operation with the given operation identifier.
      */

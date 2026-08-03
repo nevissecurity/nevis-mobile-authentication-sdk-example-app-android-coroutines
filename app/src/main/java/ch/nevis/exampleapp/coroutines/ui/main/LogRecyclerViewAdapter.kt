@@ -1,4 +1,4 @@
-/**
+/*
  * Nevis Mobile Authentication SDK Example App
  *
  * Copyright © 2022-2026. Nevis Security AG. All rights reserved.
@@ -45,6 +45,7 @@ class LogRecyclerViewAdapter(private val context: Context) : RecyclerView.Adapte
     //endregion
 
     //region Public Interface
+
     /**
      * Adds a new log item to currently rendered log item list.
      *
@@ -57,6 +58,7 @@ class LogRecyclerViewAdapter(private val context: Context) : RecyclerView.Adapte
     //endregion
 
     //region RecyclerView.Adapter
+
     /** @suppress */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LogViewHolder =
         LogViewHolder(layoutInflater.inflate(R.layout.item_log, parent, false))
@@ -76,13 +78,14 @@ class LogRecyclerViewAdapter(private val context: Context) : RecyclerView.Adapte
     //endregion
 
     //region AuthenticatorViewHolder
+
     /**
      * A [RecyclerView.ViewHolder] implementation that represents a log item. It holds only a [TextView] the log message will be set into.
      *
      * @constructor Creates a new instance.
      * @param itemView The item view provided by recycler view.
      */
-    inner class LogViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class LogViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         //region Properties
         /**

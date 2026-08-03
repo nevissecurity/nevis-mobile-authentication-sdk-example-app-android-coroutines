@@ -1,4 +1,4 @@
-/**
+/*
  * Nevis Mobile Authentication SDK Example App
  *
  * Copyright © 2022-2024. Nevis Security AG. All rights reserved.
@@ -45,6 +45,7 @@ class TransactionConfirmationFragment : ResponseObserverFragment() {
     //endregion
 
     //region Fragment
+
     /** @suppress */
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentTransactionConfirmationBinding.inflate(inflater, container, false)

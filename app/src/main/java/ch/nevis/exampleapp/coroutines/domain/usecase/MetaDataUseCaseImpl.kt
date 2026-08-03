@@ -1,4 +1,4 @@
-/**
+/*
  * Nevis Mobile Authentication SDK Example App
  *
  * Copyright © 2025. Nevis Security AG. All rights reserved.
@@ -13,7 +13,7 @@ import ch.nevis.mobile.sdk.api.metadata.MetaData
 import dagger.hilt.android.qualifiers.ApplicationContext
 
 /**
- * Default implementation of [MetaDataUseCase] interface that queries the meta data of Nevis Mobile
+ * Default implementation of [MetaDataUseCase] interface that queries the metadata of Nevis Mobile
  * Authentication SDK and returns them in a [MetaDataResponse].
  */
 class MetaDataUseCaseImpl(

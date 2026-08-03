@@ -1,4 +1,4 @@
-/**
+/*
  * Nevis Mobile Authentication SDK Example App
  *
  * Copyright © 2022. Nevis Security AG. All rights reserved.
@@ -40,6 +40,7 @@ class QrCodeAnalyzer(private val barcodesReceivedListener: BarcodesReceivedListe
     //endregion
 
     //region ImageAnalysis.Analyzer
+
     /** @suppress */
     @androidx.annotation.OptIn(androidx.camera.core.ExperimentalGetImage::class)
     override fun analyze(imageProxy: ImageProxy) {

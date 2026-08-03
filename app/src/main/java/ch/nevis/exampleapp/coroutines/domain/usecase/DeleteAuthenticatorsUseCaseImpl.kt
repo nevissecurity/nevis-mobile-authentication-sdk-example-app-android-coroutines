@@ -1,4 +1,4 @@
-/**
+/*
  * Nevis Mobile Authentication SDK Example App
  *
  * Copyright © 2023. Nevis Security AG. All rights reserved.
@@ -34,6 +34,7 @@ class DeleteAuthenticatorsUseCaseImpl(private val clientProvider: ClientProvider
     //endregion
 
     //region Private Interface
+
     /**
      * Deletes all local authenticators of an enrolled account.
      *

@@ -1,4 +1,4 @@
-/**
+/*
  * Nevis Mobile Authentication SDK Example App
  *
  * Copyright © 2022-2026. Nevis Security AG. All rights reserved.
@@ -11,7 +11,7 @@ import ch.nevis.exampleapp.coroutines.domain.log.SdkLogger
 import timber.log.Timber
 
 /**
- * An example application specific sub-class of [Timber.DebugTree] that logs SDK events at a specific
+ * An example application specific subclass of [Timber.DebugTree] that logs SDK events at a specific
  * priority level.
  *
  * @constructor Creates a new instance.

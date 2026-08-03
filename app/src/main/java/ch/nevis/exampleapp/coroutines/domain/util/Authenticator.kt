@@ -1,4 +1,4 @@
-/**
+/*
  * Nevis Mobile Authentication SDK Example App
  *
  * Copyright © 2023. Nevis Security AG. All rights reserved.
@@ -32,7 +32,9 @@ fun Authenticator.isUserEnrolled(username: String, allowClass2Sensors: Boolean):
             userEnrollment.isEnrolled
         }
     }
+
     is UserEnrollment.SdkUserEnrollment -> userEnrollment.isEnrolled(username)
+
     else -> throw IllegalStateException("Unknown UserEnrollment object.")
 }
 

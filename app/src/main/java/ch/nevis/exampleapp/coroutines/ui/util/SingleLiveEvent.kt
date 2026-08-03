@@ -1,3 +1,9 @@
+/*
+ * Nevis Mobile Authentication SDK Example App
+ *
+ * Copyright © 2023. Nevis Security AG. All rights reserved.
+ */
+
 package ch.nevis.exampleapp.coroutines.ui.util
 
 import androidx.annotation.MainThread
