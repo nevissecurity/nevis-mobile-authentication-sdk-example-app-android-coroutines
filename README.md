@@ -1,7 +1,6 @@
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://www.nevis.net/hubfs/Nevis%202023%20theme/Icons/negativ.svg">
   <source media="(prefers-color-scheme: light)" srcset="https://www.nevis.net/hubfs/Nevis%202023%20theme/Icons/positiv.svg">
-  <img alt="Fallback image description" src="https://www.nevis.net/hubfs/Nevis/images/logotype.svg">
   <img alt="Nevis logo" src="https://www.nevis.net/hubfs/Nevis/images/logotype.svg">
 </picture>
 
@@ -211,7 +210,7 @@ client?.operations().authentication()
 Because the SDK uses callback concept if we ran the code above in a coroutine scope then the process cannot be suspended, the call will return immediately and later a callback instance will be called by the SDK outside the coroutine scope and suspend function.
 For Kotlin coroutines, suspend functions, SDK calls have to be wrapped into a [suspend cancellable coroutine](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/suspend-cancellable-coroutine.html).
 
-The example application wraps the SDK calls in the use-case implementations in their `suspend fun execute(...)` functions. It runs the SDK call inside a `suspendCancellableCoroutine` block and caches the received `cancellableContinuation` object. When an interaction callback is called by the SDK the `cancellableContinuation` will be got from the cache, and it will be resumed to resume the suspended block/function.
+The example application wraps the SDK calls in the use-case implementations in their `suspend fun execute(...)` functions. It runs the SDK call inside a `suspendCancellableCoroutine` block and caches the received `cancellableContinuation` object. When an interaction callback is called by the SDK the `cancellableContinuation` will be retrieved from the cache, and it will be resumed to resume the suspended block/function.
 
 As an example check the [InBandAuthenticationUseCaseImpl](app/src/main/java/ch/nevis/exampleapp/coroutines/domain/usecase/InBandAuthenticationUseCaseImpl.kt) and the [AuthenticatorSelectorImpl](app/src/main/java/ch/nevis/exampleapp/coroutines/domain/interaction/AuthenticatorSelectorImpl.kt) classes.
 
