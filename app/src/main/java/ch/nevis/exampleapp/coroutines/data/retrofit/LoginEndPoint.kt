@@ -1,4 +1,4 @@
-/**
+/*
  * Nevis Mobile Authentication SDK Example App
  *
  * Copyright © 2022. Nevis Security AG. All rights reserved.
@@ -24,7 +24,7 @@ interface LoginEndPoint {
      * @param username The username for authentication.
      * @param password The password for authentication.
      * @return On successful authentication a [Response] object that contains the HTTP body as a [LoginEndPointResponse] object.
-     * @throws Exception On failed login an exception is thrown that may indicate network specific error or it could be
+     * @throws Exception On failed login an exception is thrown that may indicate network specific error, or it could be
      * a [com.google.gson.stream.MalformedJsonException] when invalid credentials are sent to the server.
      */
     @FormUrlEncoded

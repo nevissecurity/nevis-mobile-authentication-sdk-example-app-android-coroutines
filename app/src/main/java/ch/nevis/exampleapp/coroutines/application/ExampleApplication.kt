@@ -1,4 +1,4 @@
-/**
+/*
  * Nevis Mobile Authentication SDK Example App
  *
  * Copyright © 2022-2026. Nevis Security AG. All rights reserved.
@@ -14,7 +14,7 @@ import javax.inject.Inject
 import timber.log.Timber
 
 /**
- * Simple sub-class of [Application] to enable Dagger Hilt capabilities and to initialize logging.
+ * Simple subclass of [Application] to enable Dagger Hilt capabilities and to initialize logging.
  */
 @HiltAndroidApp
 class ExampleApplication : Application() {
@@ -26,6 +26,7 @@ class ExampleApplication : Application() {
     lateinit var sdkLogger: SdkLogger
 
     //region Application
+
     /** @suppress */
     override fun onCreate() {
         super.onCreate()

@@ -1,4 +1,4 @@
-/**
+/*
  * Nevis Mobile Authentication SDK Example App
  *
  * Copyright © 2022. Nevis Security AG. All rights reserved.
@@ -11,8 +11,7 @@ import androidx.fragment.app.Fragment
 /**
  * Fragment argument key constant for dispatch token response.
  */
-val FRAGMENT_ARGUMENT_DISPATCH_TOKEN_RESPONSE: String
-    get() = "dispatchTokenResponse"
+const val FRAGMENT_ARGUMENT_DISPATCH_TOKEN_RESPONSE: String = "dispatchTokenResponse"
 
 /**
  * Extension function for [Fragment] class that simplifies handling of dispatch token response argument of a fragment.

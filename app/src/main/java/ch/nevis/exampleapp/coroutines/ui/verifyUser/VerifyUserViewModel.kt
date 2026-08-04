@@ -1,4 +1,4 @@
-/**
+/*
  * Nevis Mobile Authentication SDK Example App
  *
  * Copyright © 2022. Nevis Security AG. All rights reserved.
@@ -53,6 +53,7 @@ class VerifyUserViewModel @Inject constructor(
     //endregion
 
     //region Public Interface
+
     /**
      * Sets the current [VerifyUserViewMode].
      *
@@ -95,6 +96,7 @@ class VerifyUserViewModel @Inject constructor(
     //endregion
 
     //region Private Interface
+
     /**
      * Starts fingerprint authentication for an operation.
      */

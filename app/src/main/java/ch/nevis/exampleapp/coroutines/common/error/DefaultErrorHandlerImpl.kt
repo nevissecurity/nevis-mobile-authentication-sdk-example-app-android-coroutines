@@ -1,4 +1,4 @@
-/**
+/*
  * Nevis Mobile Authentication SDK Example App
  *
  * Copyright © 2022. Nevis Security AG. All rights reserved.
@@ -35,9 +35,11 @@ class DefaultErrorHandlerImpl(private val context: Context, private val navContr
             is MobileAuthenticationClientException -> {
                 getErrorMessage(error.error)
             }
+
             is BusinessException -> {
                 context.getString(error.type.resId)
             }
+
             else -> getErrorMessage(error)
         }
 
@@ -51,6 +53,7 @@ class DefaultErrorHandlerImpl(private val context: Context, private val navContr
     //endregion
 
     //region Private Interface
+
     /**
      * Gets/composes an error message based on the received error response.
      *
@@ -65,10 +68,14 @@ class DefaultErrorHandlerImpl(private val context: Context, private val navContr
         // a way non-technical adverse people can understand and act upon them.
         return when (error) {
             is OperationError -> error.errorCode().description()
+
             is ch.nevis.mobile.sdk.api.operation.authcloudapi.AuthCloudApiError.OperationError -> error.errorCode()
                 .description()
+
             is PinChangeError.UserNotResponsive -> context.getString(R.string.pin_change_user_not_responsive_error)
+
             is PasswordChangeError.UserNotResponsive -> context.getString(R.string.password_change_user_not_responsive_error)
+
             else -> error.description()
         }
     }

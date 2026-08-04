@@ -1,4 +1,4 @@
-/**
+/*
  * Nevis Mobile Authentication SDK Example App
  *
  * Copyright © 2022. Nevis Security AG. All rights reserved.
@@ -7,7 +7,7 @@
 package ch.nevis.exampleapp.coroutines.domain.log
 
 /**
- * An interface declaration of a SDK event logger. Implement this interface to be able to log SDK events
+ * An interface declaration of an SDK event logger. Implement this interface to be able to log SDK events
  * and to be able to notify receivers about new messages
  */
 interface SdkLogger {

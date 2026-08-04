@@ -18,7 +18,7 @@ Please note that the example app only demonstrates a subset of the available SDK
 
 # Package ch.nevis.exampleapp.coroutines.application
 
-This package contains a sub-class of `Application` to enable Dagger Hilt capabilities and to initialize logging.
+This package contains a subclass of `Application` to enable Dagger Hilt capabilities and to initialize logging.
 
 # Package ch.nevis.exampleapp.coroutines.common.configuration
 

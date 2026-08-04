@@ -1,4 +1,4 @@
-/**
+/*
  * Nevis Mobile Authentication SDK Example App
  *
  * Copyright © 2022. Nevis Security AG. All rights reserved.
@@ -45,6 +45,7 @@ class AccountsRecyclerViewAdapter(private val accounts: Array<Account>, private 
     //endregion
 
     //region AccountViewHolder
+
     /**
      * A [RecyclerView.ViewHolder] implementation that represents an account.
      *

@@ -1,4 +1,4 @@
-/**
+/*
  * Nevis Mobile Authentication SDK Example App
  *
  * Copyright © 2022. Nevis Security AG. All rights reserved.
@@ -9,7 +9,7 @@ package ch.nevis.exampleapp.coroutines.domain.model.operation
 import ch.nevis.exampleapp.coroutines.R
 
 /**
- * Enumeration of a available operations.
+ * Enumeration of available operations.
  */
 enum class Operation(
     /**

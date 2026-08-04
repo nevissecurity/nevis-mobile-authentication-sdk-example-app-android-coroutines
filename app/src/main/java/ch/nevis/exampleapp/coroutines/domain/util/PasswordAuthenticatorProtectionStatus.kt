@@ -1,4 +1,4 @@
-/**
+/*
  * Nevis Mobile Authentication SDK Example App
  *
  * Copyright © 2024-2026. Nevis Security AG. All rights reserved.
@@ -18,7 +18,9 @@ import ch.nevis.mobile.sdk.api.operation.password.PasswordAuthenticatorProtectio
  */
 fun PasswordAuthenticatorProtectionStatus.message(context: Context): String = when (this) {
     is PasswordAuthenticatorProtectionStatus.Unlocked -> String()
-    is PasswordAuthenticatorProtectionStatus.LockedOut -> context.getString(R.string.pin_protection_status_locked_out)
+
+    is PasswordAuthenticatorProtectionStatus.LockedOut -> context.getString(R.string.password_protection_status_locked_out)
+
     is PasswordAuthenticatorProtectionStatus.LastAttemptFailed -> {
         when (remainingRetries()) {
             1 -> {
@@ -28,6 +30,7 @@ fun PasswordAuthenticatorProtectionStatus.message(context: Context): String = wh
                     context.getString(R.string.password_protection_status_last_retry_with_cool_down, coolDownTimeInSeconds())
                 }
             }
+
             else -> {
                 if (coolDownTimeInSeconds() == 0L) {
                     context.getString(R.string.password_protection_status_retries_without_cool_down, remainingRetries())
@@ -41,5 +44,6 @@ fun PasswordAuthenticatorProtectionStatus.message(context: Context): String = wh
             }
         }
     }
+
     else -> throw IllegalStateException("Unsupported Password authenticator protection status.")
 }

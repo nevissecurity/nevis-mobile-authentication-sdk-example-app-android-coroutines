@@ -1,4 +1,4 @@
-/**
+/*
  * Nevis Mobile Authentication SDK Example App
  *
  * Copyright © 2022-2026. Nevis Security AG. All rights reserved.
@@ -48,6 +48,7 @@ class AccountSelectorImpl(private val stateRepository: OperationStateRepository<
 
         when (accounts.size) {
             0 -> cancellableContinuation.resume(ErrorResponse(BusinessException.accountsNotFound()))
+
             1 -> {
                 if (transactionConfirmationData != null) {
                     cancellableContinuation.resume(
@@ -60,6 +61,7 @@ class AccountSelectorImpl(private val stateRepository: OperationStateRepository<
                     accountSelectionHandler.username(accounts.first().username())
                 }
             }
+
             else -> {
                 cancellableContinuation.resume(
                     SelectAccountResponse(
@@ -74,6 +76,7 @@ class AccountSelectorImpl(private val stateRepository: OperationStateRepository<
     //endregion
 
     //region Private Interface
+
     /** @suppress */
     private fun validAccounts(context: AccountSelectionContext): Set<Account> {
         val validAccounts = mutableSetOf<Account>()

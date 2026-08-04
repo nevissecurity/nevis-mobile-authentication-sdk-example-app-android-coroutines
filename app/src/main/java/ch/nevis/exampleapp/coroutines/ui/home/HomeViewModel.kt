@@ -1,4 +1,4 @@
-/**
+/*
  * Nevis Mobile Authentication SDK Example App
  *
  * Copyright © 2022-2026. Nevis Security AG. All rights reserved.
@@ -83,7 +83,7 @@ class HomeViewModel @Inject constructor(
     }
 
     /**
-     * Retrieves the meta data of Nevis Mobile Authentication SDK.
+     * Retrieves the metadata of Nevis Mobile Authentication SDK.
      */
     fun getMetaData() {
         viewModelScope.launch(errorHandler) {
@@ -142,18 +142,24 @@ class HomeViewModel @Inject constructor(
                 response = accounts?.let {
                     when (it.size) {
                         0 -> ErrorResponse(BusinessException.accountsNotFound())
+
                         1 -> when (authenticatorType) {
                             Authenticator.PIN_AUTHENTICATOR_AAID ->
                                 startChangePinUseCase.execute(it.first().username())
+
                             Authenticator.PASSWORD_AUTHENTICATOR_AAID ->
                                 startChangePasswordUseCase.execute(it.first().username())
+
                             else -> ErrorResponse(BusinessException.invalidState())
                         }
+
                         else -> when (authenticatorType) {
                             Authenticator.PIN_AUTHENTICATOR_AAID ->
                                 SelectAccountResponse(Operation.CHANGE_PIN, it)
+
                             Authenticator.PASSWORD_AUTHENTICATOR_AAID ->
                                 SelectAccountResponse(Operation.CHANGE_PASSWORD, it)
+
                             else -> ErrorResponse(BusinessException.invalidState())
                         }
                     }
@@ -173,6 +179,7 @@ class HomeViewModel @Inject constructor(
                     val operationResponse = deregisterUseCase.execute()
                     mutableResponseLiveData.postValue(operationResponse)
                 }
+
                 Environment.IDENTITY_SUITE -> {
                     // In this case
                     var response = getAccountsUseCase.execute()

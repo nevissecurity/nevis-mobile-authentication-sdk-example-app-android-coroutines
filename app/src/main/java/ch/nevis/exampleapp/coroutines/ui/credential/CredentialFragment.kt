@@ -1,4 +1,4 @@
-/**
+/*
  * Nevis Mobile Authentication SDK Example App
  *
  * Copyright © 2022-2024. Nevis Security AG. All rights reserved.
@@ -55,12 +55,13 @@ class CredentialFragment : ResponseObserverFragment() {
     private val navigationArguments: CredentialFragmentArgs by navArgs()
 
     /**
-     * A [CountDownTimer] instance that is used to disable the screen for a cool down time period if necessary.
+     * A [CountDownTimer] instance that is used to disable the screen for a cooldown period if necessary.
      */
     private var timer: CountDownTimer? = null
     //endregion
 
     //region Fragment
+
     /** @suppress */
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentCredentialBinding.inflate(inflater, container, false)
@@ -116,22 +117,28 @@ class CredentialFragment : ResponseObserverFragment() {
                 lastRecoverableError = response.lastRecoverableError
                 credentialProtectionInformation = viewModel.pinProtectionInfo(response.pinAuthenticatorProtectionStatus)
             }
+
             is EnrollPinResponse -> {
                 lastRecoverableError = response.lastRecoverableError
             }
+
             is VerifyPinResponse -> {
                 credentialProtectionInformation = viewModel.pinProtectionInfo(response.pinAuthenticatorProtectionStatus)
             }
+
             is ChangePasswordResponse -> {
                 lastRecoverableError = response.lastRecoverableError
                 credentialProtectionInformation = viewModel.passwordProtectionInfo(response.passwordAuthenticatorProtectionStatus)
             }
+
             is EnrollPasswordResponse -> {
                 lastRecoverableError = response.lastRecoverableError
             }
+
             is VerifyPasswordResponse -> {
                 credentialProtectionInformation = viewModel.passwordProtectionInfo(response.passwordAuthenticatorProtectionStatus)
             }
+
             else -> super.processResponse(response)
         }
 
@@ -140,6 +147,7 @@ class CredentialFragment : ResponseObserverFragment() {
     //endregion
 
     //region Private Interface
+
     /**
      * Clears all error messages on screen.
      */

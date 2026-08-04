@@ -1,4 +1,4 @@
-/**
+/*
  * Nevis Mobile Authentication SDK Example App
  *
  * Copyright © 2022. Nevis Security AG. All rights reserved.
@@ -11,7 +11,7 @@ import ch.nevis.mobile.sdk.api.operation.userverification.FingerprintUserVerific
 
 /**
  * Response class that indicates the SDK operation asks the user to verify herself/himself using fingerprint
- * authentication. Typically when this response is received a [ch.nevis.exampleapp.coroutines.domain.usecase.VerifyFingerprintUseCase]
+ * authentication. Typically, when this response is received a [ch.nevis.exampleapp.coroutines.domain.usecase.VerifyFingerprintUseCase]
  * is started.
  *
  * @constructor Creates a new instance.

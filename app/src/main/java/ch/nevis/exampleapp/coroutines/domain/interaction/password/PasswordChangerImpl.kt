@@ -1,4 +1,4 @@
-/**
+/*
  * Nevis Mobile Authentication SDK Example App
  *
  * Copyright © 2024. Nevis Security AG. All rights reserved.
@@ -56,6 +56,7 @@ class PasswordChangerImpl(
     }
 
     //  You can add custom password policy by overriding the `passwordPolicy` getter
+
     /** @suppress */
     override fun passwordPolicy(): PasswordPolicy = policy
     //endregion

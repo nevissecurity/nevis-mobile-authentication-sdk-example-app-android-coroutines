@@ -1,4 +1,4 @@
-/**
+/*
  * Nevis Mobile Authentication SDK Example App
  *
  * Copyright © 2022. Nevis Security AG. All rights reserved.
@@ -56,6 +56,7 @@ class SelectAuthenticatorFragment :
     //endregion
 
     //region Fragment
+
     /** @suppress */
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentSelectAuthenticatorBinding.inflate(inflater, container, false)

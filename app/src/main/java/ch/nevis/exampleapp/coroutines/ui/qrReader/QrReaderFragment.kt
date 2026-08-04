@@ -1,4 +1,4 @@
-/**
+/*
  * Nevis Mobile Authentication SDK Example App
  *
  * Copyright © 2022-2026. Nevis Security AG. All rights reserved.
@@ -72,6 +72,7 @@ class QrReaderFragment :
     //endregion
 
     //region Fragment
+
     /** @suppress */
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentQrReaderBinding.inflate(inflater, container, false)
@@ -111,6 +112,7 @@ class QrReaderFragment :
     //endregion
 
     //region Private Interface
+
     /**
      * Starts camera.
      *
@@ -210,6 +212,7 @@ class QrReaderFragment :
             is PayloadDecodeCompletedResponse -> {
                 viewModel.processOutOfBandPayload(response.payload)
             }
+
             else -> super.processResponse(response)
         }
     }
@@ -228,6 +231,7 @@ class QrReaderFragment :
     //endregion
 
     //region Companion Object
+
     /**
      * Constants.
      */

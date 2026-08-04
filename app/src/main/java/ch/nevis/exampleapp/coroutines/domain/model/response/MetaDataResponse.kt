@@ -1,4 +1,4 @@
-/**
+/*
  * Nevis Mobile Authentication SDK Example App
  *
  * Copyright © 2025. Nevis Security AG. All rights reserved.
@@ -7,7 +7,7 @@
 package ch.nevis.exampleapp.coroutines.domain.model.response
 
 /**
- * A [Response] class that holds the meta data of Nevis Mobile Authentication SDK.
+ * A [Response] class that holds the metadata of Nevis Mobile Authentication SDK.
  *
  * @constructor Creates a new instance.
  * @param sdkVersion The version of Nevis Mobile Authentication SDK.

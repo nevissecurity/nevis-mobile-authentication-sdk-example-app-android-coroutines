@@ -1,4 +1,4 @@
-/**
+/*
  * Nevis Mobile Authentication SDK Example App
  *
  * Copyright © 2025. Nevis Security AG. All rights reserved.
@@ -43,19 +43,23 @@ class GetFidoUafAttestationInformationUseCaseImpl(private val clientProvider: Cl
                         Timber.asTree().sdk("Cause: ${information.cause()}")
                         cancellableContinuation.resume(FidoUafAttestationInformationResponse.OnlySurrogateBasicSupported())
                     }
+
                     is OnlyDefaultMode -> {
                         Timber.asTree().sdk("Full basic default attestation mode supported.")
                         Timber.asTree().sdk("Cause: ${information.cause()}")
                         cancellableContinuation.resume(FidoUafAttestationInformationResponse.OnlyDefaultMode())
                     }
+
                     is StrictMode -> {
                         Timber.asTree().sdk("Full basic strict attestation mode supported.")
                         cancellableContinuation.resume(FidoUafAttestationInformationResponse.StrictMode())
                     }
+
                     is StrictStrongBoxMode -> {
                         Timber.asTree().sdk("Full basic strict-strongbox attestation mode supported.")
                         cancellableContinuation.resume(FidoUafAttestationInformationResponse.StrictStrongBoxMode())
                     }
+
                     else -> throw IllegalStateException("Unsupported attestation information type.")
                 }
             }

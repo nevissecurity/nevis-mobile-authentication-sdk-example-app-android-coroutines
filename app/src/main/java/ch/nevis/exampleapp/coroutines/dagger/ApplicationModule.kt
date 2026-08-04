@@ -1,4 +1,4 @@
-/**
+/*
  * Nevis Mobile Authentication SDK Example App
  *
  * Copyright © 2022-2026. Nevis Security AG. All rights reserved.
@@ -185,6 +185,7 @@ class ApplicationModule {
     //endregion
 
     //region Configuration
+
     /**
      * Provides Auth Cloud specific configuration.
      *
@@ -236,6 +237,7 @@ class ApplicationModule {
     //endregion
 
     //region Client
+
     /**
      * Provides the client provider.
      *
@@ -247,6 +249,7 @@ class ApplicationModule {
     //endregion
 
     //region Error Handling
+
     /**
      * Provides the error handler chain.
      *
@@ -258,6 +261,7 @@ class ApplicationModule {
     //endregion
 
     //region Logger
+
     /**
      * Provides the sdk logger.
      *
@@ -269,6 +273,7 @@ class ApplicationModule {
     //endregion
 
     //region Settings
+
     /**
      * Provides the application settings.
      *
@@ -281,6 +286,7 @@ class ApplicationModule {
     //endregion
 
     //region Validation
+
     /**
      * Provides the authenticator validator.
      *
@@ -301,6 +307,7 @@ class ApplicationModule {
     //endregion
 
     //region Data Sources
+
     /**
      * Provides the login related data source.
      *
@@ -312,6 +319,7 @@ class ApplicationModule {
     //endregion
 
     //region Caches
+
     /**
      * Provides state cache for the PIN change operation.
      *
@@ -338,6 +346,7 @@ class ApplicationModule {
     //endregion
 
     //region Repositories
+
     /**
      * Provides state repository for the PIN change operation.
      *
@@ -384,6 +393,7 @@ class ApplicationModule {
     //endregion
 
     //region Interaction
+
     /**
      * Provides the account selector.
      *
@@ -555,7 +565,7 @@ class ApplicationModule {
      *
      * @param stateRepository An instance of an [OperationStateRepository] implementation that may hold
      *  a [UserInteractionOperationState].
-     * @return The [Consumer] for for successful authentication that accepts an [AuthorizationProvider]
+     * @return The [Consumer] for successful authentication that accepts an [AuthorizationProvider]
      *  object.
      */
     @Provides
@@ -681,6 +691,7 @@ class ApplicationModule {
     //endregion
 
     //region Use-cases
+
     /**
      * Provides use case for [ch.nevis.mobile.sdk.api.MobileAuthenticationClient] initialization.
      *
@@ -766,10 +777,10 @@ class ApplicationModule {
         GetFidoUafAttestationInformationUseCaseImpl(clientProvider)
 
     /**
-     * Provides use case for retrieving the meta data of Nevis Mobile Authentication SDK.
+     * Provides use case for retrieving the metadata of Nevis Mobile Authentication SDK.
      *
      * @param context The Android [Context].
-     * @return The use case for retrieving the meta data of Nevis Mobile Authentication SDK.
+     * @return The use case for retrieving the metadata of Nevis Mobile Authentication SDK.
      */
     @Provides
     fun provideMetaDataUseCase(@ApplicationContext context: Context): MetaDataUseCase = MetaDataUseCaseImpl(context)
@@ -1257,6 +1268,7 @@ class ApplicationModule {
     //endregion
 
     //region Retrofit
+
     /**
      * Provides the [Retrofit] implementation.
      *

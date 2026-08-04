@@ -1,4 +1,4 @@
-/**
+/*
  * Nevis Mobile Authentication SDK Example App
  *
  * Copyright © 2024. Nevis Security AG. All rights reserved.
@@ -58,6 +58,7 @@ class PasswordPolicyImpl(private val context: Context) : PasswordPolicy {
     //endregion
 
     //region Private Interface
+
     /**
      * Validates the password.
      *

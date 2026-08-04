@@ -1,4 +1,4 @@
-/**
+/*
  * Nevis Mobile Authentication SDK Example App
  *
  * Copyright © 2022-2026. Nevis Security AG. All rights reserved.
@@ -92,6 +92,7 @@ class CredentialViewModel @Inject constructor(
     private lateinit var credentialType: String
 
     //region Public Interface
+
     /**
      * Sets the current [CredentialViewMode].
      *
@@ -126,11 +127,13 @@ class CredentialViewModel @Inject constructor(
             Authenticator.PASSWORD_AUTHENTICATOR_AAID -> R.string.password_title_change
             else -> throw BusinessException.invalidState()
         }
+
         CredentialViewMode.ENROLLMENT -> when (credentialType) {
             Authenticator.PIN_AUTHENTICATOR_AAID -> R.string.pin_title_enrollment
             Authenticator.PASSWORD_AUTHENTICATOR_AAID -> R.string.password_title_enrollment
             else -> throw BusinessException.invalidState()
         }
+
         CredentialViewMode.VERIFICATION -> when (credentialType) {
             Authenticator.PIN_AUTHENTICATOR_AAID -> R.string.pin_title_verify
             Authenticator.PASSWORD_AUTHENTICATOR_AAID -> R.string.password_title_verify
@@ -150,11 +153,13 @@ class CredentialViewModel @Inject constructor(
             Authenticator.PASSWORD_AUTHENTICATOR_AAID -> R.string.password_description_change
             else -> throw BusinessException.invalidState()
         }
+
         CredentialViewMode.ENROLLMENT -> when (credentialType) {
             Authenticator.PIN_AUTHENTICATOR_AAID -> R.string.pin_description_enrollment
             Authenticator.PASSWORD_AUTHENTICATOR_AAID -> R.string.password_description_enrollment
             else -> throw BusinessException.invalidState()
         }
+
         CredentialViewMode.VERIFICATION -> when (credentialType) {
             Authenticator.PIN_AUTHENTICATOR_AAID -> R.string.pin_description_verify
             Authenticator.PASSWORD_AUTHENTICATOR_AAID -> R.string.password_description_verify
@@ -205,10 +210,12 @@ class CredentialViewModel @Inject constructor(
             InputType.TYPE_CLASS_NUMBER or
                 InputType.TYPE_NUMBER_VARIATION_PASSWORD
             )
+
         Authenticator.PASSWORD_AUTHENTICATOR_AAID -> (
             InputType.TYPE_CLASS_TEXT or
                 InputType.TYPE_TEXT_VARIATION_PASSWORD
             )
+
         else -> throw IllegalStateException("Unsupported credential type.")
     }
 
@@ -224,11 +231,13 @@ class CredentialViewModel @Inject constructor(
                 pinProtectionInfo(it)
             }
         }
+
         is PasswordNavigationParameter -> {
             parameter.passwordAuthenticatorProtectionStatus?.let {
                 passwordProtectionInfo(it)
             }
         }
+
         else -> throw BusinessException.invalidState()
     }
 
@@ -244,6 +253,7 @@ class CredentialViewModel @Inject constructor(
             Timber.asTree().sdk("PIN authenticator is unlocked.")
             CredentialProtectionInformation()
         }
+
         is PinAuthenticatorProtectionStatus.LastAttemptFailed -> {
             Timber.asTree().sdk("Last attempt failed using the PIN authenticator.")
             Timber.asTree()
@@ -260,6 +270,7 @@ class CredentialViewModel @Inject constructor(
                 coolDownTime = protectionStatus.coolDownTimeInSeconds()
             )
         }
+
         is PinAuthenticatorProtectionStatus.LockedOut -> {
             Timber.asTree().sdk("PIN authenticator is locked.")
             CredentialProtectionInformation(
@@ -267,6 +278,7 @@ class CredentialViewModel @Inject constructor(
                 message = protectionStatus.message(context)
             )
         }
+
         else -> throw IllegalStateException("Unsupported PIN authenticator protection status.")
     }
 
@@ -283,6 +295,7 @@ class CredentialViewModel @Inject constructor(
                 Timber.asTree().sdk("Password authenticator is unlocked.")
                 CredentialProtectionInformation()
             }
+
             is PasswordAuthenticatorProtectionStatus.LastAttemptFailed -> {
                 Timber.asTree().sdk("Last attempt failed using the Password authenticator.")
                 Timber.asTree()
@@ -299,6 +312,7 @@ class CredentialViewModel @Inject constructor(
                     coolDownTime = protectionStatus.coolDownTimeInSeconds()
                 )
             }
+
             is PasswordAuthenticatorProtectionStatus.LockedOut -> {
                 Timber.asTree().sdk("Password authenticator is locked.")
                 CredentialProtectionInformation(
@@ -306,6 +320,7 @@ class CredentialViewModel @Inject constructor(
                     message = protectionStatus.message(context)
                 )
             }
+
             else -> throw IllegalStateException("Unsupported Password authenticator protection status.")
         }
 
@@ -322,18 +337,20 @@ class CredentialViewModel @Inject constructor(
                 remainingRetries = remainingRetries,
                 coolDownTimeInSeconds = coolDownTime
             ).message(context)
+
         Authenticator.PASSWORD_AUTHENTICATOR_AAID ->
             PasswordAuthenticatorProtectionStatusLastAttemptFailedImpl(
                 remainingRetries = remainingRetries,
                 coolDownTimeInSeconds = coolDownTime
             ).message(context)
+
         else -> String()
     }
 
     /**
      * Confirm the given credentials based on the current [CredentialViewMode].
      *
-     * @param oldCredential The text entered into old old credential text field. It is only used when
+     * @param oldCredential The text entered into old credential text field. It is only used when
      *   the current [CredentialViewMode] is [CredentialViewMode.CHANGE] otherwise it will be ignored.
      * @param credential The text entered into credential text field.
      */
@@ -344,11 +361,13 @@ class CredentialViewModel @Inject constructor(
                 Authenticator.PASSWORD_AUTHENTICATOR_AAID -> changePassword(oldCredential, credential)
                 else -> throw BusinessException.invalidState()
             }
+
             CredentialViewMode.ENROLLMENT -> when (credentialType) {
                 Authenticator.PIN_AUTHENTICATOR_AAID -> setPin(credential)
                 Authenticator.PASSWORD_AUTHENTICATOR_AAID -> setPassword(credential)
                 else -> throw BusinessException.invalidState()
             }
+
             CredentialViewMode.VERIFICATION -> when (credentialType) {
                 Authenticator.PIN_AUTHENTICATOR_AAID -> verifyPin(credential)
                 Authenticator.PASSWORD_AUTHENTICATOR_AAID -> verifyPassword(credential)
@@ -359,6 +378,7 @@ class CredentialViewModel @Inject constructor(
     //endregion
 
     //region Private Interface
+
     /**
      * Changes the previously registered PIN.
      *

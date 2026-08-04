@@ -1,4 +1,4 @@
-/**
+/*
  * Nevis Mobile Authentication SDK Example App
  *
  * Copyright © 2022-2026. Nevis Security AG. All rights reserved.
@@ -49,6 +49,7 @@ class HomeFragment : ResponseObserverFragment() {
     //endregion
 
     //region Fragment
+
     /** @suppress */
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
@@ -125,6 +126,7 @@ class HomeFragment : ResponseObserverFragment() {
                     viewModel.decodeOutOfBandPayload(it)
                 }
             }
+
             is GetAccountsResponse -> {
                 binding.titleTextView.text = context?.getString(
                     R.string.home_registered_accounts,
@@ -132,12 +134,14 @@ class HomeFragment : ResponseObserverFragment() {
                 )
                 viewModel.getMetaData()
             }
+
             is MetaDataResponse -> {
                 binding.sdkVersionValueTextView.text = response.sdkVersion
                 binding.facetIdValueTextView.text = response.facetId
                 binding.certFingerprintValueTextView.text = response.certificateFingerprint
                 viewModel.getAttestationInformation()
             }
+
             is FidoUafAttestationInformationResponse -> {
                 val context = context ?: return
 
@@ -162,9 +166,11 @@ class HomeFragment : ResponseObserverFragment() {
                 binding.fullBasicStrictStrongBoxTextView.setCompoundDrawablesWithIntrinsicBounds(strictStrongBoxModeIcon, null, null, null)
                 binding.fullBasicStrictStrongBoxTextView.visibility = View.VISIBLE
             }
+
             is PayloadDecodeCompletedResponse -> {
                 viewModel.processOutOfBandPayload(response.payload)
             }
+
             else -> super.processResponse(response)
         }
     }

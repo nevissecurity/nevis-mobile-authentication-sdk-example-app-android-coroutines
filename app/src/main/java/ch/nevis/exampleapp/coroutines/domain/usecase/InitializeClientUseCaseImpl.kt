@@ -1,4 +1,4 @@
-/**
+/*
  * Nevis Mobile Authentication SDK Example App
  *
  * Copyright © 2022-2026. Nevis Security AG. All rights reserved.
@@ -27,7 +27,7 @@ import timber.log.Timber
  * To make client and application initialization properly work only one client initialization must
  * be run at a time. It is ensured by two things:
  * - Using a [Semaphore] object in this implementation.
- * - Only one instance must be exist of this implementation. It is ensured by injecting this implementation
+ * - Only one instance must exist of this implementation. It is ensured by injecting this implementation
  * as singleton by Dagger Hilt.
  *
  * @constructor Creates a new instance.
