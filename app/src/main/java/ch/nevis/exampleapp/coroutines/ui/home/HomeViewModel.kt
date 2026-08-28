@@ -17,6 +17,7 @@ import ch.nevis.exampleapp.coroutines.domain.model.response.GetAuthenticatorsRes
 import ch.nevis.exampleapp.coroutines.domain.model.response.Response
 import ch.nevis.exampleapp.coroutines.domain.model.response.SelectAccountResponse
 import ch.nevis.exampleapp.coroutines.domain.usecase.DeleteAuthenticatorsUseCase
+import ch.nevis.exampleapp.coroutines.domain.usecase.FetchPendingOperationsUseCase
 import ch.nevis.exampleapp.coroutines.domain.usecase.GetAccountsUseCase
 import ch.nevis.exampleapp.coroutines.domain.usecase.GetAuthenticatorsUseCase
 import ch.nevis.exampleapp.coroutines.domain.usecase.GetFidoUafAttestationInformationUseCase
@@ -46,6 +47,7 @@ import kotlinx.coroutines.withContext
  * @param startChangePinUseCase An instance of a [StartChangePinUseCase] implementation.
  * @param startChangePasswordUseCase An instance of a [StartChangePasswordUseCase] implementation.
  * @param deleteAuthenticatorsUseCase An instance of a [DeleteAuthenticatorsUseCase] implementation.
+ * @param fetchPendingOperationsUseCase An instance of a [FetchPendingOperationsUseCase] implementation.
  */
 @HiltViewModel
 class HomeViewModel @Inject constructor(
@@ -57,7 +59,8 @@ class HomeViewModel @Inject constructor(
     private val metaDataUseCase: MetaDataUseCase,
     private val startChangePinUseCase: StartChangePinUseCase,
     private val startChangePasswordUseCase: StartChangePasswordUseCase,
-    private val deleteAuthenticatorsUseCase: DeleteAuthenticatorsUseCase
+    private val deleteAuthenticatorsUseCase: DeleteAuthenticatorsUseCase,
+    private val fetchPendingOperationsUseCase: FetchPendingOperationsUseCase
 ) : OutOfBandOperationViewModel() {
 
     //region Public Interface
@@ -118,6 +121,16 @@ class HomeViewModel @Inject constructor(
                     ErrorResponse(BusinessException.accountsNotFound())
                 }
             }
+            mutableResponseLiveData.postValue(response)
+        }
+    }
+
+    /**
+     * Starts a fetch for pending operations.
+     */
+    fun fetchPendingOperations() {
+        viewModelScope.launch(errorHandler) {
+            val response = fetchPendingOperationsUseCase.execute()
             mutableResponseLiveData.postValue(response)
         }
     }

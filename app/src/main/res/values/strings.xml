@@ -87,6 +87,7 @@
     <string name="home_identity_suite_only">Identity Suite only</string>
     <string name="home_qr_code_button_title">Read QR Code</string>
     <string name="home_in_band_authentication_button_title">In-band Authentication</string>
+    <string name="home_fetch_pending_operations_button_title">Fetch Pending Operations</string>
     <string name="home_deregister_button_title">Deregistration</string>
     <string name="home_change_pin_button_title">PIN Change</string>
     <string name="home_change_password_button_title">Password Change</string>

@@ -20,7 +20,9 @@ import ch.nevis.exampleapp.coroutines.domain.model.response.FidoUafAttestationIn
 import ch.nevis.exampleapp.coroutines.domain.model.response.GetAccountsResponse
 import ch.nevis.exampleapp.coroutines.domain.model.response.InitializeClientCompletedResponse
 import ch.nevis.exampleapp.coroutines.domain.model.response.MetaDataResponse
+import ch.nevis.exampleapp.coroutines.domain.model.response.NoPendingOperationsFoundResponse
 import ch.nevis.exampleapp.coroutines.domain.model.response.PayloadDecodeCompletedResponse
+import ch.nevis.exampleapp.coroutines.domain.model.response.PendingOperationsFoundResponse
 import ch.nevis.exampleapp.coroutines.domain.model.response.Response
 import ch.nevis.exampleapp.coroutines.ui.base.ResponseObserverFragment
 import ch.nevis.exampleapp.coroutines.ui.util.handleDispatchTokenResponse
@@ -68,6 +70,10 @@ class HomeFragment : ResponseObserverFragment() {
 
         binding.inBandAuthenticationButton.setOnClickListener {
             viewModel.inBandAuthentication()
+        }
+
+        binding.fetchPendingOperationsButton.setOnClickListener {
+            viewModel.fetchPendingOperations()
         }
 
         binding.deregisterButton.setOnClickListener {
@@ -169,6 +175,14 @@ class HomeFragment : ResponseObserverFragment() {
 
             is PayloadDecodeCompletedResponse -> {
                 viewModel.processOutOfBandPayload(response.payload)
+            }
+
+            is PendingOperationsFoundResponse -> {
+                viewModel.processOutOfBandPayload(response.payload)
+            }
+
+            is NoPendingOperationsFoundResponse -> {
+                // There is no pending out-of-band operation, nothing to do.
             }
 
             else -> super.processResponse(response)
