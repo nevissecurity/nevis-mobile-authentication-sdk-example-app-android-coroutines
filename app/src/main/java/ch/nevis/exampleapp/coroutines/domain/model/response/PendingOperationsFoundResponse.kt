@@ -22,5 +22,5 @@ class PendingOperationsFoundResponse(
     /**
      * The [OutOfBandPayload] object of the pending out-of-band operation.
      */
-    val payload: OutOfBandPayload
-) : Response
+    override val payload: OutOfBandPayload
+) : OutOfBandPayloadResponse

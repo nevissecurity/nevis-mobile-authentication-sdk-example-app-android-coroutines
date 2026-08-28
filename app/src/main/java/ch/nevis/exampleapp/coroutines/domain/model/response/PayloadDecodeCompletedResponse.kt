@@ -1,7 +1,7 @@
 /*
  * Nevis Mobile Authentication SDK Example App
  *
- * Copyright © 2022. Nevis Security AG. All rights reserved.
+ * Copyright © 2022-2026. Nevis Security AG. All rights reserved.
  */
 
 package ch.nevis.exampleapp.coroutines.domain.model.response
@@ -21,5 +21,5 @@ class PayloadDecodeCompletedResponse(
     /**
      * The decoded [OutOfBandPayload] object.
      */
-    val payload: OutOfBandPayload
-) : Response
+    override val payload: OutOfBandPayload
+) : OutOfBandPayloadResponse
