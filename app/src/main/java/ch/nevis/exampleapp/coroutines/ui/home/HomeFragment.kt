@@ -173,6 +173,9 @@ class HomeFragment : ResponseObserverFragment() {
             }
 
             is OutOfBandPayloadResponse -> {
+                // We will handle the out-of-band payload in two cases:
+                // 1. The payload was obtained from a QR code.
+                // 2. The payload was obtained using the fetch pending operations.
                 viewModel.processOutOfBandPayload(response.payload)
             }
 

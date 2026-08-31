@@ -304,6 +304,10 @@ During registration, the device information can be provided that contains the na
 > [!NOTE]
 > Firebase Cloud Messaging is not supported in the example app.
 
+#### Fetch pending operations
+
+Fetching the pending out-of-band operations of the registered accounts is implemented in the [FetchPendingOperationsUseCaseImpl](app/src/main/java/ch/nevis/exampleapp/coroutines/domain/usecase/FetchPendingOperationsUseCaseImpl.kt) class. The fetch operation completes with a [PendingOutOfBandOperationsResult](https://docs.nevis.net/mobilesdk/api-references/javadoc/ch/nevis/mobile/sdk/api/operation/outofband/PendingOutOfBandOperationsResult.html), containing a set of [PendingOutOfBandOperation](https://docs.nevis.net/mobilesdk/api-references/javadoc/ch/nevis/mobile/sdk/api/operation/outofband/PendingOutOfBandOperation.html) objects together with their payloads, if there are any. If pending out-of-band operations are found, the [OutOfBandPayload](https://docs.nevis.net/mobilesdk/api-references/javadoc/ch/nevis/mobile/sdk/api/operation/outofband/OutOfBandPayload.html) of the latest one is returned it in a [PendingOperationsFoundResponse](app/src/main/java/ch/nevis/exampleapp/coroutines/domain/model/response/PendingOperationsFoundResponse.kt), which the [ProcessOutOfBandPayloadUseCaseImpl](app/src/main/java/ch/nevis/exampleapp/coroutines/domain/usecase/ProcessOutOfBandPayloadUseCaseImpl.kt) class processes the same way as a payload obtained from a QR code or a link. If there is no pending out-of-band operation, a [NoPendingOperationsFoundResponse](app/src/main/java/ch/nevis/exampleapp/coroutines/domain/model/response/NoPendingOperationsFoundResponse.kt) is returned.
+
 #### Get information
 
 The following use cases are responsible for getting information with the help of [LocalData](https://docs.nevis.net/mobilesdk/api-references/javadoc/ch/nevis/mobile/sdk/api/localdata/LocalData.html):
