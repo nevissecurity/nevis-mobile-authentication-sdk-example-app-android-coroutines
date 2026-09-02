@@ -63,6 +63,8 @@ import ch.nevis.exampleapp.coroutines.domain.usecase.DeleteAuthenticatorsUseCase
 import ch.nevis.exampleapp.coroutines.domain.usecase.DeleteAuthenticatorsUseCaseImpl
 import ch.nevis.exampleapp.coroutines.domain.usecase.DeregisterUseCase
 import ch.nevis.exampleapp.coroutines.domain.usecase.DeregisterUseCaseImpl
+import ch.nevis.exampleapp.coroutines.domain.usecase.FetchPendingOperationsUseCase
+import ch.nevis.exampleapp.coroutines.domain.usecase.FetchPendingOperationsUseCaseImpl
 import ch.nevis.exampleapp.coroutines.domain.usecase.FinishOperationUseCase
 import ch.nevis.exampleapp.coroutines.domain.usecase.FinishOperationUseCaseImpl
 import ch.nevis.exampleapp.coroutines.domain.usecase.GetAccountsUseCase
@@ -1114,6 +1116,16 @@ class ApplicationModule {
      */
     @Provides
     fun provideDecodePayloadUseCase(clientProvider: ClientProvider): DecodePayloadUseCase = DecodePayloadUseCaseImpl(clientProvider)
+
+    /**
+     * Provides use case for fetching the pending out-of-band operations of the registered accounts.
+     *
+     * @param clientProvider An instance of [ClientProvider] interface implementation.
+     * @return The use case for fetching the pending out-of-band operations of the registered accounts.
+     */
+    @Provides
+    fun provideFetchPendingOperationsUseCase(clientProvider: ClientProvider): FetchPendingOperationsUseCase =
+        FetchPendingOperationsUseCaseImpl(clientProvider)
 
     /**
      * Provides use case for deregister registered accounts, authenticators.

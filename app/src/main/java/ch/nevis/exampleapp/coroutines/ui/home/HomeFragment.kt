@@ -20,7 +20,8 @@ import ch.nevis.exampleapp.coroutines.domain.model.response.FidoUafAttestationIn
 import ch.nevis.exampleapp.coroutines.domain.model.response.GetAccountsResponse
 import ch.nevis.exampleapp.coroutines.domain.model.response.InitializeClientCompletedResponse
 import ch.nevis.exampleapp.coroutines.domain.model.response.MetaDataResponse
-import ch.nevis.exampleapp.coroutines.domain.model.response.PayloadDecodeCompletedResponse
+import ch.nevis.exampleapp.coroutines.domain.model.response.NoPendingOperationsFoundResponse
+import ch.nevis.exampleapp.coroutines.domain.model.response.OutOfBandPayloadResponse
 import ch.nevis.exampleapp.coroutines.domain.model.response.Response
 import ch.nevis.exampleapp.coroutines.ui.base.ResponseObserverFragment
 import ch.nevis.exampleapp.coroutines.ui.util.handleDispatchTokenResponse
@@ -68,6 +69,10 @@ class HomeFragment : ResponseObserverFragment() {
 
         binding.inBandAuthenticationButton.setOnClickListener {
             viewModel.inBandAuthentication()
+        }
+
+        binding.fetchPendingOperationsButton.setOnClickListener {
+            viewModel.fetchPendingOperations()
         }
 
         binding.deregisterButton.setOnClickListener {
@@ -167,8 +172,15 @@ class HomeFragment : ResponseObserverFragment() {
                 binding.fullBasicStrictStrongBoxTextView.visibility = View.VISIBLE
             }
 
-            is PayloadDecodeCompletedResponse -> {
+            is OutOfBandPayloadResponse -> {
+                // We will handle the out-of-band payload in two cases:
+                // 1. The payload was obtained from a QR code.
+                // 2. The payload was obtained using the fetch pending operations.
                 viewModel.processOutOfBandPayload(response.payload)
+            }
+
+            is NoPendingOperationsFoundResponse -> {
+                // There is no pending out-of-band operation, nothing to do.
             }
 
             else -> super.processResponse(response)
