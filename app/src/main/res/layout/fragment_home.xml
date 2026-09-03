@@ -211,7 +211,7 @@
             android:id="@+id/fullBasicStrictStrongBoxTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="64dp"
+            android:layout_marginBottom="24dp"
             android:drawablePadding="16dp"
             android:text="@string/home_fido_uaf_attestation_full_basic_strict_strongbox"
             android:textSize="12sp"
