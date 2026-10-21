@@ -36,7 +36,7 @@ static def readVersionName(project) {
 
 android {
     namespace 'ch.nevis.exampleapp.coroutines'
-    compileSdk 36
+    compileSdk 37
 
     defaultConfig {
         applicationId "ch.nevis.exampleapp.coroutines"
@@ -87,9 +87,9 @@ ktlint {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.18.0'
+    implementation 'androidx.core:core-ktx:1.19.1'
     implementation 'androidx.fragment:fragment-ktx:1.8.9'
-    implementation 'androidx.appcompat:appcompat:1.7.1'
+    implementation 'androidx.appcompat:appcompat:1.8.0'
     implementation "androidx.cardview:cardview:1.0.0"
     implementation 'androidx.constraintlayout:constraintlayout:2.2.2'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
