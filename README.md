@@ -158,6 +158,10 @@ Now that the Android example app is up and running, it's time to try it out!
 
 Check the [Using the Example Application](https://docs.nevis.net/mobilesdk/quickstart#using-the-example-application) of our quickstart guide for usage instructions.
 
+## AI Assistant Support
+
+This repository contains an [AGENTS.md](AGENTS.md) file with project context for AI coding assistants (e.g. Claude Code, Cursor, GitHub Copilot). `CLAUDE.md`, `.cursorrules` and `.github/copilot-instructions.md` are symlinks to it. It helps the assistant answer questions about configuring, running and adapting the example app, and about moving its SDK integration code into your own application.
+
 ## Used Components, Concepts
 
 ### Android Jetpack Navigation
