@@ -20,6 +20,7 @@ Some SDK features demonstrated in this example app are:
 - Deregistering a registered account
 - Changing the PIN of the PIN authenticator
 - Changing the device information
+- Fetch pending operations
 
 Please note that the example app only demonstrates a subset of the available SDK features. The main purpose is to demonstrate how the SDK can be used, not to cover all supported scenarios.
 
@@ -37,7 +38,7 @@ Before you start compiling and using the example applications please ensure you 
 - Android 7 or later, with API level 24
 - Android 10 or later, with API level 29, for the biometric authenticator to work
 - Android 11 or later, with API level 30, for the device passcode authenticator to work
-- JDK 17
+- Java version 17 or later
 - Gradle 9.5.1 or later
 
 ### GitHub Account
