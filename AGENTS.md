@@ -26,7 +26,7 @@ The example covers only part of the SDK. For features that are not shown here, u
 
 How the SDK is consumed:
 
-- Maven coordinates: `ch.nevis:nevis-mobile-authentication-sdk-android-debug`. It is declared as `debugImplementation` in `app/build.gradle`. The version comes from `NEVIS_MOBILE_AUTHENTICATION_SDK_VERSION` in `gradle.properties` (a dynamic `4.6.+` range).
+- Maven coordinates: `ch.nevis:nevis-mobile-authentication-sdk-android-debug`. It is declared as `debugImplementation` in `app/build.gradle`. The version comes from `NEVIS_MOBILE_AUTHENTICATION_SDK_VERSION` in `gradle.properties` (a dynamic `4.7.+` range).
 - Repository: GitHub Packages at `https://maven.pkg.github.com/nevissecurity/nevis-mobile-authentication-sdk-android-package` (declared in the root `build.gradle`). It needs `GH_USERNAME` and `GH_PERSONAL_ACCESS_TOKEN` (a token with the `read:packages` scope) in `~/.gradle/gradle.properties`, `local.properties` or the environment.
 - That public repository only hosts the **`debug` flavor**, which has no tamper guards (no emulator, debugger or root detection). Production apps must use the **`release` flavor** (the same artifact without the `-debug` suffix), which is distributed separately. See the [Android installation guide](https://docs.nevis.net/mobilesdk/guide/installation/android-installation) and [SDK flavors](https://docs.nevis.net/mobilesdk/guide/introduction#sdk-flavors).
 

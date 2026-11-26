@@ -1,14 +1,14 @@
 import org.jlleitschuh.gradle.ktlint.KtlintExtension
 
 buildscript {
-    ext.agp_version = '9.4.1'
+    ext.agp_version = '9.5.3'
     ext.kotlin_version = "2.4.21"
     ext.ksp_version = "2.3.12"
     ext.dagger_hilt_version = "2.60.1"
     ext.navigation_version = "2.10.2"
-    ext.dokka_version = "2.2.0"
-    ext.coroutines_version = "1.10.2"
-    ext.camerax_version = "1.6.2"
+    ext.dokka_version = "2.3.0"
+    ext.coroutines_version = "1.11.0"
+    ext.camerax_version = "1.7.0"
     ext.retrofit_version = "3.0.0"
     ext.ktlint_version = "14.2.0"
     ext.customFooterMessage = "© 2026 made with ❤️  by Nevis"
